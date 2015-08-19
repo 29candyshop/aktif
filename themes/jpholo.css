@@ -1,0 +1,214 @@
+@charset 'UTF-8';
+/* padding & margin & box-shadow: top right bottom left
+Android ICS colors:
+	Roboto	: 0099CC (dark cyan)
+	Charcoal: 222222 (dark grey)
+	Honest	: 33B5E5 (cyan)
+	Imdur	: 555555 (grey)
+	Grey	: 696969 (dim grey)
+	Grey	: F3F3F3 (action bar)
+	Grey	: CCCCCC (border)
+	Grey	: F9F9F9 (background)
+*/
+
+/* BEGIN: jQuery Mobile overrides */
+/* END: jQuery Mobile overrides */
+
+/* BEGIN: Fonts and default text style*/
+.subTitle {
+	color: #33B4E5;
+}
+.note {
+	color: #33B4E5;
+}
+.small {
+	color: #33B4E5;
+	text-align: center;
+}
+p.headerBarText {
+	font-size: 1em;
+	color: #000000;
+}
+p.panelTextDivider {
+	font-family: RobotoThin !important;
+	font-weight: normal !important;
+	height: 1.875em !important;
+	font-size: 1.25em !important;
+	margin-bottom: -0.25em !important;
+	margin-top: 0.375em !important;
+}
+p.warning {
+	color: red;
+}
+p.bigSettings {
+	margin: 0;
+	padding: 0;
+}
+p.tinySettings {
+	font-family: RobotoThin !important;
+	font-weight: normal !important;
+	font-size: 0.8em;
+	margin: 0;
+	padding: 0;
+}
+p.thinSettings{
+	font-family: RobotoThin !important;
+	font-weight: normal !important;
+	margin: 0;
+	padding: 0;
+}
+a.panelText {
+	font-size: 1.05em !important;
+	margin-bottom: 0em !important;
+	margin-top: 0em !important;
+}
+ul.actionList {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+/* END: Font overriding */
+
+/* BEGIN: Tables */
+table {
+	width: 100%;
+	border-spacing: 0;
+}
+tr.lineBreak td {
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid #E0E0E0;
+	border-left: 0;
+	padding: 0.6em;
+}
+tr.nonLineBreak td {
+	border: 0;
+	padding: 0.6em 0.6em 0 0.6em;
+}
+td.vTop {
+	vertical-align: top;
+}
+td.left {
+	text-align: left;
+}
+td.center {
+	text-align: center;
+}
+td.right {
+	text-align: right;
+	width: 5em;
+}
+tr.tdTitle td {
+	font-variant: small-caps;
+	text-align: center;
+	border-right: 0;
+	border-bottom: 2px solid #E0E0E0;
+	border-left: 0;
+	padding: 0.625em;
+}
+/* END: Tables */
+
+/* BEGIN: Images, Divs and more */
+div.headerSticky {
+	z-index: 1002;
+	height: 2.85rem;
+	border-bottom: 0px solid #222222 !important; /* before: 1px */
+	margin: 0 0 0 0; /*ori top is -1px*/
+	padding: 0;
+	background-color: #0EC9B6;
+}
+div.footerSticky {
+	height: 2.85em;
+	border-top: 0px solid #555555 !important; /* before: 1px */
+	margin: 0;
+	padding: 0;
+}
+img.holoPressEffect {
+	background-color: #444444;
+}
+img.headerIconTitle {
+	height: 2.85em;
+	border: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: 0;
+	padding: 0;
+}
+img.headerIconFirstRight { /* menu icon*/
+	height: 2.85em;
+	border: 0;
+	position: absolute;
+	float: right;
+	right: 0;
+	top: 0;
+	margin: 0;
+	padding: 0;
+}
+img.headerIconSecondRight { /*share icon */
+	height: 2.85em;
+	border: 0;
+	position: absolute;
+	float: right;
+	right: 2.812em;
+	top: 0;
+	margin: 0;
+	padding: 0;
+}
+img.headerIconThirdRight { /* right menu icon*/
+	height: 2.85em;
+	border: 0;
+	position: absolute;
+	float: right;
+	right: 5.624em;
+	top: 0;
+	margin: 0;
+	padding: 0;
+}
+img.footerIconLeft {
+	height: 2.85em;
+	border: 0;
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+img.footerIconRight {
+	height: 2.85em;
+	border: 0;
+	position: relative;
+	float: right;
+	margin: 0;
+	padding: 0;
+}
+img.largerIcon {
+	max-height: 1.375em !important;
+	max-width: 1.375em !important;
+	margin-top: -0.375em !important;
+}
+div.settingButtons {
+	width: 4.7em;
+	float: right;
+	padding: 0;
+	margin: 0;
+}
+div.darkcyan {
+	color: #177BBD;
+}
+div.actionbarTransparant {
+	opacity: 0.9 !important;
+}
+.transparant {
+	opacity: 0.9 !important;
+}
+/* END: Images, Divs and more */
+
+/* BEGIN: Icons */
+.ui-icon-expanderclose:after{
+	background-image:url(../images/jqm-icons/expander_close_holo_light.9.png);
+	background-size: 1.375em 1.375em !important;
+}
+.ui-icon-expanderopen:after{
+	background-image:url(../images/jqm-icons/expander_open_holo_light.9.png);
+	background-size: 1.375em 1.375em !important;
+}
+/* END: Icons */

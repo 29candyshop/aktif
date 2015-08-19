@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <widget 
+	xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+	id		= "com.app.aktifpenang"
+	versionCode = "1" 
+	version 	= "1.00">
+
+	<name>AktifPenang</name>
+
+	<description>
+		Targeting 10,000 Penangnites running 100,000km
+	</description>
+
+	<author>
+		SG Chua
+	</author>
+	
+	
+	<!--<icon src="icon.png" gap:role="default" />-->
+	<icon src="/resources/icons/icon.png" width="57" height="57" />
+	<icon src="/resources/icons/icon@72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="/resources/icons/icon@2x.png" width="114" height="114" />
+	
+
+	
+	<gap:splash src="/resources/loading/Default.png" width="320" height="480" />
+	<gap:splash src="/resources/loading/Default@2x.png" width="640" height="960" />
+	<gap:splash src="/resources/loading/Default-Landscape~ipad.png" width="1024" height="768" />
+	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" width="768" height="1024" />
+
+
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<gap:splash src="/resources/loading/Default-Landscape~ipad.png" gap:platform="ios" width="2048" height="1496" />
+	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" gap:platform="ios" width="1536" height="2008" />
+
+	
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/camera"/>
+	<feature name="http://api.phonegap.com/1.0/file"/>
+
+	<gap:plugin name="org.apache.cordova.Camera" />
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.device" />
+	
+	
+	<!--<gap:plugin name="com.phonegap.plugins.facebookconnect">
+		<param name="APP_ID" value="674651699253599" />
+		<param name="APP_NAME" value="BetterBercham" />
+	</gap:plugin>-->
+
+	<!-- <gap:plugin name="ChildBrowser" version="~3" /> for Cordova (1.9.0+) -->
+	<access origin="*" />
+	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
+	
+	<preference name="orientation" value="portrait" />
+	<preference name="phonegap-version" value="3.1.0" />
+</widget>

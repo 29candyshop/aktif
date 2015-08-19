@@ -1,0 +1,252 @@
+@charset 'UTF-8';
+
+/* padding & margin & box-shadow: top right bottom left
+Android ICS colors:
+    Roboto  : 0099CC (dark cyan)
+    Charcoal: 222222 (dark grey)
+    Honest  : 33B5E5 (cyan)
+    Imdur   : 555555 (grey)
+    Grey    : 696969 (dim grey)
+    Grey    : F3F3F3 (action bar)
+    Grey    : CCCCCC (border)
+    Grey    : F9F9F9 (background)
+*/
+
+/* BEGIN: jQuery Mobile overrides */
+/* END: jQuery Mobile overrides */
+
+/* BEGIN: Fonts and default text style */
+@font-face{
+    font-family: OpenSansRegular;
+    src: url('OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body * {
+    font-family: OpenSansRegular !important;
+    font-weight: normal !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    outline: none !important;  
+    /* -webkit-overflow-scrolling: touch !important; */
+}
+h1, h2, h3, h4, h5, h6 * {
+    font-family: OpenSansRegular !important;
+    font-weight: normal !important;
+}
+h1 { font-size: 1.375em; }
+h2 { font-size: 1.25em; }
+h3 { font-size: 1.125em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.875em; }
+h6 { font-size: 0.75em; }
+
+a{
+    text-decoration: none;
+}
+/* END: Fonts and default text style */
+
+/* login,sign up activity*/
+.bodySetting{
+    width: 100%;
+}
+
+.box{    
+    width: 80%;
+    height: 380px;
+    margin: 8%;
+    border-radius: 7px;
+    position: relative;
+    background-color: #EAEAEA;    
+    padding: 16px;    
+    -webkit-box-shadow: 6px 6px 6px #A4A4A4;
+    -moz-box-shadow: 6px 6px 6px #A4A4A4;
+    box-shadow: 6px 6px 6px #A4A4A4; 
+}
+
+.circular{
+	left: 10%;
+        top: -9%;
+	position: absolute;
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	/*shape-outside: border-box;*/
+	float: left;
+}
+
+.box label{
+    font-size: 18pt;
+    text-align: center;
+    font-variant: normal;
+    color: #9A9A9A;    
+}
+/* end login, sign up*/
+
+/*login new properties*/
+.card{
+    border: 1px solid #B9B9B9;
+    -webkit-box-shadow: 0 4px 0 #949494;
+    -moz-box-shadow: 0 4px 0 #949494;
+    box-shadow: 0 4px 0 #949494;
+    background-color: white;
+    margin: 0 1rem 1rem;
+    border-radius: 3px;    
+    transform-origin: top left; 
+}
+
+.loginForm{ 
+    display: block;
+    margin-top: 30px;
+    height: 310px;
+    overflow: auto;
+}
+
+.outerCircle{
+    width: 100%;
+    /*margin: 0 35% 0;*/
+    margin-left: 38%;
+    margin-right: 0;
+    margin-top:-38px;    
+    border-radius: 50px;
+    width: 70px;
+    height: 70px; 
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+}
+
+.circle{
+    width: 100%;
+    margin: 5px;
+    /*background-image:url(http://www.aktifpenang.com/group_images/group1.jpg);*/
+    border-radius: 40px;
+    width: 60px;
+    height: 60px;
+    background-size:contain;
+    position: absolute;
+    z-index: 2;
+}
+
+.buttonStyle{   
+    margin-top:10px;
+    text-align:center;    
+    width: 90%;
+    border-radius: 6px;
+    display:block;
+    float:right;
+    line-height:40px;
+    margin-right:5%;
+    font-size: 12pt;  
+    font-variant: normal;
+}
+
+.labelDesign{
+    font-size: 10pt;
+    text-align: center;
+    font-variant: normal;
+    color: #000000;
+}
+
+.inputStyle{   
+    width: 90%;      
+    margin-right:5%;  
+    font-size: 11pt;  
+    font-variant: normal;
+    line-height: 28px !important;
+}
+/*end login activity*/
+
+/* Main Activity */
+.mainCard{    
+    border: 1px solid #B9B9B9;
+    -webkit-box-shadow: 0 4px 0 #949494;
+    -moz-box-shadow: 0 4px 0 #949494;
+    box-shadow: 0 4px 0 #949494;
+    margin: 0 1rem 1rem;
+    border-radius: 3px;        
+}
+
+.mainBox{    
+    width: 96.2%;    
+    border-radius: 3px;
+    position: relative;
+    background-color: #ffffff;
+    /*background-color: #DDDDDD;*/
+    margin: 1.2%;
+    padding: 8px;    
+    -webkit-box-shadow: 0 3px 3px #A4A4A4;
+    -moz-box-shadow: 0 3px 3px #A4A4A4;
+    box-shadow: 0 3px 3px #A4A4A4;
+}
+
+.element{     
+   border-radius: 50%;
+   width: 60px;
+   height: 60px;
+   top: -30px;
+   margin-right: 20px;
+   float: right;  
+   position: relative;
+   
+}
+
+.circular1{
+    width: 100%;
+    /*margin: 0 35% 0;*/
+    /*margin-left: 38%;*/
+    margin-right: 20px;  
+    margin-top:-30px;    
+    border-radius: 50px;
+    width: 70px;
+    height: 70px; 
+    position: relative;
+    float: right;
+    z-index: 1;
+    background-color: white;
+}
+
+.circular2{
+    width: 100%;
+    margin: 5px;
+    /*background-image:url(http://www.aktifpenang.com/group_images/group1.jpg);*/
+    border-radius: 40px;
+    width: 60px;
+    height: 60px;
+    background-size:contain;
+    position: absolute;
+    z-index: 2;
+}
+
+.mainActivityContent{
+    width: 100%;    
+    height: 320px;
+    /*overflow: auto;*/   
+}
+
+/*run activity start*/
+.gridValue { font-weight: bold !important;border:none; font-size: 25pt; float:none; background-color: transparent; display: inline-block;}
+.sportsType{border:none; font-size: 14pt; float:none; background-color: transparent; }
+
+
+/*profile edit*/
+.profile_span_title {
+    float: left;
+    width: 30%;
+    line-height: 20px;    
+    color: #7C7C7C;
+    text-align: left;    
+    font-size: 10pt;
+    font-variant: normal;
+    margin-top:15px;
+}
+
+.profile_span_value {
+    float: left;
+    width: 65%;
+    line-height: 20px;
+    margin-left: 10px;
+    color: #000000;
+    text-align: left;
+    font-size: 11pt;
+}

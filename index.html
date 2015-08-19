@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- To redirect index.html to home.html-->
+     <!--<meta http-equiv="refresh" content="1;url=//sports/home.html">
+        <script type="text/javascript">
+            window.location.href = "//sports/home.html"
+        </script>-->
+      <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="./js/jquery.mobile-1.4.5.min.js"></script>   
+</head>
+
+<body>
+	<script language="javascript" type="text/javascript">
+		$(document).ready(function() {	
+			var AccessToken = window.localStorage.getItem('AccessToken');
+			if(AccessToken == null)
+			{
+				var url = "Login1.html";
+				var win = window.open(url, '_self');
+			}
+			else
+			if(AccessToken == "")
+			{
+				var url = "Login1.html";
+				var win = window.open(url, '_self');
+			}
+			else
+			{
+				var url = "main1.html";
+				var win = window.open(url, '_self');
+				
+			}
+		});
+	</script>
+</body>
+</html>

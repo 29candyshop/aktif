@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Profile</title>
+    <!-- Meta tag-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Cascading Style Sheet (Sheet)-->
+    <link rel="stylesheet" type="text/css" href="./themes/AndroidHolo.min.css" /><!-- ThemeRoller theme -->
+    <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="./themes/jpholo.css" />
+    <link rel="stylesheet" type="style/css" href="./css/styling.css" />
+    <link rel="stylesheet" type="style/css" href="./css/aktif.smartphone.css" />
+    <link rel="stylesheet" type="style/css" href="./css/aktif.tablet.css" />
+    
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- jQuery-->
+    <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="./js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> <!-- use for validate function-->
+    <script type="text/javascript" src="./js/aktif.app.js"></script>
+
+</head>
+
+<body >   
+<div data-role="page" id="editProfile" data-url="editProfile.html">
+	
+    <div class="headerSticky ui-title" data-role="header" data-position="fixed" data-theme="a">
+	<div>
+	    <p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle" src="" />
+		&nbsp;</p>
+	</div><!-- populate the panel menu, also with the id Index in this case -->
+    </div><!-- /header -->
+    
+	<div data-role="main" class="ui-content">
+            
+            <!-- Add text box to input email and pass-->            
+                <div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
+                    <div class="card" style="width:100%;height: 440px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
+                        <div style="padding: 0 0.55rem 0.55rem; display: block;height: 400px;overflow: auto;margin-top: 10px;">                           
+                            <img style="width: 75px;height: 75px;border-radius: 50px;position: relative;margin-left: 34%;margin-right: 34%;" src="./images/icons/login.png"/>                              
+                            
+                            <form role="form" style="width: 96%;margin-top: 5px;margin-left: 2%;margin-right: 2%;float:left;"> <!-- form start -->
+                                <div style="width:100%;">                                    
+                                    <div style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title">First Name:</span>                                
+                                            <span class="profile_span_value" ><input type="text" id="fname" name="fname" data-clear-btn="true" placeholder=""/></span>					
+				    </div> <!-- end fname field-->
+                                    
+                                    <div style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title">Last Name:</span>                                
+                                            <span class="profile_span_value" ><input type="text" id="lname" name="lname"  data-clear-btn="true" placeholder=""/></span>					
+				    </div> <!-- end  lname field-->
+                                    
+                                    <div style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title" style="word-wrap: break-word;margin-top: 5px !important">Display Name:</span>                                
+                                            <span class="profile_span_value" ><input type="text" id="displayname" name="displayname"  data-clear-btn="true" placeholder=""/></span>					
+				    </div> <!-- end  display name field-->
+                                    
+                                     <div style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title">Height (cm):</span>                                
+                                            <span class="profile_span_value" ><input type="number" min="0" id="height" name="height" data-clear-btn="true" placeholder=""/></span>					
+				    </div> <!-- end height field-->
+                                    
+                                    <div style="width:100%;height:50px;margin:0;float:left;">
+                                            <span class="profile_span_title">Weight (kg):</span>                                
+                                            <span class="profile_span_value" ><input type="number" min="0" id="weight" name="weight"  data-clear-btn="true" placeholder=""/></span>					
+				    </div> <!-- end weight field-->
+                                    
+                                    <div style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title">DOB:</span>
+                                            <span class="profile_span_value" ><input type="date" name="DOB" id="DOB"/></span>					
+				    </div> <!-- end DOB field-->
+                                    
+                                    <div  style="width:100%;height:50px;margin:0;float:left;">					
+                                            <span class="profile_span_title">Gender:</span>
+                                            <span class="profile_span_value" >
+                                                <select id="gender" name="gender">                                                    
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Female</option>
+                                                </select>
+                                            </span>					
+				    </div> <!-- end DOB field-->
+                                    
+                                <a type="button" class="buttonStyle" onclick="editProfile();" href="main.html" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-top: 15px;">Update My Profile</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div> <!-- end card -->
+                </div> <!-- end style -->
+	</div><!-- /main content -->
+	
+</div> <!-- end page-->
+</body>
+</html>

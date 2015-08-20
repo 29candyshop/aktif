@@ -44,7 +44,7 @@
 	<gap:plugin name="org.apache.cordova.Camera" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device" />
-	
+	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 	
 	<!--<gap:plugin name="com.phonegap.plugins.facebookconnect">
 		<param name="APP_ID" value="674651699253599" />
@@ -56,5 +56,5 @@
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
 	
 	<preference name="orientation" value="portrait" />
-	<preference name="phonegap-version" value="3.1.0" />
+	<preference name="phonegap-version" value="3.7.0" />
 </widget>

@@ -84,7 +84,7 @@
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->		                        
                             
-			<div role="main" class="ui-content" data-position="fixed" data-theme="a" style="padding: 0 !important;overflow-x: visible !important;"> <!-- remove header sticky white border-->
+		<div role="main" class="ui-content" data-position="fixed" data-theme="a" style="padding: 0 !important;overflow-x: visible !important;"> <!-- remove header sticky white border-->
                             <div style="width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
                                 <div style="width: 100%;background-color:#414141;height: 100px;"> <!-- div for dark gray part-->
                                         <span id="CampaignSummary" style="width:100%;float:left;text-align:center;font-size:13pt;color: white;margin: 10px 0 10px;">11 members | Distance: 66.12km</span>
@@ -133,7 +133,7 @@
 							<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>
 						</div>
 						<div id="btnStop" style="display:none;">							
-							<input  type="button" class="button" id="stopbutton" value="Stop" data-role="button" onclick="StopRun(); " style="background-color:#BE3507;"><br>
+							<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>
 						</div>
                                             </div> <!-- end main activity content-->
                                         </div> <!-- end inner shell content-->
@@ -144,6 +144,33 @@
                         
 		</div><!-- /indexPage -->
 		
+		<!-- start new page(History)-->
+		<div id="leaderBoardPage" data-role="page" data-theme="a" style="width: 100%; background-color: #F2F2F2;">
+			
+			<!-- left panel  -->
+			<div id="panelMenuLeaderBoard" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+				<ul id="panelMenuLeaderBoardUL" data-role="listview"></ul>
+			</div>
+			<!-- /panel -->
+			
+			<!-- right panel  -->
+			<!--<div id="panelMenuRightHistory" data-role="panel" data-theme="b" data-position="right" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+				<ul id="panelMenuRightHistoryUL" data-role="listview"></ul>
+			</div>
+			<!-- /panel -->
+			
+			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText"><img id="headerTitleLeaderBoard" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><img id="headerOverflowLeaderBoard" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					&nbsp;</p>
+				</div>
+			</div><!-- /header -->
+			
+			<div id="LeaderBoardMain" role="main" class="ui-content" data-position="fixed" data-theme="a"> <!-- remove header sticky white border-->
+                       
+			</div><!-- /content -->
+                        
+		</div><!-- /end historyPage -->
 		
 		<!-- start new page(History)-->
 		<div id="historyPage" data-role="page" data-theme="a" style="width: 100%; background-color: #F2F2F2;">
@@ -358,5 +385,100 @@
 			</div><!-- /content -->
 		
 		</div><!-- /end aboutPage -->
+	
+		<div id="runMap" data-role="page" data-theme="a">
+			
+			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText"><img  id="headerTitleRunMap" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					&nbsp;</p>
+				</div>
+			</div><!-- /header -->
+			
+			<div role="main" class="ui-content" data-theme="a">
+                            <span id="currentDateTime" style="width:100%;float:left;font-size:12.5px;padding: 0 0.2em 0.2em;"></span>
+                            <div class="mainCard" style="width: 100%; height: 440px;background-color: white;float:left;margin: 5px auto 0;position: relative;">
+                                <div class="circular1"> <!-- icon-->
+                                    <img class="circular2" src="./images/icons/icon_run.png">
+                                </div>
+                                        
+                                <div style="padding: 0 0.6rem 0.6rem;"> <!-- inner content shell-->
+                                    <div class="mainActivityContent"> <!-- main inner content-->                                                                                                                
+                    <div class="ui-grid-solo ui-responsive" style="height:58px;"> <!--responsive using grid-->
+					    <div class="ui-block-a">						
+                                                    <span style="font-size: 10pt;color: #B6B6B6;">Duration : </span>
+                                                    <br>
+                                                    <span id="mapDuration" class="gridValue" style="font-weight: normal !important;font-size: 30px;">00:00:00</span>                                               					    
+					    </div> <!-- block a -->
+					</div> <!-- end 1st responsive grid -->
+                                                
+                    <div class="ui-grid-b ui-responsive" style="height:58px;">
+					    <div class="ui-block-a" style="width: 50%; float: left;">						
+                                                    <span id="lblMapDistance" style="font-size: 10pt;color: #B6B6B6;">Distance (km) : </span>
+                                                    <br>
+                                                    <span id="mapDistance" class="gridValue" style="font-weight: normal !important;font-size: 30px;">0.0</span>                                             
+					    </div>
+							
+					    <div class="ui-block-b" style="width: 50%; float: left;">						
+                                                    <span style="font-size: 10pt;color: #B6B6B6;">Calories : </span>
+                                                    <br>
+                                                    <span id="mapCalories" class="gridValue" style="font-weight: normal !important;font-size: 30px;">0</span>                                              
+					    </div>
+						
+						
+						
+
+					</div> <!-- end 2nd responsive grid-->
+					 <div class="ui-grid-b ui-responsive" style="height:58px;">
+						 <div class="ui-block-a" style="width: 90%; float: left;">						
+                                                    <span style="font-size: 10pt;color: #B6B6B6;">Run Date : </span>
+                                                    <br>
+                                                    <span id="mapRunDate" class="gridValue" style="font-weight: normal !important;font-size: 20px;">dd-mm-yyyy hh:mm:ss</span>                                              
+					    </div>
+					 </div>
+                                                                                
+                                        <div style="width:100%;height: 180px;margin-top:5px;margin-bottom:5px;">
+											<div id="divMap" style="width:100%;height:100%;background-image:url();background-repeat:no-repeat;background-size:cover;"></div>
+                                            <!--<img src="./images/icons/cropped-autumn.jpg" style="width: 100%;height: 100%;"/>-->
+                                        </div> <!-- maps div-->
+                                        
+                                        <div>
+                                            <a type="button" class="buttonStyle" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Share My Run</a>
+                                        </div> <!-- share run acrivity-->
+                                    </div> <!-- end main activity content-->
+                                </div> <!-- end inner shell content-->                               
+                            </div>				
+			</div><!-- /content -->
+        </div>
+                
+        <div id="individualGroupPage" data-role="page" data-theme="a">
+            <div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;</p>
+					
+					
+				</div>
+			</div><!-- /header -->
+			
+			<div role="main" class="ui-content" data-theme="a">
+				<!--<div id="profileGrp" class="mainCard" style="width:100%;float:left;height: 380px;margin-left: auto;margin-right: auto;position: relative;">
+					
+				</div>-->
+				<div id="groupImage" style="width:100%;height:130px;float:left;background-image:url();background-repeat:no-repeat;background-size:cover;">
+					<img id="btnJoinGroup" class="evtJoin" style="display:none;position:relative;float:right;right:10px;top:10px;height:2.85em;" src="./images/icons/add.png" />
+					<img id="btnLeaveGroup" class="evtLeave" style="display:none;position:relative;float:right;right:10px;top:10px;height:2.85em;" src="./images/icons/remove.png" />
+					<div style="width:100%;height:60px;margin-top:20px;float:left;background-color:#000;opacity:0.7;">
+						<span id="groupName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#fff;"></span>
+						<span id="groupTagline" class="gridValue" style="font-weight: normal !important;font-size: 14px;color:#fff;"></span>
+						<span id="groupInfo" class="gridValue" style="font-weight: normal !important;font-size: 14px;color:#fff;"></span>
+					</div>
+				</div>
+				<div id="groupMembers" style="width:100%;height:auto;float:left;">
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

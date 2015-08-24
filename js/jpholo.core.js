@@ -208,11 +208,12 @@ function panelMenu(divId) {
 	var panel = $('#panelMenu' + divId + 'UL');
 	panel.children().remove('li');
 	//panel.append('<li data-icon="false" class="headerSpace"><p>&nbsp;</p></li>'); // empty space, needed for header
-	panel.append('<li data-icon="false"><a class="panelText" href="#indexPage"><img src="./images/icons/ic_action_home.png" class="ui-li-icon largerIcon">Main page</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#historyPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">History page</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#groupsPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">Groups page</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#eventsPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">Events page</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#profilePage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">User Profile</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#indexPage"><img src="./images/icons/icon_run.png" class="ui-li-icon largerIcon">Run</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#leaderBoardPage"><img src="./images/icons/leaderboard.png" class="ui-li-icon largerIcon">Leader Board</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#historyPage"><img src="./images/icons/history.png" class="ui-li-icon largerIcon">Run History</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#groupsPage"><img src="./images/icons/groups.png" class="ui-li-icon largerIcon">Groups</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#eventsPage"><img src="./images/icons/event.png" class="ui-li-icon largerIcon">Events</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#profilePage"><img src="./images/icons/login.png" class="ui-li-icon largerIcon">User Profile</a></li>');
 	panel.append('<li data-icon="false"><a class="panelText" href="#aboutPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">About</a></li>');
 	panel.listview('refresh');
 	
@@ -310,6 +311,9 @@ function panelMenuLeftOpened() {
 		if (currentId === "Index") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_run_menu_launcher.png");
 		}
+		else if (currentId === "LeaderBoard") {
+			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_leaderboard_launcher.png");
+		}
 		else if (currentId === "History") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_history_menu_launcher.png");
 		}
@@ -339,6 +343,9 @@ function panelMenuLeftClosed() {
 		//$("#headerTitle" + window.localStorage.getItem("divIdGlobal")).attr("src", "./images/icons/ic_run_launcher.png");
 		if (currentId === "Index") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_run_launcher.png");
+		}
+		else if (currentId === "LeaderBoard") {
+			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_leaderboard_launcher.png");
 		}
 		else if (currentId === "History") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_history_launcher.png");
@@ -379,6 +386,9 @@ function pressEffectHeader(share, action) {
 		//$("#headerTitle" + currentId).attr("src", "./images/icons/ic_launcher_menu_full.png");
 		if (currentId === "Index") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_run_launcher.png");
+		}
+		else if (currentId === "LeaderBoard") {
+			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_leaderboard_launcher.png");
 		}
 		else if (currentId === "History") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_history_launcher.png");

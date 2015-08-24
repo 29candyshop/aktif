@@ -12,8 +12,128 @@ $(document).ready(function(){
         $("p").slideToggle();
 		
     });
+	
+	$(function() {
+		/*$(".evtHistory").live('click', function(){
+			var a = this;
+			var id = a.id.replace("Historyinfo-", "");
+			location.hash = "#runMap";
+		});*/
+	});
 });
 
+//evtStopRun
+$(document).on('click', '.evtStopRun', function (event, data) {
+	StopRun();
+});
+//evtBack
+$(document).on('click', '.evtBack', function (event, data) {
+	 window.history.back();
+});
+
+$(document).on('click', '.evtRegister', function (event, data) {
+	//check 
+	if($("#displayname").val() == "")
+	{
+		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
+		$("#lblRegister").css({"color":"#F4141C"});
+		return;
+	}
+	if($("#username").val() == "")
+	{
+		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
+		$("#lblRegister").css({"color":"#F4141C"});
+		return;
+	}
+	if($("#password").val() == "")
+	{
+		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
+		$("#lblRegister").css({"color":"#F4141C"});
+		return;
+	}
+	if($("#confirmpassword").val() == "")
+	{
+		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
+		$("#lblRegister").css({"color":"#F4141C"});
+		return;
+	}
+	if($("#password").val() != $("#confirmpassword").val())
+	{
+		document.getElementById('lblRegister').innerHTML = "Password not match";
+		$("#lblRegister").css({"color":"#F4141C"});
+		return;
+	}
+	//var win = window.open("index.html", '_self');
+	//return;
+	 $.post("http://www.aktifpenang.com/api/_api_register.php", 
+		{
+			displayname: $("#displayname").val(),
+			username: $("#username").val(),
+			password: $("#password").val() 
+		}, 
+		function(result){
+			var obj = JSON.parse(result);
+			if(obj.status == true)
+			{
+				var win = window.open("index.html", '_self');
+			}
+			else
+			{
+				document.getElementById('lblRegister').innerHTML = "Error signing up. Please try again.";
+				$("#lblRegister").css({"color":"#F4141C"});
+				return;
+			}
+		}
+	);
+});
+
+$(document).on('click', '.evtHistory', function (event, data) {
+	var a = this;
+	var id = a.id.replace("Historyinfo-", "");
+	var result = window.localStorage.getItem("aktif_runHistory");
+	var objGroup = JSON.parse(result);
+	for(var i = 0; i < objGroup.runs.length; i++) {
+		var obj = objGroup.runs[i];
+		if(obj.activityid == id)
+		{
+			
+			localStorage.setItem("CurrentRun_id", id);
+			localStorage.setItem("CurrentRun_Duration", obj.duration);
+			localStorage.setItem("CurrentRun_Distance", obj.distance);		
+			localStorage.setItem("CurrentRun_Map", obj.map);
+			localStorage.setItem("CurrentRun_Date", obj.rundate);
+			location.hash = "#runMap";
+			break;
+		}
+	}
+	
+});
+
+$(document).on('click', '.evtGroup', function (event, data) {
+	var a = this;
+	var id = a.id.replace("groupinfo-", "");
+	var result = window.localStorage.getItem("aktif_Groups");
+	var objGroup = JSON.parse(result);
+	for(var i = 0; i < objGroup.group.length; i++) {
+		var obj = objGroup.group[i];
+		if(obj.id == id)
+		{
+			localStorage.setItem("CurrentGroup_id", id);
+			localStorage.setItem("CurrentGroup_Name", obj.name);
+			localStorage.setItem("CurrentGroup_Distance", obj.totaldistance);		
+			localStorage.setItem("CurrentGroup_Icon", obj.group_icon);
+			localStorage.setItem("CurrentGroup_Image", obj.group_image);	
+			localStorage.setItem("CurrentGroup_Tagline", obj.tagline);
+			localStorage.setItem("CurrentGroup_Member", obj.membercount);
+			
+			
+			location.hash = "#individualGroupPage";
+			break;
+		}
+	}
+	
+});
+	
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {
         alert(email + ", login successfulled.");
@@ -52,20 +172,40 @@ function loadXMLDoc(){
 
 function LoginEmail()
 {
+	if($("#username").val() == "")
+	{
+		document.getElementById('lblLogin').innerHTML = "Please fill up your email address and password";
+		$("#lblLogin").css({"color":"#F4141C"});
+		return;
+	}
+	if($("#password").val() == "")
+	{
+		document.getElementById('lblLogin').innerHTML = "Please fill up your email address and password";
+		$("#lblLogin").css({"color":"#F4141C"});
+		return;
+	}
 	 var name = document.getElementById("username").value;
      var pass = document.getElementById("password").value;
 	 $.post("http://www.aktifpenang.com/api/_api_login.php", {username: name, password:pass}, function(result){
         //$("span").html(result);
 		var obj = JSON.parse(result);
 		//window.localStorage.getItem('AccessToken')
-		if(obj.token != "")
+		if(obj.status == true)
 		{
-			window.localStorage.setItem("AccessToken", obj.token);
-			var url = "main1.html";
-			var win = window.open(url, '_self');
-			
+			if(obj.token != "")
+			{
+				window.localStorage.setItem("AccessToken", obj.token);
+				var url = "main1.html";
+				var win = window.open(url, '_self');
+				
+			}
 		}
-	
+		else
+		{
+			document.getElementById('lblLogin').innerHTML = "Invalid email and password.";
+			$("#lblLogin").css({"color":"#F4141C"});
+			return;
+		}
 		//alert(obj.token);
     });
 }
@@ -120,6 +260,65 @@ function displayUserSummary(divId)
 	$("#userSummary"+ divId).html("" + TotalRuns + " runs | Distance: " + distance + "km | Groups: " + TotalEvents );
 }
 
+function LeaderBoard()
+{
+	 var mToken = window.localStorage.getItem("AccessToken");
+		$.get("http://www.aktifpenang.com/api/_api_leader_get.php", 
+		{
+			token: mToken
+		}, 
+		function(result){
+			//$("span").html(result);
+			var objLeader = JSON.parse(result);
+			var panelMain = $('#LeaderBoardMain' + '');
+			panelMain.empty();
+			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Runners</div>';
+			panelMain.append(html);
+			
+			for(var i = 0; i < objLeader.individual_leader.length; i++) {
+				var obj = objLeader.individual_leader[i];	
+				var mdistance = parseFloat(obj.totaldistance);
+				var munit = "meter";
+				if(mdistance > 1000.0)
+				{
+					mdistance = mdistance / 1000.0;
+					munit = "km";
+				}
+				mdistance = Math.round(mdistance * 100) / 100;
+				var imageURL = "";
+				if(obj.logintype == "email")
+				{
+					imageURL = "images/icons/login.png";
+				}
+				else
+				{
+					imageURL = "https://graph.facebook.com/" + obj.username + "/picture?type=large";
+				}
+				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+				'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+				panelMain.append(html);
+				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+				
+			}
+			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Groups</div>';
+			panelMain.append(html);
+			for(var i = 0; i < objLeader.group_leader.length; i++) {
+				var obj = objLeader.group_leader[i];
+				var distance = obj.group_distance;
+				distance = distance / 1000.0;
+				distance = Math.round(distance * 100) / 100;
+				var html = '<div id="groupinfo" class="evtGroup" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+							'<div style="float:left;width:60%;"><span id="">' + obj.group_name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' +  distance + 'km</span></div>';
+							
+
+				html = html + '</div>';		
+				panelMain.append(html);
+				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');				
+			}
+		}
+	);
+}
+
 function Groups(mgroupid)
 {
 
@@ -143,7 +342,7 @@ function Groups(mgroupid)
 							'isGroup' => $isGroup,*/
 							
 							
-				//window.localStorage.setItem("aktif_group", result);
+				window.localStorage.setItem("aktif_Groups", result);
 				objGroup = obj;
 				var panelMain = $('#GroupMain' + '');
 				panelMain.empty();
@@ -152,7 +351,7 @@ function Groups(mgroupid)
 					var distance = obj.totaldistance;
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
-					var html = '<div id="groupinfo" class="evtGroup" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+					var html = '<div id="groupinfo-'+ obj.id + '" class="evtGroup" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
 								'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.membercount + 'members | ' +  distance + 'km</span></div>';
 								
 					if(obj.isGroup != "0")
@@ -179,9 +378,7 @@ function Groups(mgroupid)
 
 function Runs(mRunid)
 {
-	//var m_objGroup = window.localStorage.getItem("aktif_run");
-	//if(m_objGroup == null)
-	//{
+
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
@@ -205,7 +402,7 @@ function Runs(mRunid)
 						*/
 							
 							
-				//window.localStorage.setItem("aktif_group", result);
+				window.localStorage.setItem("aktif_runHistory", result);
 				objGroup = obj;
 				var panelMain = $('#HistoryMain' + '');
 				panelMain.empty();
@@ -230,7 +427,7 @@ function Runs(mRunid)
 						image = "cycling.png";
 					}
 					
-					var html = '<div id="Historyinfo" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
 					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.rundate + '</span></div></div>';
 					panelMain.append(html);
 					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
@@ -245,31 +442,7 @@ function Runs(mRunid)
 				
 				//alert(obj.token);
 			});
-	/*}
-	else
-	{
-		var objGroup = JSON.parse(m_objGroup);
-		var panelMain = $('#GroupMain' + '');
-		panelMain.empty();
-		for(var i = 0; i < objGroup.group.length; i++) {
-			var obj = objGroup.group[i];
-			var distance = obj.totaldistance;
-			distance = distance / 1000.0;
-			distance = Math.round(distance * 100) / 100;
-			var html = '<div id="groupinfo" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-			'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.membercount + 'members | ' +  distance + 'km</span></div></div>';
-			panelMain.append(html);
-			panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
-			console.log(obj.name);
-			console.log(obj.tagline);
-			console.log(obj.membercount);
-			
-			console.log(distance + "km");
-			console.log(obj.isGroup);
-		}
-	}*/
 
-	
 }
 
 function Logout()
@@ -541,20 +714,175 @@ function StopRun()
 	//alert(mMapURL);
 	localStorage.setItem("CurrentRun_Map", mMapURL);
 	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	
+	var min = today.getMinutes();
+	var hour = today.getHours();
+	var sec = today.getSeconds();
+	
+	var runDate = yyyy + "-" + mm + "-" + dd + " " + hour + ":" + hour + ":" + sec;
+	localStorage.setItem("CurrentRun_Date", runDate);
 	if(TotalDistance > 0.0)
 	{
-		SynctoDB();
+		//SynctoDB();
 	}
 	else
 	{
 		alert("Distance need to be more than 0.0 meter as valid run.");
 	}
+	
+	SynctoDB();
 	//set mcurrent run to emty
 	localStorage.setItem("CurrentRun", "");
 	
-	var href = "myrun.html";
+	//var href = "myrun.html";
+	
+	
+	
+	
+	location.hash = "#runMap";
 	//var win = window.open(href, '_self');
 			
+}
+
+function displayMyRun()
+{
+	
+	var mActivity = localStorage.getItem("CurrentRun_Activity");
+	var mD = localStorage.getItem("CurrentRun_Distance");
+	var mDuration = localStorage.getItem("CurrentRun_Duration");
+	var mMap = localStorage.getItem("CurrentRun_Map");
+	var runDate = localStorage.getItem("CurrentRun_Date");
+	
+	if(mMap == "")
+	{
+		 var id = localStorage.getItem("CurrentRun_id");
+		 var mToken = window.localStorage.getItem("AccessToken");
+		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+			{
+				token: mToken,
+				runid: id
+			}, 
+			function(result){
+				var obj = JSON.parse(result);
+				
+				$("#divMap").css({'background-image':'url('+ obj.runs[0].map +')'});
+			}
+		);
+	}
+	else
+	{
+		$("#divMap").css({'background-image':'url('+ mMap +')'});
+	}
+	
+	if(mD > 1000.0)
+	{
+		var d = mD / 1000.0;
+		mdistance = Math.round(d * 100) / 100;
+		document.getElementById('lblMapDistance').innerHTML = "Distance (km):";
+		document.getElementById('mapDistance').innerHTML = mdistance;
+	}
+	else
+	{
+		mdistance = Math.round(mD * 100) / 100;
+		document.getElementById('lblMapDistance').innerHTML = "Distance (meter):";
+		document.getElementById('mapDistance').innerHTML = mdistance;
+	}
+			
+	
+	
+	
+	document.getElementById('lblMapDistance').innerHTML = document.getElementById('lbldistance').innerHTML;
+	//document.getElementById('mapDistance').innerHTML = mdistance;
+	document.getElementById('mapDuration').innerHTML = mDuration;
+	document.getElementById('mapRunDate').innerHTML = runDate;
+	//$("#mapDistance").val(mdistance + "");
+	//$("#mapDuration").val(mDuration + "");
+	//$("#mapRunDate").val(runDate + "");
+}
+
+function displayGroup()
+{
+	//individualGroupPage
+	
+	var CurrentGroup_id = localStorage.getItem("CurrentGroup_id");
+	var CurrentGroup_Name = localStorage.getItem("CurrentGroup_Name");
+	var CurrentGroup_Distance = localStorage.getItem("CurrentGroup_Distance");	
+	var CurrentGroup_Image = localStorage.getItem("CurrentGroup_Image");	
+	var CurrentGroup_Tagline = localStorage.getItem("CurrentGroup_Tagline");
+	var CurrentGroup_Member = localStorage.getItem("CurrentGroup_Member");
+			
+	$("#groupImage").css({'background-image':'url(http://aktif.29candyshop.com/group_images/'+ CurrentGroup_Image +')'});
+	
+	
+	if(CurrentGroup_Distance > 1000.0)
+	{
+		var d = CurrentGroup_Distance / 1000.0;
+		mdistance = Math.round(d * 100) / 100;
+		document.getElementById('groupInfo').innerHTML = "Members: " + CurrentGroup_Member + " | " +  mdistance + "km";
+	}
+	else
+	{
+		mdistance = Math.round(CurrentGroup_Distance * 100) / 100;
+		document.getElementById('groupInfo').innerHTML = "Members: " + CurrentGroup_Member + " | " +  mdistance + "member";
+	}
+
+	document.getElementById('groupName').innerHTML = CurrentGroup_Name;
+	document.getElementById('groupTagline').innerHTML = CurrentGroup_Tagline;
+
+	//======================================================
+	 var mToken = window.localStorage.getItem("AccessToken");
+	 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
+			{
+				token: mToken,
+				groupid: CurrentGroup_id
+			}, 
+			function(result){
+				var obj = JSON.parse(result);
+				var objUserlist = obj.userlist;
+				var objIsJoined = obj.isGroup;
+				if(objIsJoined == "0")
+				{
+					$('#btnJoinGroup' + '').css({'display':'block'});
+					$('#btnLeaveGroup' + '').css({'display':'none'});
+				}
+				else
+				{
+					$('#btnJoinGroup' + '').css({'display':'none'});
+					$('#btnLeaveGroup' + '').css({'display':'block'});
+				}
+				var panelMain = $('#groupMembers' + '');
+				panelMain.empty();
+				for(var i = 0; i < objUserlist.length; i++) {
+					var objUser = objUserlist[i];	
+					var mdistance = parseFloat(objUser.userdistance);
+					var munit = "meter";
+					if(mdistance > 1000.0)
+					{
+						mdistance = mdistance / 1000.0;
+						munit = "km";
+					}
+					mdistance = Math.round(mdistance * 100) / 100;
+					var imageURL = "";
+					if(objUser.username_type == "email")
+					{
+						imageURL = "images/icons/login.png";
+					}
+					else
+					{
+						imageURL = "https://graph.facebook.com/" + objUser.username_id + "/picture?type=large";
+					}
+					var html = '<div id="Historyinfo-' + objUser.username_id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+					'<div style="float:left;width:60%;"><span id="">' + objUser.username + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					
+				}
+			}
+		);
 }
 
 function SynctoDB()
@@ -574,19 +902,44 @@ function SynctoDB()
 	var mActivity = localStorage.getItem("CurrentRun_Activity");
 	var mdistance = localStorage.getItem("CurrentRun_Distance");
 	var mDuration = localStorage.getItem("CurrentRun_Duration");
+	var mCoor = localStorage.getItem("CurrentRun");
+	var arrCoor = mCoor.split("|");
+
+	var text = '{ "employees" : [' +
+		'{ "firstName":"John" , "lastName":"Doe" },' +
+		'{ "firstName":"Anna" , "lastName":"Smith" },' +
+		'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+	var coor_json = "";
+	
+	for(var i = 0; i < arrCoor.length; i++) {
+		var co = arrCoor[i];
+		var lat = co.split(",")[0];
+		var lo = co.split(",")[1];
+		if(coor_json == "")
+		{
+			coor_json = '{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
+		}
+		else
+		{
+			coor_json = coor_json + ',{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
+		}
+	}
+	coor_json = "[" + coor_json + "]";
 	var mRoute = '';
+	
+	var runDate = localStorage.getItem("CurrentRun_Date");
 	
 	 $.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 	 {
 		token: mToken,
 		distance: mdistance, 
 		activity_type:mActivity,
-		route:mRoute,
+		route:coor_json,
 		duration: mDuration,
 		avepace:'',
-		workout_type:'',
+		workout_type:'Free Run',
 		eventid:'',
-		rundate:'',
+		rundate:runDate,
 		checkin_type:'live'
 		
 	}, function(result){
@@ -634,7 +987,7 @@ function showPosition(position) {
 		{
 			var distance = calculateDistance(LastPosition.coords.latitude, LastPosition.coords.longitude,
                         position.coords.latitude, position.coords.longitude);
-			distance = distance;// * 1000.0;
+			distance = distance * 1000.0;
 			TotalDistance = TotalDistance + distance;
 			
 			//document.getElementById('distance').innerHTML = TotalDistance;

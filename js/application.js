@@ -74,7 +74,10 @@ function htmlClickEventHandlers(id, action) {
 			});
 	} else if (id === "Second") {
 		// do nothing
-	} else if (id === "History") {
+	} else if (id === "LeaderBoard") {
+		LeaderBoard();
+		// do nothing
+	}else if (id === "History") {
 		Runs();
 		// do nothing
 	} else if (id === "Groups") {
@@ -89,7 +92,13 @@ function htmlClickEventHandlers(id, action) {
 	{
 		displayeditProfile();
 	}
-	
+	else if(id == "runMap")
+	{
+		
+	}
+	else if (id === "GroupInfo") {
+		
+	}
 	// every page but...
 	if (id !== "History") {
 		$('#footerShare' + id).off("click").on("click",
@@ -117,6 +126,8 @@ function initPageVarsOnCreate(id) {
 	}
 	if (id === "Index") {
 		htmlClickEventHandlers(id, "menu");
+	}else if (id === "LeaderBoard") {
+		htmlClickEventHandlers(id, "menu");
 	}else if (id === "History") {
 		htmlClickEventHandlers(id, "menu");
 	}else if (id === "Groups") {
@@ -129,6 +140,10 @@ function initPageVarsOnCreate(id) {
 		htmlClickEventHandlers(id, "menu");
 	}else if (id === "editProfile") {
 		htmlClickEventHandlers(id, "menu");
+	}else if (id === "runMap") {
+		htmlClickEventHandlers(id, "menu");
+	}else if (id === "GroupInfo") {
+		htmlClickEventHandlers(id, "menu");
 	}
 	
 	/*else if (id !== "LandingPage") {
@@ -138,6 +153,8 @@ function initPageVarsOnCreate(id) {
 	if (id === "LandingPage") {
 		// do nothing
 	} else if (id === "Index") {
+		// do nothing
+	} else if (id === "LeaderBoard") {
 		// do nothing
 	} else if (id === "History") {
 		// do nothing
@@ -169,6 +186,8 @@ function initPageVarsOnShow(id) {
 	}
 	if (id === "Index") {
 		pressEffectHeader(true, "menu");
+	}else if (id === "LeaderBoard") {
+		pressEffectHeader(true, "menu");
 	}else if (id === "History") {
 		pressEffectHeader(true, "menu");
 	}else if (id === "Groups") {
@@ -181,8 +200,12 @@ function initPageVarsOnShow(id) {
 		pressEffectFooter(true, "menu");
 	}else if (id === "editProfile") {
 		pressEffectFooter(true, "menu");
+	}else if (id === "runMap") {
+		displayMyRun();
 	}
-	
+	else if (id === "GroupInfo") {
+		displayGroup();
+	}
 	/*else if (id !== "LandingsPage") {
 		pressEffectHeader(true, "back");
 	}*/	
@@ -192,9 +215,11 @@ function initPageVarsOnShow(id) {
 		isDeviceReady("", "InitUri"); // TODO
 	} else if (id === "Index") {
 		pressEffectFooter(true, true);
+	} else if(id == "LeaderBoard"){
+		pressEffectFooter(true, true);
 	} else if (id === "History") {
 		pressEffectFooter(true, true);
-		getSystemSpecs();
+		//getSystemSpecs();
 		//loadHistoryPageContent(); //can delete
 	} else if (id === "UriMessage") {
 		showUriMessage();
@@ -314,4 +339,31 @@ $(document).on('pagebeforeshow', '#editProfile', function (event, data) {
 });
 $(document).on('pagecreate', '#editProfile', function () {
 	initPageVarsOnCreate('editProfile');
+});
+
+
+//#myrun
+$(document).on('pagebeforeshow', '#runMap', function (event, data) {
+	startBeforeShowVars(data);
+	initPageVarsOnShow('runMap');
+});
+$(document).on('pagecreate', '#runMap', function () {
+	initPageVarsOnCreate('runMap');
+});
+
+//#myrun
+$(document).on('pagebeforeshow', '#leaderBoardPage', function (event, data) {
+	startBeforeShowVars(data);
+	initPageVarsOnShow('LeaderBoard');
+});
+$(document).on('pagecreate', '#leaderBoardPage', function () {
+	initPageVarsOnCreate('LeaderBoard');
+});
+//#individualGroupPage
+$(document).on('pagebeforeshow', '#individualGroupPage', function (event, data) {
+	startBeforeShowVars(data);
+	initPageVarsOnShow('GroupInfo');
+});
+$(document).on('pagecreate', '#individualGroupPage', function () {
+	initPageVarsOnCreate('GroupInfo');
 });

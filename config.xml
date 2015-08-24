@@ -59,6 +59,7 @@
 	<access origin="*" />
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
 	
+	<preference name="ios-statusbarstyle" value="black-opaque" />
 	<preference name="fullscreen" value="false" />
 	<preference name="orientation" value="portrait" />
 	<preference name="phonegap-version" value="3.7.0" />

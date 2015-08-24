@@ -42,6 +42,7 @@ function onDeviceReady() {
 		}, 1500);
 		window.localStorage.setItem('firstBoot', 'done');
 	}
+	
 }
 
 // image preloader

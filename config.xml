@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "2" 
-	version 	= "1.01">
+	version 	= "1.02">
 
 	<name>AktifPenang</name>
 
@@ -45,6 +45,11 @@
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+	<gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
+	<gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.9.0">
+		<param name="APP_ID" value="1575196586053265" />
+		<param name="APP_NAME" value="AktifPenang" />
+	</gap:plugin>
 	
 	<!--<gap:plugin name="com.phonegap.plugins.facebookconnect">
 		<param name="APP_ID" value="674651699253599" />
@@ -54,12 +59,15 @@
 	<feature name="Geolocation">
 		<param name="ios-package" value="CDVLocation" />
 	</feature>
-
+	<feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+	
 	<!-- <gap:plugin name="ChildBrowser" version="~3" /> for Cordova (1.9.0+) -->
 	<access origin="*" />
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
 	
-	<preference name="ios-statusbarstyle" value="black-opaque" />
+	<preference name="StatusBarBackgroundColor" value="#000000" />
 	<preference name="fullscreen" value="false" />
 	<preference name="orientation" value="portrait" />
 	<preference name="phonegap-version" value="3.7.0" />

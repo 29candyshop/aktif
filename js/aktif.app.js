@@ -210,6 +210,14 @@ function LoginEmail()
     });
 }
 
+function LoginFacebook()
+{
+	facebookConnectPlugin.browserInit("1575196586053265");
+	facebookConnectPlugin.login( ["email"], 
+		function (response) { alert(JSON.stringify(response)) },
+		function (response) { alert(JSON.stringify(response)) });
+}
+
 function UserSummary()
 {
 	 var mToken = window.localStorage.getItem("AccessToken");
@@ -1020,7 +1028,7 @@ function stopLocationWatch(){
 function getLocationUpdate(){
 	if(navigator.geolocation){
 	   // timeout at 60000 milliseconds (60 seconds)
-	   var options = {timeout:5000, enableHighAccuracy: true };
+	   var options = {timeout:10000, enableHighAccuracy: true };
 	   geoLoc = navigator.geolocation;
 	   watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
 	}

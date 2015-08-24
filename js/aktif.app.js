@@ -212,6 +212,7 @@ function LoginEmail()
 
 function LoginFacebook()
 {
+	alert("Start FB Login");
 	facebookConnectPlugin.browserInit("1575196586053265");
 	facebookConnectPlugin.login( ["email"], 
 		function (response) { alert(JSON.stringify(response)) },
@@ -221,6 +222,8 @@ function LoginFacebook()
 function UserSummary()
 {
 	 var mToken = window.localStorage.getItem("AccessToken");
+	 if(mToken != null)
+	 {
 	 $.get("http://www.aktifpenang.com/api/_api_usersummary.php", 
 		{
 			token: mToken
@@ -247,6 +250,7 @@ function UserSummary()
 			UserProfile();
 			//alert(obj.token);
 		});
+	}
 }
 
 function displayUserSummary(divId)

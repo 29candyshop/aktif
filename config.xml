@@ -50,11 +50,16 @@
 		<param name="APP_ID" value="674651699253599" />
 		<param name="APP_NAME" value="BetterBercham" />
 	</gap:plugin>-->
+	
+	<feature name="Geolocation">
+		<param name="ios-package" value="CDVLocation" />
+	</feature>
 
 	<!-- <gap:plugin name="ChildBrowser" version="~3" /> for Cordova (1.9.0+) -->
 	<access origin="*" />
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
 	
+	<preference name="fullscreen" value="false" />
 	<preference name="orientation" value="portrait" />
 	<preference name="phonegap-version" value="3.7.0" />
 </widget>

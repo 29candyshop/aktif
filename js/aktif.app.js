@@ -234,6 +234,7 @@ function LoginFacebook()
 		//facebookConnectPlugin.browserInit("1575196586053265");
 		 facebookConnectPlugin.logout( 
                     function (response) { 
+						alert("logout DONE");
 						facebookConnectPlugin.login( ["email"], 
 							function (response) { alert(JSON.stringify(response)) },
 							function (response) { alert(JSON.stringify(response)) });

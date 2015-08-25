@@ -7,19 +7,35 @@ var LastPosition = '';
 	 
 //document ready
 $(document).ready(function(){
-	UserSummary();
-    $("button").click(function(){
-        $("p").slideToggle();
-		
-    });
+	var AccessToken = window.localStorage.getItem('AccessToken');
+	if(AccessToken == null)
+	{
 	
-	$(function() {
-		/*$(".evtHistory").live('click', function(){
-			var a = this;
-			var id = a.id.replace("Historyinfo-", "");
-			location.hash = "#runMap";
-		});*/
-	});
+		location.hash = "#LoginPage";
+		
+	}
+	else
+	if(AccessToken == "")
+	{
+		location.hash = "#LoginPage";
+	}
+	else
+	{
+		
+		UserSummary();
+		$("button").click(function(){
+			$("p").slideToggle();
+			
+		});
+		
+		$(function() {
+			/*$(".evtHistory").live('click', function(){
+				var a = this;
+				var id = a.id.replace("Historyinfo-", "");
+				location.hash = "#runMap";
+			});*/
+		});
+	}
 });
 
 //evtStopRun
@@ -195,9 +211,10 @@ function LoginEmail()
 			if(obj.token != "")
 			{
 				window.localStorage.setItem("AccessToken", obj.token);
-				var url = "main1.html";
-				var win = window.open(url, '_self');
-				
+				//var url = "main1.html";
+				//var win = window.open(url, '_self');
+				location.hash = "#";
+				UserSummary();
 			}
 		}
 		else
@@ -212,7 +229,7 @@ function LoginEmail()
 
 function LoginFacebook()
 {
-	alert("Start FB Login");
+	//alert("Start FB Login");
 	try {
 		//facebookConnectPlugin.browserInit("1575196586053265");
 		facebookConnectPlugin.login( ["email"], 

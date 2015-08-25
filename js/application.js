@@ -333,11 +333,11 @@ $(document).on('pagecreate', '#aboutPage', function () {
 });
 
 //#editProfile
-$(document).on('pagebeforeshow', '#editProfile', function (event, data) {
+$(document).on('pagebeforeshow', '#EditProfilePage', function (event, data) {
 	startBeforeShowVars(data);
 	initPageVarsOnShow('editProfile');
 });
-$(document).on('pagecreate', '#editProfile', function () {
+$(document).on('pagecreate', '#EditProfilePage', function () {
 	initPageVarsOnCreate('editProfile');
 });
 

@@ -211,6 +211,8 @@ function LoginEmail()
 			if(obj.token != "")
 			{
 				window.localStorage.setItem("AccessToken", obj.token);
+				window.localStorage.setItem("LoginType", "email");
+				window.localStorage.setItem("UserID", name);
 				//var url = "main1.html";
 				//var win = window.open(url, '_self');
 				location.hash = "#";
@@ -234,9 +236,29 @@ function LoginFacebook()
 		//facebookConnectPlugin.browserInit("1575196586053265");
 		 facebookConnectPlugin.logout( 
                     function (response) { 
-						alert("logout DONE");
+						//alert("logout DONE");
 						facebookConnectPlugin.login( ["email"], 
-							function (response) { alert(JSON.stringify(response)) },
+							function (response) 
+							{
+								var obj = JSON.parse(response);
+								if(response.status == "connected")
+								{
+									var t = response.accessToken;
+									window.localStorage.setItem("AccessToken", t);
+									window.localStorage.setItem("LoginType", "facebook");
+									window.localStorage.setItem("UserID", obj.userID);
+									//var url = "main1.html";
+									//var win = window.open(url, '_self');
+									location.hash = "#";
+									UserSummary();
+								}
+								else
+								{
+									alert("Error Logging in.");
+								}
+								//alert(JSON.stringify(response)) 
+							
+							},
 							function (response) { alert(JSON.stringify(response)) });
 					},
                     function (response) { alert(JSON.stringify(response)) });
@@ -275,6 +297,13 @@ function UserSummary()
 			$("#CampaignSummary").html("" + obj.summary[0].CampaignUser + " members | Distance: " + distance + "km" );
 			$("#username").html("" + obj.summary[0].firstname + " " + obj.summary[0].lastname + "" );
 			$("#userSummary").html("" + obj.summary[0].TotalRuns + " runs | Distance: " + distance + "km | Groups: " + obj.summary[0].TotalEvents );
+			
+			if(window.localStorage.getItem("LoginType") == "facebook")
+			{
+				imageURL = "https://graph.facebook.com/" + window.localStorage.getItem("UserID") + "/picture?type=large";
+				$("#userImage").css({'background-image':'url('+imageURL+')'});
+			}
+			
 			
 			UserProfile();
 			//alert(obj.token);

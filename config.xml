@@ -67,6 +67,7 @@
 	<access origin="*" />
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
 	
+	<preference name="DisallowOverscroll" value="true" />
 	<preference name="StatusBarBackgroundColor" value="#000000" />
 	<preference name="fullscreen" value="false" />
 	<preference name="orientation" value="portrait" />

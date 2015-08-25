@@ -232,9 +232,14 @@ function LoginFacebook()
 	//alert("Start FB Login");
 	try {
 		//facebookConnectPlugin.browserInit("1575196586053265");
-		facebookConnectPlugin.login( ["email"], 
-			function (response) { alert(JSON.stringify(response)) },
-			function (response) { alert(JSON.stringify(response)) });
+		 facebookConnectPlugin.logout( 
+                    function (response) { 
+						facebookConnectPlugin.login( ["email"], 
+							function (response) { alert(JSON.stringify(response)) },
+							function (response) { alert(JSON.stringify(response)) });
+					},
+                    function (response) { alert(JSON.stringify(response)) });
+		
 	}
 	catch(err) {
 		alert(err.message);

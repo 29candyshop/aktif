@@ -239,25 +239,33 @@ function LoginFacebook()
 						//alert("logout DONE");
 						facebookConnectPlugin.login( ["email"], 
 							function (response) 
-							{
-								var obj = JSON.parse(response);
-								if(response.status == "connected")
-								{
-									var t = response.accessToken;
-									window.localStorage.setItem("AccessToken", t);
-									window.localStorage.setItem("LoginType", "facebook");
-									window.localStorage.setItem("UserID", obj.userID);
-									//var url = "main1.html";
-									//var win = window.open(url, '_self');
-									location.hash = "#";
-									UserSummary();
+							{	
+								try {
+									var obj = JSON.parse(response);
+									alert("status:" + obj.status);
+									if(response.status == "connected")
+									{
+										var t = response.accessToken;
+										alert("token:" + t);
+										
+										window.localStorage.setItem("AccessToken", t);
+										window.localStorage.setItem("LoginType", "facebook");
+										window.localStorage.setItem("UserID", obj.userID);
+										//var url = "main1.html";
+										//var win = window.open(url, '_self');
+										location.hash = "#";
+										UserSummary();
+									}
+									else
+									{
+										alert("Error Logging in.");
+									}
+									//alert(JSON.stringify(response)) 
 								}
-								else
-								{
-									alert("Error Logging in.");
+								
+								catch(err) {
+									alert(err.message);
 								}
-								//alert(JSON.stringify(response)) 
-							
 							},
 							function (response) { alert(JSON.stringify(response)) });
 					},

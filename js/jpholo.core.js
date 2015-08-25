@@ -16,9 +16,11 @@ function onDeviceReady() {
 	// let the function "isDeviceReady" know that the event "deviceready" has been fired
 	window.deviceReady = true;
 	// prelude app images for faster GUI
-	startPreLoadImages();
+	//startPreLoadImages();
 	// inject device type specific stylesheet
-	adjustStyle();
+	//adjustStyle();
+	
+	/*
 	// execute when app resumes from pause
 	document.addEventListener("resume", onResume, false);
 	// execute when app goes to pause (home button or opening other app)
@@ -28,7 +30,9 @@ function onDeviceReady() {
 	// override default menubutton behavior with own
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	// override default searchbutton behavior with own
-	document.addEventListener("searchbutton", onSearchKeyDown, false);	
+	document.addEventListener("searchbutton", onSearchKeyDown, false);	*/
+	
+	
 	// demonstrate panel menu on first boot
 	if (window.localStorage.getItem('firstBoot') !== 'done') {
 		var headerTitle = $("#headerTitle" + window.localStorage.getItem("divIdGlobal"));

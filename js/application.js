@@ -7,8 +7,8 @@
 
 // clear to first boot state
 function clearFirstBoot() {
-	window.localStorage.clear();
-	navigator.app.exitApp();
+	//window.localStorage.clear();
+	//navigator.app.exitApp();
 }
 
 // get the systemspecs
@@ -70,7 +70,7 @@ function htmlClickEventHandlers(id, action) {
 		
 		$('#clearFirstBoot').off("click").on("click",
 			function () {
-				clearFirstBoot();
+				//clearFirstBoot();
 			});
 	} else if (id === "Second") {
 		// do nothing

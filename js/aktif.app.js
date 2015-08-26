@@ -246,12 +246,12 @@ function LoginFacebook()
 									alert("status:" + response.status);
 									if(response.status == "connected")
 									{
-										var t = response.accessToken;
+										var t = response.authResponse.accessToken;
 										alert("token:" + t);
-										alert("user:" + response.userID);
+										alert("user:" + response.authResponse.userID);
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
-										window.localStorage.setItem("UserID", response.userID);
+										window.localStorage.setItem("UserID", response.authResponse.userID);
 										//var url = "main1.html";
 										//var win = window.open(url, '_self');
 										location.hash = "#";

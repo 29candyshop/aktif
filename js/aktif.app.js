@@ -241,13 +241,14 @@ function LoginFacebook()
 							function (response) 
 							{	
 								try {
+									alert(JSON.stringify(response));
 									//var obj = JSON.parse(response);
 									alert("status:" + response.status);
 									if(response.status == "connected")
 									{
 										var t = response.accessToken;
 										alert("token:" + t);
-										
+										alert("user:" + response.userID);
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.userID);

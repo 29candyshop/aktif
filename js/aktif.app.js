@@ -241,8 +241,8 @@ function LoginFacebook()
 							function (response) 
 							{	
 								try {
-									var obj = JSON.parse(response);
-									alert("status:" + obj.status);
+									//var obj = JSON.parse(response);
+									alert("status:" + response.status);
 									if(response.status == "connected")
 									{
 										var t = response.accessToken;
@@ -250,7 +250,7 @@ function LoginFacebook()
 										
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
-										window.localStorage.setItem("UserID", obj.userID);
+										window.localStorage.setItem("UserID", response.userID);
 										//var url = "main1.html";
 										//var win = window.open(url, '_self');
 										location.hash = "#";

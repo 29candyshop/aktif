@@ -241,14 +241,14 @@ function LoginFacebook()
 							function (response) 
 							{	
 								try {
-									alert(JSON.stringify(response));
+									//alert(JSON.stringify(response));
 									//var obj = JSON.parse(response);
-									alert("status:" + response.status);
+									//alert("status:" + response.status);
 									if(response.status == "connected")
 									{
 										var t = response.authResponse.accessToken;
-										alert("token:" + t);
-										alert("user:" + response.authResponse.userID);
+										//alert("token:" + t);
+										//alert("user:" + response.authResponse.userID);
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
@@ -337,6 +337,12 @@ function displayUserSummary(divId)
 	$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	$("#username"+ divId).html("" + firstname + " " + lastname + "" );
 	$("#userSummary"+ divId).html("" + TotalRuns + " runs | Distance: " + distance + "km | Groups: " + TotalEvents );
+	
+	if(window.localStorage.getItem("LoginType") == "facebook")
+	{
+		imageURL = "https://graph.facebook.com/" + window.localStorage.getItem("UserID") + "/picture?type=large";
+		$("#userImage").css({'background-image':'url('+imageURL+')'});
+	}
 }
 
 function LeaderBoard()

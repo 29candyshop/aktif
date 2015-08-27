@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		alert("Device Ready");
+		//alert("Device Ready");
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 10) {
 				//joinMeeting(notification.data.meetingId);
@@ -65,13 +65,18 @@ document.addEventListener("deviceready", onDeviceReady, false);
 					if (notification.id != 10)
 						return;
 
+					cordova.plugins.notification.local.update({
+						id: 10,
+						text: 'You started RUN. Duration: ' + mFormattedDuration,
+						every: 'seconds'
+					});
 					// After 10 minutes update notification's title 
-					setTimeout(function () {
+					/*setTimeout(function () {
 						cordova.plugins.notification.local.update({
 							id: 10,
 							title: "You started RUN. Duration: " + mFormattedDuration
 						});
-					}, 1000);
+					}, 1000);*/
 				}
 				catch(err)
 				{

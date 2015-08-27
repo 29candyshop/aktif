@@ -68,7 +68,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 					cordova.plugins.notification.local.update({
 						id: 10,
 						text: 'You started RUN. Duration: ' + mFormattedDuration,
-						every: 'seconds'
+						every: 'second'
 					});
 					// After 10 minutes update notification's title 
 					/*setTimeout(function () {
@@ -841,6 +841,8 @@ function StartRun()
 			title: "AktifPenang Activity",
 			text: "You started RUN. Duration: " + mFormattedDuration
 		});
+		
+		
 	}
 	catch(err)
 	{

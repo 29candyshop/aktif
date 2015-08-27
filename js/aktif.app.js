@@ -1177,6 +1177,17 @@ function showPosition(position) {
 				document.getElementById('lbldistance').innerHTML = "Distance (km):";
 				//$("#lbldistance").val("Distance (km)");
 				$("#distance").val(mdistance + "");
+				
+				try{
+					cordova.plugins.notification.local.update({
+						id: 10,
+						text: 'You started RUN. Distance: ' + mdistance + 'km'
+					});
+				}
+				catch(err)
+				{
+				
+				}
 			}
 			else
 			{
@@ -1184,6 +1195,17 @@ function showPosition(position) {
 				//$("#lbldistance").val("Distance (meter)");
 				document.getElementById('lbldistance').innerHTML = "Distance (meter):";
 				$("#distance").val(mdistance + "");
+				
+				try{
+					cordova.plugins.notification.local.update({
+						id: 10,
+						text: 'You started RUN. Distance: ' + mdistance + 'meter'
+					});
+				}
+				catch(err)
+				{
+				
+				}
 			}
 			
 			LastPosition = position;	
@@ -1246,16 +1268,7 @@ Number.prototype.toRad = function() {
         if(runningstate == 1)
         {
 			mFormattedDuration = formattedtime(timediff);
-			try{
-				cordova.plugins.notification.local.update({
-					id: 10,
-					text: 'You started RUN. Duration: ' + mFormattedDuration
-				});
-			}
-			catch(err)
-			{
 			
-			}
             stopwatch.value = mFormattedDuration;
             refresh = setTimeout('timecounter(' + starttime + ');',10);            
         }

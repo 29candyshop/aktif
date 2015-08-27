@@ -163,12 +163,12 @@ cordova.plugins.notification.local.on("trigger", function (notification) {
 		return;
 
 	// After 10 minutes update notification's title 
-	setTimeout(function () {
+	/*setTimeout(function () {
 		cordova.plugins.notification.local.update({
 			id: 10,
 			title: "You started RUN. Duration: " + mFormattedDuration
 		});
-	}, 1000);
+	}, 1000);*/
 });	
 
 
@@ -792,20 +792,44 @@ function StartRun()
 	//start location updates
 	getLocationUpdate();
 	
-	cordova.plugins.notification.local.schedule({
-        id: 10,
-        title: "AktifPenang Activity",
-        text: "You started RUN. Duration: " + mFormattedDuration,
-        data: { test: id }
-    });
+	try
+	{
+		cordova.plugins.notification.local.hasPermission(function (granted) {
+			alert(granted);
+			if(granted == false)
+			{
+				cordova.plugins.notification.local.registerPermission(function (granted) {
+                    alert(granted ? 'Yes' : 'No');
+                });
+			}
+		});
+		
+		cordova.plugins.notification.local.schedule({
+			id: 10,
+			title: "AktifPenang Activity",
+			text: "You started RUN. Duration: " + mFormattedDuration,
+			data: { test: id }
+		});
+	}
+	catch(err)
+	{
+		alert(err);
+	}
+	
 }
 
 function StopRun()
 {
 	//$("#startandstopbutton").val("Start My Run");
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
-	cordova.plugins.notification.local.clear(10, callback);
-	
+	try
+	{
+		cordova.plugins.notification.local.clear(10, callback);
+	}
+	catch(err)
+	{
+		alert(err);
+	}
 	//set button color to red 
 	$("#btnStart").css({'display':'block'});
 	$("#btnStop").css({'display':'none'});

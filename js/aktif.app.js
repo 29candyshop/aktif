@@ -52,7 +52,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 10) {
 				//joinMeeting(notification.data.meetingId);
-				alert("Clicked!");
+				//alert("Clicked!");
+				
 			}
 		});
 
@@ -65,11 +66,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 					if (notification.id != 10)
 						return;
 
-					cordova.plugins.notification.local.update({
+					/*cordova.plugins.notification.local.update({
 						id: 10,
 						text: 'You started RUN. Duration: ' + mFormattedDuration,
 						every: 'second'
-					});
+					});*/
 					// After 10 minutes update notification's title 
 					/*setTimeout(function () {
 						cordova.plugins.notification.local.update({
@@ -88,6 +89,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		{
 			alert(err);
 		}
+	
+		//================= configure geolocation background ==========================
 	}
 
 //evtStopRun
@@ -838,8 +841,7 @@ function StartRun()
 		
 		cordova.plugins.notification.local.schedule({
 			id: 10,
-			title: "AktifPenang Activity",
-			text: "You started RUN. Duration: " + mFormattedDuration
+			text: "You started RUN. Click here to return to AktifPenang App" 
 		});
 		
 		
@@ -1242,11 +1244,21 @@ Number.prototype.toRad = function() {
             timediff = timediff + stoptime //stoptime=0
             }
         if(runningstate == 1)
-            {
+        {
 			mFormattedDuration = formattedtime(timediff);
+			try{
+				cordova.plugins.notification.local.update({
+					id: 10,
+					text: 'You started RUN. Duration: ' + mFormattedDuration
+				});
+			}
+			catch(err)
+			{
+			
+			}
             stopwatch.value = mFormattedDuration;
             refresh = setTimeout('timecounter(' + starttime + ');',10);            
-            }
+        }
         else
             {
             window.clearTimeout(refresh);

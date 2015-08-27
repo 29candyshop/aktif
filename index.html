@@ -71,7 +71,7 @@
 		</div>-->
 		<div id="fb-root"></div>
 		<div id="indexPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #F2F2F2;"><!-- id to tie the page event to this specific page -->
-			
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
 			<div style="margin-top:30px;"  id="panelMenuIndex" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuIndexUL" data-role="listview"></ul>
@@ -91,69 +91,69 @@
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->		                        
                             
-		<div role="main" class="ui-content" data-position="fixed" data-theme="a" style="padding: 0 !important;overflow-x: visible !important;"> <!-- remove header sticky white border-->
-                            <div style="width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
-                                <div style="width: 100%;background-color:#414141;height: 100px;"> <!-- div for dark gray part-->
-                                        <span id="CampaignSummary" style="width:100%;float:left;text-align:center;font-size:13pt;color: white;margin: 10px 0 10px;">11 members | Distance: 66.12km</span>
-                                </div>
-                                
-                                <div style="width: 90%; height: 360px;margin-left: auto;margin-right: auto;margin-top: -30px;position: relative;">
-                                    <div class="mainCard" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:20px;">
-                                        <div class="circular1"> <!-- icon-->
-                                            <img class="circular2" src="./images/icons/icon_run.png">
-                                        </div>
-                                        
-                                        <div style="padding: 0 0.6rem 0.6rem;"> <!-- inner content shell-->
-                                            <div class="mainActivityContent"> <!-- main inner content-->
-                                                <div class="ui-grid-solo ui-responsive"> <!--responsive using grid-->
-							<div class="ui-block-a">
-								<p><span style="font-size: 10pt;color: #B6B6B6;">Duration : </span><br><input class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00"></p>							
-							</div> <!-- block a -->
-						</div> <!-- end 1st responsive grid -->
-                                                
-                                                <div class="ui-grid-b ui-responsive">
-							<div class="ui-block-a" style="width: 50%; float: left;">
-								<p><span id="lbldistance" style="font-size: 10pt;color: #B6B6B6;">Distance : </span><br><input class="gridValue" id="distance" type="" disabled="disabled" value="0.0"></p>
+			<div role="main" class="ui-content" data-position="fixed" data-theme="a" style="padding: 0 !important;overflow-x: visible !important;"> <!-- remove header sticky white border-->
+				<div style="width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
+					<div style="width: 100%;background-color:#414141;height: 100px;"> <!-- div for dark gray part-->
+							<span id="CampaignSummary" style="width:100%;float:left;text-align:center;font-size:13pt;color: white;margin: 10px 0 10px;">11 members | Distance: 66.12km</span>
+					</div>
+					
+					<div style="width: 90%; height: 360px;margin-left: auto;margin-right: auto;margin-top: -30px;position: relative;">
+						<div class="mainCard" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:20px;">
+							<div class="circular1"> <!-- icon-->
+								<img class="circular2" src="./images/icons/icon_run.png">
 							</div>
 							
-							<div class="ui-block-b" style="width: 50%; float: left;">
-								<p><span style="font-size: 10pt;color: #B6B6B6;">Calories : </span><br><input class="gridValue" id="calories" type="" disabled="disabled" value="0"></p>
-							</div>
-						</div> <!-- end 2nd responsive grid-->
+							<div style="padding: 0 0.6rem 0.6rem;"> <!-- inner content shell-->
+								<div class="mainActivityContent"> <!-- main inner content-->
+									<div class="ui-grid-solo ui-responsive"> <!--responsive using grid-->
+										<div class="ui-block-a">
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Duration : </span><br><input class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00"></p>							
+										</div> <!-- block a -->
+									</div> <!-- end 1st responsive grid -->
                                                 
-                         <div class="ui-grid-a ui-responsive">
-							<!--<div class="ui-block-a" style="width: 50%; float: left;">
-								<p><span style="font-size: 10pt;color: #B6B6B6;">Workout Type : </span><br><input class="sportsType" id="workout" type="" disabled="disabled" value="Free Run"></p>
-							</div>-->
-							
-							<div class="ui-block-b" style="width: 100%; float: left;">
-								<p><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
-								 <select id="activity" name="activity">                                                    
-									<option value="RUNNING">RUNNING</option>
-									<option value="CYCLING">CYCLING</option>
-								</select>
-								<!--<input class="sportsType" id="activity" type="" disabled="disabled" value="Running"></p>-->
-							</div>
-						</div> <!-- end 3rd responsive grid-->
+                                    <div class="ui-grid-b ui-responsive">
+										<div class="ui-block-a" style="width: 50%; float: left;">
+											<p><span id="lbldistance" style="font-size: 10pt;color: #B6B6B6;">Distance : </span><br><input class="gridValue" id="distance" type="" disabled="disabled" value="0.0"></p>
+										</div>
+										
+										<div class="ui-block-b" style="width: 50%; float: left;">
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Calories : </span><br><input class="gridValue" id="calories" type="" disabled="disabled" value="0"></p>
+										</div>
+									</div> <!-- end 2nd responsive grid-->
                                                 
-						<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
-							<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>
-						</div>
-						<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">							
-							<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>
-						</div>
-                                            </div> <!-- end main activity content-->
-                                        </div> <!-- end inner shell content-->
-                                    </div> <!-- end main card-->
-                                </div> <!-- end outer shell-->                                
-                            </div>	<!-- end whole content-->			
+									 <div class="ui-grid-a ui-responsive">
+										<!--<div class="ui-block-a" style="width: 50%; float: left;">
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Workout Type : </span><br><input class="sportsType" id="workout" type="" disabled="disabled" value="Free Run"></p>
+										</div>-->
+										
+										<div class="ui-block-b" style="width: 100%; float: left;">
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
+											 <select id="activity" name="activity">                                                    
+												<option value="RUNNING">RUNNING</option>
+												<option value="CYCLING">CYCLING</option>
+											</select>
+											<!--<input class="sportsType" id="activity" type="" disabled="disabled" value="Running"></p>-->
+										</div>
+									</div> <!-- end 3rd responsive grid-->
+															
+									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
+										<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>
+									</div>
+									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">							
+										<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>
+									</div>
+								</div> <!-- end main activity content-->
+							</div> <!-- end inner shell content-->
+						</div> <!-- end main card-->
+					</div> <!-- end outer shell-->                                
+				</div>	<!-- end whole content-->			
 			</div><!-- /content -->
                         
 		</div><!-- /indexPage -->
 		
 		<!-- start new page(History)-->
-		<div id="leaderBoardPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #F2F2F2;">
-			
+		<div id="leaderBoardPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
 			<div style="margin-top:30px;"  id="panelMenuLeaderBoard" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuLeaderBoardUL" data-role="listview"></ul>
@@ -180,10 +180,10 @@
 		</div><!-- /end historyPage -->
 		
 		<!-- start new page(History)-->
-		<div id="historyPage" data-role="page" data-theme="a" style="width: 100%; background-color: #F2F2F2;">
-			
+		<div id="historyPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
-			<div id="panelMenuHistory" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+			<div style="margin-top:30px;"  id="panelMenuHistory" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuHistoryUL" data-role="listview"></ul>
 			</div>
 			<!-- /panel -->
@@ -194,7 +194,7 @@
 			</div>
 			<!-- /panel -->
 			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleHistory" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><img id="headerOverflowHistory" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
@@ -208,7 +208,7 @@
 		</div><!-- /end historyPage -->
 		
 		<div id="uriPage" data-role="page" data-theme="a">
-			
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
 			<div id="panelMenuUriMessage" data-role="panel" data-theme="b" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuUriMessageUL" data-role="listview"></ul>
@@ -248,10 +248,10 @@
 		
 		</div><!-- /uri messagePage -->
 		
-		<div id="groupsPage" data-role="page" data-theme="a">
-			
+		<div id="groupsPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
-			<div id="panelMenuGroups" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+			<div style="margin-top:30px;" id="panelMenuGroups" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuGroupsUL" data-role="listview"></ul>
 			</div>
 			<!-- /panel -->
@@ -262,7 +262,7 @@
 			</div>
 			<!-- /panel -->
 			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleGroups" class="headerIconTitle" src="./images/icons/ic_groups_launcher.png" /><img id="headerOverflowGroups" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
@@ -275,10 +275,10 @@
 		
 		</div><!-- /page -->
 		
-		<div id="eventsPage" data-role="page" data-theme="a">
-			
+		<div id="eventsPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
-			<div id="panelMenuEvents" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+			<div style="margin-top:30px;" id="panelMenuEvents" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuEventsUL" data-role="listview"></ul>
 			</div>
 			<!-- /panel -->
@@ -289,7 +289,7 @@
 			</div>
 			<!-- /panel -->
 			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleEvents" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
@@ -305,10 +305,10 @@
 			</div><!-- /content -->
 		</div><!-- /end eventsPage -->
 				
-		<div id="profilePage" data-role="page" data-theme="a">
-			
+		<div id="profilePage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
-			<div id="panelMenuProfile" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+			<div style="margin-top:30px;" id="panelMenuProfile" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuProfileUL" data-role="listview"></ul>
 			</div>
 			<!-- /panel -->
@@ -319,7 +319,7 @@
 			</div>
 			<!-- /panel -->
 			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleProfile" class="headerIconTitle" src=./images/icons/ic_profile_launcher.png /><img id="headerOverflowProfile" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
@@ -363,10 +363,10 @@
 		
 		</div><!-- /end profilePage -->
 		
-		<div id="aboutPage" data-role="page" data-theme="a" style="width: 100%;background-color: #F2F2F2;">
-			
+		<div id="aboutPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #F2F2F2;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
-			<div id="panelMenuAbout" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+			<div style="margin-top:30px;" id="panelMenuAbout" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
 				<ul id="panelMenuAboutUL" data-role="listview"></ul>
 			</div>
 			<!-- /panel -->
@@ -377,7 +377,7 @@
 			</div>
 			<!-- /panel -->
 			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleAbout" class="headerIconTitle" src="./images/icons/ic_about_launcher.png"/><img id="headerOverflowAbout" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
@@ -388,15 +388,15 @@
 				<div style="margin-left:25%;width:50%;height:220px;margin-top:30px;background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
 				<div style="width:100%;float;left;margin-top:10px;">
 					<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>
-					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 1.16</span>
+					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 1.17</span>
 				</div>				
 			</div><!-- /content -->
 		
 		</div><!-- /end aboutPage -->
 	
-		<div id="runMap" data-role="page" data-theme="a">
-			
-			<div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+		<div id="runMap" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img  id="headerTitleRunMap" class="headerIconTitle evtBack" src="./images/icons/back.png" />
 					&nbsp;</p>
@@ -459,8 +459,9 @@
 			</div><!-- /content -->
         </div>
                 
-        <div id="individualGroupPage" data-role="page" data-theme="a">
-            <div class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+        <div id="individualGroupPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+            <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText">
 					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
@@ -489,16 +490,17 @@
 			</div>
 		</div>
 		
-		<div id="LoginPage" data-role="page" data-theme="a">
-           <div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Login</div>
+		<div id="LoginPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+            <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Login</div>
 			<div data-role="main" class="ui-content">
-					
+					<div class="outerCircle" style="margin-top:0px;">
+						<img class="circle" src="./images/icons/login.png"/>
+					</div> <!-- white circle div end -->
 					<!-- Add text box to input email and pass-->            
 					<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
 						<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
-							<div class="outerCircle">
-								<img class="circle" src="./images/icons/login.png"/>
-							</div> <!-- white circle div end -->
+						
 							
 							<div style="padding: 0 0.55rem 0.55rem;">
 								<form role="form" class="loginForm"> <!-- form start -->
@@ -511,7 +513,7 @@
 										<h2 class="labelDesign">Or</h2>
 									</div>
 	 
-									<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>
+									<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>
 								
 									<div style="float:left;width:100%;margin-top:5px;">
 										<h2 class="labelDesign">Do not have an account? <br>
@@ -524,16 +526,17 @@
 			</div><!-- /main content -->
 		</div>
 
-		<div id="EmailLoginPage" data-role="page" data-theme="a">
+		<div id="EmailLoginPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Email Login</div>
 			<div data-role="main" class="ui-content">
-					
+					<div class="outerCircle" style="margin-top:0px;">
+						<img class="circle" src="./images/icons/register.png"/>
+					</div> <!-- white circle div end -->
 					<!-- Add text box to input email and pass-->            
 						<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
 							<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
-								<div class="outerCircle">
-									<img class="circle" src="./images/icons/register.png"/>
-								</div> <!-- white circle div end -->
+								
 								
 								<div style="padding: 0 0.55rem 0.55rem;">                           
 									<!--<form role="form" class="loginForm" action="http://www.aktifpenang.com/api/_api_login.php" method="post" target="_blank" data-ajax="false"> <!-- form start -->
@@ -557,8 +560,9 @@
 			</div><!-- /main content -->
 		</div>
 		
-		<div id="EditProfilePage" data-role="page" data-theme="a">
-			<div class="headerSticky ui-title" data-role="header" data-position="fixed" data-theme="a">
+		<div id="EditProfilePage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle evtBack" src="./images/icons/back.png" />
 					&nbsp;</p>
@@ -625,16 +629,17 @@
 	
 		</div>
 		
-		<div id="signUpPage" data-role="page" data-theme="a">
-			 <div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Registration</div>
+		<div id="signUpPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Registration</div>
 			<div data-role="main" class="ui-content">
-					
+					<div class="outerCircle" style="margin-top:-10px;">
+						<img class="circle" src="./images/icons/register.png"/>
+					</div> <!-- white circle div end -->
 					<!-- Add text box to input email and pass-->            
 						<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
 							<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
-								<div class="outerCircle">
-									<img class="circle" src="./images/icons/register.png"/>
-								</div> <!-- white circle div end -->
+								
 								
 								<div style="padding: 0 0.55rem 0.55rem;">                           
 									<!--<form role="form" class="loginForm" action="http://www.aktifpenang.com/api/_api_register.php" method="POST" target="_self" data-ajax="false"> form start -->

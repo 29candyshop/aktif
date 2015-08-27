@@ -795,11 +795,11 @@ function StartRun()
 	try
 	{
 		cordova.plugins.notification.local.hasPermission(function (granted) {
-			alert(granted);
+			//alert(granted);
 			if(granted == false)
 			{
 				cordova.plugins.notification.local.registerPermission(function (granted) {
-                    alert(granted ? 'Yes' : 'No');
+                   // alert(granted ? 'Yes' : 'No');
                 });
 			}
 		});
@@ -807,8 +807,7 @@ function StartRun()
 		cordova.plugins.notification.local.schedule({
 			id: 10,
 			title: "AktifPenang Activity",
-			text: "You started RUN. Duration: " + mFormattedDuration,
-			data: { test: id }
+			text: "You started RUN. Duration: " + mFormattedDuration
 		});
 	}
 	catch(err)
@@ -824,7 +823,9 @@ function StopRun()
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
 	try
 	{
-		cordova.plugins.notification.local.clear(10, callback);
+		cordova.plugins.notification.local.clear(10, function (ids) {
+                   alert(ids);
+                }););
 	}
 	catch(err)
 	{
@@ -886,11 +887,6 @@ function StopRun()
 	//var win = window.open(href, '_self');
 			
 }
-
-var callbackIds = function (ids) {
-	console.log(ids);
-	//showToast(ids.length === 0 ? '- none -' : ids.join(' ,'));
-};
 			
 function displayMyRun()
 {

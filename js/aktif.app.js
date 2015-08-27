@@ -4,7 +4,15 @@ var watchID;
 var geoLoc;
 var TotalDistance = 0.0;
 var LastPosition = '';
-	 
+ var stopwatch;
+    var runningstate = 0; // 1 means the timecounter is running 0 means counter stopped
+    var stoptime = 0;
+    var lapcounter = 0;
+    var currenttime;
+    var lapdate = '';
+    var lapdetails;
+    var mFormattedDuration = "";
+	
 //document ready
 $(document).ready(function(){
 	var AccessToken = window.localStorage.getItem('AccessToken');
@@ -150,26 +158,26 @@ $(document).on('click', '.evtGroup', function (event, data) {
 	
 });
 
- cordova.plugins.notification.local.on("click", function (notification) {
+ /*cordova.plugins.notification.local.on("click", function (notification) {
 	if (notification.id == 10) {
 		//joinMeeting(notification.data.meetingId);
 		alert("Clicked!");
 	}
-});
+});*/
 
 // Notification has reached its trigger time (Tomorrow at 8:45 AM)
-cordova.plugins.notification.local.on("trigger", function (notification) {
+/*cordova.plugins.notification.local.on("trigger", function (notification) {
 	if (notification.id != 10)
 		return;
 
 	// After 10 minutes update notification's title 
-	/*setTimeout(function () {
+	setTimeout(function () {
 		cordova.plugins.notification.local.update({
 			id: 10,
 			title: "You started RUN. Duration: " + mFormattedDuration
 		});
-	}, 1000);*/
-});	
+	}, 1000);
+});	*/
 
 
 //display alert box when submit button clicked(testing)
@@ -825,7 +833,7 @@ function StopRun()
 	{
 		cordova.plugins.notification.local.clear(10, function () {
                     cordova.plugins.notification.local.getIds(function (ids) {
-						alert('IDs: ' + ids.join(' ,'));
+						//alert('IDs: ' + ids.join(' ,'));
 					});
                 });
 	}
@@ -1194,14 +1202,7 @@ Number.prototype.toRad = function() {
 
 
 //======================== stop watch =================================
- var stopwatch;
-    var runningstate = 0; // 1 means the timecounter is running 0 means counter stopped
-    var stoptime = 0;
-    var lapcounter = 0;
-    var currenttime;
-    var lapdate = '';
-    var lapdetails;
-    var mFormattedDuration = "";
+
 	
    function timecounter(starttime)
         {

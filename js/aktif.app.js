@@ -823,8 +823,10 @@ function StopRun()
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
 	try
 	{
-		cordova.plugins.notification.local.clear(10, function (ids) {
-                   alert(ids);
+		cordova.plugins.notification.local.clear(10, function () {
+                    cordova.plugins.notification.local.getIds(function (ids) {
+						alert('IDs: ' + ids.join(' ,'));
+					});
                 });
 	}
 	catch(err)

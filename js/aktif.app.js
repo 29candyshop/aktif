@@ -825,7 +825,7 @@ function StopRun()
 	{
 		cordova.plugins.notification.local.clear(10, function (ids) {
                    alert(ids);
-                }););
+                });
 	}
 	catch(err)
 	{

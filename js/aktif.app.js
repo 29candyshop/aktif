@@ -165,20 +165,33 @@ $(document).on('click', '.evtGroup', function (event, data) {
 	}
 });*/
 
-// Notification has reached its trigger time (Tomorrow at 8:45 AM)
-/*cordova.plugins.notification.local.on("trigger", function (notification) {
-	if (notification.id != 10)
-		return;
+try
+	{
+		// Notification has reached its trigger time (Tomorrow at 8:45 AM)
+		cordova.plugins.notification.local.on("trigger", function (notification) {
+			try
+			{
+				if (notification.id != 10)
+					return;
 
-	// After 10 minutes update notification's title 
-	setTimeout(function () {
-		cordova.plugins.notification.local.update({
-			id: 10,
-			title: "You started RUN. Duration: " + mFormattedDuration
-		});
-	}, 1000);
-});	*/
-
+				// After 10 minutes update notification's title 
+				setTimeout(function () {
+					cordova.plugins.notification.local.update({
+						id: 10,
+						title: "You started RUN. Duration: " + mFormattedDuration
+					});
+				}, 1000);
+			}
+			catch(err)
+			{
+				alert(err);
+			}
+		});	
+	}
+	catch(err)
+	{
+		alert(err);
+	}
 
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {

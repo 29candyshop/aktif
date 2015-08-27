@@ -1181,7 +1181,8 @@ function showPosition(position) {
 				try{
 					cordova.plugins.notification.local.update({
 						id: 10,
-						text: 'You started RUN. Distance: ' + mdistance + 'km'
+						text: 'You started RUN. Distance: ' + mdistance + 'km',
+						json: { updated: true }
 					});
 				}
 				catch(err)
@@ -1199,7 +1200,8 @@ function showPosition(position) {
 				try{
 					cordova.plugins.notification.local.update({
 						id: 10,
-						text: 'You started RUN. Distance: ' + mdistance + 'meter'
+						text: 'You started RUN. Distance: ' + mdistance + 'meter',
+						json: { updated: true }
 					});
 				}
 				catch(err)

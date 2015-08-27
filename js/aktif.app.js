@@ -171,6 +171,7 @@ cordova.plugins.notification.local.on("trigger", function (notification) {
 	}, 1000);
 });	
 
+
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {
         alert(email + ", login successfulled.");
@@ -795,8 +796,7 @@ function StartRun()
         id: 10,
         title: "AktifPenang Activity",
         text: "You started RUN. Duration: " + mFormattedDuration,
-        at: tomorrow_at_8_45_am,
-        data: { meetingId:"#123FG8" }
+        data: { test: id }
     });
 }
 
@@ -804,6 +804,7 @@ function StopRun()
 {
 	//$("#startandstopbutton").val("Start My Run");
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
+	cordova.plugins.notification.local.clear(10, callback);
 	
 	//set button color to red 
 	$("#btnStart").css({'display':'block'});
@@ -862,6 +863,11 @@ function StopRun()
 			
 }
 
+var callbackIds = function (ids) {
+	console.log(ids);
+	//showToast(ids.length === 0 ? '- none -' : ids.join(' ,'));
+};
+			
 function displayMyRun()
 {
 	

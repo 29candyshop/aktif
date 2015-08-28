@@ -52,9 +52,14 @@ $(document).ready(function(){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		//alert("Device Ready");
-		bgGeo = window.BackgroundGeolocation;
-		
+		alert("Device Ready");
+		try{
+			bgGeo = window.BackgroundGeolocation;
+		}
+		catch(err)
+		{
+			alert(err)p;
+		}
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 1) {
 				//joinMeeting(notification.data.meetingId);

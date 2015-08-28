@@ -55,6 +55,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		alert("Device Ready");
 		try{
 			bgGeo = window.BackgroundGeolocation;
+			alert(bgGeo);
 		}
 		catch(err)
 		{

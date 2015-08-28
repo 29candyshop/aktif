@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "28" 
-	version 	= "1.28">
+	versionCode = "29" 
+	version 	= "1.29">
 
 	<name>AktifPenang</name>
 
@@ -40,7 +40,8 @@
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
-
+	<feature name="BackgroundGeoLocation"/>
+	
 	<gap:plugin name="org.apache.cordova.Camera" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device" />

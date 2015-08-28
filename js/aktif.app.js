@@ -12,6 +12,7 @@ var LastPosition = '';
     var lapdate = '';
     var lapdetails;
     var mFormattedDuration = "";
+	var TestCount = 0;
 	
 //document ready
 $(document).ready(function(){
@@ -50,46 +51,40 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		//alert("Device Ready");
 		cordova.plugins.notification.local.on("click", function (notification) {
-			if (notification.id == 10) {
+			if (notification.id == 1) {
 				//joinMeeting(notification.data.meetingId);
 				//alert("Clicked!");
 				
 			}
 		});
 
-		try
-		{
-			// Notification has reached its trigger time (Tomorrow at 8:45 AM)
-			cordova.plugins.notification.local.on("trigger", function (notification) {
-				try
-				{
-					if (notification.id != 10)
-						return;
 
-					/*cordova.plugins.notification.local.update({
+		// Notification has reached its trigger time (Tomorrow at 8:45 AM)
+		cordova.plugins.notification.local.on("trigger", function (notification) {
+			try
+			{
+				if (notification.id != 1)
+					return;
+
+				/*cordova.plugins.notification.local.update({
+					id: 10,
+					text: 'You started RUN. Duration: ' + mFormattedDuration,
+					every: 'second'
+				});*/
+				// After 10 minutes update notification's title 
+				/*setTimeout(function () {
+					cordova.plugins.notification.local.update({
 						id: 10,
-						text: 'You started RUN. Duration: ' + mFormattedDuration,
-						every: 'second'
-					});*/
-					// After 10 minutes update notification's title 
-					/*setTimeout(function () {
-						cordova.plugins.notification.local.update({
-							id: 10,
-							title: "You started RUN. Duration: " + mFormattedDuration
-						});
-					}, 1000);*/
-				}
-				catch(err)
-				{
-					alert(err);
-				}
-			});	
-		}
-		catch(err)
-		{
-			alert(err);
-		}
-	
+						title: "You started RUN. Duration: " + mFormattedDuration
+					});
+				}, 1000);*/
+			}
+			catch(err)
+			{
+				alert(err);
+			}
+		});	
+		
 		//================= configure geolocation background ==========================
 	}
 
@@ -840,7 +835,7 @@ function StartRun()
 		});
 		
 		cordova.plugins.notification.local.schedule({
-			id: 10,
+			id: 1,
 			text: "You started RUN. Click here to return to AktifPenang App" 
 		});
 		
@@ -859,7 +854,7 @@ function StopRun()
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
 	try
 	{
-		cordova.plugins.notification.local.clear(10, function () {
+		cordova.plugins.notification.local.clear(1, function () {
                     cordova.plugins.notification.local.getIds(function (ids) {
 						//alert('IDs: ' + ids.join(' ,'));
 					});
@@ -924,6 +919,21 @@ function StopRun()
 	location.hash = "#runMap";
 	//var win = window.open(href, '_self');
 			
+}
+
+function UpdateNotification()
+{
+	TestCount = TestCount + 1;
+	try{
+		cordova.plugins.notification.local.update({
+			id: 1,
+			text: 'You started RUN. Distance: ' + TestCount + 'km'
+		});
+	}
+	catch(err)
+	{
+	
+	}
 }
 			
 function displayMyRun()
@@ -1178,17 +1188,16 @@ function showPosition(position) {
 				//$("#lbldistance").val("Distance (km)");
 				$("#distance").val(mdistance + "");
 				
-				try{
+				/*try{
 					cordova.plugins.notification.local.update({
 						id: 10,
-						text: 'You started RUN. Distance: ' + mdistance + 'km',
-						json: { updated: true }
+						text: 'You started RUN. Distance: ' + mdistance + 'km'
 					});
 				}
 				catch(err)
 				{
 				
-				}
+				}*/
 			}
 			else
 			{
@@ -1197,17 +1206,16 @@ function showPosition(position) {
 				document.getElementById('lbldistance').innerHTML = "Distance (meter):";
 				$("#distance").val(mdistance + "");
 				
-				try{
+				/*try{
 					cordova.plugins.notification.local.update({
-						id: 10,
-						text: 'You started RUN. Distance: ' + mdistance + 'meter',
-						json: { updated: true }
+						id: 1,
+						text: 'You started RUN. Distance: ' + mdistance + 'meter'
 					});
 				}
 				catch(err)
 				{
 				
-				}
+				}*/
 			}
 			
 			LastPosition = position;	

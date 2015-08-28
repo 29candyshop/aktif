@@ -14,6 +14,9 @@ var LastPosition = '';
     var mFormattedDuration = "";
 	var TestCount = 0;
 	var LocationCount = 0;
+	var bgGeo = null;
+	 
+	 
 //document ready
 $(document).ready(function(){
 	var AccessToken = window.localStorage.getItem('AccessToken');
@@ -50,6 +53,8 @@ $(document).ready(function(){
 document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		//alert("Device Ready");
+		bgGeo = window.BackgroundGeolocation;
+		
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 1) {
 				//joinMeeting(notification.data.meetingId);
@@ -823,7 +828,15 @@ function StartRun()
 	
 	//start location updates
 	//getLocationUpdate();
-	configureBackgroundGeoLocation();
+	try
+	{
+		configureBackgroundGeoLocation();
+	}
+	catch(err)
+	{
+		alert(err);
+	}
+	
 	
 	try
 	{
@@ -883,7 +896,8 @@ function StopRun()
 	localStorage.setItem("CurrentRun_Distance", TotalDistance);
 	
 	//stop location updates
-	stopLocationWatch();
+	//stopLocationWatch();
+	bgGeo.stop();
 	
 	//convert coordinates to static image url
 	var mMapURL = getMapURL();
@@ -1264,17 +1278,17 @@ Number.prototype.toRad = function() {
 
 function configureBackgroundGeoLocation()
 {
-	 window.navigator.geolocation.getCurrentPosition(function(location) {
+		window.navigator.geolocation.getCurrentPosition(function(location) {
             console.log('Location from Phonegap');
 			showPos(location);
         });
 
-        var bgGeo = window.BackgroundGeolocation;
+       
 
         /**
         * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
         */
-        var yourAjaxCallback = function(response) {
+        /*var yourAjaxCallback = function(response) {
             ////
             // IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
             //  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
@@ -1282,12 +1296,12 @@ function configureBackgroundGeoLocation()
             //
             //
             bgGeo.finish();
-        };
+        };*/
 
         /**
         * This callback will be executed every time a geolocation is recorded in the background.
         */
-        var callbackFn = function(location) {
+        /*var callbackFn = function(location) {
             console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
             // Do your HTTP request here to POST location to your server.
             //
@@ -1303,7 +1317,7 @@ function configureBackgroundGeoLocation()
 
         var failureFn = function(error) {
             console.log('BackgroundGeoLocation error');
-        }
+        }*/
         
         // BackgroundGeoLocation is highly configurable.
         bgGeo.configure(callbackFn, failureFn, {
@@ -1329,67 +1343,85 @@ function configureBackgroundGeoLocation()
 
         // If you wish to turn OFF background-tracking, call the #stop method.
         // bgGeo.stop()
-		
-		var showPos = function(location)
-		{
-			LocationCount = LocationCount + 1;
-			document.getElementById('calories').innerHTML = "Location: " + LocationCount;
-			if(LastPosition == '')
-			{
-				LastPosition = location;
-			}
-			else
-			{
-				var distance = calculateDistance(LastPosition.latitude, LastPosition.longitude,
-							location.latitude, location.longitude);
-				distance = distance * 1000.0;
-				TotalDistance = TotalDistance + distance;
-				
-				//document.getElementById('distance').innerHTML = TotalDistance;
-				
-				if(TotalDistance > 1000.0)
-				{
-					var d = TotalDistance / 1000.0;
-					mdistance = Math.round(d * 100) / 100;
-					document.getElementById('lbldistance').innerHTML = "Distance (km):";
-					//$("#lbldistance").val("Distance (km)");
-					$("#distance").val(mdistance + "");
-					
-					/*try{
-						cordova.plugins.notification.local.update({
-							id: 1,
-							text: 'You started RUN. Distance: ' + mdistance + 'km'
-						});
-					}
-					catch(err)
-					{
-					
-					}*/
-				}
-				else
-				{
-					mdistance = Math.round(TotalDistance * 100) / 100;
-					//$("#lbldistance").val("Distance (meter)");
-					document.getElementById('lbldistance').innerHTML = "Distance (meter):";
-					$("#distance").val(mdistance + "");
-					
-					/*try{
-						cordova.plugins.notification.local.update({
-							id: 1,
-							text: 'You started RUN. Distance: ' + mdistance + 'meter'
-						});
-					}
-					catch(err)
-					{
-					
-					}*/
-				}
-				
-				LastPosition = location;	
-			}
-		}
+
 }
 
+
+function failureFn(error) {
+	console.log('BackgroundGeoLocation error');
+}
+
+function callbackFn(location) {
+	console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
+	// Do your HTTP request here to POST location to your server.
+	//
+	//
+	showPos(location);
+	
+	
+	 bgGeo.finish();
+	//yourAjaxCallback.call(this);
+	
+	
+};
+function showPos(location)
+{
+	LocationCount = LocationCount + 1;
+	document.getElementById('calories').innerHTML = "Location: " + LocationCount;
+	if(LastPosition == '')
+	{
+		LastPosition = location;
+	}
+	else
+	{
+		var distance = calculateDistance(LastPosition.latitude, LastPosition.longitude,
+					location.latitude, location.longitude);
+		distance = distance * 1000.0;
+		TotalDistance = TotalDistance + distance;
+		
+		//document.getElementById('distance').innerHTML = TotalDistance;
+		
+		if(TotalDistance > 1000.0)
+		{
+			var d = TotalDistance / 1000.0;
+			mdistance = Math.round(d * 100) / 100;
+			document.getElementById('lbldistance').innerHTML = "Distance (km):";
+			//$("#lbldistance").val("Distance (km)");
+			$("#distance").val(mdistance + "");
+			
+			/*try{
+				cordova.plugins.notification.local.update({
+					id: 1,
+					text: 'You started RUN. Distance: ' + mdistance + 'km'
+				});
+			}
+			catch(err)
+			{
+			
+			}*/
+		}
+		else
+		{
+			mdistance = Math.round(TotalDistance * 100) / 100;
+			//$("#lbldistance").val("Distance (meter)");
+			document.getElementById('lbldistance').innerHTML = "Distance (meter):";
+			$("#distance").val(mdistance + "");
+			
+			/*try{
+				cordova.plugins.notification.local.update({
+					id: 1,
+					text: 'You started RUN. Distance: ' + mdistance + 'meter'
+				});
+			}
+			catch(err)
+			{
+			
+			}*/
+		}
+		
+		LastPosition = location;	
+	}
+}
 //======================== stop watch =================================
 
 	

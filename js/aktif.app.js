@@ -13,7 +13,7 @@ var LastPosition = '';
     var lapdetails;
     var mFormattedDuration = "";
 	var TestCount = 0;
-	
+	var LocationCount = 0;
 //document ready
 $(document).ready(function(){
 	var AccessToken = window.localStorage.getItem('AccessToken');
@@ -798,6 +798,8 @@ function editProfile()
 function StartRun()
 {
 	TotalDistance = 0.0;
+	LocationCount = 0;
+	LastPosition = '';
 	$("#distance").val(TotalDistance);
  
 	//Store activity type
@@ -820,7 +822,8 @@ function StartRun()
 	startandstop();
 	
 	//start location updates
-	getLocationUpdate();
+	//getLocationUpdate();
+	configureBackgroundGeoLocation();
 	
 	try
 	{
@@ -900,24 +903,19 @@ function StopRun()
 	localStorage.setItem("CurrentRun_Date", runDate);
 	if(TotalDistance > 0.0)
 	{
-		//SynctoDB();
+		SynctoDB();
+		
+		//set mcurrent run to emty
+		localStorage.setItem("CurrentRun", "");
+	
+		location.hash = "#runMap";
 	}
 	else
 	{
 		alert("Distance need to be more than 0.0 meter as valid run.");
 	}
 	
-	SynctoDB();
-	//set mcurrent run to emty
-	localStorage.setItem("CurrentRun", "");
-	
-	//var href = "myrun.html";
-	
-	
-	
-	
-	location.hash = "#runMap";
-	//var win = window.open(href, '_self');
+
 			
 }
 
@@ -1167,6 +1165,8 @@ function showPosition(position) {
 		}
 		localStorage.setItem("CurrentRun", mCoordinate);
 		
+		LocationCount = LocationCount + 1;
+		document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 		if(LastPosition == '')
 		{
 			LastPosition = position;
@@ -1190,7 +1190,7 @@ function showPosition(position) {
 				
 				/*try{
 					cordova.plugins.notification.local.update({
-						id: 10,
+						id: 1,
 						text: 'You started RUN. Distance: ' + mdistance + 'km'
 					});
 				}
@@ -1260,6 +1260,135 @@ Number.prototype.toRad = function() {
   return this * Math.PI / 180;
 }
 
+//===================== background geolocation ========================
+
+function configureBackgroundGeoLocation()
+{
+	 window.navigator.geolocation.getCurrentPosition(function(location) {
+            console.log('Location from Phonegap');
+			showPos(location);
+        });
+
+        var bgGeo = window.BackgroundGeolocation;
+
+        /**
+        * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
+        */
+        var yourAjaxCallback = function(response) {
+            ////
+            // IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
+            //  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+            // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+            //
+            //
+            bgGeo.finish();
+        };
+
+        /**
+        * This callback will be executed every time a geolocation is recorded in the background.
+        */
+        var callbackFn = function(location) {
+            console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
+            // Do your HTTP request here to POST location to your server.
+            //
+            //
+			showPos(location);
+			
+			
+			
+            yourAjaxCallback.call(this);
+			
+			
+        };
+
+        var failureFn = function(error) {
+            console.log('BackgroundGeoLocation error');
+        }
+        
+        // BackgroundGeoLocation is highly configurable.
+        bgGeo.configure(callbackFn, failureFn, {
+            //url: 'http://only.for.android.com/update_location.json', // <-- only required for Android; ios allows javascript callbacks for your http
+            //params: {                                               // HTTP POST params sent to your server when persisting locations.
+            //    auth_token: 'user_secret_auth_token',
+            //    foo: 'bar'
+            //},
+            //headers: {
+            //    'X-Foo': 'bar'
+            //},
+            desiredAccuracy: 10,
+            stationaryRadius: 20,
+            distanceFilter: 30,
+            notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
+            notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
+            activityType: "AutomotiveNavigation",       // <-- iOS-only
+            debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
+        });
+
+        // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
+        bgGeo.start();
+
+        // If you wish to turn OFF background-tracking, call the #stop method.
+        // bgGeo.stop()
+		
+		var showPos = function(location)
+		{
+			LocationCount = LocationCount + 1;
+			document.getElementById('calories').innerHTML = "Location: " + LocationCount;
+			if(LastPosition == '')
+			{
+				LastPosition = location;
+			}
+			else
+			{
+				var distance = calculateDistance(LastPosition.latitude, LastPosition.longitude,
+							location.latitude, location.longitude);
+				distance = distance * 1000.0;
+				TotalDistance = TotalDistance + distance;
+				
+				//document.getElementById('distance').innerHTML = TotalDistance;
+				
+				if(TotalDistance > 1000.0)
+				{
+					var d = TotalDistance / 1000.0;
+					mdistance = Math.round(d * 100) / 100;
+					document.getElementById('lbldistance').innerHTML = "Distance (km):";
+					//$("#lbldistance").val("Distance (km)");
+					$("#distance").val(mdistance + "");
+					
+					/*try{
+						cordova.plugins.notification.local.update({
+							id: 1,
+							text: 'You started RUN. Distance: ' + mdistance + 'km'
+						});
+					}
+					catch(err)
+					{
+					
+					}*/
+				}
+				else
+				{
+					mdistance = Math.round(TotalDistance * 100) / 100;
+					//$("#lbldistance").val("Distance (meter)");
+					document.getElementById('lbldistance').innerHTML = "Distance (meter):";
+					$("#distance").val(mdistance + "");
+					
+					/*try{
+						cordova.plugins.notification.local.update({
+							id: 1,
+							text: 'You started RUN. Distance: ' + mdistance + 'meter'
+						});
+					}
+					catch(err)
+					{
+					
+					}*/
+				}
+				
+				LastPosition = location;	
+			}
+		}
+}
 
 //======================== stop watch =================================
 

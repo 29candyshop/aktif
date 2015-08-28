@@ -54,7 +54,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		alert("Device Ready");
 		try{
-			bgGeo = window.plugins.BackgroundGeolocation;
+			bgGeo = window.plugins.backgroundGeoLocation;
 			alert(bgGeo);
 		}
 		catch(err)
@@ -1340,7 +1340,7 @@ function configureBackgroundGeoLocation()
             distanceFilter: 30,
             notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
             notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
-            activityType: "AutomotiveNavigation",       // <-- iOS-only
+            activityType: "Fitness",       // <-- iOS-only
             debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
         });
 

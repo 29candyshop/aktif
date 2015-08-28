@@ -58,7 +58,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		}
 		catch(err)
 		{
-			alert(err)p;
+			alert(err);
 		}
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 1) {

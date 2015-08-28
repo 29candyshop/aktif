@@ -54,7 +54,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		alert("Device Ready");
 		try{
-			bgGeo = cordova.plugins.BackgroundGeolocation;
+			bgGeo = window.plugins.BackgroundGeolocation;
 			alert(bgGeo);
 		}
 		catch(err)

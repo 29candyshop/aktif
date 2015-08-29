@@ -833,7 +833,7 @@ function StartRun()
 	startandstop();
 	
 	//start location updates
-	//getLocationUpdate();
+	getLocationUpdate();
 	try
 	{
 		configureBackgroundGeoLocation();
@@ -902,8 +902,8 @@ function StopRun()
 	localStorage.setItem("CurrentRun_Distance", TotalDistance);
 	
 	//stop location updates
-	//stopLocationWatch();
-	bgGeo.stop();
+	stopLocationWatch();
+	window.plugins.backgroundGeoLocation.stop();
 	
 	//convert coordinates to static image url
 	var mMapURL = getMapURL();
@@ -1284,7 +1284,7 @@ Number.prototype.toRad = function() {
 
 function configureBackgroundGeoLocation()
 {
-		window.navigator.geolocation.getCurrentPosition(function(location) {
+		/*window.navigator.geolocation.getCurrentPosition(function(location) {
             console.log('Location from Phonegap');
 			alert("location from phonegap");
 			
@@ -1307,45 +1307,25 @@ function configureBackgroundGeoLocation()
 			// Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
 			window.plugins.backgroundGeoLocation.start();
 			//showPos(location);
-        });
+        });*/
 
-       
-
-        /**
-        * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
-        */
-        /*var yourAjaxCallback = function(response) {
-            ////
-            // IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
-            //  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-            // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-            //
-            //
-            bgGeo.finish();
-        };*/
-
-        /**
-        * This callback will be executed every time a geolocation is recorded in the background.
-        */
-        /*var callbackFn = function(location) {
-            console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
-            // Do your HTTP request here to POST location to your server.
-            //
-            //
-			showPos(location);
-			
-			
-			
-            yourAjaxCallback.call(this);
-			
-			
-        };
-
-        var failureFn = function(error) {
-            console.log('BackgroundGeoLocation error');
-        }*/
-        
-       
+       var bgGeo = window.plugins.backgroundGeoLocation;
+ 
+		var callbackFn = function(location){
+			//runtap.util.gps.onBackgroundSuccess(location);
+			window.plugins.backgroundGeoLocation.finish();
+		};
+		 
+		var failureFn = function(error){
+			alert('Geolocation Error');
+		};
+		 
+		bgGeo.configure(callbackFn, failureFn, {
+			desiredAccuracy: 10,
+			stationaryRadius: 10,
+			distanceFilter: 30,
+			debug: true
+		});
 
         // If you wish to turn OFF background-tracking, call the #stop method.
         // window.plugins.backgroundGeoLocation.stop()

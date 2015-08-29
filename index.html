@@ -79,8 +79,8 @@
 			<!-- /panel -->
 			
 			<!-- right panel  -->
-			<!--<div id="panelMenuRightIndex" data-role="panel" data-theme="b" data-position="right" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
-				<ul id="panelMenuRightIndexUL" data-role="listview"></ul>
+			<div id="panelMenuRightIndex" style="background-color:#fff;top:50px;width:200px;" data-role="panel" data-theme="b" data-position="right" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+				<ul id="panelMenuRightIndexUL" style="background-color:#fff;" data-role="listview"></ul>
 			</div><!-- here you see why in the javascript there is a page event: initPageVarsOnShow('Index'); and: initPageVarsOnCreate('Index'); -->
 			<!-- /panel -->
 			
@@ -135,9 +135,9 @@
 											<!--<input class="sportsType" id="activity" type="" disabled="disabled" value="Running"></p>-->
 										</div>
 									</div> <!-- end 3rd responsive grid-->
-									<div id="btnTest" style="width:100%;float:left;display:block;margin-bottom:0px;">							
+									<!--<div id="btnTest" style="width:100%;float:left;display:block;margin-bottom:0px;">							
 										<input  type="button" class="button" id="Test" value="Test" data-role="button" onclick="UpdateNotification(); "><br>
-									</div>				
+									</div>		-->		
 									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
 										<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>
 									</div>
@@ -348,7 +348,7 @@
 
                                     <div style="margin: 10px 0 30px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
                                         <div class="ui-block-a">
-                                            <a type="button" class="buttonStyle" href="changePass.html" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom: 5px;">Change Password</a>
+                                            <a type="button" class="buttonStyle" href="#changePasswordPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom: 5px;">Change Password</a>
                                         </div>
                                         
                                         <div class="ui-block-a" style="padding-top: 1px;" >
@@ -390,7 +390,7 @@
 				<div style="margin-left:25%;width:50%;height:220px;margin-top:30px;background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
 				<div style="width:100%;float;left;margin-top:10px;">
 					<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>
-					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 1.18</span>
+					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 1.46</span>
 				</div>				
 			</div><!-- /content -->
 		
@@ -530,7 +530,16 @@
 
 		<div id="EmailLoginPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
 			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
-			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Email Login</div>
+				<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;<span style="padding-left:50px;color:#fff;">Email Login</span></p>
+					
+					
+				</div>
+			</div><!-- /header -->
 			<div data-role="main" class="ui-content">
 					<div class="outerCircle" style="margin-top:0px;">
 						<img class="circle" src="./images/icons/register.png"/>
@@ -552,7 +561,7 @@
 											<button type="button" value="login" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;" onclick="LoginEmail()">Login</button>
 											<div style="float:left;width:100%;margin-top:5px;">
 												<h2 class="labelDesign">Forgot Your Password? <br>
-												<a id="signup" href="resetpassword.html" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Reset Password</a></h2>                                        
+												<a id="signup" href="#forgotPasswordPage" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Reset Password</a></h2>                                        
 											</div>
 										</div>
 									</form>
@@ -567,7 +576,7 @@
 			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-position="fixed" data-theme="a">
 				<div>
 					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle evtBack" src="./images/icons/back.png" />
-					&nbsp;</p>
+					&nbsp;<span style="padding-left:50px;color:#fff;">Edit Profile</span></p>
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->
 			
@@ -633,7 +642,17 @@
 		
 		<div id="signUpPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
 			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
-			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Registration</div>
+				<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;<span style="padding-left:50px;color:#fff;">Registration</span></p>
+					
+					
+				</div>
+			</div><!-- /header -->
+			
 			<div data-role="main" class="ui-content">
 					<div class="outerCircle" style="margin-top:-10px;">
 						<img class="circle" src="./images/icons/register.png"/>
@@ -661,5 +680,129 @@
 						</div> <!-- end style -->
 			</div><!-- /main content -->
 		</div>
+	
+		<div id="forgotPasswordPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			 <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;<span style="padding-left:50px;color:#fff;">Forgot Password</span></p>
+					
+					
+				</div>
+			</div><!-- /header -->
+				<div data-role="main" class="ui-content">
+			<div class="outerCircle" style="margin-top:0px;">
+						<img class="circle" src="./images/icons/forgot_password.png"/>
+					</div> <!-- white circle div end -->
+			 <div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
+                    <div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
+                       
+                        <div style="padding: 0 0.55rem 0.55rem;margin-top:30px;">   
+                            <!--<form role="form" class="loginForm" action="" method="post" target="_blank" data-ajax="false">--> <!-- form start -->
+                                <div style="float:left;width:92%;margin-top:5px;margin-left: 4%;">
+                                  <h2 class="labelDesign">Please enter your registered email address</h2>
+                                    <input type="email" class="inputStyle" id="reset_email" name="reset_email" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                                    <button type="submit" value="Reset Password" id="btnResetPass" onclick="ResetPassword();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>
+                                    <div style="float:left;width:100%;margin-top:5px;">
+                                        <h2 class="labelDesign">Now password will be sent to your registered email address. Please use the new password to login.</h2>
+                                    </div>
+                                </div>
+                           <!-- </form>-->
+                        </div>
+                    </div> <!-- end card -->
+                </div> <!-- end style -->
+			</div>
+		</div>
+		
+		<div id="changePasswordPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			 <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;<span style="padding-left:50px;color:#fff;">Change Password</span></p>
+					
+					
+				</div>
+			</div><!-- /header -->
+				<div data-role="main" class="ui-content">
+			<div class="outerCircle" style="margin-top:0px;">
+						<img class="circle" src="./images/icons/forgot_password.png"/>
+					</div> <!-- white circle div end -->
+			 <div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
+                    <div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
+                       
+                      <div style="width:100%;height: auto;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;margin-top: 30px;"> <!-- style-->                            
+							<!--<form role="form" class="loginForm" action="http://www.aktifpenang.com/api/_api_login.php" method="post" target="_blank" data-ajax="false"> <!-- form start -->
+							<p style="font-size: 10pt;text-align: center;">Please enter old password and new password</p>
+
+							<div style="width:80%;margin: 0 10% 0;">
+								
+									<input type="password" class="inputStyle" data-clear-btn="true" name="oldpassword" id="oldpassword" value=""  placeholder="Old Password" autocomplete="off">
+									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword" id="newpassword" value=""  placeholder="New Password" autocomplete="off">
+									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword_confirm" id="newpassword_confirm" value=""  placeholder="Confirm New Password?" autocomplete="off">
+									<button type="" onclick="ChangePassword();" value="Change Password" id="btnChangePass" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>
+								
+							</div>
+						</div> <!-- end style -->
+                    </div> <!-- end card -->
+                </div> <!-- end style -->
+			</div>
+		</div>
+	
+		<div id="SettingPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
+			 <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividualGroup" class="headerIconTitle evtBack" src="./images/icons/back.png" />
+					
+					&nbsp;<span style="padding-left:50px;color:#fff;">Settings</span></p>
+					
+					
+				</div>
+			</div><!-- /header -->
+			<div data-role="main" class="ui-content">
+				
+				<div style="width: 100%; height: 355px;margin-left: auto;margin-right: auto;position: relative;">
+					<div style="width: 100%;margin-right: 45%;margin-left: 40%;border-radius: 50px;width: 60px;height: 60px;position:inherit;z-index: 1;background-color: white;"> <!-- icon-->
+							<img class="circular2" src="./images/icons/icon_run.png">
+						</div>
+				
+					<div class="mainCard" style="width: 100%; height: auto;background-color: white;float:left;margin-top:-30px;margin-left: auto;margin-right:auto;margin-bottom: 0;position: relative;">                                
+						<div style="margin:10px;overflow: auto;margin-top:30px;">
+							 <div class="ui-grid-solo ui-responsive" style="height:150px;">
+								<div class="ui-block-a" style="width: 100%; float: left;">
+									<span style="color:#1F1F1F;text-align: center;float: left;font-size: 13px;">Tracking accuracy:</span><br>
+									<select id="trackAccuracy" name="trackAccuracy" onchange="">                                                    
+										<option value="HIGH">High</option>
+										<option value="NORMAL">Normal</option>
+									</select>
+									<p id="alertMsg" style="color:#666666;text-align: center;float: left;font-size: 13px;word-wrap: break-word;">High Accuracy may result depletion of battery life faster.</p>
+								</div>
+							 </div>
+							 
+							 <div class="ui-grid-solo ui-responsive" style="height:100px;">
+								<div class="ui-block-a" style="width:100%;float:left;">
+									<span style="color:#1F1F1F;text-align: center;float: left;font-size: 13px;">Receive Notification:</span><br>
+										<select id="notification" name="notification">
+											<option value="YES">Yes</option>
+											<option value="NO">No</option>
+										</select>
+								</div>
+							 </div>
+							 
+							 <a type="button" id="saveSetting" class="buttonStyle" href="" onclick="saveSettigs();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Save</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
 	</body>
 </html>

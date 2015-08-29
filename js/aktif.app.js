@@ -1311,7 +1311,7 @@ function configureBackgroundGeoLocation()
 		try{
 		   var bgGeo = window.plugins.backgroundGeoLocation;
 	 
-			var callbackFn = function(location){
+			var callbackFn = function(location, taskId){
 				//runtap.util.gps.onBackgroundSuccess(location);
 				window.plugins.backgroundGeoLocation.finish();
 			};

@@ -1320,7 +1320,7 @@ function configureBackgroundGeoLocation()
 					stationaryRadius: 20,
 					distanceFilter: 30,
 					activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
-					debug: true 
+					debug: false 
 			};
 			  
 			try{
@@ -1348,19 +1348,19 @@ function failureFn(error) {
 	alert(error);
 }
 
-function callbackFn(location, taskId) {
+function callbackFn(location) {
 	//console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
 	//showPos(location);
-	 var yourAjaxCallback = function(response, id) {
+	 var yourAjaxCallback = function(response) {
 		// Very important to call #finish -- it signals to the native plugin that it can destroy the background thread, which your callbackFn is running in.
 		// IF YOU DON'T, THE OS CAN KILL YOUR APP FOR RUNNING TOO LONG IN THE BACKGROUND
-		window.plugins.backgroundGeoLocation.finish(id);
+		window.plugins.backgroundGeoLocation.finish();
 	};
 	
-	yourAjaxCallback.call(this, {status: 200}, taskId);
+	yourAjaxCallback.call(this, {status: 200});
 	
 	 alert("Call Back");
 	//yourAjaxCallback.call(this);

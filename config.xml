@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "36" 
-	version 	= "1.36">
+	versionCode = "37" 
+	version 	= "1.37">
 
 	<name>AktifPenang</name>
 
@@ -45,7 +45,7 @@
 	<gap:plugin name="org.apache.cordova.Camera" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device" />
-	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+	<gap:plugin name="org.apache.cordova.geolocation"/>
 	<gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
 	<gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.9.0">
 		<param name="APP_ID" value="1575196586053265" />
@@ -54,7 +54,9 @@
 	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
 	<gap:plugin name="org.transistorsoft.cordova.background-geolocation"/>
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
-	
+	<feature name="BackgroundGeolocation">
+		<param name="ios-package" value="CDVBackgroundGeolocation"/>
+	</feature>
 	<feature name="Geolocation">
 		<param name="ios-package" value="CDVLocation" />
 	</feature>

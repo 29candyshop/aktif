@@ -1308,25 +1308,29 @@ function configureBackgroundGeoLocation()
 			window.plugins.backgroundGeoLocation.start();
 			//showPos(location);
         });*/
-
-       var bgGeo = window.plugins.backgroundGeoLocation;
- 
-		var callbackFn = function(location){
-			//runtap.util.gps.onBackgroundSuccess(location);
-			window.plugins.backgroundGeoLocation.finish();
-		};
-		 
-		var failureFn = function(error){
-			alert('Geolocation Error');
-		};
-		 
-		bgGeo.configure(callbackFn, failureFn, {
-			desiredAccuracy: 10,
-			stationaryRadius: 10,
-			distanceFilter: 30,
-			debug: true
-		});
-
+		try{
+		   var bgGeo = window.plugins.backgroundGeoLocation;
+	 
+			var callbackFn = function(location){
+				//runtap.util.gps.onBackgroundSuccess(location);
+				window.plugins.backgroundGeoLocation.finish();
+			};
+			 
+			var failureFn = function(error){
+				alert('Geolocation Error');
+			};
+			 
+			bgGeo.configure(callbackFn, failureFn, {
+				desiredAccuracy: 10,
+				stationaryRadius: 10,
+				distanceFilter: 30,
+				debug: true
+			});
+		}
+		catchh(err)
+		{
+		
+		}
         // If you wish to turn OFF background-tracking, call the #stop method.
         // window.plugins.backgroundGeoLocation.stop()
 

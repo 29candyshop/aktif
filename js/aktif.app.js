@@ -14,7 +14,7 @@ var LastPosition = '';
     var mFormattedDuration = "";
 	var TestCount = 0;
 	var LocationCount = 0;
-	var bgGeo = null;
+	//var bgGeo = null;
 	 
 	 
 //document ready
@@ -54,7 +54,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		//alert("Device Ready");
 		try{
-			bgGeo = window.plugins.backgroundGeoLocation;
+			//bgGeo = window.plugins.backgroundGeoLocation;
 			//alert(bgGeo);
 		}
 		catch(err)
@@ -1326,26 +1326,26 @@ function configureBackgroundGeoLocation()
         }*/
         
         // BackgroundGeoLocation is highly configurable.
-		try{
-			bgGeo.configure(callbackFn, failureFn, {
+		  var options = {
 				desiredAccuracy: 10,
 				stationaryRadius: 20,
 				distanceFilter: 30,
-				notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
-				notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
 				activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
-				debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
-			});
+				debug: true 
+		};
+		  
+		try{
+			window.plugins.backgroundGeoLocation.configure(callbackFn, failureFn, options);
 		}
 		catch(err)
 		{
 			alert(err);
 		}
         // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-        //bgGeo.start();
+        //window.plugins.backgroundGeoLocation.start();
 
         // If you wish to turn OFF background-tracking, call the #stop method.
-        // bgGeo.stop()
+        // window.plugins.backgroundGeoLocation.stop()
 
 }
 
@@ -1363,7 +1363,7 @@ function callbackFn(location) {
 	//showPos(location);
 	
 	
-	 bgGeo.finish();
+	 window.plugins.backgroundGeoLocation.finish();
 	//yourAjaxCallback.call(this);
 	
 	

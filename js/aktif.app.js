@@ -55,7 +55,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		//alert("Device Ready");
 		try{
 			//bgGeo = window.plugins.backgroundGeoLocation;
-			//alert(bgGeo);
+			alert("a:" + window.plugins.backgroundGeoLocation);
+			alert("b:" + window.backgroundGeolocation);
+			alert("c:" + window.BackgroundGeolocation);
 		}
 		catch(err)
 		{
@@ -808,6 +810,8 @@ function editProfile()
 
 function StartRun()
 {
+	//callbackFn("a", 200);
+	
 	TotalDistance = 0.0;
 	LocationCount = 0;
 	LastPosition = '';
@@ -1289,6 +1293,28 @@ function configureBackgroundGeoLocation()
 			alert("location from phonegap");
 			
 			 // BackgroundGeoLocation is highly configurable.
+			
+			//showPos(location);
+        });*/
+		try{
+		    /*var bgGeo = window.plugins.backgroundGeoLocation;
+	 
+			var callbackFn = function(location, taskId){
+				//runtap.util.gps.onBackgroundSuccess(location);
+				//window.plugins.backgroundGeoLocation.finish();
+			};
+			 
+			var failureFn = function(error){
+				alert('Geolocation Error');
+			};
+			 
+			bgGeo.configure(callbackFn, failureFn, {
+				desiredAccuracy: 10,
+				stationaryRadius: 10,
+				distanceFilter: 30,
+				debug: true
+			});*/
+			
 			var options = {
 					desiredAccuracy: 10,
 					stationaryRadius: 20,
@@ -1306,26 +1332,6 @@ function configureBackgroundGeoLocation()
 			}
 			// Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
 			window.plugins.backgroundGeoLocation.start();
-			//showPos(location);
-        });*/
-		try{
-		   var bgGeo = window.plugins.backgroundGeoLocation;
-	 
-			var callbackFn = function(location, taskId){
-				//runtap.util.gps.onBackgroundSuccess(location);
-				window.plugins.backgroundGeoLocation.finish();
-			};
-			 
-			var failureFn = function(error){
-				alert('Geolocation Error');
-			};
-			 
-			bgGeo.configure(callbackFn, failureFn, {
-				desiredAccuracy: 10,
-				stationaryRadius: 10,
-				distanceFilter: 30,
-				debug: true
-			});
 		}
 		catch(err)
 		{
@@ -1342,15 +1348,21 @@ function failureFn(error) {
 	alert(error);
 }
 
-function callbackFn(location) {
-	console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
+function callbackFn(location, taskId) {
+	//console.log('[js] BackgroundGeoLocation callback:  ' + location.latitudue + ',' + location.longitude);
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
 	//showPos(location);
+	 var yourAjaxCallback = function(response, id) {
+		// Very important to call #finish -- it signals to the native plugin that it can destroy the background thread, which your callbackFn is running in.
+		// IF YOU DON'T, THE OS CAN KILL YOUR APP FOR RUNNING TOO LONG IN THE BACKGROUND
+		window.plugins.backgroundGeoLocation.finish(id);
+	};
 	
+	yourAjaxCallback.call(this, {status: 200}, taskId);
 	
-	 window.plugins.backgroundGeoLocation.finish();
+	 alert("Call Back");
 	//yourAjaxCallback.call(this);
 	
 	

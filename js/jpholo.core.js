@@ -231,7 +231,6 @@ function panelMenuRight(divId) {
 	panel.children().remove('li');
 	
 	panel.append('<li data-icon="false" class="headerSpace"><p>&nbsp;</p></li>'); // empty space, needed for header
-	panel.append('<li data-icon="false"><a class="panelText" href="" onclick="openFB();">View Facebook Page</a></li>');
 	panel.append('<li data-icon="false"><a class="panelText" href="#SettingPage">App Settings</a></li>');
 	panel.listview('refresh');
 }

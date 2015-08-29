@@ -1284,10 +1284,30 @@ Number.prototype.toRad = function() {
 
 function configureBackgroundGeoLocation()
 {
-		/*window.navigator.geolocation.getCurrentPosition(function(location) {
+		window.navigator.geolocation.getCurrentPosition(function(location) {
             console.log('Location from Phonegap');
+			alert("location from phonegap");
+			
+			 // BackgroundGeoLocation is highly configurable.
+			var options = {
+					desiredAccuracy: 10,
+					stationaryRadius: 20,
+					distanceFilter: 30,
+					activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
+					debug: true 
+			};
+			  
+			try{
+				window.plugins.backgroundGeoLocation.configure(callbackFn, failureFn, options);
+			}
+			catch(err)
+			{
+				alert(err);
+			}
+			// Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
+			window.plugins.backgroundGeoLocation.start();
 			//showPos(location);
-        });*/
+        });
 
        
 
@@ -1325,24 +1345,7 @@ function configureBackgroundGeoLocation()
             console.log('BackgroundGeoLocation error');
         }*/
         
-        // BackgroundGeoLocation is highly configurable.
-		  var options = {
-				desiredAccuracy: 10,
-				stationaryRadius: 20,
-				distanceFilter: 30,
-				activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
-				debug: true 
-		};
-		  
-		try{
-			window.plugins.backgroundGeoLocation.configure(callbackFn, failureFn, options);
-		}
-		catch(err)
-		{
-			alert(err);
-		}
-        // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-        //window.plugins.backgroundGeoLocation.start();
+       
 
         // If you wish to turn OFF background-tracking, call the #stop method.
         // window.plugins.backgroundGeoLocation.stop()

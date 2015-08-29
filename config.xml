@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "43" 
-	version 	= "1.43">
+	versionCode = "44" 
+	version 	= "1.44">
 
 	<name>AktifPenang</name>
 

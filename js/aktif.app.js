@@ -1267,7 +1267,7 @@ function getLocationUpdate(){
  
  function errorHandler(error)
  {
-	alert("Geolocation Error: " + error;
+	alert("Geolocation Error: " + error);
  }
  
  function calculateDistance(lat1, lon1, lat2, lon2) {

@@ -1327,7 +1327,7 @@ function configureBackgroundGeoLocation()
 				debug: true
 			});
 		}
-		catchh(err)
+		catch(err)
 		{
 		
 		}

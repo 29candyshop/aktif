@@ -1255,7 +1255,7 @@ function stopLocationWatch(){
 function getLocationUpdate(){
 	if(navigator.geolocation){
 	   // timeout at 60000 milliseconds (60 seconds)
-	   var options = {maximumAge: 5000, timeout:10000, enableHighAccuracy: true };
+	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: true };
 	   geoLoc = navigator.geolocation;
 	   watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
 	}
@@ -1267,7 +1267,8 @@ function getLocationUpdate(){
  
  function errorHandler(error)
  {
-	alert("Geolocation Error: " + error);
+	alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
  }
  
  function calculateDistance(lat1, lon1, lat2, lon2) {

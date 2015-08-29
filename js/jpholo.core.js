@@ -229,14 +229,10 @@ function panelMenu(divId) {
 function panelMenuRight(divId) {
 	var panel = $('#panelMenuRight' + divId + 'UL');
 	panel.children().remove('li');
+	
 	panel.append('<li data-icon="false" class="headerSpace"><p>&nbsp;</p></li>'); // empty space, needed for header
-	panel.append('<li data-role="list-divider"><p class="panelTextDivider">Play Store links</p></li>');
-	panel.append('<li data-icon="false"><a class="panelText" onclick="appstore(\'org.teusink.droidpapers\', \'app\')"><img src="./images/icons/ic_action_home.png" class="ui-li-icon largerIcon">DroidPapers</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" onclick="appstore(\'Teusink.org\', \'pub\')"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">Teusink.org</a></li>');
-	panel.append('<li data-role="list-divider"><p class="panelTextDivider">App info</p></li>');
-	getPackageVersion(function (version) {
-		panel.append('<li data-icon="false"><a class="panelText" onclick="toast(\'Current version: ' + version + '\', \'short\')"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">Current version</a></li>').listview('refresh');
-	});
+	panel.append('<li data-icon="false"><a class="panelText" href="" onclick="openFB();">View Facebook Page</a></li>');
+	panel.append('<li data-icon="false"><a class="panelText" href="#SettingPage">App Settings</a></li>');
 	panel.listview('refresh');
 }
 

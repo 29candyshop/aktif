@@ -213,7 +213,56 @@ $(document).on('click', '.evtGroup', function (event, data) {
 	
 });
 
- 
+ $(document).on('click', '.evtJoin', function (event, data) {
+	var a = this;
+	var id = $('#btnJoinGroup' + '').val();
+	 var mToken = window.localStorage.getItem("AccessToken");
+	 $.post("http://www.aktifpenang.com/api/_api_group_join.php", 
+	{
+		token: mToken,
+		groupname: id,
+		action: 'join'
+	}, 
+	function(result){
+		var obj = JSON.parse(result);
+		if(obj.status == true)
+		{
+			localStorage.setItem("group_fresh", "true");
+			window.history.back();
+			//location.hash = "#individualGroupPage";
+		}
+		else
+		{
+			alert("Error joining this group, please try again later");
+		}
+	});
+});
+
+ $(document).on('click', '.evtLeave', function (event, data) {
+	var a = this;
+	var id = $('#btnLeaveGroup' + '').val();
+	 var mToken = window.localStorage.getItem("AccessToken");
+	 $.post("http://www.aktifpenang.com/api/_api_group_join.php", 
+	{
+		token: mToken,
+		groupname: id,
+		action: 'leave'
+	}, 
+	function(result){
+		var obj = JSON.parse(result);
+		if(obj.status == true)
+		{
+			localStorage.setItem("group_fresh", "true");
+			window.history.back();
+			//location.hash = "#individualGroupPage";
+		}
+		else
+		{
+			alert("Error leaving this group, please try again later");
+		}
+	});
+	
+});
 
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {
@@ -249,6 +298,61 @@ function loadXMLDoc(){
         xmlhttp.open("POST","http://www.aktifpenang.com/api/_api_login.php",true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send("username=" + name + "&password=" + pass);
+}
+
+function ResetPassword()
+{
+	var email = $("#reset_email").val();
+	$.post("http://www.aktifpenang.com/api/_api_resetpassword.php", 
+	{
+		token: email
+	}, 
+	function(result){
+		var obj = JSON.parse(result);
+		if(obj.status == true)
+		{
+			alert("Password Reset Successful, Please check your registered email account for temporally password.");
+			Logout();
+		}
+		else
+		{
+			alert("Password Reset Error: " + obj.extra);
+		}
+	});
+}
+
+function ChangePassword()
+{
+	var mToken = window.localStorage.getItem("AccessToken");
+	var old_password = $("#oldpassword").val();
+	var newpassword = $("#newpassword").val();
+	var newpassword_confirm = $("#newpassword_confirm").val();
+	
+	if(newpassword == newpassword_confirm)
+	{
+		 $.post("http://www.aktifpenang.com/api/_api_changepassword.php", 
+		{
+			token: mToken,
+			oldpassword: old_password,
+			newpassword: newpassword_confirm
+		}, 
+		function(result){
+			var obj = JSON.parse(result);
+			if(obj.status == true)
+			{
+				alert("Change Password Successful. Please Login with new password.");
+				Logout();
+			}
+			else
+			{
+				alert("Change Password Failed. Please try again later.");
+			}
+		});
+	}
+	else
+	{
+		alert("Please ensure new password and confirm password is same.");
+	}
 }
 
 function LoginEmail()
@@ -469,14 +573,14 @@ function LeaderBoard()
 	);
 }
 
-function Groups(mgroupid)
+function Groups()
 {
-
+	
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
 				token: mToken,
-				groupid: mgroupid
+				groupid: ''
 			}, 
 			function(result){
 				//$("span").html(result);
@@ -520,7 +624,7 @@ function Groups(mgroupid)
 					console.log(distance + "km");
 					console.log(obj.isGroup);
 				}
-				
+				localStorage.setItem("group_fresh", "false");
 				//alert(obj.token);
 			});
 
@@ -657,6 +761,32 @@ function displayUserProfile()
 	$("#userprofie_gender").html("Gender: " + gender + " " + "" );
 	$("#userprofie_dob").html("DOB: " + dob + " " + "" );
 
+}
+
+function openFB()
+{
+	window.open("https://www.facebook.com/AktifPenang", '_system');
+}
+
+function showSettings()
+{
+	var Accuracy = window.localStorage.getItem("setting_accuracy");
+	var Notification = window.localStorage.getItem("setting_notification");
+	
+	$("#trackAccuracy").val(Accuracy);
+	$("#notification").val(Notification);
+}
+
+
+function saveSettigs()
+{
+	var Accuracy = $("#trackAccuracy").val();
+	var Notification = $("#notification").val();
+	
+	window.localStorage.setItem("setting_accuracy", Accuracy);
+	window.localStorage.setItem("setting_notification", Notification);
+	
+	window.history.back();
 }
 
 function pad(n) {
@@ -1025,7 +1155,7 @@ function displayGroup()
 	var CurrentGroup_Tagline = localStorage.getItem("CurrentGroup_Tagline");
 	var CurrentGroup_Member = localStorage.getItem("CurrentGroup_Member");
 			
-	$("#groupImage").css({'background-image':'url(http://aktif.29candyshop.com/group_images/'+ CurrentGroup_Image +')'});
+	$("#groupImage").css({'background-image':'url(http://www.aktifpenang.com/group_images/'+ CurrentGroup_Image +')'});
 	
 	
 	if(CurrentGroup_Distance > 1000.0)
@@ -1058,11 +1188,13 @@ function displayGroup()
 				{
 					$('#btnJoinGroup' + '').css({'display':'block'});
 					$('#btnLeaveGroup' + '').css({'display':'none'});
+					$('#btnJoinGroup' + '').val(CurrentGroup_id);
 				}
 				else
 				{
 					$('#btnJoinGroup' + '').css({'display':'none'});
 					$('#btnLeaveGroup' + '').css({'display':'block'});
+					$('#btnLeaveGroup' + '').val(CurrentGroup_id);
 				}
 				var panelMain = $('#groupMembers' + '');
 				panelMain.empty();

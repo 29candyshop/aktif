@@ -78,7 +78,7 @@ function htmlClickEventHandlers(id, action) {
 		LeaderBoard();
 		// do nothing
 	}else if (id === "History") {
-		Runs();
+		
 		// do nothing
 	} else if (id === "Groups") {
 		Groups();
@@ -189,9 +189,13 @@ function initPageVarsOnShow(id) {
 	}else if (id === "LeaderBoard") {
 		pressEffectHeader(true, "menu");
 	}else if (id === "History") {
-		pressEffectHeader(true, "menu");
+		Runs();
 	}else if (id === "Groups") {
-		pressEffectFooter(true, "menu");
+		if(localStorage.getItem("group_fresh") == "true")
+		{
+			Groups();
+		}
+		//pressEffectFooter(true, "menu");
 	}else if (id === "Events") {
 		pressEffectFooter(true, "menu");
 	}else if (id === "Profile") {
@@ -205,6 +209,10 @@ function initPageVarsOnShow(id) {
 	}
 	else if (id === "GroupInfo") {
 		displayGroup();
+	}
+	else if(id == "Setting")
+	{
+		showSettings();
 	}
 	/*else if (id !== "LandingsPage") {
 		pressEffectHeader(true, "back");
@@ -366,4 +374,13 @@ $(document).on('pagebeforeshow', '#individualGroupPage', function (event, data) 
 });
 $(document).on('pagecreate', '#individualGroupPage', function () {
 	initPageVarsOnCreate('GroupInfo');
+});
+
+//#SettingPage
+$(document).on('pagebeforeshow', '#SettingPage', function (event, data) {
+	startBeforeShowVars(data);
+	initPageVarsOnShow('Setting');
+});
+$(document).on('pagecreate', '#SettingPage', function () {
+	initPageVarsOnCreate('Setting');
 });

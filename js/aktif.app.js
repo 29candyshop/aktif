@@ -351,7 +351,13 @@ function ChangePassword()
 	}
 	else
 	{
-		alert("Please ensure new password and confirm password is same.");
+		navigator.notification.alert(
+			'Please ensure new password and confirm password is same',
+			function() {},
+			'Change Password',
+			'OK'
+		);
+		//alert("Please ensure new password and confirm password is same.");
 	}
 }
 

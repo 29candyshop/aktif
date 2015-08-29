@@ -1340,12 +1340,12 @@ function configureBackgroundGeoLocation()
             distanceFilter: 30,
             notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
             notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
-            activityType: "Fitness",       // <-- iOS-only
+            activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
             debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
         });
 
         // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-        bgGeo.start();
+        //bgGeo.start();
 
         // If you wish to turn OFF background-tracking, call the #stop method.
         // bgGeo.stop()

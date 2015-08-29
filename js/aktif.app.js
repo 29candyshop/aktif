@@ -52,10 +52,10 @@ $(document).ready(function(){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		alert("Device Ready");
+		//alert("Device Ready");
 		try{
 			bgGeo = window.plugins.backgroundGeoLocation;
-			alert(bgGeo);
+			//alert(bgGeo);
 		}
 		catch(err)
 		{
@@ -1286,7 +1286,7 @@ function configureBackgroundGeoLocation()
 {
 		window.navigator.geolocation.getCurrentPosition(function(location) {
             console.log('Location from Phonegap');
-			showPos(location);
+			//showPos(location);
         });
 
        
@@ -1355,6 +1355,7 @@ function configureBackgroundGeoLocation()
 
 function failureFn(error) {
 	console.log('BackgroundGeoLocation error');
+	alert(error);
 }
 
 function callbackFn(location) {
@@ -1362,7 +1363,7 @@ function callbackFn(location) {
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
-	showPos(location);
+	//showPos(location);
 	
 	
 	 bgGeo.finish();

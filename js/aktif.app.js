@@ -1284,10 +1284,10 @@ Number.prototype.toRad = function() {
 
 function configureBackgroundGeoLocation()
 {
-		window.navigator.geolocation.getCurrentPosition(function(location) {
+		/*window.navigator.geolocation.getCurrentPosition(function(location) {
             console.log('Location from Phonegap');
 			//showPos(location);
-        });
+        });*/
 
        
 
@@ -1326,24 +1326,21 @@ function configureBackgroundGeoLocation()
         }*/
         
         // BackgroundGeoLocation is highly configurable.
-        bgGeo.configure(callbackFn, failureFn, {
-            //url: 'http://only.for.android.com/update_location.json', // <-- only required for Android; ios allows javascript callbacks for your http
-            //params: {                                               // HTTP POST params sent to your server when persisting locations.
-            //    auth_token: 'user_secret_auth_token',
-            //    foo: 'bar'
-            //},
-            //headers: {
-            //    'X-Foo': 'bar'
-            //},
-            desiredAccuracy: 10,
-            stationaryRadius: 20,
-            distanceFilter: 30,
-            notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
-            notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
-            activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
-            debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
-        });
-
+		try{
+			bgGeo.configure(callbackFn, failureFn, {
+				desiredAccuracy: 10,
+				stationaryRadius: 20,
+				distanceFilter: 30,
+				notificationTitle: 'Background tracking',   // <-- android only, customize the title of the notification
+				notificationText: 'ENABLED',                // <-- android only, customize the text of the notification
+				activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
+				debug: true     // <-- enable this hear sounds for background-geolocation life-cycle.
+			});
+		}
+		catch(err)
+		{
+			alert(err);
+		}
         // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
         //bgGeo.start();
 

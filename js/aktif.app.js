@@ -55,9 +55,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		//alert("Device Ready");
 		try{
 			//bgGeo = window.plugins.backgroundGeoLocation;
-			alert("a:" + window.plugins.backgroundGeoLocation);
-			alert("b:" + window.backgroundGeolocation);
-			alert("c:" + window.BackgroundGeolocation);
+			//alert("a:" + window.plugins.backgroundGeoLocation);
+			//alert("b:" + window.backgroundGeolocation);
+			//alert("c:" + window.BackgroundGeolocation);
 		}
 		catch(err)
 		{
@@ -1190,7 +1190,8 @@ function showPosition(position) {
 		localStorage.setItem("CurrentRun", mCoordinate);
 		
 		LocationCount = LocationCount + 1;
-		document.getElementById('calories').innerHTML = "Location: " + LocationCount;
+		$("#calories").val("" + LocationCount);
+		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 		if(LastPosition == '')
 		{
 			LastPosition = position;
@@ -1345,7 +1346,7 @@ function configureBackgroundGeoLocation()
 
 function failureFn(error) {
 	console.log('BackgroundGeoLocation error');
-	alert(error);
+	alert("Error: " + error);
 }
 
 function callbackFn(location) {
@@ -1353,7 +1354,7 @@ function callbackFn(location) {
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
-	//showPos(location);
+	showPos(location);
 	 var yourAjaxCallback = function(response) {
 		// Very important to call #finish -- it signals to the native plugin that it can destroy the background thread, which your callbackFn is running in.
 		// IF YOU DON'T, THE OS CAN KILL YOUR APP FOR RUNNING TOO LONG IN THE BACKGROUND
@@ -1362,7 +1363,7 @@ function callbackFn(location) {
 	
 	yourAjaxCallback.call(this, {status: 200});
 	
-	 alert("Call Back");
+	//alert("Call Back");
 	//yourAjaxCallback.call(this);
 	
 	
@@ -1370,7 +1371,8 @@ function callbackFn(location) {
 function showPos(location)
 {
 	LocationCount = LocationCount + 1;
-	document.getElementById('calories').innerHTML = "Location: " + LocationCount;
+	$("#calories").val("" + LocationCount);
+	//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 	if(LastPosition == '')
 	{
 		LastPosition = location;

@@ -53,8 +53,9 @@ $(document).ready(function(){
 });
 
 document.addEventListener("deviceready", onDeviceReady, false);
-	function onDeviceReady() {
-		
+
+function onDeviceReady() {
+		document.addEventListener("resume", onResume, false);
 		try{
 			//bgGeo = window.plugins.backgroundGeoLocation;
 			//alert("a:" + window.plugins.backgroundGeoLocation);
@@ -103,6 +104,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 		//================= configure geolocation background ==========================
 	}
 
+	function onResume()
+	{
+		var isStartRun = localStorage.getItem("IsStartRun");
+		if(isStartRun == "true")
+		{
+			UpdateNotification();
+		}
+	}
+	
 //evtStopRun
 $(document).on('click', '.evtStopRun', function (event, data) {
 	StopRun();
@@ -817,7 +827,8 @@ function Runs(mRunid)
 
 function sharemyrun()
 {
-	navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
+	window.plugins.socialsharing.share(null, 'Android filename', 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7', null);
+	//navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
 }
 
 function Logout()
@@ -1081,7 +1092,8 @@ function StartRun()
 	LastPosition = '';
 	LocationTimeStamp = 0;
 	$("#distance").val(TotalDistance);
- 
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
+	
 	//Store activity type
 	var mActivity = $("#activity").val();
 	localStorage.setItem("CurrentRun_Activity", mActivity);
@@ -1097,6 +1109,7 @@ function StartRun()
 	
 	//set mcurrent run to emty
 	localStorage.setItem("CurrentRun", "");
+	localStorage.setItem("IsStartRun", "true");
 	
 	//start timer
 	startDuration();
@@ -1222,17 +1235,17 @@ function StopRun()
 		}
 	}
 	
-
+	localStorage.setItem("IsStartRun", "false");
 			
 }
 
 function UpdateNotification()
 {
-	TestCount = TestCount + 1;
+	//TestCount = TestCount + 1;
 	try{
 		cordova.plugins.notification.local.update({
 			id: 1,
-			text: 'You started RUN. Distance: ' + TestCount + 'km'
+			text: 'You started RUN. Click here to return to AktifPenang App'
 		});
 	}
 	catch(err)

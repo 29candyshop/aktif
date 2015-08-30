@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "51" 
-	version 	= "1.51">
+	versionCode = "52" 
+	version 	= "1.52">
 
 	<name>AktifPenang</name>
 
@@ -41,7 +41,7 @@
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
 	
-	<gap:plugin name="nl.madebymark.share" version="0.1.1" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 	<gap:plugin name="org.apache.cordova.Camera" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device" />
@@ -54,6 +54,9 @@
 	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
 	<gap:plugin name="org.transistorsoft.cordova.background-geolocation"/>
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
+	
+	
+
 	<feature name="BackgroundGeolocation">
 		<param name="ios-package" value="CDVBackgroundGeolocation"/>
 	</feature>

@@ -834,7 +834,11 @@ function sharemyrun()
 		//alert(localStorage.getItem("CurrentRun_Map"));
 		//window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, localStorage.getItem("CurrentRun_Map"), 'http://www.aktifpenang.com');
 		//data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7
-		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7', null);
+	
+
+		var base64 = getBase64Image(document.getElementById("divMap"));
+		
+		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, base64, null);
 		
 	}
 	catch(err)
@@ -842,6 +846,16 @@ function sharemyrun()
 		alert(err);
 	}
 	//navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
+}
+
+function getBase64Image(img) {
+  var canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  var dataURL = canvas.toDataURL("image/png");
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
 function Logout()

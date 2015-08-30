@@ -836,9 +836,12 @@ function sharemyrun()
 		//data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7
 	
 
-		var base64 = getBase64Image(document.getElementById("divMap"));
-		
-		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, base64, null);
+		//var base64 = getBase64Image(document.getElementById("divMap"));
+		convertImgToBase64URL(localStorage.getItem("CurrentRun_Map"), function(base64Img){
+			//alert(base64Img);
+			window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, base64Img, null);
+
+		});
 		
 	}
 	catch(err)
@@ -846,6 +849,22 @@ function sharemyrun()
 		alert(err);
 	}
 	//navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
+}
+
+function convertImgToBase64URL(url, callback, outputFormat){
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        var canvas = document.createElement('CANVAS'),
+        ctx = canvas.getContext('2d'), dataURL;
+        canvas.height = this.height;
+        canvas.width = this.width;
+        ctx.drawImage(this, 0, 0);
+        dataURL = canvas.toDataURL(outputFormat);
+        callback(dataURL);
+        canvas = null; 
+    };
+    img.src = url;
 }
 
 function getBase64Image(img) {

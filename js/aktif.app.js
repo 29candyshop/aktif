@@ -108,7 +108,7 @@ function onDeviceReady() {
 	{
 		
 		var isStartRun = localStorage.getItem("IsStartRun");
-		alert(isStartRun);
+		//alert(isStartRun);
 		if(isStartRun == "true")
 		{
 			UpdateNotification();
@@ -830,7 +830,8 @@ function Runs(mRunid)
 function sharemyrun()
 {
 	try{
-		window.plugins.socialsharing.share('Message and subject', 'The subject');
+		//window.plugins.socialsharing.share('Message and subject', 'The subject');
+		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, localStorage.getItem("CurrentRun_Map"), null);
 	}
 	catch(err)
 	{
@@ -1251,9 +1252,13 @@ function UpdateNotification()
 {
 	//TestCount = TestCount + 1;
 	try{
-		cordova.plugins.notification.local.update({
+		/*cordova.plugins.notification.local.update({
 			id: 1,
 			text: 'You started RUN. Click here to return to AktifPenang App'
+		});*/
+		cordova.plugins.notification.local.schedule({
+			id: 1,
+			text: "You started RUN. Click here to return to AktifPenang App" 
 		});
 	}
 	catch(err)
@@ -1282,7 +1287,7 @@ function displayMyRun()
 			}, 
 			function(result){
 				var obj = JSON.parse(result);
-				
+				localStorage.setItem("CurrentRun_Map", obj.runs[0].map);
 				$("#divMap").css({'background-image':'url('+ obj.runs[0].map +')'});
 			}
 		);

@@ -14,6 +14,7 @@ var LastPosition = '';
     var mFormattedDuration = "";
 	var TestCount = 0;
 	var LocationCount = 0;
+	var LocationCount_background = 0;
 	var LocationTimeStamp = 0;
 	//var bgGeo = null;
 	 
@@ -1076,6 +1077,7 @@ function StartRun()
 	
 	TotalDistance = 0.0;
 	LocationCount = 0;
+	LocationCount_background = 0;
 	LastPosition = '';
 	LocationTimeStamp = 0;
 	$("#distance").val(TotalDistance);
@@ -1462,11 +1464,13 @@ function showPosition(position) {
     //x.innerHTML = "Latitude: " + position.coords.latitude + 
     //"<br>Longitude: " + position.coords.longitude;
 	//alert("Accuracy:" + position.coords.accuracy + "\nTimestamp:" + position.timestamp);
+	var diff = position.timestamp - LocationTimeStamp;
+	//alert(diff);
 	if(LocationTimeStamp == 0)
 	{
-		LocationTimeStamp =  position.timestamp;
+		//LocationTimeStamp =  position.timestamp;
 	}
-	if((position.timestamp - LocationTimeStamp) > 5000)
+	if(diff > 10000)
 	{
 		//if(position.coords.accuracy < 65
 		var mCoordinate = localStorage.getItem("CurrentRun");
@@ -1481,7 +1485,7 @@ function showPosition(position) {
 		localStorage.setItem("CurrentRun", mCoordinate);
 		
 		LocationCount = LocationCount + 1;
-		$("#calories").val("" + LocationCount);
+		$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 		if(LastPosition == '')
 		{
@@ -1677,8 +1681,9 @@ function callbackFn(location) {
 };
 function showPos(location)
 {
-	LocationCount = LocationCount + 1;
-	$("#calories").val("" + LocationCount);
+	//LocationCount = LocationCount + 1;
+	LocationCount_background = LocationCount_background + 1;
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 	//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 	if(LastPosition == '')
 	{

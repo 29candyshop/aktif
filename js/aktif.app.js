@@ -106,7 +106,9 @@ function onDeviceReady() {
 
 	function onResume()
 	{
+		
 		var isStartRun = localStorage.getItem("IsStartRun");
+		alert(isStartRun);
 		if(isStartRun == "true")
 		{
 			UpdateNotification();
@@ -827,7 +829,13 @@ function Runs(mRunid)
 
 function sharemyrun()
 {
-	window.plugins.socialsharing.share(null, 'Android filename', 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7', null);
+	try{
+		window.plugins.socialsharing.share('Message and subject', 'The subject');
+	}
+	catch(err)
+	{
+		alert(err);
+	}
 	//navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
 }
 

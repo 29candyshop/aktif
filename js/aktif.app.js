@@ -14,6 +14,7 @@ var LastPosition = '';
     var mFormattedDuration = "";
 	var TestCount = 0;
 	var LocationCount = 0;
+	var LocationTimeStamp = 0;
 	//var bgGeo = null;
 	 
 	 
@@ -1076,6 +1077,7 @@ function StartRun()
 	TotalDistance = 0.0;
 	LocationCount = 0;
 	LastPosition = '';
+	LocationTimeStamp = 0;
 	$("#distance").val(TotalDistance);
  
 	//Store activity type
@@ -1095,7 +1097,7 @@ function StartRun()
 	localStorage.setItem("CurrentRun", "");
 	
 	//start timer
-	startandstop();
+	startDuration();
 	
 	//start location updates
 	getLocationUpdate();
@@ -1105,7 +1107,7 @@ function StartRun()
 	}
 	catch(err)
 	{
-		alert(err);
+		//alert(err);
 	}
 	
 	
@@ -1130,7 +1132,7 @@ function StartRun()
 	}
 	catch(err)
 	{
-		alert(err);
+		//alert(err);
 	}
 	
 }
@@ -1149,7 +1151,7 @@ function StopRun()
 	}
 	catch(err)
 	{
-		alert(err);
+		//alert(err);
 	}
 	//set button color to red 
 	$("#btnStart").css({'display':'block'});
@@ -1157,7 +1159,7 @@ function StopRun()
 	
 	document.getElementById('activity').disabled = false;
 	//sttop timer
-	startandstop();
+	stopDuration();
 	
 	//store duration 
 	var mDuration = $("#stopwatch").val();
@@ -1168,8 +1170,14 @@ function StopRun()
 	
 	//stop location updates
 	stopLocationWatch();
-	window.plugins.backgroundGeoLocation.stop();
+	try
+	{
+		window.plugins.backgroundGeoLocation.stop();
+	}
+	catch(err)
+	{
 	
+	}
 	//convert coordinates to static image url
 	var mMapURL = getMapURL();
 	//alert(mMapURL);
@@ -1453,6 +1461,14 @@ function getMapURL()
 function showPosition(position) {
     //x.innerHTML = "Latitude: " + position.coords.latitude + 
     //"<br>Longitude: " + position.coords.longitude;
+	//alert("Accuracy:" + position.coords.accuracy + "\nTimestamp:" + position.timestamp);
+	if(LocationTimeStamp == 0)
+	{
+		LocationTimeStamp =  position.timestamp;
+	}
+	if((position.timestamp - LocationTimeStamp) > 5000)
+	{
+		//if(position.coords.accuracy < 65
 		var mCoordinate = localStorage.getItem("CurrentRun");
 		if(mCoordinate == "")
 		{
@@ -1520,10 +1536,13 @@ function showPosition(position) {
 			
 			LastPosition = position;	
 		}
+	}
+	LocationTimeStamp =  position.timestamp;
 }
 
 function stopLocationWatch(){
 	 geoLoc = navigator.geolocation;
+	 // alert("ID: " + watchID);
      geoLoc.clearWatch(watchID);
 }
 
@@ -1533,8 +1552,8 @@ function getLocationUpdate(){
 	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: true };
 	   geoLoc = navigator.geolocation;
 	   watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
+	   //alert("ID: " + watchID);
 	}
-	
 	else{
 		if(navigator.notification)
 		{
@@ -1608,7 +1627,7 @@ function configureBackgroundGeoLocation()
 					desiredAccuracy: 10,
 					stationaryRadius: 20,
 					distanceFilter: 30,
-					activityType: "AutomotiveNavigation",//"Fitness",       // <-- iOS-only
+					activityType: "Fitness",//"Fitness",       // <-- iOS-only
 					debug: false 
 			};
 			  
@@ -1617,7 +1636,7 @@ function configureBackgroundGeoLocation()
 			}
 			catch(err)
 			{
-				alert(err);
+				//alert(err);
 			}
 			// Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
 			window.plugins.backgroundGeoLocation.start();
@@ -1779,7 +1798,7 @@ function marklap()
        lapdetails.value += (++lapcounter) + '. ' + stopwatch.value;
         }
      }
-function startandstop()
+/*function startandstop()
       {
       var startandstop = document.getElementById('startandstopbutton');
       var startdate = new Date();
@@ -1797,7 +1816,23 @@ function startandstop()
         runningstate = 0;     
         lapdate = '';
       }
-   }
+   }*/
+   
+ function startDuration()
+ {
+	   var startdate = new Date();
+      var starttime = startdate.getTime();
+	   runningstate = 1;      
+	 timecounter(starttime);
+ }
+ function stopDuration()
+ {
+	   var startdate = new Date();
+      var starttime = startdate.getTime();
+	   runningstate = 0;
+	lapdate = '';
+ }
+ 
 function resetstopwatch()
         {
       lapdetails.value = '';

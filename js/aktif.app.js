@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		//alert("Device Ready");
+		
 		try{
 			//bgGeo = window.plugins.backgroundGeoLocation;
 			//alert("a:" + window.plugins.backgroundGeoLocation);
@@ -233,7 +233,19 @@ $(document).on('click', '.evtGroup', function (event, data) {
 		}
 		else
 		{
-			alert("Error joining this group, please try again later");
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Error joining this group, please try again later.',
+					function() {},
+					'Join Group',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Error joining this group, please try again later");
+			}
 		}
 	});
 });
@@ -258,7 +270,19 @@ $(document).on('click', '.evtGroup', function (event, data) {
 		}
 		else
 		{
-			alert("Error leaving this group, please try again later");
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Error Leaving Group. Please try again later.',
+					function() {},
+					'Leave Group',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Error leaving this group, please try again later");
+			}
 		}
 	});
 	
@@ -303,6 +327,23 @@ function loadXMLDoc(){
 function ResetPassword()
 {
 	var email = $("#reset_email").val();
+	if(email == "")
+	{
+		if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Please enter your email address.',
+					function() {},
+					'Reset Password',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Please enter your email address.");
+			}
+		return;
+	}
 	$.post("http://www.aktifpenang.com/api/_api_resetpassword.php", 
 	{
 		token: email
@@ -311,12 +352,36 @@ function ResetPassword()
 		var obj = JSON.parse(result);
 		if(obj.status == true)
 		{
-			alert("Password Reset Successful, Please check your registered email account for temporally password.");
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Password reset successful. Please chheck your registered email account for termporally password.',
+					function() {},
+					'Reset Password',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Password Reset Successful, Please check your registered email account for temporally password.");
+			}
 			Logout();
 		}
 		else
 		{
-			alert("Password Reset Error: " + obj.extra);
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Password reset error: ' + obj.extra,
+					function() {},
+					'Reset Password',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Password Reset Error: " + obj.extra);
+			}
 		}
 	});
 }
@@ -340,25 +405,56 @@ function ChangePassword()
 			var obj = JSON.parse(result);
 			if(obj.status == true)
 			{
-				alert("Change Password Successful. Please Login with new password.");
+				if(navigator.notification)
+				{
+					navigator.notification.alert(
+						'Change Password Successful. Please Login with new password.',
+						function() {},
+						'Change Password',
+						'OK'
+					);
+				}
+				else
+				{
+					alert("Change Password Successful. Please Login with new password.");
+				}
 				Logout();
 			}
 			else
 			{
-				alert("Change Password Failed. Please try again later.");
+				if(navigator.notification)
+				{
+					navigator.notification.alert(
+						'Change Password Failed. Please try again later',
+						function() {},
+						'Change Password',
+						'OK'
+					);
+				}
+				else
+				{
+					alert("Change Password Failed. Please try again later.");
+				}
 			}
 		});
 	}
 	else
 	{
-		navigator.notification.alert(
-			'Please ensure new password and confirm password is same',
-			function() {},
-			'Change Password',
-			'OK'
-		);
-		//alert("Please ensure new password and confirm password is same.");
+		if(navigator.notification)
+		{
+			navigator.notification.alert(
+				'Please ensure new password and confirm password is same',
+				function() {},
+				'Change Password',
+				'OK'
+			);
+		}
+		else
+		{
+			alert("Please ensure new password and confirm password is same.");
+		}
 	}
+	
 }
 
 function LoginEmail()
@@ -434,7 +530,19 @@ function LoginFacebook()
 									}
 									else
 									{
-										alert("Error Logging in.");
+										if(navigator.notification)
+										{
+											navigator.notification.alert(
+												'Error logging in',
+												function() {},
+												'Facebook Login',
+												'OK'
+											);
+										}
+										else
+										{
+											alert("Error Logging in.");
+										}
 									}
 									//alert(JSON.stringify(response)) 
 								}
@@ -705,6 +813,11 @@ function Runs(mRunid)
 
 }
 
+function sharemyrun()
+{
+	navigator.share("My Run","Join me on Aktif Penang and raise fund!","");
+}
+
 function Logout()
 {
 	window.localStorage.clear();
@@ -928,7 +1041,19 @@ function editProfile()
 		}
 		else
 		{
-			alert("Error Updating Your Profile. Please Try Again.");
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Error updating your profile. Please try again.',
+					function() {},
+					'Edit Profile',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Error Updating Your Profile. Please Try Again.");
+			}
 		}
 		//alert(obj.token);
     });
@@ -1072,7 +1197,19 @@ function StopRun()
 	}
 	else
 	{
-		alert("Distance need to be more than 0.0 meter as valid run.");
+		if(navigator.notification)
+		{
+			navigator.notification.alert(
+				'Distance need to be more than 0.0 meter as valid run.',
+				function() {},
+				'Run',
+				'OK'
+			);
+		}
+		else
+		{
+			alert("Distance need to be more than 0.0 meter as valid run.");
+		}
 	}
 	
 
@@ -1399,7 +1536,19 @@ function getLocationUpdate(){
 	}
 	
 	else{
-	   alert("Sorry, browser does not support geolocation!");
+		if(navigator.notification)
+		{
+			navigator.notification.alert(
+				'Sorry, your device does not support geolocation',
+				function() {},
+				'Geolocation',
+				'OK'
+			);
+		}
+		else
+		{
+			alert("Sorry, browser does not support geolocation!");
+		}
 	}
  }
  
@@ -1485,7 +1634,7 @@ function configureBackgroundGeoLocation()
 
 function failureFn(error) {
 	console.log('BackgroundGeoLocation error');
-	alert("Error: " + error);
+	//alert("Error: " + error);
 }
 
 function callbackFn(location) {

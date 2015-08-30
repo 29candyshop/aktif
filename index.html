@@ -139,10 +139,14 @@
 										<input  type="button" class="button" id="Test" value="Test" data-role="button" onclick="UpdateNotification(); "><br>
 									</div>		-->		
 									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
-										<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>
+										<!--<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>-->
+										<a type="button" id="startandstopbutton"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:80%;color: white; margin-bottom: 30px;margin-top:10px;">Start My Run</a>
+								 
 									</div>
-									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">							
-										<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>
+									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">	
+										<a type="button" id="stopbutton"  onclick="StartRun();" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:10px;">Stop</a>
+								 
+										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
 								</div> <!-- end main activity content-->
 							</div> <!-- end inner shell content-->
@@ -348,15 +352,15 @@
 
                                     <div style="margin: 10px 0 30px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
                                         <div class="ui-block-a">
-                                            <a type="button" class="buttonStyle" href="#changePasswordPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom: 5px;">Change Password</a>
+                                            <a type="button" class=" enjoy-css" href="#changePasswordPage" style="color: white; margin-bottom: 20px;">Change Password</a>
                                         </div>
                                         
                                         <div class="ui-block-a" style="padding-top: 1px;" >
-                                            <a type="button" class="buttonStyle" onclick="" href="#EditProfilePage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Edit Profile</a>
+                                            <a type="button" class="enjoy-css" onclick="" href="#EditProfilePage" style="color: white;margin-bottom:30px;">Edit Profile</a>
                                         </div>
                                         
                                         <div class="ui-block-a">
-                                            <button type="submit" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>
+                                            <button type="submit" class="enjoy-css" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>
                                         </div>                                        
                                     </div>
                                 </div>
@@ -453,8 +457,10 @@
                                         </div> <!-- maps div-->
                                         
                                         <div>
-                                            <a type="button" class="buttonStyle" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Share My Run</a>
-                                        </div> <!-- share run acrivity-->
+                                            <!--<a type="button" class="buttonStyle" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Share My Run</a>-->
+											<a type="button" id="btnShare" onclick="sharemyrun();" class=" enjoy-css" value="Share" style="color: white; margin-bottom: 20px;margin-top:10px;">Share My Run</a>
+								 
+										</div> <!-- share run acrivity-->
                                     </div> <!-- end main activity content-->
                                 </div> <!-- end inner shell content-->                               
                             </div>				
@@ -509,14 +515,16 @@
 									<div style="float:left;width:100%;margin-top:5px;">
 										<h2 class="labelDesign">Please select your login method</h2>
 									</div>
-									<a type="button" class="buttonStyle" href="#EmailLoginPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;">Login with Email</a>
-								
+									<!--<a type="button" class="buttonStyle" href="#EmailLoginPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;">Login with Email</a>-->
+									<a type="button" id=""  href="#EmailLoginPage" onclick="" class=" enjoy-css" value="Stop" style="color: white; margin-bottom: 20px;margin-top:10px;">Login with Email</a>
+								 
 									<div style="float:left;width:100%;margin-top:5px;">
 										<h2 class="labelDesign">Or</h2>
 									</div>
 	 
-									<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>
-								
+									<!--<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>-->
+									<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;box-shadow: 0 6px 0 #00324B;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>
+								 
 									<div style="float:left;width:100%;margin-top:5px;">
 										<h2 class="labelDesign">Do not have an account? <br>
 										<a id="signup" href="#signUpPage" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Signup Now</a></h2>
@@ -558,7 +566,9 @@
 											<input type="email" class="inputStyle" id="username" name="username" data-clear-btn="true" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
 											<input type="password" class="inputStyle" data-clear-btn="true" name="password" id="password" value=""  placeholder="Password" autocomplete="off" required>
 											<!--<a type="button" value="" name="submit" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:40px;border-radius: 6px;">Login</a>-->
-											<button type="button" value="login" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;" onclick="LoginEmail()">Login</button>
+											<!--<button type="button" value="login" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;" onclick="LoginEmail()">Login</button>-->
+											<a type="button" id="btnLoginEmail"  href="#EmailLoginPage" onclick="LoginEmail();" class=" enjoy-css" value="login" style="color: white; margin-bottom: 20px;margin-top:10px;">Login</a>
+								 
 											<div style="float:left;width:100%;margin-top:5px;">
 												<h2 class="labelDesign">Forgot Your Password? <br>
 												<a id="signup" href="#forgotPasswordPage" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Reset Password</a></h2>                                        
@@ -670,7 +680,9 @@
 											<input type="email" class="inputStyle" id="username" name="username" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
 											<input type="password" class="inputStyle" data-clear-btn="true" name="password" id="password" value=""  placeholder="Password" autocomplete="off">
 											<input type="password" class="inputStyle" data-clear-btn="true" name="confirmpassword" id="confirmpassword" value=""  placeholder="Confirm Password" autocomplete="off">
-											<button type="submit" class="evtRegister" value="Register" id="btnRegister" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;">Register</button>
+											<!--<button type="submit" class="evtRegister " value="Register" id="btnRegister" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;">Register</button>-->
+											<a type="button" id="btnRegister" class=" enjoy-css evtRegister" value="Register" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:0px;">Register</a>
+								 
 											<br>
 											<h2 class="labelDesign">Once signup completed, you will receive an notification email about your registration.</h2>
 										</div>
@@ -705,7 +717,8 @@
                                 <div style="float:left;width:92%;margin-top:5px;margin-left: 4%;">
                                   <h2 class="labelDesign">Please enter your registered email address</h2>
                                     <input type="email" class="inputStyle" id="reset_email" name="reset_email" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
-                                    <button type="submit" value="Reset Password" id="btnResetPass" onclick="ResetPassword();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>
+									<a type="button" class=" enjoy-css" onclick="ResetPassword();" value="Reset Password" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:10px;">Reset Password</a>
+								    <!--<button type="submit" value="Reset Password" id="btnResetPass" onclick="ResetPassword();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>-->
                                     <div style="float:left;width:100%;margin-top:5px;">
                                         <h2 class="labelDesign">Now password will be sent to your registered email address. Please use the new password to login.</h2>
                                     </div>
@@ -745,8 +758,8 @@
 									<input type="password" class="inputStyle" data-clear-btn="true" name="oldpassword" id="oldpassword" value=""  placeholder="Old Password" autocomplete="off">
 									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword" id="newpassword" value=""  placeholder="New Password" autocomplete="off">
 									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword_confirm" id="newpassword_confirm" value=""  placeholder="Confirm New Password?" autocomplete="off">
-									<button type="" onclick="ChangePassword();" value="Change Password" id="btnChangePass" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>
-								
+									<!--<button type="" class="enjoy-css" onclick="ChangePassword();" value="Change Password" id="btnChangePass" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>-->
+									 <a type="button" class=" enjoy-css" onclick="ChangePassword();"  style="color: white; margin-bottom: 20px;margin-top:10px;">Change Password</a>
 							</div>
 						</div> <!-- end style -->
                     </div> <!-- end card -->
@@ -796,8 +809,9 @@
 								</div>
 							 </div>
 							 
-							 <a type="button" id="saveSetting" class="buttonStyle" href="" onclick="saveSettigs();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Save</a>
-
+							 <!--<a type="button" id="saveSetting" class="enjoy-css" href="" onclick="saveSettigs();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Save</a>-->
+								<a type="button" id="saveSetting" class=" enjoy-css" onclick="saveSettigs();" value="" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:0px;">Save</a>
+								   
 						</div>
 					</div>
 				</div>

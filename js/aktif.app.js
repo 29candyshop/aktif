@@ -831,7 +831,8 @@ function sharemyrun()
 {
 	try{
 		//window.plugins.socialsharing.share('Message and subject', 'The subject');
-		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, localStorage.getItem("CurrentRun_Map"), null);
+		alert(localStorage.getItem("CurrentRun_Map"));
+		window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, localStorage.getItem("CurrentRun_Map"), 'http://www.aktifpenang.com');
 	}
 	catch(err)
 	{

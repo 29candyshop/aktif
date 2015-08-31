@@ -1569,6 +1569,8 @@ function showPosition(position) {
 	}
 	if(diff > 10000)
 	{
+		
+		$("#Accuracy").val("" + position.coords.accuracy);
 		//if(position.coords.accuracy < 65
 		var mCoordinate = localStorage.getItem("CurrentRun");
 		if(mCoordinate == "")

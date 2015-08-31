@@ -1135,8 +1135,10 @@ function StartRun()
 	TotalDistance = 0.0;
 	LocationCount = 0;
 	LocationCount_background = 0;
-	LastPosition = '';
+	LastPosition = "";
 	LocationTimeStamp = 0;
+	localStorage.setItem("CurrentRun_LastPosition", LastPosition);
+	
 	$("#distance").val(TotalDistance);
 	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 	
@@ -1550,7 +1552,10 @@ function showPosition(position) {
 		LocationCount = LocationCount + 1;
 		$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
-		if(LastPosition == '')
+		
+		var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
+		LastPosition = mLastPosition;
+		if(LastPosition == "")
 		{
 			LastPosition = position;
 		}
@@ -1603,6 +1608,7 @@ function showPosition(position) {
 			
 			LastPosition = position;	
 		}
+		localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 	}
 	LocationTimeStamp =  position.timestamp;
 }
@@ -1640,8 +1646,7 @@ function getLocationUpdate(){
  
  function errorHandler(error)
  {
-	alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+	//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
  }
  
  function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -1691,9 +1696,9 @@ function configureBackgroundGeoLocation()
 			});*/
 			
 			var options = {
-					desiredAccuracy: 10,
-					stationaryRadius: 20,
-					distanceFilter: 30,
+					desiredAccuracy: 0,
+					stationaryRadius: 10,
+					distanceFilter: 10,
 					activityType: "Fitness",//"Fitness",       // <-- iOS-only
 					debug: false 
 			};
@@ -1745,10 +1750,24 @@ function callbackFn(location) {
 function showPos(location)
 {
 	//LocationCount = LocationCount + 1;
+	var mCoordinate = localStorage.getItem("CurrentRun");
+	if(mCoordinate == "")
+	{
+		mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
+	}
+	else
+	{
+		mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
+	}
+	localStorage.setItem("CurrentRun", mCoordinate);
+		
 	LocationCount_background = LocationCount_background + 1;
 	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 	//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
-	if(LastPosition == '')
+	
+	var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
+	LastPosition = mLastPosition;
+	if(LastPosition == "")
 	{
 		LastPosition = location;
 	}
@@ -1801,6 +1820,7 @@ function showPos(location)
 		
 		LastPosition = location;	
 	}
+	localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 }
 //======================== stop watch =================================
 

@@ -14,6 +14,7 @@ var LastPosition = '';
     var mFormattedDuration = "";
 	var TestCount = 0;
 	var LocationCount = 0;
+	var LocationCount_Total = 0;
 	var LocationCount_background = 0;
 	var LocationTimeStamp = 0;
 	//var bgGeo = null;
@@ -1134,6 +1135,7 @@ function StartRun()
 	
 	TotalDistance = 0.0;
 	LocationCount = 0;
+	LocationCount_Total = 0;
 	LocationCount_background = 0;
 	LastPosition = "";
 	LocationTimeStamp = 0;
@@ -1529,6 +1531,8 @@ function showPosition(position) {
     //x.innerHTML = "Latitude: " + position.coords.latitude + 
     //"<br>Longitude: " + position.coords.longitude;
 	//alert("Accuracy:" + position.coords.accuracy + "\nTimestamp:" + position.timestamp);
+	LocationCount_Total = LocationCount_Total + 1;
+	
 	var diff = position.timestamp - LocationTimeStamp;
 	//alert(diff);
 	if(LocationTimeStamp == 0)
@@ -1550,7 +1554,7 @@ function showPosition(position) {
 		localStorage.setItem("CurrentRun", mCoordinate);
 		
 		LocationCount = LocationCount + 1;
-		$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
+		//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 		
 		var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
@@ -1610,6 +1614,7 @@ function showPosition(position) {
 		}
 		localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 	}
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 	LocationTimeStamp =  position.timestamp;
 }
 
@@ -1749,7 +1754,7 @@ function callbackFn(location) {
 };
 function showPos(location)
 {
-	//LocationCount = LocationCount + 1;
+	LocationCount_Total = LocationCount_Total + 1;
 	var mCoordinate = localStorage.getItem("CurrentRun");
 	if(mCoordinate == "")
 	{
@@ -1762,7 +1767,8 @@ function showPos(location)
 	localStorage.setItem("CurrentRun", mCoordinate);
 		
 	LocationCount_background = LocationCount_background + 1;
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
+	//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 	//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 	
 	var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");

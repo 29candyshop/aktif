@@ -683,6 +683,34 @@ function LeaderBoard()
 				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
 				
 			}
+			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Cycler</div>';
+			panelMain.append(html);
+			
+			for(var i = 0; i < objLeader.cycling_leader.length; i++) {
+				var obj = objLeader.cycling_leader[i];	
+				var mdistance = parseFloat(obj.totaldistance);
+				var munit = "meter";
+				if(mdistance > 1000.0)
+				{
+					mdistance = mdistance / 1000.0;
+					munit = "km";
+				}
+				mdistance = Math.round(mdistance * 100) / 100;
+				var imageURL = "";
+				if(obj.logintype == "email")
+				{
+					imageURL = "images/icons/login.png";
+				}
+				else
+				{
+					imageURL = "https://graph.facebook.com/" + obj.username + "/picture?type=large";
+				}
+				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+				'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+				panelMain.append(html);
+				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+				
+			}
 			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Groups</div>';
 			panelMain.append(html);
 			for(var i = 0; i < objLeader.group_leader.length; i++) {
@@ -1537,7 +1565,7 @@ function showPosition(position) {
 	//alert(diff);
 	if(LocationTimeStamp == 0)
 	{
-		//LocationTimeStamp =  position.timestamp;
+		LocationTimeStamp =  position.timestamp;
 	}
 	if(diff > 10000)
 	{
@@ -1557,8 +1585,8 @@ function showPosition(position) {
 		//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 		
-		var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
-		LastPosition = mLastPosition;
+		//var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
+		//LastPosition = mLastPosition;
 		if(LastPosition == "")
 		{
 			LastPosition = position;
@@ -1612,10 +1640,11 @@ function showPosition(position) {
 			
 			LastPosition = position;	
 		}
-		localStorage.setItem("CurrentRun_LastPosition", LastPosition);
+		//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
+		LocationTimeStamp =  position.timestamp;
 	}
 	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
-	LocationTimeStamp =  position.timestamp;
+	
 }
 
 function stopLocationWatch(){
@@ -1758,11 +1787,11 @@ function showPos(location)
 	var mCoordinate = localStorage.getItem("CurrentRun");
 	if(mCoordinate == "")
 	{
-		mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
+		mCoordinate = "" + location.latitude + "," + location.longitude;
 	}
 	else
 	{
-		mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
+		mCoordinate = mCoordinate + "|" + location.latitude + "," + location.longitude;
 	}
 	localStorage.setItem("CurrentRun", mCoordinate);
 		
@@ -1771,8 +1800,8 @@ function showPos(location)
 	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 	//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
 	
-	var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
-	LastPosition = mLastPosition;
+	//var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
+	//LastPosition = mLastPosition;
 	if(LastPosition == "")
 	{
 		LastPosition = location;
@@ -1826,7 +1855,7 @@ function showPos(location)
 		
 		LastPosition = location;	
 	}
-	localStorage.setItem("CurrentRun_LastPosition", LastPosition);
+	//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 }
 //======================== stop watch =================================
 

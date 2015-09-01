@@ -1487,61 +1487,67 @@ function SynctoDB()
 	$rundate = isset($_POST['rundate']) ? $_POST['rundate'] : '';
 	$checkin_type = isset($_POST['checkin_type']) ? $_POST['checkin_type'] : '';
 	*/
-	
-	var mToken = window.localStorage.getItem("AccessToken");
-	var mActivity = localStorage.getItem("CurrentRun_Activity");
-	var mdistance = localStorage.getItem("CurrentRun_Distance");
-	var mDuration = localStorage.getItem("CurrentRun_Duration");
-	var mCoor = localStorage.getItem("CurrentRun");
-	var arrCoor = mCoor.split("|");
+	try{
+		var mToken = window.localStorage.getItem("AccessToken");
+		var mActivity = localStorage.getItem("CurrentRun_Activity");
+		var mdistance = localStorage.getItem("CurrentRun_Distance");
+		var mDuration = localStorage.getItem("CurrentRun_Duration");
+		var mCoor = localStorage.getItem("CurrentRun");
+		var arrCoor = mCoor.split("|");
 
-	var text = '{ "employees" : [' +
-		'{ "firstName":"John" , "lastName":"Doe" },' +
-		'{ "firstName":"Anna" , "lastName":"Smith" },' +
-		'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-	var coor_json = "";
-	
-	for(var i = 0; i < arrCoor.length; i++) {
-		var co = arrCoor[i];
-		var lat = co.split(",")[0];
-		var lo = co.split(",")[1];
-		if(coor_json == "")
-		{
-			coor_json = '{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
-		}
-		else
-		{
-			coor_json = coor_json + ',{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
-		}
-	}
-	coor_json = "[" + coor_json + "]";
-	var mRoute = '';
-	
-	var runDate = localStorage.getItem("CurrentRun_Date");
-	
-	 $.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
-	 {
-		token: mToken,
-		distance: mdistance, 
-		activity_type:mActivity,
-		route:coor_json,
-		duration: mDuration,
-		avepace:'',
-		workout_type:'Free Run',
-		eventid:'',
-		rundate:runDate,
-		checkin_type:'live'
+		var text = '{ "employees" : [' +
+			'{ "firstName":"John" , "lastName":"Doe" },' +
+			'{ "firstName":"Anna" , "lastName":"Smith" },' +
+			'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+		var coor_json = "";
 		
-	}, function(result){
-        //$("span").html(result);
-		var obj = JSON.parse(result);
-		//window.localStorage.getItem('AccessToken')
-		if(obj.status == false)
-		{
-			alert("error");
-			//insert to run history json and store to localStorage
+		for(var i = 0; i < arrCoor.length; i++) {
+			var co = arrCoor[i];
+			var lat = co.split(",")[0];
+			var lo = co.split(",")[1];
+			if(coor_json == "")
+			{
+				coor_json = '{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
+			}
+			else
+			{
+				coor_json = coor_json + ',{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
+			}
 		}
-	});
+		coor_json = "[" + coor_json + "]";
+		var mRoute = '';
+		
+		var runDate = localStorage.getItem("CurrentRun_Date");
+		
+		 $.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+		 {
+			token: mToken,
+			distance: mdistance, 
+			activity_type:mActivity,
+			route:coor_json,
+			duration: mDuration,
+			avepace:'',
+			workout_type:'Free Run',
+			eventid:'',
+			rundate:runDate,
+			checkin_type:'live'
+			
+		}, function(result){
+			//$("span").html(result);
+			var obj = JSON.parse(result);
+			//window.localStorage.getItem('AccessToken')
+			alert(obj.status);
+			if(obj.status == true)
+			{
+				//alert("error");
+				//insert to run history json and store to localStorage
+			}
+		});
+	}
+	catch(err)
+	{
+		alert("error:" + err);
+	}
 }
 
 function getMapURL()

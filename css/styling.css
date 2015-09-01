@@ -298,3 +298,11 @@ a{
   -o-transition: all 50ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
   transition: all 50ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
 }
+
+.evtBack{
+	background-color:#42BB92;
+}
+
+.evtBack:active{
+	background-color:#2E8366;
+}

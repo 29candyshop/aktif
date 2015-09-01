@@ -18,10 +18,29 @@ var LastPosition = '';
 	var LocationCount_background = 0;
 	var LocationTimeStamp = 0;
 	//var bgGeo = null;
-	 
-	 
+	
+var opts = {
+	  lines: 12, // The number of lines to draw
+	  length: 10, // The length of each line
+	  width: 4, // The line thickness
+	  radius: 10, // The radius of the inner circle
+	  corners: 1, // Corner roundness (0..1)
+	  rotate: 0, // The rotation offset
+	  color: '#222', // #rgb or #rrggbb
+	  speed: 1, // Rounds per second
+	  trail: 60, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: false, // Whether to use hardware acceleration
+	  className: 'spinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: '200px', // Top position relative to parent in px
+	  left: 'auto', // Left position relative to parent in px
+	  position: 'relative'
+	};	 
+var spinner = null;	 
 //document ready
 $(document).ready(function(){
+	
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
 	{
@@ -122,7 +141,9 @@ $(document).on('click', '.evtStopRun', function (event, data) {
 });
 //evtBack
 $(document).on('click', '.evtBack', function (event, data) {
-	 window.history.back();
+
+	window.history.back();
+
 });
 
 $(document).on('click', '.evtRegister', function (event, data) {
@@ -359,11 +380,17 @@ function ResetPassword()
 			}
 		return;
 	}
+	 var toAdd = document.getElementById('forgotPasswordPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);
+	
 	$.post("http://www.aktifpenang.com/api/_api_resetpassword.php", 
 	{
 		token: email
 	}, 
 	function(result){
+		spinner.stop();
 		var obj = JSON.parse(result);
 		if(obj.status == true)
 		{
@@ -410,6 +437,10 @@ function ChangePassword()
 	
 	if(newpassword == newpassword_confirm)
 	{
+		 var toAdd = document.getElementById('changePasswordPage');
+		var left = window.innerWidth/2 - 20;
+		opts.left = left + 'px';
+		spinner = new Spinner(opts).spin(toAdd);
 		 $.post("http://www.aktifpenang.com/api/_api_changepassword.php", 
 		{
 			token: mToken,
@@ -417,6 +448,7 @@ function ChangePassword()
 			newpassword: newpassword_confirm
 		}, 
 		function(result){
+			spinner.stop();
 			var obj = JSON.parse(result);
 			if(obj.status == true)
 			{
@@ -488,8 +520,15 @@ function LoginEmail()
 	}
 	 var name = document.getElementById("username").value;
      var pass = document.getElementById("password").value;
+	 
+	 var toAdd = document.getElementById('EmailLoginPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);
+	
 	 $.post("http://www.aktifpenang.com/api/_api_login.php", {username: name, password:pass}, function(result){
         //$("span").html(result);
+		spinner.stop();
 		var obj = JSON.parse(result);
 		//window.localStorage.getItem('AccessToken')
 		if(obj.status == true)
@@ -645,12 +684,19 @@ function displayUserSummary(divId)
 
 function LeaderBoard()
 {
+	var toAdd = document.getElementById('leaderBoardPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);	
+						
 	 var mToken = window.localStorage.getItem("AccessToken");
 		$.get("http://www.aktifpenang.com/api/_api_leader_get.php", 
 		{
 			token: mToken
 		}, 
 		function(result){
+			
+			spinner.stop();
 			//$("span").html(result);
 			var objLeader = JSON.parse(result);
 			var panelMain = $('#LeaderBoardMain' + '');
@@ -732,6 +778,10 @@ function LeaderBoard()
 
 function Groups()
 {
+	var toAdd = document.getElementById('groupsPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);	
 	
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
@@ -741,6 +791,7 @@ function Groups()
 			}, 
 			function(result){
 				//$("span").html(result);
+				spinner.stop();
 				var obj = JSON.parse(result);
 				
 					/*'id' => $id,
@@ -789,7 +840,10 @@ function Groups()
 
 function Runs(mRunid)
 {
-
+	var toAdd = document.getElementById('historyPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);	
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
@@ -799,7 +853,7 @@ function Runs(mRunid)
 			function(result){
 				//$("span").html(result);
 				var obj = JSON.parse(result);
-				
+				spinner.stop();
 					/*'activityid' => $id,
 						'distance' => $distance,
 						'activity_type' => $activity_type,
@@ -1344,6 +1398,7 @@ function displayMyRun()
 	var mDuration = localStorage.getItem("CurrentRun_Duration");
 	var mMap = localStorage.getItem("CurrentRun_Map");
 	var runDate = localStorage.getItem("CurrentRun_Date");
+	$("#divMap").css({'background-image':'none'});
 	
 	if(mMap == "")
 	{
@@ -1370,20 +1425,20 @@ function displayMyRun()
 	{
 		var d = mD / 1000.0;
 		mdistance = Math.round(d * 100) / 100;
-		document.getElementById('lblMapDistance').innerHTML = "Distance (km):";
+		document.getElementById('lblMyRunDistance').innerHTML = "Distance (km):";
 		document.getElementById('mapDistance').innerHTML = mdistance;
 	}
 	else
 	{
 		mdistance = Math.round(mD * 100) / 100;
-		document.getElementById('lblMapDistance').innerHTML = "Distance (meter):";
+		document.getElementById('lblMyRunDistance').innerHTML = "Distance (meter):";
 		document.getElementById('mapDistance').innerHTML = mdistance;
 	}
 			
 	
 	
 	
-	document.getElementById('lblMapDistance').innerHTML = document.getElementById('lbldistance').innerHTML;
+	//document.getElementById('lblMapDistance').innerHTML = document.getElementById('lbldistance').innerHTML;
 	//document.getElementById('mapDistance').innerHTML = mdistance;
 	document.getElementById('mapDuration').innerHTML = mDuration;
 	document.getElementById('mapRunDate').innerHTML = runDate;
@@ -1536,7 +1591,7 @@ function SynctoDB()
 			//$("span").html(result);
 			var obj = JSON.parse(result);
 			//window.localStorage.getItem('AccessToken')
-			alert(obj.status);
+			//alert(obj.status);
 			if(obj.status == true)
 			{
 				//alert("error");

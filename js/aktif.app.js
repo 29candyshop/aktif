@@ -1292,7 +1292,7 @@ function StopRun()
 		SynctoDB();
 		
 		//set mcurrent run to emty
-		localStorage.setItem("CurrentRun", "");
+		//localStorage.setItem("CurrentRun", "");
 	
 		location.hash = "#runMap";
 	}
@@ -1536,8 +1536,9 @@ function SynctoDB()
         //$("span").html(result);
 		var obj = JSON.parse(result);
 		//window.localStorage.getItem('AccessToken')
-		if(obj.status == true)
+		if(obj.status == false)
 		{
+			alert("error");
 			//insert to run history json and store to localStorage
 		}
 	});

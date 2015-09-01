@@ -1633,7 +1633,7 @@ function showPosition(position) {
 	{
 		
 		$("#Accuracy").val("" + position.coords.accuracy);
-		if(position.coords.accuracy <= 10)
+		if(position.coords.accuracy <= 10.0)
 		{
 			//high accuracy 
 			
@@ -1703,7 +1703,7 @@ function showPosition(position) {
 			
 		}
 	}
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
 	
 }
 
@@ -1844,7 +1844,7 @@ function callbackFn(location) {
 function showPos(location)
 {
 	try{
-		alert(location.accuracy);
+		//alert(location.accuracy);
 	}
 	catch(err)
 	{
@@ -1858,32 +1858,11 @@ function showPos(location)
 	
 	//var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
 	//LastPosition = mLastPosition;
-	if(LastPosition == "")
+	if(location.accuracy <= 10.0)
 	{
-		LastPosition = location;
-		var mCoordinate = localStorage.getItem("CurrentRun");
-		if(mCoordinate == "")
+		if(LastPosition == "")
 		{
-			mCoordinate = "" + location.latitude + "," + location.longitude;
-		}
-		else
-		{
-			mCoordinate = mCoordinate + "|" + location.latitude + "," + location.longitude;
-		}
-		localStorage.setItem("CurrentRun", mCoordinate);
-			
-		LocationCount_background = LocationCount_background + 1;
-	}
-	else
-	{
-		var distance = calculateDistance(LastPosition.latitude, LastPosition.longitude,
-					location.latitude, location.longitude);
-		distance = distance * 1000.0;
-		if(distance >= 10.0)
-		{
-			TotalDistance = TotalDistance + distance;
-			
-			//document.getElementById('distance').innerHTML = TotalDistance;
+			LastPosition = location;
 			var mCoordinate = localStorage.getItem("CurrentRun");
 			if(mCoordinate == "")
 			{
@@ -1896,29 +1875,53 @@ function showPos(location)
 			localStorage.setItem("CurrentRun", mCoordinate);
 				
 			LocationCount_background = LocationCount_background + 1;
-			
-			if(TotalDistance > 1000.0)
+		}
+		else
+		{
+			var distance = calculateDistance(LastPosition.latitude, LastPosition.longitude,
+						location.latitude, location.longitude);
+			distance = distance * 1000.0;
+			if(distance >= 10.0)
 			{
-				var d = TotalDistance / 1000.0;
-				mdistance = Math.round(d * 100) / 100;
-				document.getElementById('lbldistance').innerHTML = "Distance (km):";
-				//$("#lbldistance").val("Distance (km)");
-				$("#distance").val(mdistance + "");
+				TotalDistance = TotalDistance + distance;
+				
+				//document.getElementById('distance').innerHTML = TotalDistance;
+				var mCoordinate = localStorage.getItem("CurrentRun");
+				if(mCoordinate == "")
+				{
+					mCoordinate = "" + location.latitude + "," + location.longitude;
+				}
+				else
+				{
+					mCoordinate = mCoordinate + "|" + location.latitude + "," + location.longitude;
+				}
+				localStorage.setItem("CurrentRun", mCoordinate);
+					
+				LocationCount_background = LocationCount_background + 1;
+				
+				if(TotalDistance > 1000.0)
+				{
+					var d = TotalDistance / 1000.0;
+					mdistance = Math.round(d * 100) / 100;
+					document.getElementById('lbldistance').innerHTML = "Distance (km):";
+					//$("#lbldistance").val("Distance (km)");
+					$("#distance").val(mdistance + "");
 
-			}
-			else
-			{
-				mdistance = Math.round(TotalDistance * 100) / 100;
-				//$("#lbldistance").val("Distance (meter)");
-				document.getElementById('lbldistance').innerHTML = "Distance (meter):";
-				$("#distance").val(mdistance + "");
+				}
+				else
+				{
+					mdistance = Math.round(TotalDistance * 100) / 100;
+					//$("#lbldistance").val("Distance (meter)");
+					document.getElementById('lbldistance').innerHTML = "Distance (meter):";
+					$("#distance").val(mdistance + "");
 
+				}
+				
+				LastPosition = location;	
 			}
-			
-			LastPosition = location;	
 		}
 	}
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
+	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
 	//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 }
 //======================== stop watch =================================

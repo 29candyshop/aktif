@@ -1571,79 +1571,75 @@ function showPosition(position) {
 	{
 		
 		$("#Accuracy").val("" + position.coords.accuracy);
-		//if(position.coords.accuracy < 65
-		var mCoordinate = localStorage.getItem("CurrentRun");
-		if(mCoordinate == "")
+		if(position.coords.accuracy <= 10)
 		{
-			mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
-		}
-		else
-		{
-			mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
-		}
-		localStorage.setItem("CurrentRun", mCoordinate);
-		
-		LocationCount = LocationCount + 1;
-		//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
-		//document.getElementById('calories').innerHTML = "Location: " + LocationCount;
-		
-		//var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
-		//LastPosition = mLastPosition;
-		if(LastPosition == "")
-		{
-			LastPosition = position;
-		}
-		else
-		{
-			var distance = calculateDistance(LastPosition.coords.latitude, LastPosition.coords.longitude,
-                        position.coords.latitude, position.coords.longitude);
-			distance = distance * 1000.0;
-			TotalDistance = TotalDistance + distance;
+			//high accuracy 
 			
-			//document.getElementById('distance').innerHTML = TotalDistance;
-			
-			if(TotalDistance > 1000.0)
+			//var mLastPosition = localStorage.getItem("CurrentRun_LastPosition");
+			//LastPosition = mLastPosition;
+			if(LastPosition == "")
 			{
-				var d = TotalDistance / 1000.0;
-				mdistance = Math.round(d * 100) / 100;
-				document.getElementById('lbldistance').innerHTML = "Distance (km):";
-				//$("#lbldistance").val("Distance (km)");
-				$("#distance").val(mdistance + "");
-				
-				/*try{
-					cordova.plugins.notification.local.update({
-						id: 1,
-						text: 'You started RUN. Distance: ' + mdistance + 'km'
-					});
-				}
-				catch(err)
+				LastPosition = position;
+				var mCoordinate = localStorage.getItem("CurrentRun");
+				if(mCoordinate == "")
 				{
+					mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
+				}
+				else
+				{
+					mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
+				}
+				localStorage.setItem("CurrentRun", mCoordinate);
 				
-				}*/
+				LocationCount = LocationCount + 1;
+				
 			}
 			else
 			{
-				mdistance = Math.round(TotalDistance * 100) / 100;
-				//$("#lbldistance").val("Distance (meter)");
-				document.getElementById('lbldistance').innerHTML = "Distance (meter):";
-				$("#distance").val(mdistance + "");
-				
-				/*try{
-					cordova.plugins.notification.local.update({
-						id: 1,
-						text: 'You started RUN. Distance: ' + mdistance + 'meter'
-					});
-				}
-				catch(err)
+				var distance = calculateDistance(LastPosition.coords.latitude, LastPosition.coords.longitude,
+							position.coords.latitude, position.coords.longitude);
+				distance = distance * 1000.0;
+				if(distance >= 10.0)
 				{
-				
-				}*/
+					TotalDistance = TotalDistance + distance;
+					
+					//document.getElementById('distance').innerHTML = TotalDistance;
+					
+					if(TotalDistance > 1000.0)
+					{
+						var d = TotalDistance / 1000.0;
+						mdistance = Math.round(d * 100) / 100;
+						document.getElementById('lbldistance').innerHTML = "Distance (km):";
+						//$("#lbldistance").val("Distance (km)");
+						$("#distance").val(mdistance + "");				
+					}
+					else
+					{
+						mdistance = Math.round(TotalDistance * 100) / 100;
+						//$("#lbldistance").val("Distance (meter)");
+						document.getElementById('lbldistance').innerHTML = "Distance (meter):";
+						$("#distance").val(mdistance + "");
+					}
+					
+					var mCoordinate = localStorage.getItem("CurrentRun");
+					if(mCoordinate == "")
+					{
+						mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
+					}
+					else
+					{
+						mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
+					}
+					localStorage.setItem("CurrentRun", mCoordinate);
+					
+					LocationCount = LocationCount + 1;
+					LastPosition = position;	
+				}
 			}
+			LocationTimeStamp =  position.timestamp;
+			//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 			
-			LastPosition = position;	
 		}
-		//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
-		LocationTimeStamp =  position.timestamp;
 	}
 	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + " [" + LocationCount_Total + "]");
 	

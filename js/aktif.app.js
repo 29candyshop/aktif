@@ -37,6 +37,11 @@ var opts = {
 	  left: 'auto', // Left position relative to parent in px
 	  position: 'relative'
 	};	 
+	
+	var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
 var spinner = null;	 
 //document ready
 $(document).ready(function(){
@@ -840,6 +845,8 @@ function Groups()
 
 function Runs(mRunid)
 {
+	
+
 	var toAdd = document.getElementById('historyPage');
 	var left = window.innerWidth/2 - 20;
 	opts.left = left + 'px';
@@ -892,8 +899,29 @@ function Runs(mRunid)
 						image = "cycling.png";
 					}
 					
+					var strDate = new Date(obj.rundate);
+					var dd = strDate.getDate(); var mm = strDate.getMonth()+1; //January is 0! 
+					var yyyy = strDate.getFullYear(); 
+					
+					var ampm = '';
+					var hh = strDate.getHours();
+					if(hh > 12)
+					{
+						hh = hh - 12;
+						ampm = 'pm';
+					}
+					else
+					{
+						ampm = 'am';
+					}
+					var min = strDate.getMinutes();
+					
+					
+					if(min < 10) min = '0' + min;
+					
+					
 					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.rundate + '</span></div></div>';
+					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
 					panelMain.append(html);
 					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
 					
@@ -1224,7 +1252,8 @@ function StartRun()
 	localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 	
 	$("#distance").val(TotalDistance);
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
+	$("#calories").val("- -");
+	//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 	
 	//Store activity type
 	var mActivity = $("#activity").val();
@@ -1248,6 +1277,14 @@ function StartRun()
 	
 	//start location updates
 	getLocationUpdate();
+	try
+	{
+		window.plugins.backgroundGeoLocation.stop();
+	}
+	catch(err)
+	{
+	
+	}
 	try
 	{
 		configureBackgroundGeoLocation();
@@ -1400,6 +1437,26 @@ function displayMyRun()
 	var runDate = localStorage.getItem("CurrentRun_Date");
 	$("#divMap").css({'background-image':'none'});
 	
+	var strDate = new Date(runDate);
+	var dd = strDate.getDate(); var mm = strDate.getMonth()+1; //January is 0! 
+	var yyyy = strDate.getFullYear(); 
+	
+	var ampm = '';
+	var hh = strDate.getHours();
+	if(hh > 12)
+	{
+		hh = hh - 12;
+		ampm = 'pm';
+	}
+	else
+	{
+		ampm = 'am';
+	}
+	
+	var min = strDate.getMinutes();
+	if(min < 10) min = '0' + min;
+
+	
 	if(mMap == "")
 	{
 		 var id = localStorage.getItem("CurrentRun_id");
@@ -1441,7 +1498,7 @@ function displayMyRun()
 	//document.getElementById('lblMapDistance').innerHTML = document.getElementById('lbldistance').innerHTML;
 	//document.getElementById('mapDistance').innerHTML = mdistance;
 	document.getElementById('mapDuration').innerHTML = mDuration;
-	document.getElementById('mapRunDate').innerHTML = runDate;
+	document.getElementById('mapRunDate').innerHTML = '' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + '' + ampm;//runDate;
 	//$("#mapDistance").val(mdistance + "");
 	//$("#mapDuration").val(mDuration + "");
 	//$("#mapRunDate").val(runDate + "");
@@ -1696,6 +1753,13 @@ function showPosition(position) {
 					
 					LocationCount = LocationCount + 1;
 					LastPosition = position;	
+					
+					try{
+						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
+						var strCal = calculateCalories(TotalDistance, weight);
+						$("#calories").val(strCal);
+					}
+					catch(err){}
 				}
 			}
 			LocationTimeStamp =  position.timestamp;
@@ -1703,7 +1767,7 @@ function showPosition(position) {
 			
 		}
 	}
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
+	//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
 	
 }
 
@@ -1759,6 +1823,28 @@ Number.prototype.toRad = function() {
 }
 
 //===================== background geolocation ========================
+
+function calculateCalories(dblDistance, Weight)
+{
+	 //convert km to miles 
+	var dKmForCalories = dblDistance/1000.0;
+	var dMile = dKmForCalories * 0.621371;
+	
+	//convert kg to pound 
+	try
+	{
+			var dblWeight = parseDouble(Weight);
+			var dblWeightPound = dblWeight * 2.20462;
+			var CaloriesBurned = (dblWeightPound) * (0.63) * (dMile);
+			
+			return (String.format("%.1f", CaloriesBurned));
+		
+	}
+	catch(err)
+	{
+		return "- -";
+	}
+}
 
 function configureBackgroundGeoLocation()
 {
@@ -1918,10 +2004,17 @@ function showPos(location)
 				}
 				
 				LastPosition = location;	
+				
+				try{
+						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
+						var strCal = calculateCalories(TotalDistance, weight);
+						$("#calories").val(strCal);
+					}
+					catch(err){}
 			}
 		}
 	}
-	$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
+	//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")" + "[" + LocationCount_Total + "]");
 	//localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 }
 //======================== stop watch =================================

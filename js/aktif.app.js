@@ -904,11 +904,13 @@ function Runs(mRunid)
 						image = "cycling.png";
 					}
 					
-					var strDate = new Date(obj.rundate.replace(' ', 'T'));
-					if(strDate == "Invalid Date")
-					{
-						strDate = new Date(obj.rundate);
-					}
+					//var strDate = new Date(obj.rundate.replace(' ', 'T'));
+					var strDate = new Date(obj.rundate.replace(/-/g, '/'));
+					
+					//if(strDate == "Invalid Date")
+					//{
+					//	strDate = new Date(obj.rundate);
+					//}
 	
 					//var strDate = new Date(obj.rundate);
 					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
@@ -1449,15 +1451,16 @@ function displayMyRun()
 	var mDuration = localStorage.getItem("CurrentRun_Duration");
 	var mMap = localStorage.getItem("CurrentRun_Map");
 	var runDate = localStorage.getItem("CurrentRun_Date");
-	alert(runDate);
+	//alert(runDate);
 	$("#divMap").css({'background-image':'none'});
 	
-	var strDate = new Date(runDate.replace(' ', 'T'));
-	if(strDate == "Invalid Date")
+	//var strDate = new Date(runDate.replace(' ', 'T'));
+	var strDate = new Date(runDate.replace(/-/g, '/'));
+	/*if(strDate == "Invalid Date")
 	{
 		strDate = new Date(runDate);
-	}
-	alert(strDate);
+	}*/
+	//alert(strDate);
 	var dd = strDate.getDate(); 
 	
 	var mm = strDate.getMonth(); //January is 0! 

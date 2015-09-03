@@ -676,9 +676,14 @@ function displayUserSummary(divId)
 	var distance = CampaignDistance;
 	distance = distance / 1000.0;
 	distance = Math.round(distance * 100) / 100;
+	
+	var userTotalDistance = TotalDistance;
+	userTotalDistance = userTotalDistance / 1000.0;
+	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
+	
 	$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	$("#username"+ divId).html("" + firstname + " " + lastname + "" );
-	$("#userSummary"+ divId).html("" + TotalRuns + " runs | Distance: " + distance + "km | Groups: " + TotalEvents );
+	$("#userSummary"+ divId).html("" + TotalRuns + " runs | Distance: " + userTotalDistance + "km | Groups: " + TotalEvents );
 	
 	if(window.localStorage.getItem("LoginType") == "facebook")
 	{
@@ -898,6 +903,7 @@ function Runs(mRunid)
 					{
 						image = "cycling.png";
 					}
+					
 					
 					var strDate = new Date(obj.rundate);
 					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
@@ -1438,6 +1444,7 @@ function displayMyRun()
 	var mDuration = localStorage.getItem("CurrentRun_Duration");
 	var mMap = localStorage.getItem("CurrentRun_Map");
 	var runDate = localStorage.getItem("CurrentRun_Date");
+	alert(runDate);
 	$("#divMap").css({'background-image':'none'});
 	
 	var strDate = new Date(runDate);

@@ -900,7 +900,7 @@ function Runs(mRunid)
 					}
 					
 					var strDate = new Date(obj.rundate);
-					var dd = strDate.getDate(); var mm = strDate.getMonth()+1; //January is 0! 
+					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
 					var yyyy = strDate.getFullYear(); 
 					
 					var ampm = '';
@@ -1362,22 +1362,25 @@ function StopRun()
 	{
 	
 	}
+
+	
+	var today = new Date();
+	var dd = today.getDate(); if(dd < 10) dd = '0' + dd;
+	var mm = today.getMonth()+1; if(mm < 10) mm = '0' + mm;
+	var yyyy = today.getFullYear();
+	
+	var min = today.getMinutes(); if(min < 10) min = '0' + min;
+	var hour = today.getHours(); if(hour < 10) hour = '0' + hour;
+	var sec = today.getSeconds(); if(sec < 10) sec = '0' + sec;
+	
+	var runDate = yyyy + "-" + mm + "-" + dd + " " + hour + ":" + hour + ":" + sec;
+	localStorage.setItem("CurrentRun_Date", runDate);
+	
 	//convert coordinates to static image url
 	var mMapURL = getMapURL();
 	//alert(mMapURL);
 	localStorage.setItem("CurrentRun_Map", mMapURL);
 	
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-	
-	var min = today.getMinutes();
-	var hour = today.getHours();
-	var sec = today.getSeconds();
-	
-	var runDate = yyyy + "-" + mm + "-" + dd + " " + hour + ":" + hour + ":" + sec;
-	localStorage.setItem("CurrentRun_Date", runDate);
 	if(TotalDistance > 0.0)
 	{
 		SynctoDB();
@@ -1438,7 +1441,7 @@ function displayMyRun()
 	$("#divMap").css({'background-image':'none'});
 	
 	var strDate = new Date(runDate);
-	var dd = strDate.getDate(); var mm = strDate.getMonth()+1; //January is 0! 
+	var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
 	var yyyy = strDate.getFullYear(); 
 	
 	var ampm = '';
@@ -1756,7 +1759,8 @@ function showPosition(position) {
 					
 					try{
 						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
-						var strCal = calculateCalories(TotalDistance, weight);
+						var dblTotalDistance = parseDouble("" + TotalDistance);
+						var strCal = calculateCalories(dblTotalDistance, weight);
 						$("#calories").val(strCal);
 					}
 					catch(err){}
@@ -2007,7 +2011,8 @@ function showPos(location)
 				
 				try{
 						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
-						var strCal = calculateCalories(TotalDistance, weight);
+						var dblTotalDistance = parseDouble("" + TotalDistance);
+						var strCal = calculateCalories(dblTotalDistance, weight);
 						$("#calories").val(strCal);
 					}
 					catch(err){}

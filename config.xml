@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "76" 
-	version 	= "0.99.76">
+	versionCode = "77" 
+	version 	= "0.99.77">
 
 	<name>AktifPenang</name>
 
@@ -18,23 +18,81 @@
 	</author>
 	
 	
-	<!--<icon src="icon.png" gap:role="default" />-->
+	<!--<icon src="icon.png" gap:role="default" />
 	<icon src="/resources/icons/icon_app_57.png" width="57" height="57" />
 	<icon src="/resources/icons/icon_app_72.png" gap:platform="ios" width="72" height="72" />
-	<icon src="/resources/icons/icon_app_114.png" width="114" height="114" />
+	<icon src="/resources/icons/icon_app_114.png" width="114" height="114" />-->
+	
+	
+	
+	
+
+	<!-- iPhone 6 / 6+ -->
+	<icon src="/resources/icons/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
+
+	<!-- iPhone / iPod Touch  -->
+	<icon src="/resources/icons/icon-60.png" gap:platform="ios" width="60" height="60" />
+	<icon src="/resources/icons/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
+
+	<!-- iPad -->
+	<icon src="/resources/icons/icon-76.png" gap:platform="ios" width="76" height="76" />
+	<icon src="/resources/icons/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
+
+	<!-- Settings Icon -->
+	<icon src="/resources/icons/icon-small.png" gap:platform="ios" width="29" height="29" />
+	<icon src="/resources/icons/icon-small@2x.png" gap:platform="ios" width="58" height="58" />
+
+	<!-- Spotlight Icon -->
+	<icon src="/resources/icons/icon-40.png" gap:platform="ios" width="40" height="40" />
+	<icon src="/resources/icons/icon-40@2x.png" gap:platform="ios" width="80" height="80" />
+
+
+
+
+	
+	
+	
+	<!-- iPhone and iPod touch -->
+	<gap:splash src="/resources/loading/Default.png" gap:platform="ios" width="320" height="480" />
+	<gap:splash src="/resources/loading/Default@2x.png" gap:platform="ios" width="640" height="960" />
+
+	<!-- iPhone 5 / iPod Touch (5th Generation) -->
+	<gap:splash src="/resources/loading/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
+
+	<!-- iPhone 6 -->
+	<gap:splash src="/resources/loading/Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />
+	<gap:splash src="/resources/loading/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" />
+	<gap:splash src="/resources/loading/Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
+
+	<!-- iPad -->
+	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" gap:platform="ios" width="768" height="1024" />
+	<gap:splash src="/resources/loading/Default-Landscape~ipad.png" gap:platform="ios" width="1024" height="768" />
+
+	<!-- Retina iPad -->
+	<gap:splash src="/resources/loading/Default-Portrait@2x.png" gap:platform="ios" width="1536" height="2048" />
+	<gap:splash src="/resources/loading/Default-Landscape@2x.png" gap:platform="ios" width="2048" height="1536" />
+
+
+
+	
+	
 	
 
 	
-	<gap:splash src="/resources/loading/Default.png" width="320" height="480" />
+	<!--<gap:splash src="/resources/loading/Default.png" width="320" height="480" />
 	<gap:splash src="/resources/loading/Default@2x.png" width="640" height="960" />
 	<gap:splash src="/resources/loading/Default-Landscape~ipad.png" width="1024" height="768" />
 	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" width="768" height="1024" />
 
 
-	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	
 	<gap:splash src="/resources/loading/Default-Landscape~ipad.png" gap:platform="ios" width="2048" height="1496" />
-	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" gap:platform="ios" width="1536" height="2008" />
+	<gap:splash src="/resources/loading/Default-Portrait~ipad.png" gap:platform="ios" width="1536" height="2008" />-->
 
+	
+	
+	
+	
 	
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>

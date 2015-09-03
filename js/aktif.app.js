@@ -1254,6 +1254,7 @@ function editProfile()
 
 function StartRun()
 {
+	
 	//callbackFn("a", 200);
 	
 	TotalDistance = 0.0;
@@ -1396,6 +1397,8 @@ function StopRun()
 	
 	if(TotalDistance > 0.0)
 	{
+		//encode path 
+		
 		SynctoDB();
 		
 		//set mcurrent run to emty
@@ -1629,7 +1632,7 @@ function SynctoDB()
 		var mActivity = localStorage.getItem("CurrentRun_Activity");
 		var mdistance = localStorage.getItem("CurrentRun_Distance");
 		var mDuration = localStorage.getItem("CurrentRun_Duration");
-		var mCoor = localStorage.getItem("CurrentRun");
+		/*var mCoor = localStorage.getItem("CurrentRun");
 		var arrCoor = mCoor.split("|");
 
 		var text = '{ "employees" : [' +
@@ -1651,8 +1654,8 @@ function SynctoDB()
 				coor_json = coor_json + ',{"time":"","lat":"'+ lat + '","long":"' + lo + '"}';
 			}
 		}
-		coor_json = "[" + coor_json + "]";
-		var mRoute = '';
+		coor_json = "[" + coor_json + "]";*/
+		var mRoute = getPathEncoded();
 		
 		var runDate = localStorage.getItem("CurrentRun_Date");
 		
@@ -1661,7 +1664,7 @@ function SynctoDB()
 			token: mToken,
 			distance: mdistance, 
 			activity_type:mActivity,
-			route:coor_json,
+			route:mRoute,
 			duration: mDuration,
 			avepace:'',
 			workout_type:'Free Run',
@@ -1687,14 +1690,29 @@ function SynctoDB()
 	}
 }
 
+function getPathEncoded()
+{
+	var arrCoordinates = [];
+	//arrCoordinate = mCoordinate.split("|");
+	var CurrentRunPath = localStorage.getItem("CurrentRun");//"38.5,-120.2|40.7,-120.95|43.252,-126.453";//localStorage.getItem("CurrentRun");
+	var arrCurrentRun = CurrentRunPath.split("|");
+	for (var Coor in arrCurrentRun)
+	{
+		var arrCoor = arrCurrentRun[Coor].split(",");
+		var _Coor = [arrCoor[0], arrCoor[1]];
+		arrCoordinates.push(_Coor);
+	}
+	var encoded = polyline.encode(arrCoordinates);//[[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
+	return encoded;
+}
+
 function getMapURL()
 {
 	//var mCoordinate = localStorage.getItem("CurrentRun");
-	//var arrCoordinate[] = new Array();
-	//arrCoordinate = mCoordinate.split("|");
+	var encoded = getPathEncoded();
 	
 	//loop and append
-	var mapURL = "http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=" + localStorage.getItem("CurrentRun");
+	var mapURL = "http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" + encoded;//localStorage.getItem("CurrentRun");
 	
 	return mapURL;
 }
@@ -1728,10 +1746,12 @@ function showPosition(position) {
 				if(mCoordinate == "")
 				{
 					mCoordinate = "" + position.coords.latitude + "," + position.coords.longitude;
+					
 				}
 				else
 				{
 					mCoordinate = mCoordinate + "|" + position.coords.latitude + "," + position.coords.longitude;
+					
 				}
 				localStorage.setItem("CurrentRun", mCoordinate);
 				

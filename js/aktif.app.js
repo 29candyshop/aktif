@@ -1444,11 +1444,14 @@ function displayMyRun()
 	var mDuration = localStorage.getItem("CurrentRun_Duration");
 	var mMap = localStorage.getItem("CurrentRun_Map");
 	var runDate = localStorage.getItem("CurrentRun_Date");
-	alert(runDate);
+	
 	$("#divMap").css({'background-image':'none'});
 	
 	var strDate = new Date(runDate);
-	var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+	alert(strDate);
+	var dd = strDate.getDate(); 
+	alert(dd);
+	var mm = strDate.getMonth(); //January is 0! 
 	var yyyy = strDate.getFullYear(); 
 	
 	var ampm = '';

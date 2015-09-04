@@ -1408,6 +1408,8 @@ function StopRun()
 	}
 	else
 	{
+		//SynctoDB();
+		//location.hash = "#runMap";
 		if(navigator.notification)
 		{
 			navigator.notification.alert(
@@ -1496,14 +1498,25 @@ function displayMyRun()
 			}, 
 			function(result){
 				var obj = JSON.parse(result);
+				var strMap = "url('" + obj.runs[0].map + "')";
+				//alert(strMap);
 				localStorage.setItem("CurrentRun_Map", obj.runs[0].map);
-				$("#divMap").css({'background-image':'url('+ obj.runs[0].map +')'});
+				var w = window.innerWidth - 40;
+				$("#imgMap").css({"width":w});
+				$("#imgMap").css({"height":w});
+				//$("#imgMap").src = obj.runs[0].map;
+				document.getElementById("imgMap").src = obj.runs[0].map;
 			}
 		);
 	}
 	else
 	{
-		$("#divMap").css({'background-image':'url('+ mMap +')'});
+		//$("#divMap").css({'background-image':'url('+ mMap +')'});
+		var w = window.innerWidth - 40;
+		$("#imgMap").css({"width":w});
+		$("#imgMap").css({"height":w});
+		//$("#imgMap").src = obj.runs[0].map;
+		document.getElementById("imgMap").src = mMap;
 	}
 	
 	if(mD > 1000.0)
@@ -1702,8 +1715,10 @@ function getPathEncoded()
 		var _Coor = [arrCoor[0], arrCoor[1]];
 		arrCoordinates.push(_Coor);
 	}
-	var encoded = polyline.encode(arrCoordinates);//[[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
+	var encoded = polyline.encode(arrCoordinates);//[[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);//
+	//encoded = '{l}_@cmecR@Qb@wA~BSjFThFt@rEp@fEh@jF`@hI?`G_ClFgCvDgBzAo@pDqAf@QtCgAz@[rAe@lDqAbDu@lEk@tEwBbAeEj@uEQuGCqGlA{JdAsIbC}FhHdBjGlBhFxAtGfBlGzAtG`AlHRfII|IOnIi@pI{AfHmA`KdAlGbF|F`E~ElDxFhEfHrDbIxAzILzKjApJpCbIhBhI~AvJfBrIxA~IxAzHb@dIL~GrCnFnIzAhKo@bJaBhJyAxGxA~FfFnDzF~CzEtBxBv@hB~@o@zEu@`GOlECdCE~BMtFZtCzAj@YD_A\\';
 	return encoded;
+	
 }
 
 function getMapURL()

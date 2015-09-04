@@ -642,7 +642,8 @@ function UserSummary()
 			window.localStorage.setItem("TotalDistance", obj.summary[0].TotalDistance);
 			window.localStorage.setItem("TotalEvents", obj.summary[0].TotalEvents);
 
-			var distance = obj.summary[0].CampaignDistance;
+			displayUserSummary("Index");
+			/*var distance = obj.summary[0].CampaignDistance;
 			distance = distance / 1000.0;
 			distance = Math.round(distance * 100) / 100;
 			$("#CampaignSummary").html("" + obj.summary[0].CampaignUser + " members | Distance: " + distance + "km" );
@@ -653,7 +654,7 @@ function UserSummary()
 			{
 				imageURL = "https://graph.facebook.com/" + window.localStorage.getItem("UserID") + "/picture?type=large";
 				$("#userImage").css({'background-image':'url('+imageURL+')'});
-			}
+			}*/
 			
 			
 			UserProfile();
@@ -688,7 +689,7 @@ function displayUserSummary(divId)
 	if(window.localStorage.getItem("LoginType") == "facebook")
 	{
 		imageURL = "https://graph.facebook.com/" + window.localStorage.getItem("UserID") + "/picture?type=large";
-		$("#userImage").css({'background-image':'url('+imageURL+')'});
+		$("#userImage"+ divId).css({'background-image':'url('+imageURL+')'});
 	}
 }
 

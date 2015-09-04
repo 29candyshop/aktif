@@ -208,7 +208,7 @@ $(document).on('click', 'a[href^=http], a[href^=https]', function (event) {
 function panelMenu(divId) {
 	var panelMain = $('#panelMenu' + divId + '');
 	panelMain.children().remove('#userinfo'+ divId);
-	panelMain.prepend('<div id="userinfo'+ divId + '" style="float:left;width:100%;margin-top:60px;"><div id="userImage" style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/login.png);border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div><div style="float:left;width:60%;"><span id="username'+ divId + '"></span></br><span id="userSummary'+ divId + '" style="font-size:14px;color:#555;"></span></div></div>');
+	panelMain.prepend('<div id="userinfo'+ divId + '" style="float:left;width:100%;margin-top:60px;"><div id="userImage'+ divId + '" style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/login.png);border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div><div style="float:left;width:60%;"><span id="username'+ divId + '"></span></br><span id="userSummary'+ divId + '" style="font-size:14px;color:#555;"></span></div></div>');
 	
 	var panel = $('#panelMenu' + divId + 'UL');
 	panel.children().remove('li');

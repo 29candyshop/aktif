@@ -18,6 +18,11 @@ var LastPosition = '';
 	var LocationCount_background = 0;
 	var LocationTimeStamp = 0;
 	//var bgGeo = null;
+	var nextToken = 0;
+	var TotalRunCount = 0;
+	
+	var nextToken_GroupMember = 0;
+	var Total_GroupMemberCount = 0;
 	
 var opts = {
 	  lines: 12, // The number of lines to draw
@@ -45,7 +50,7 @@ var opts = {
 var spinner = null;	 
 //document ready
 $(document).ready(function(){
-	
+	localStorage.setItem("run_fresh", "true");
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
 	{
@@ -210,10 +215,11 @@ $(document).on('click', '.evtRegister', function (event, data) {
 $(document).on('click', '.evtHistory', function (event, data) {
 	var a = this;
 	var id = a.id.replace("Historyinfo-", "");
-	var result = window.localStorage.getItem("aktif_runHistory");
+	//var result = window.localStorage.getItem("aktif_runHistory");
+	var result = window.localStorage.getItem("aktif_runHistory_Individual")
 	var objGroup = JSON.parse(result);
-	for(var i = 0; i < objGroup.runs.length; i++) {
-		var obj = objGroup.runs[i];
+	for(var i = 0; i < objGroup.length; i++) {
+		var obj = objGroup[i];
 		if(obj.activityid == id)
 		{
 			
@@ -226,7 +232,20 @@ $(document).on('click', '.evtHistory', function (event, data) {
 			break;
 		}
 	}
-	
+	/*for(var i = 0; i < objGroup.runs.length; i++) {
+		var obj = objGroup.runs[i];
+		if(obj.activityid == id)
+		{
+			
+			localStorage.setItem("CurrentRun_id", id);
+			localStorage.setItem("CurrentRun_Duration", obj.duration);
+			localStorage.setItem("CurrentRun_Distance", obj.distance);		
+			localStorage.setItem("CurrentRun_Map", obj.map);
+			localStorage.setItem("CurrentRun_Date", obj.rundate);
+			location.hash = "#runMap";
+			break;
+		}
+	}*/
 });
 
 $(document).on('click', '.evtGroup', function (event, data) {
@@ -326,6 +345,27 @@ $(document).on('click', '.evtGroup', function (event, data) {
 			}
 		}
 	});
+	
+});
+
+
+$(document).on("scrollstop", function (e) {
+    var activePage = $.mobile.pageContainer.pagecontainer("getActivePage"),
+        screenHeight = $.mobile.getScreenHeight(),
+        contentHeight = $(".ui-content", activePage).outerHeight(),
+        header = $(".ui-header", activePage).outerHeight() - 1,
+        scrolled = $(window).scrollTop(),
+        footer = $(".ui-footer", activePage).outerHeight() - 1,
+        scrollEnd = contentHeight - screenHeight + header + footer;
+    $(".ui-btn-left", activePage).text("Scrolled: " + scrolled);
+    $(".ui-btn-right", activePage).text("ScrollEnd: " + scrollEnd);
+    if (activePage[0].id == "historyPage" && scrolled >= scrollEnd) {
+        //console.log("adding...");
+        addMoreRun(activePage);
+    }
+	else  if (activePage[0].id == "individualGroupPage" && scrolled >= scrollEnd) {
+		 addMoreGroupMember(activePage);
+	}
 	
 });
 
@@ -849,14 +889,18 @@ function Groups()
 
 }
 
+
+
 function Runs(mRunid)
 {
-	
-
-	var toAdd = document.getElementById('historyPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);	
+	var RefreshRun = localStorage.getItem("run_fresh");
+	if(RefreshRun == "true")
+	{
+		nextToken = 0;
+		var toAdd = document.getElementById('historyPage');
+		var left = window.innerWidth/2 - 20;
+		opts.left = left + 'px';
+		spinner = new Spinner(opts).spin(toAdd);	
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
@@ -867,6 +911,8 @@ function Runs(mRunid)
 				//$("span").html(result);
 				var obj = JSON.parse(result);
 				spinner.stop();
+				nextToken = obj.nexttoken;
+				TotalRunCount = obj.total;
 					/*'activityid' => $id,
 						'distance' => $distance,
 						'activity_type' => $activity_type,
@@ -884,8 +930,24 @@ function Runs(mRunid)
 				objGroup = obj;
 				var panelMain = $('#HistoryMain' + '');
 				panelMain.empty();
+				window.localStorage.setItem("aktif_runHistory_Individual", "");
 				for(var i = 0; i < objGroup.runs.length; i++) {
 					var obj = objGroup.runs[i];
+					
+					
+					var strObj = JSON.stringify(obj);
+					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+					if(objStorage == "")
+					{
+						window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
+					}
+					else
+					{
+						objStorage = objStorage.replace("]", "");
+						window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
+					}
+					
+					
 					var mdistance = parseFloat(obj.distance);
 					var munit = "meter";
 					if(mdistance > 1000.0)
@@ -946,11 +1008,132 @@ function Runs(mRunid)
 					//console.log(distance + "km");
 					//console.log(obj.isGroup);
 				}
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "]");
 				
 				//alert(obj.token);
 			});
-
+	}
+	localStorage.setItem("run_fresh", "false");
 }
+
+function addMoreRun(page) {
+	if(nextToken < TotalRunCount)
+	{
+		$.mobile.loading("show", {
+			text: "loading more..",
+			textVisible: true,
+			theme: "b"
+		});
+		 var mToken = window.localStorage.getItem("AccessToken");
+			 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+			{
+				token: mToken,
+				nexttoken: nextToken,
+				runid: 'all'
+			}, 
+			function(result){
+				//$("span").html(result);
+				var obj = JSON.parse(result);
+				nextToken = obj.nexttoken;
+				TotalRunCount = obj.total;
+				spinner.stop();
+					/*'activityid' => $id,
+						'distance' => $distance,
+						'activity_type' => $activity_type,
+						'duration' => $duration,
+						'avepace' => $avepace,
+						'workout_type' => $workout_type,
+						'eventid' => $eventid,
+						'rundate' => $rundate,
+						'checkin_type' => $checkin_type,
+						'map' => $_map,
+						*/
+							
+							
+				window.localStorage.setItem("aktif_runHistory", result);
+				objGroup = obj;
+				var panelMain = $('#HistoryMain' + '');
+				//panelMain.empty();
+				for(var i = 0; i < objGroup.runs.length; i++) {
+					var obj = objGroup.runs[i];
+					
+					
+					var strObj = JSON.stringify(obj);
+					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+					if(objStorage == "")
+					{
+						window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
+					}
+					else
+					{
+						objStorage = objStorage.replace("]", "");
+						window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
+					}
+					
+					
+					
+					var mdistance = parseFloat(obj.distance);
+					var munit = "meter";
+					if(mdistance > 1000.0)
+					{
+						mdistance = mdistance / 1000.0;
+						munit = "km";
+					}
+					mdistance = Math.round(mdistance * 100) / 100;
+					
+					var image = "";
+					if(obj.activity_type.toLowerCase() == "running")
+					{
+						image = "icon_run.png";
+					}
+					else
+					{
+						image = "cycling.png";
+					}
+					
+					//var strDate = new Date(obj.rundate.replace(' ', 'T'));
+					var strDate = new Date(obj.rundate.replace(/-/g, '/'));
+					
+					//if(strDate == "Invalid Date")
+					//{
+					//	strDate = new Date(obj.rundate);
+					//}
+	
+					//var strDate = new Date(obj.rundate);
+					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+					var yyyy = strDate.getFullYear(); 
+					
+					var ampm = '';
+					var hh = strDate.getHours();
+					if(hh > 12)
+					{
+						hh = hh - 12;
+						ampm = 'pm';
+					}
+					else
+					{
+						ampm = 'am';
+					}
+					var min = strDate.getMinutes();
+					
+					
+					if(min < 10) min = '0' + min;
+					
+					
+					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					
+					
+				}
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "]");
+				 $.mobile.loading("hide");
+				//alert(obj.token);
+			});
+	}
+}
+
 
 function sharemyrun()
 {
@@ -1404,7 +1587,7 @@ function StopRun()
 		
 		//set mcurrent run to emty
 		//localStorage.setItem("CurrentRun", "");
-	
+		localStorage.setItem("run_fresh", "true");
 		location.hash = "#runMap";
 	}
 	else
@@ -1459,6 +1642,7 @@ function displayMyRun()
 	var runDate = localStorage.getItem("CurrentRun_Date");
 	//alert(runDate);
 	$("#divMap").css({'background-image':'none'});
+	document.getElementById("imgMap").src = "";
 	
 	//var strDate = new Date(runDate.replace(' ', 'T'));
 	var strDate = new Date(runDate.replace(/-/g, '/'));
@@ -1584,6 +1768,10 @@ function displayGroup()
 			}, 
 			function(result){
 				var obj = JSON.parse(result);
+				
+				nextToken_GroupMember = obj.nexttoken;
+				Total_GroupMemberCount = obj.total;
+				
 				var objUserlist = obj.userlist;
 				var objIsJoined = obj.isGroup;
 				if(objIsJoined == "0")
@@ -1627,6 +1815,77 @@ function displayGroup()
 				}
 			}
 		);
+}
+
+function addMoreGroupMember(page)
+{
+	if(nextToken_GroupMember < Total_GroupMemberCount)
+	{
+		$.mobile.loading("show", {
+			text: "loading more..",
+			textVisible: true,
+			theme: "b"
+		});
+		var CurrentGroup_id = localStorage.getItem("CurrentGroup_id");
+		var mToken = window.localStorage.getItem("AccessToken");
+		$.get("http://www.aktifpenang.com/api/_api_group_get.php", 
+			{
+				token: mToken,
+				nexttoken: nextToken_GroupMember,
+				groupid: CurrentGroup_id
+			}, 
+			function(result){
+				var obj = JSON.parse(result);
+				
+				nextToken_GroupMember = obj.nexttoken;
+				Total_GroupMemberCount = obj.total;
+				
+				var objUserlist = obj.userlist;
+				var objIsJoined = obj.isGroup;
+				if(objIsJoined == "0")
+				{
+					$('#btnJoinGroup' + '').css({'display':'block'});
+					$('#btnLeaveGroup' + '').css({'display':'none'});
+					$('#btnJoinGroup' + '').val(CurrentGroup_id);
+				}
+				else
+				{
+					$('#btnJoinGroup' + '').css({'display':'none'});
+					$('#btnLeaveGroup' + '').css({'display':'block'});
+					$('#btnLeaveGroup' + '').val(CurrentGroup_id);
+				}
+				var panelMain = $('#groupMembers' + '');
+				//panelMain.empty();
+				for(var i = 0; i < objUserlist.length; i++) {
+					var objUser = objUserlist[i];	
+					var mdistance = parseFloat(objUser.userdistance);
+					var munit = "meter";
+					if(mdistance > 1000.0)
+					{
+						mdistance = mdistance / 1000.0;
+						munit = "km";
+					}
+					mdistance = Math.round(mdistance * 100) / 100;
+					var imageURL = "";
+					if(objUser.username_type == "email")
+					{
+						imageURL = "images/icons/login.png";
+					}
+					else
+					{
+						imageURL = "https://graph.facebook.com/" + objUser.username_id + "/picture?type=large";
+					}
+					var html = '<div id="Historyinfo-' + objUser.username_id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+					'<div style="float:left;width:60%;"><span id="">' + objUser.username + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					
+				}
+				$.mobile.loading("hide");
+			}
+		);
+
+	}
 }
 
 function SynctoDB()

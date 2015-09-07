@@ -635,12 +635,9 @@ function LoginFacebook()
 								try {
 									//alert(JSON.stringify(response));
 									//var obj = JSON.parse(response);
-									alert("status:" + response.status);
+									//alert("status:" + response.authResponse.email);
 									if(response.status == "connected")
-									{
-										
-										
-											
+									{	
 										var t = response.authResponse.accessToken;
 										//alert("token:" + t);
 										//alert("user:" + response.authResponse.userID);
@@ -649,28 +646,35 @@ function LoginFacebook()
 										window.localStorage.setItem("UserID", response.authResponse.userID);
 										
 										facebookConnectPlugin.api( "/me", null,
-											function (response) { alert(JSON.stringify(response)) },
-											function (response) { alert(JSON.stringify(response)) }); 
+											function (response) 
+											{ 
+												//alert(JSON.stringify(response)) 
+												//window.localStorage.setItem("UserName", response.name);
+												$.mobile.loading("show", {
+													text: "Please Wait..",
+													textVisible: true,
+													theme: "b"
+												});
+												$.post("http://www.aktifpenang.com/api/_api_loginFb.php", 
+												{
+													fbuserid: response.authResponse.userID,
+													fbusername: response.name,
+													fbemail: '',
+													token: t
+												}, 
+												function(result){
+													$.mobile.loading("hide");
+													//var url = "main1.html";
+													//var win = window.open(url, '_self');
+													location.hash = "#";
+													UserSummary();
+												});
+											},
+											function (response) { 
+												//alert(JSON.stringify(response)) 
+											}); 
 										/*
-										$.mobile.loading("show", {
-											text: "Please Wait..",
-											textVisible: true,
-											theme: "b"
-										});
-										$.post("http://www.aktifpenang.com/api/_api_loginFb.php", 
-										{
-											fbuserid: response.authResponse.userID,
-											fbusername: response.authResponse.userID,
-											fbemail: '',
-											token: t
-										}, 
-										function(result){
-											$.mobile.loading("hide");
-											//var url = "main1.html";
-											//var win = window.open(url, '_self');
-											location.hash = "#";
-											UserSummary();
-										});*/
+										*/
 										
 									}
 									else

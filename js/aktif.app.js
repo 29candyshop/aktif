@@ -24,6 +24,7 @@ var LastPosition = '';
 	var nextToken_GroupMember = 0;
 	var Total_GroupMemberCount = 0;
 	
+	var StaticAPI = "AIzaSyAFirO39qok7sQjlQ9leVAcDqdFGQNt8Yc";
 var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -158,31 +159,31 @@ $(document).on('click', '.evtBack', function (event, data) {
 
 $(document).on('click', '.evtRegister', function (event, data) {
 	//check 
-	if($("#displayname").val() == "")
+	if($("#signup_displayname").val() == "")
 	{
 		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
 		$("#lblRegister").css({"color":"#F4141C"});
 		return;
 	}
-	if($("#username").val() == "")
+	if($("#signup_username").val() == "")
 	{
 		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
 		$("#lblRegister").css({"color":"#F4141C"});
 		return;
 	}
-	if($("#password").val() == "")
+	if($("#signup_password").val() == "")
 	{
 		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
 		$("#lblRegister").css({"color":"#F4141C"});
 		return;
 	}
-	if($("#confirmpassword").val() == "")
+	if($("#signup_confirmpassword").val() == "")
 	{
 		document.getElementById('lblRegister').innerHTML = "Please fill up your particular, email address and password";
 		$("#lblRegister").css({"color":"#F4141C"});
 		return;
 	}
-	if($("#password").val() != $("#confirmpassword").val())
+	if($("#signup_password").val() != $("#signup_confirmpassword").val())
 	{
 		document.getElementById('lblRegister').innerHTML = "Password not match";
 		$("#lblRegister").css({"color":"#F4141C"});
@@ -190,17 +191,38 @@ $(document).on('click', '.evtRegister', function (event, data) {
 	}
 	//var win = window.open("index.html", '_self');
 	//return;
+	$.mobile.loading("show", {
+		text: "Please Wait..",
+		textVisible: true,
+		theme: "b"
+	});
 	 $.post("http://www.aktifpenang.com/api/_api_register.php", 
 		{
-			displayname: $("#displayname").val(),
-			username: $("#username").val(),
-			password: $("#password").val() 
+			displayname: $("#signup_displayname").val(),
+			username: $("#signup_username").val(),
+			password: $("#signup_password").val() 
 		}, 
 		function(result){
+			$.mobile.loading("hide");
 			var obj = JSON.parse(result);
 			if(obj.status == true)
 			{
-				var win = window.open("index.html", '_self');
+				if(navigator.notification)
+				{
+					navigator.notification.alert(
+						'Register Successfully. Please login with your credential now.',
+						function() {},
+						'Join Group',
+						'OK'
+					);
+					var win = window.open("index.html", '_self');
+				}
+				else
+				{
+					alert("Register Successfully. Please login with your credential now.");
+					var win = window.open("index.html", '_self');
+				}
+				
 			}
 			else
 			{
@@ -611,21 +633,41 @@ function LoginFacebook()
 							function (response) 
 							{	
 								try {
-									//alert(JSON.stringify(response));
+									alert(JSON.stringify(response));
 									//var obj = JSON.parse(response);
-									//alert("status:" + response.status);
+									alert("status:" + response.status);
 									if(response.status == "connected")
 									{
+										
+										
 										var t = response.authResponse.accessToken;
 										//alert("token:" + t);
 										//alert("user:" + response.authResponse.userID);
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
-										//var url = "main1.html";
-										//var win = window.open(url, '_self');
-										location.hash = "#";
-										UserSummary();
+										
+										/*
+										$.mobile.loading("show", {
+											text: "Please Wait..",
+											textVisible: true,
+											theme: "b"
+										});
+										$.post("http://www.aktifpenang.com/api/_api_loginFb.php", 
+										{
+											fbuserid: response.authResponse.userID,
+											fbusername: response.authResponse.userID,
+											fbemail: '',
+											token: t
+										}, 
+										function(result){
+											$.mobile.loading("hide");
+											//var url = "main1.html";
+											//var win = window.open(url, '_self');
+											location.hash = "#";
+											UserSummary();
+										});*/
+										
 									}
 									else
 									{
@@ -1368,7 +1410,11 @@ function editProfile()
 	              nameValuePairs.add(new BasicNameValuePair("gender",  params[10]));
 	              nameValuePairs.add(new BasicNameValuePair("userimage",  params[11]));
 		*/
-		
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});
 	var mToken = window.localStorage.getItem("AccessToken");
 	 $.post("http://www.aktifpenang.com/api/_api_userprofile.php", 
 	 {
@@ -1387,6 +1433,7 @@ function editProfile()
 		
 	}, function(result){
         //$("span").html(result);
+		 $.mobile.loading("hide");
 		var obj = JSON.parse(result);
 		//window.localStorage.getItem('AccessToken')
 		if(obj.status == true)
@@ -1424,7 +1471,7 @@ function editProfile()
 		}
 		//alert(obj.token);
     });
-
+	
 }
 
 /*function getLocation() {
@@ -1690,7 +1737,8 @@ function displayMyRun()
 				$("#imgMap").css({"width":w});
 				$("#imgMap").css({"height":w});
 				//$("#imgMap").src = obj.runs[0].map;
-				document.getElementById("imgMap").src = obj.runs[0].map;
+				var myMap = obj.runs[0].map + "&API=" + StaticAPI;
+				document.getElementById("imgMap").src = myMap;
 			}
 		);
 	}
@@ -1700,7 +1748,8 @@ function displayMyRun()
 		var w = window.innerWidth - 40;
 		$("#imgMap").css({"width":w});
 		$("#imgMap").css({"height":w});
-		//$("#imgMap").src = obj.runs[0].map;
+		//$("#imgMap").src = obj.runs[0].map;'
+		mMap = mMap + "&API=" + StaticAPI;
 		document.getElementById("imgMap").src = mMap;
 	}
 	

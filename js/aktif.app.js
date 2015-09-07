@@ -633,13 +633,14 @@ function LoginFacebook()
 							function (response) 
 							{	
 								try {
-									alert(JSON.stringify(response));
+									//alert(JSON.stringify(response));
 									//var obj = JSON.parse(response);
 									alert("status:" + response.status);
 									if(response.status == "connected")
 									{
 										
 										
+											
 										var t = response.authResponse.accessToken;
 										//alert("token:" + t);
 										//alert("user:" + response.authResponse.userID);
@@ -647,6 +648,9 @@ function LoginFacebook()
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
 										
+										facebookConnectPlugin.api( "/me", null,
+											function (response) { alert(JSON.stringify(response)) },
+											function (response) { alert(JSON.stringify(response)) }); 
 										/*
 										$.mobile.loading("show", {
 											text: "Please Wait..",

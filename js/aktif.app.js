@@ -158,6 +158,7 @@ $(document).on('click', '.evtBack', function (event, data) {
 });
 
 $(document).on('click', '.evtRegister', function (event, data) {
+	
 	//check 
 	if($("#signup_displayname").val() == "")
 	{
@@ -645,6 +646,8 @@ function LoginFacebook()
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
 										
+										var mUserID = response.authResponse.userID;
+										
 										facebookConnectPlugin.api( "/me", null,
 											function (response) 
 											{ 
@@ -655,20 +658,28 @@ function LoginFacebook()
 													textVisible: true,
 													theme: "b"
 												});
-												$.post("http://www.aktifpenang.com/api/_api_loginFb.php", 
+												try
 												{
-													fbuserid: response.authResponse.userID,
-													fbusername: response.name,
-													fbemail: '',
-													token: t
-												}, 
-												function(result){
+													$.post("http://www.aktifpenang.com/api/_api_loginFb.php", 
+													{
+														fbuserid: mUserID,
+														fbusername: response.name,
+														fbemail: '',
+														token: t
+													}, 
+													function(result){
+														$.mobile.loading("hide");
+														//var url = "main1.html";
+														//var win = window.open(url, '_self');
+														location.hash = "#";
+														UserSummary();
+													});
+												}
+												catch(err)
+												{
 													$.mobile.loading("hide");
-													//var url = "main1.html";
-													//var win = window.open(url, '_self');
-													location.hash = "#";
-													UserSummary();
-												});
+													alert(err);
+												}
 											},
 											function (response) { 
 												//alert(JSON.stringify(response)) 

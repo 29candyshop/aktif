@@ -652,7 +652,7 @@ function LoginFacebook()
 											function (response) 
 											{ 
 												//alert(JSON.stringify(response)) 
-												//window.localStorage.setItem("UserName", response.name);
+												window.localStorage.setItem("UserName", response.name);
 												$.mobile.loading("show", {
 													text: "Please Wait..",
 													textVisible: true,
@@ -736,6 +736,7 @@ function UserSummary()
 			var obj = JSON.parse(result);
 			window.localStorage.setItem("CampaignUser", obj.summary[0].CampaignUser);
 			window.localStorage.setItem("CampaignDistance", obj.summary[0].CampaignDistance);
+			window.localStorage.setItem("shortname", obj.summary[0].shortname);
 			window.localStorage.setItem("firstname", obj.summary[0].firstname);
 			window.localStorage.setItem("lastname", obj.summary[0].lastname);
 			window.localStorage.setItem("userimage", obj.summary[0].userimage);
@@ -774,7 +775,8 @@ function displayUserSummary(divId)
 	var TotalRuns = window.localStorage.getItem("TotalRuns");
 	var TotalDistance = window.localStorage.getItem("TotalDistance");
 	var TotalEvents = window.localStorage.getItem("TotalEvents");
-
+    var shortName = window.localStorage.getItem("shortname");
+	
 	var distance = CampaignDistance;
 	distance = distance / 1000.0;
 	distance = Math.round(distance * 100) / 100;
@@ -784,7 +786,14 @@ function displayUserSummary(divId)
 	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
 	
 	$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
-	$("#username"+ divId).html("" + firstname + " " + lastname + "" );
+	if(firstname == "" && lastname == "")
+	{
+		$("#username"+ divId).html("" + shortName + "" );
+	}
+	else
+	{
+		$("#username"+ divId).html("" + firstname + " " + lastname + "" );
+	}
 	$("#userSummary"+ divId).html("" + TotalRuns + " runs | Distance: " + userTotalDistance + "km | Groups: " + TotalEvents );
 	
 	if(window.localStorage.getItem("LoginType") == "facebook")

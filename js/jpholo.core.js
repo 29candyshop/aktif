@@ -34,7 +34,7 @@ function onDeviceReady() {
 	
 	
 	// demonstrate panel menu on first boot
-	if (window.localStorage.getItem('firstBoot') !== 'done') {
+	/*if (window.localStorage.getItem('firstBoot') !== 'done') {
 		var headerTitle = $("#headerTitle" + window.localStorage.getItem("divIdGlobal"));
 		headerTitle.addClass("holoPressEffect");
 		setTimeout(function () {
@@ -45,8 +45,8 @@ function onDeviceReady() {
 			togglePanel('#panelMenuIndex');
 		}, 1500);
 		window.localStorage.setItem('firstBoot', 'done');
-	}
-	
+	}*/
+	window.localStorage.setItem('firstBoot', 'done');
 }
 
 // image preloader
@@ -86,7 +86,7 @@ function startPreLoadImages() {
 }
 
 // callback function to check if device is ready
-function isDeviceReady(value, action) {
+/*function isDeviceReady(value, action) {
 	if (window.deviceReady === true) {
 		var connection = checkConnection();
 		switch (action) {
@@ -114,7 +114,7 @@ function isDeviceReady(value, action) {
 	} else {
 		window.setTimeout("isDeviceReady(\"" + value + "\", \"" + action + "\");", 100);
 	}
-}
+}*/
 
 // clean URI preferences variables
 function cleanUriVars() {

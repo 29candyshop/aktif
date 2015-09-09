@@ -401,33 +401,6 @@ function reset_alert(email) {
         alert(email + ", reset password.");
     }
     
-//form login setting
-function loadXMLDoc(){
-    var xmlhttp;
-    var name = document.getElementById("username").value;
-    var pass = document.getElementById("password").value;
-        if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        }
-        else{// code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        
-        xmlhttp.onreadystatechange=function(){
-            if (xmlhttp.readyState===4 && xmlhttp.status===200) //place check status whether username&pass correct not. Partially done
-            {
-                //document.getElementById("myDiv").value=xmlhttp.responseText;
-                alert(xmlhttp.responseText);
-            }
-            else{
-                //document.getElementById("myDiv").value=xmlhttp.responseText;
-            }
-        } 
-        xmlhttp.open("POST","http://www.aktifpenang.com/api/_api_login.php",true);
-        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xmlhttp.send("username=" + name + "&password=" + pass);
-}
-
 function ResetPassword()
 {
 	var email = $("#reset_email").val();
@@ -1078,7 +1051,8 @@ function Runs(mRunid)
 					//console.log(distance + "km");
 					//console.log(obj.isGroup);
 				}
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "]");
+				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
 				
 				//alert(obj.token);
 			});
@@ -1197,8 +1171,9 @@ function addMoreRun(page) {
 					
 					
 				}
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "]");
-				 $.mobile.loading("hide");
+				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+				$.mobile.loading("hide");
 				//alert(obj.token);
 			});
 	}
@@ -1402,6 +1377,10 @@ function editProfile()
 {
 	var element = document.getElementById('gender');
 	var vgender = element.value;
+	if(vgender == "")
+	{
+		vgender = "M";
+	}
 	
 	var element = document.getElementById('fname');
 	var vfname = element.value;
@@ -2325,6 +2304,7 @@ function callbackFn(location) {
 	
 	
 };
+
 function showPos(location)
 {
 	try{

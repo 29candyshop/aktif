@@ -2339,12 +2339,15 @@ function showPosition(position) {
 					LastPosition = position;	
 					
 					try{
-						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
-						var dblTotalDistance = parseDouble("" + TotalDistance);
+						var weight = parseFloat("" + window.localStorage.getItem("userprofie_weight"));
+						var dblTotalDistance = parseFloat("" + TotalDistance);
 						var strCal = calculateCalories(dblTotalDistance, weight);
 						$("#calories").val(strCal);
 					}
-					catch(err){}
+					catch(err)
+					{
+						//alert(err);
+					}
 				}
 			}
 			LocationTimeStamp =  position.timestamp;

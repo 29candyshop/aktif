@@ -49,24 +49,27 @@ var opts = {
 ];
 
 var spinner = null;	 
+
 //document ready
 $(document).ready(function(){
-	localStorage.setItem("run_fresh", "true");
+	//localStorage.setItem("run_fresh", "true");
+	
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
 	{
-	
+		localStorage.setItem("run_fresh", "true");
 		location.hash = "#LoginPage";
 		
 	}
 	else
 	if(AccessToken == "")
 	{
+		localStorage.setItem("run_fresh", "true");
 		location.hash = "#LoginPage";
 	}
 	else
 	{
-		
+		SyncToServer();
 		UserSummary();
 		$("button").click(function(){
 			$("p").slideToggle();
@@ -135,16 +138,16 @@ function onDeviceReady() {
 		//================= configure geolocation background ==========================
 	}
 
-	function onResume()
+function onResume()
+{
+	
+	var isStartRun = localStorage.getItem("IsStartRun");
+	//alert(isStartRun);
+	if(isStartRun == "true")
 	{
-		
-		var isStartRun = localStorage.getItem("IsStartRun");
-		//alert(isStartRun);
-		if(isStartRun == "true")
-		{
-			UpdateNotification();
-		}
+		UpdateNotification();
 	}
+}
 	
 //evtStopRun
 $(document).on('click', '.evtStopRun', function (event, data) {
@@ -758,7 +761,8 @@ function displayUserSummary(divId)
 	userTotalDistance = userTotalDistance / 1000.0;
 	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
 	
-	$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
+	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
+	$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	if(firstname == "" && lastname == "")
 	{
 		$("#username"+ divId).html("" + shortName + "" );
@@ -977,8 +981,13 @@ function Runs(mRunid)
 				for(var i = 0; i < objGroup.runs.length; i++) {
 					var obj = objGroup.runs[i];
 					
+					var current_id = obj.activityid;
+					var int_current_id = parseInt(current_id)  + 1;
+					window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 					
 					var strObj = JSON.stringify(obj);
+					strObj = strObj.replace("}","");
+					strObj = strObj + ',"sync":"yes"}';
 					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
 					if(objStorage == "")
 					{
@@ -1103,6 +1112,8 @@ function addMoreRun(page) {
 					
 					
 					var strObj = JSON.stringify(obj);
+					strObj = strObj.replace("}","");
+					strObj = strObj + ',"sync":"yes"}';
 					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
 					if(objStorage == "")
 					{
@@ -1192,7 +1203,7 @@ function sharemyrun()
 		//var base64 = getBase64Image(document.getElementById("divMap"));
 		convertImgToBase64URL(localStorage.getItem("CurrentRun_Map"), function(base64Img){
 			//alert(base64Img);
-			window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, base64Img, null);
+			window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64Img, "http://www.aktifpenang.com");
 
 		});
 		
@@ -1492,7 +1503,7 @@ function editProfile()
 
 function StartRun()
 {
-	
+
 	//callbackFn("a", 200);
 	
 	TotalDistance = 0.0;
@@ -1637,11 +1648,29 @@ function StopRun()
 	{
 		//encode path 
 		
-		SynctoDB();
+		var mActivity = localStorage.getItem("CurrentRun_Activity");
+		
+		var current_id = window.localStorage.getItem("aktif_nextt_activity_id");
+		var int_current_id = parseInt(current_id)  + 1;
+		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
+					
+		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"' + mMapURL + '","sync":"no"}';
+		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+		if(objStorage == "")
+		{
+			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "]");	
+		}
+		else
+		{
+			objStorage = objStorage.replace("[", "");
+			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
+		}
+		
+		
+		//SynctoDB();
 		
 		//set mcurrent run to emty
-		//localStorage.setItem("CurrentRun", "");
-		localStorage.setItem("run_fresh", "true");
+		//localStorage.setItem("run_fresh", "true");
 		location.hash = "#runMap";
 	}
 	else
@@ -2019,6 +2048,163 @@ function SynctoDB()
 	}
 }
 
+function asyncLoop(iterations, func, callback) {
+    var index = 0;
+    var done = false;
+    var loop = {
+        next: function() {
+            if (done) {
+                return;
+            }
+
+            if (index < iterations) {
+                index++;
+                func(loop);
+
+            } else {
+                done = true;
+                callback();
+            }
+        },
+
+        iteration: function() {
+            return index - 1;
+        },
+
+        break: function() {
+            done = true;
+            callback();
+        }
+    };
+    loop.next();
+    return loop;
+}
+
+function someFunction(a, b, callback) {
+    console.log('Hey doing some stuff!');
+    callback();
+}
+
+
+function UploadToServer(obj, callback)
+{
+	if(obj.sync == "no")
+	{
+		var activity_id = obj.activityid;
+		var EncodedMap = obj.map.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
+		
+		var mToken = window.localStorage.getItem("AccessToken");
+		$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+		 {
+			token: mToken,
+			distance: obj.distance, 
+			activity_type:obj.activity_type,
+			route:EncodedMap,
+			duration: obj.duration,
+			avepace:'',
+			workout_type:'Free Run',
+			eventid:'',
+			rundate:obj.rundate,
+			checkin_type:'live'
+			
+		}, function(result){
+			//$("span").html(result);
+			//$.mobile.loading("hide");
+				
+			var obj = JSON.parse(result);
+			//window.localStorage.getItem('AccessToken')
+			//alert(obj.status);
+			if(obj.status == true)
+			{
+				obj.sync = "yes";
+				var strObj = JSON.stringify(obj);
+			
+				var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+				if(objStorage == "")
+				{
+					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+				}
+				else
+				{
+					objStorage = objStorage.replace("]", "");
+					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+				}
+			}
+			else
+			{
+				var strObj = JSON.stringify(obj);
+				
+				var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+				if(objStorage == "")
+				{
+					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+				}
+				else
+				{
+					objStorage = objStorage.replace("]", "");
+					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+				}
+			}
+			callback();
+		});
+	}
+	else
+	{
+		var strObj = JSON.stringify(obj);
+		
+		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+		if(objStorage == "")
+		{
+			window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+		}
+		else
+		{
+			objStorage = objStorage.replace("]", "");
+			window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+		}
+		//throw 500;
+		callback();
+	}
+}
+
+function SyncToServer()
+{
+	$.mobile.loading("show", {
+			text: "Syncing with server..",
+			textVisible: true,
+			theme: "b"
+		});
+		
+	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
+	var result = window.localStorage.getItem("aktif_runHistory_Individual")
+	var objGroup = JSON.parse(result);
+	try{
+		asyncLoop(objGroup.length, function(loop) {
+			var obj = objGroup[loop.iteration()];
+			UploadToServer(obj, function(result) {
+
+				// log the iteration
+				//console.log(loop.iteration());
+
+				// Okay, for cycle could continue
+				loop.next();
+			})},
+			function(){
+				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+				$.mobile.loading("hide");
+				console.log('cycle ended')
+			}
+		);	
+	}
+	catch(err)
+	{
+		$.mobile.loading("hide");
+		alert("Error Syncing with server.");
+	}
+}
+
+
 function getPathEncoded()
 {
 	var arrCoordinates = [];
@@ -2290,7 +2476,7 @@ function callbackFn(location) {
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
-	showPos(location);
+	//showPos(location);
 	 var yourAjaxCallback = function(response) {
 		// Very important to call #finish -- it signals to the native plugin that it can destroy the background thread, which your callbackFn is running in.
 		// IF YOU DON'T, THE OS CAN KILL YOUR APP FOR RUNNING TOO LONG IN THE BACKGROUND

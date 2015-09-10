@@ -2200,7 +2200,19 @@ function SyncToServer()
 	catch(err)
 	{
 		$.mobile.loading("hide");
-		alert("Error Syncing with server.");
+		if(navigator.notification)
+		{
+			navigator.notification.alert(
+				'Error Syncing with server: ' + err,
+				function() {},
+				'Run',
+				'OK'
+			);
+		}
+		else
+		{
+			alert('Error Syncing with server: ' + err);
+		}
 	}
 }
 

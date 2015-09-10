@@ -52,7 +52,7 @@ var spinner = null;
 
 //document ready
 $(document).ready(function(){
-	//localStorage.setItem("run_fresh", "true");
+	localStorage.setItem("run_fresh", "true");
 	
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
@@ -69,12 +69,15 @@ $(document).ready(function(){
 	}
 	else
 	{
-		SyncToServer();
-		UserSummary();
-		$("button").click(function(){
-			$("p").slideToggle();
+		//SyncToServer();
+		async(function() {
+			UserSummary();
+		}, null);
+		
+		//$("button").click(function(){
+			//$("p").slideToggle();
 			
-		});
+		//});
 		
 		$(function() {
 			/*$(".evtHistory").live('click', function(){
@@ -149,6 +152,13 @@ function onResume()
 	}
 }
 	
+function async(your_function, callback) {
+    setTimeout(function() {
+        your_function();
+        if (callback) {callback();}
+    }, 500);
+}
+
 //evtStopRun
 $(document).on('click', '.evtStopRun', function (event, data) {
 	StopRun();
@@ -1648,7 +1658,7 @@ function StopRun()
 	{
 		//encode path 
 		
-		var mActivity = localStorage.getItem("CurrentRun_Activity");
+		/*var mActivity = localStorage.getItem("CurrentRun_Activity");
 		
 		var current_id = window.localStorage.getItem("aktif_nextt_activity_id");
 		var int_current_id = parseInt(current_id)  + 1;
@@ -1664,13 +1674,13 @@ function StopRun()
 		{
 			objStorage = objStorage.replace("[", "");
 			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
-		}
+		}*/
 		
 		
-		//SynctoDB();
+		SynctoDB();
 		
 		//set mcurrent run to emty
-		//localStorage.setItem("run_fresh", "true");
+		localStorage.setItem("run_fresh", "true");
 		location.hash = "#runMap";
 	}
 	else

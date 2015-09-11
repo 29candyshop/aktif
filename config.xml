@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "95" 
-	version 	= "0.99.95">
+	versionCode = "96" 
+	version 	= "0.99.96">
 
 	<name>AktifPenang</name>
 
@@ -112,8 +112,7 @@
 	</gap:plugin>
 	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
 	<gap:plugin name="org.transistorsoft.cordova.background-geolocation"/>
-	<!--<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />-->
-	<gap:plugin name="com.simplec.plugins.localnotification" version="0.3.5" />
+	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
 	
 
 	<feature name="BackgroundGeolocation">

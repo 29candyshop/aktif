@@ -1515,43 +1515,6 @@ function editProfile()
 function StartRun()
 {
 
-	try
-	{
-		/*cordova.plugins.notification.local.hasPermission(function (granted) {
-			//alert(granted);
-			if(granted == false)
-			{
-				cordova.plugins.notification.local.registerPermission(function (granted) {
-                   // alert(granted ? 'Yes' : 'No');
-                });
-			}
-		});*/
-		
-		/*cordova.plugins.notification.local.schedule({
-			id: 1,
-			text: "You started RUN. Click here to return to AktifPenang App" 
-		});*/
-		window.plugins.localNotification.add({
-			fireDate        : Math.round(new Date().getTime()/1000 + 1),
-			alertBody       : "This is a local notification.",
-			action          : "View",
-			soundName       : "beep.caf",
-			badge           : 0,
-			notificationId  : 1,
-			foreground      : function(notificationId){ 
-				alert("Hello World! This alert was triggered by notification " + notificationId); 
-			},
-			background  : function(notificationId){
-				alert("Hello World! This alert was triggered by notification " + notificationId);
-			}           
-		});
-		
-	}
-	catch(err)
-	{
-		alert(err);
-	}
-	return;
 	//callbackFn("a", 200);
 	TotalCalories = 0.0;
 	TotalDistance = 0.0;
@@ -1587,7 +1550,7 @@ function StartRun()
 	startDuration();
 	
 	//start location updates
-	getLocationUpdate();
+	//getLocationUpdate();
 	try
 	{
 		window.plugins.backgroundGeoLocation.stop();
@@ -1666,7 +1629,7 @@ function StopRun()
 	localStorage.setItem("CurrentRun_Calories", TotalCalories);
 	
 	//stop location updates
-	stopLocationWatch();
+	//stopLocationWatch();
 	try
 	{
 		window.plugins.backgroundGeoLocation.stop();
@@ -2547,7 +2510,7 @@ function callbackFn(location) {
 	// Do your HTTP request here to POST location to your server.
 	//
 	//
-	//showPos(location);
+	showPos(location);
 	 var yourAjaxCallback = function(response) {
 		// Very important to call #finish -- it signals to the native plugin that it can destroy the background thread, which your callbackFn is running in.
 		// IF YOU DON'T, THE OS CAN KILL YOUR APP FOR RUNNING TOO LONG IN THE BACKGROUND
@@ -2641,9 +2604,10 @@ function showPos(location)
 				LastPosition = location;	
 				
 				try{
-						var weight = parseDouble("" + window.localStorage.getItem("userprofie_weight"));
-						var dblTotalDistance = parseDouble("" + TotalDistance);
+						var weight = parseFloat("" + window.localStorage.getItem("userprofie_weight"));
+						var dblTotalDistance = parseFloat("" + TotalDistance);
 						var strCal = calculateCalories(dblTotalDistance, weight);
+						TotalCalories = strCal;
 						$("#calories").val(strCal);
 					}
 					catch(err){}

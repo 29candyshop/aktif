@@ -2377,7 +2377,7 @@ function stopLocationWatch(){
 function getLocationUpdate(){
 	if(navigator.geolocation){
 	   // timeout at 60000 milliseconds (60 seconds)
-	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: true };
+	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: false };
 	   geoLoc = navigator.geolocation;
 	   watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
 	   //alert("ID: " + watchID);

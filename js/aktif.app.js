@@ -2421,11 +2421,11 @@ function calculateCalories(dblDistance, Weight)
 	//convert kg to pound 
 	try
 	{
-			var dblWeight = parseDouble(Weight);
+			var dblWeight = parseFloat(Weight);
 			var dblWeightPound = dblWeight * 2.20462;
 			var CaloriesBurned = (dblWeightPound) * (0.63) * (dMile);
 			
-			return (String.format("%.1f", CaloriesBurned));
+			return (Math.round(CaloriesBurned * 10) / 10);
 		
 	}
 	catch(err)

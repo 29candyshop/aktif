@@ -1550,10 +1550,10 @@ function StartRun()
 	startDuration();
 	
 	//start location updates
-	//getLocationUpdate();
+	getLocationUpdate();
 	try
 	{
-		window.plugins.backgroundGeoLocation.stop();
+		//window.plugins.backgroundGeoLocation.stop();
 	}
 	catch(err)
 	{
@@ -1561,7 +1561,7 @@ function StartRun()
 	}
 	try
 	{
-		configureBackgroundGeoLocation();
+		//configureBackgroundGeoLocation();
 	}
 	catch(err)
 	{
@@ -1629,10 +1629,10 @@ function StopRun()
 	localStorage.setItem("CurrentRun_Calories", TotalCalories);
 	
 	//stop location updates
-	//stopLocationWatch();
+	stopLocationWatch();
 	try
 	{
-		window.plugins.backgroundGeoLocation.stop();
+		//window.plugins.backgroundGeoLocation.stop();
 	}
 	catch(err)
 	{

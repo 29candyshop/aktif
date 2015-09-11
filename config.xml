@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "9902" 
-	version 	= "0.99.9902">
+	versionCode = "9903" 
+	version 	= "0.99.9903">
 
 	<name>AktifPenang</name>
 
@@ -115,16 +115,24 @@
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
 	
 
-	<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
-        <string>We would like to use location to track your run.</string>
-	</gap:config-file>
 	
+	
+	
+	<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
+        <string></string>
+	</gap:config-file>
+	<gap:config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" overwrite="true">
+        <string>AktifPenang would like to use location to track your run.</string>
+	</gap:config-file>
 	<gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true">
         <array>
             <string>location</string>
         </array>
 	</gap:config-file>
-
+	
+	
+	
+	
 	
 	<feature name="BackgroundGeolocation">
 		<param name="ios-package" value="CDVBackgroundGeolocation"/>

@@ -1517,7 +1517,7 @@ function StartRun()
 
 	try
 	{
-		cordova.plugins.notification.local.hasPermission(function (granted) {
+		/*cordova.plugins.notification.local.hasPermission(function (granted) {
 			//alert(granted);
 			if(granted == false)
 			{
@@ -1525,7 +1525,7 @@ function StartRun()
                    // alert(granted ? 'Yes' : 'No');
                 });
 			}
-		});
+		});*/
 		
 		/*cordova.plugins.notification.local.schedule({
 			id: 1,

@@ -248,7 +248,7 @@ function initPageVarsOnShow(id) {
 
 // detect swiperight to open left panel upon swiperight
 $(document).off('swiperight').on('swiperight', function (event) {
-	if (window.localStorage.getItem("pageNaveType") === "menu") {
+	/*if (window.localStorage.getItem("pageNaveType") === "menu") {
 		var w = window,
 			d = document,
 			e = d.documentElement,
@@ -259,7 +259,7 @@ $(document).off('swiperight').on('swiperight', function (event) {
 		if (checkOpenPanels() === false && event.swipestart.coords[0] < x / 5) {
 			togglePanel('#panelMenu' + window.localStorage.getItem("divIdGlobal"));
 		}
-	}
+	}*/
 });
 
 // store important vars, like previous page id

@@ -4,8 +4,8 @@
 	xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
-	versionCode = "9903" 
-	version 	= "0.99.9903">
+	versionCode = "9904" 
+	version 	= "0.99.9904">
 
 	<name>AktifPenang</name>
 
@@ -118,11 +118,11 @@
 	
 	
 	
-	<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
-        <string></string>
-	</gap:config-file>
+	<!--<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
+        <string>AktifPenang would use location to track your run. It only use location when user start run.</string>
+	</gap:config-file>-->
 	<gap:config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" overwrite="true">
-        <string>AktifPenang would like to use location to track your run.</string>
+        <string>AktifPenang would use location to track your run. It only use location when user start run.</string>
 	</gap:config-file>
 	<gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true">
         <array>
@@ -134,7 +134,7 @@
 	
 	
 	
-	<feature name="BackgroundGeolocation">
+	<!--<feature name="BackgroundGeolocation">
 		<param name="ios-package" value="CDVBackgroundGeolocation"/>
 	</feature>
 	<feature name="Geolocation">
@@ -142,7 +142,7 @@
 	</feature>
 	<feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" onload="true" />
-    </feature>
+    </feature>-->
 	
 	<!-- <gap:plugin name="ChildBrowser" version="~3" /> for Cordova (1.9.0+) -->
 	<access origin="*" />

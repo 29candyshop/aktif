@@ -1317,7 +1317,7 @@ function sharemyrun()
 				img.crossOrigin = 'Anonymous';
 				img.onload = function(){
 					var canvasImg = document.createElement('CANVAS');
-					document.body.appendChild(canvasImg);
+					//document.body.appendChild(canvasImg);
 					ctx = canvasImg.getContext('2d');
 					canvasImg.height = this.height;
 					canvasImg.width = this.width;
@@ -1333,7 +1333,19 @@ function sharemyrun()
 						onrendered: function(canvas2) {
 							var base64ImgDiv = canvas2.toDataURL();
 							//alert(base64ImgDiv);
-							window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
+							var mD = localStorage.getItem("CurrentRun_Distance");
+							if(mD > 1000.0)
+							{
+								var d = mD / 1000.0;
+								mdistance = (Math.round(d * 100) / 100) + "km";
+								
+							}
+							else
+							{
+								mdistance = (Math.round(mD * 100) / 100) + "meter";
+								
+							}
+							window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
 				
 						}
 					});

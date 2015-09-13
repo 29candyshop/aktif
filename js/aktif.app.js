@@ -265,6 +265,7 @@ $(document).on('click', '.evtHistory', function (event, data) {
 			localStorage.setItem("CurrentRun_Distance", obj.distance);		
 			localStorage.setItem("CurrentRun_Map", obj.map);
 			localStorage.setItem("CurrentRun_Date", obj.rundate);
+			localStorage.setItem("CurrentRun_Calories", obj.calories);
 			location.hash = "#runMap";
 			break;
 		}
@@ -991,7 +992,9 @@ function Runs(mRunid)
 				window.localStorage.setItem("aktif_runHistory_Individual", "");
 				for(var i = 0; i < objGroup.runs.length; i++) {
 					var obj = objGroup.runs[i];
+					LoadRun(obj, true);
 					
+					/*
 					var current_id = obj.activityid;
 					var int_current_id = parseInt(current_id)  + 1;
 					window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
@@ -1069,13 +1072,22 @@ function Runs(mRunid)
 					//console.log(obj.membercount);
 					
 					//console.log(distance + "km");
-					//console.log(obj.isGroup);
+					//console.log(obj.isGroup);*/
 				}
 				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
 				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
 				
 				//alert(obj.token);
 			});
+	}
+	else
+	{
+		var result = window.localStorage.getItem("aktif_runHistory_Individual")
+		var objGroup = JSON.parse(result);
+		for(var i = 0; i < objGroup.length; i++) {
+			var obj = objGroup[i];
+			LoadRun(obj, false);
+		}
 	}
 	localStorage.setItem("run_fresh", "false");
 }
@@ -1201,6 +1213,90 @@ function addMoreRun(page) {
 	}
 }
 
+function LoadRun(obj, saveStorage)
+{
+	var panelMain = $('#HistoryMain' + '');
+	var current_id = obj.activityid;
+	if(saveStorage == true)
+	{
+		var int_current_id = parseInt(current_id)  + 1;
+		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
+		
+		var strObj = JSON.stringify(obj);
+		strObj = strObj.replace("}","");
+		strObj = strObj + ',"sync":"yes"}';
+		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+		if(objStorage == "")
+		{
+			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
+		}
+		else
+		{
+			objStorage = objStorage.replace("]", "");
+			window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
+		}
+	}
+	
+	var mdistance = parseFloat(obj.distance);
+	var munit = "meter";
+	if(mdistance > 1000.0)
+	{
+		mdistance = mdistance / 1000.0;
+		munit = "km";
+	}
+	mdistance = Math.round(mdistance * 100) / 100;
+	
+	var image = "";
+	if(obj.activity_type.toLowerCase() == "running")
+	{
+		image = "icon_run.png";
+	}
+	else
+	{
+		image = "cycling.png";
+	}
+	
+	//var strDate = new Date(obj.rundate.replace(' ', 'T'));
+	var strDate = new Date(obj.rundate.replace(/-/g, '/'));
+	
+	//if(strDate == "Invalid Date")
+	//{
+	//	strDate = new Date(obj.rundate);
+	//}
+
+	//var strDate = new Date(obj.rundate);
+	var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+	var yyyy = strDate.getFullYear(); 
+	
+	var ampm = '';
+	var hh = strDate.getHours();
+	if(hh > 12)
+	{
+		hh = hh - 12;
+		ampm = 'pm';
+	}
+	else
+	{
+		ampm = 'am';
+	}
+	var min = strDate.getMinutes();
+	
+	
+	if(min < 10) min = '0' + min;
+	
+	
+	var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+	'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
+	panelMain.append(html);
+	panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+	
+	//console.log(obj.name);
+	//console.log(obj.tagline);
+	//console.log(obj.membercount);
+	
+	//console.log(distance + "km");
+	//console.log(obj.isGroup);
+}
 
 function sharemyrun()
 {
@@ -1212,11 +1308,32 @@ function sharemyrun()
 	
 
 		//var base64 = getBase64Image(document.getElementById("divMap"));
-		convertImgToBase64URL(localStorage.getItem("CurrentRun_Map"), function(base64Img){
+		 html2canvas($("#runMapPanel"), {
+            onrendered: function(canvas) {
+                theCanvas = canvas;
+                document.body.appendChild(canvas);
+
+                // Convert and download as image 
+                //Canvas2Image.saveAsPNG(canvas); 
+				var base64Img = canvas.toDataURL();
+				//alert(base64Img);
+                //$("#img-out").append(canvas);
+                // Clean up 
+                //document.body.removeChild(canvas);
+				
+				//convertImgToBase64URL(canvas, function(base64Img){
+					//alert(base64Img);
+				window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64Img, "http://www.aktifpenang.com");
+
+				//});
+            }
+        });
+		
+		/*convertImgToBase64URL(localStorage.getItem("CurrentRun_Map"), function(base64Img){
 			//alert(base64Img);
 			window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64Img, "http://www.aktifpenang.com");
 
-		});
+		});*/
 		
 	}
 	catch(err)

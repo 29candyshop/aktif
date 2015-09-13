@@ -1320,7 +1320,9 @@ function sharemyrun()
 						try
 						{
 							var canvasImg = document.createElement('CANVAS');
-							//document.body.appendChild(canvasImg);
+							canvasImg.setAttribute("id", "CANVASDiv");
+							document.body.appendChild(canvasImg);
+							//document.getElementById("runMapShare").appendChild(canvasImg);
 							ctx = canvasImg.getContext('2d');
 							canvasImg.height = this.height;
 							canvasImg.width = this.width;
@@ -1332,10 +1334,14 @@ function sharemyrun()
 							ctx.drawImage(img,30,200,img.width * 0.9, img.height * 0.9);
 							//var base64ImgDiv = canvasImg.toDataURL();
 							//alert(base64Img);
-							 html2canvas(canvasImg, {
+							 html2canvas($("#CANVASDiv"), {
 								onrendered: function(canvas2) {
 									var base64ImgDiv = canvas2.toDataURL();
 									//alert(base64ImgDiv);
+									//document.getElementById("runMapShare").innerHTML ="";
+									//var list = document.getElementById("CANVASDiv")[0];   // Get the <ul> element with id="myList"
+									//document.body.removeChild(list); 
+									document.body.removeChild(canvasImg);
 									try{
 										var mD = localStorage.getItem("CurrentRun_Distance");
 										var mdblD = parseFloat(mD);
@@ -1350,7 +1356,7 @@ function sharemyrun()
 											mdistance = (Math.round(mdblD * 100) / 100) + "meter";
 											
 										}
-										alert(mdistance);
+										//alert(mdistance);
 										window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
 									}
 									catch(err)
@@ -1370,7 +1376,9 @@ function sharemyrun()
 				{
 					alert(err);
 				}
-				img.src = canvas.toDataURL();
+				var dataURL_1 = canvas.toDataURL();
+				//alert(dataURL_1);
+				img.src = dataURL_1;
 	
 				/*var ctx=canvas.getContext("2d");
 				var img=document.getElementById("imgMap");

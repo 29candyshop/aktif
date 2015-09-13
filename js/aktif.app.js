@@ -1333,21 +1333,27 @@ function sharemyrun()
 						onrendered: function(canvas2) {
 							var base64ImgDiv = canvas2.toDataURL();
 							//alert(base64ImgDiv);
-							var mD = localStorage.getItem("CurrentRun_Distance");
-							if(mD > 1000.0)
-							{
-								var d = mD / 1000.0;
-								mdistance = (Math.round(d * 100) / 100) + "km";
-								
+							try{
+								var mD = localStorage.getItem("CurrentRun_Distance");
+								var mdblD = parseFloat(mD);
+								if(mdblD > 1000.0)
+								{
+									var d = mdblD / 1000.0;
+									mdistance = (Math.round(d * 100) / 100) + "km";
+									
+								}
+								else
+								{
+									mdistance = (Math.round(mdblD * 100) / 100) + "meter";
+									
+								}
+								alert(mdistance);
+								window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
 							}
-							else
+							catch(err)
 							{
-								mdistance = (Math.round(mD * 100) / 100) + "meter";
-								
+								alert(err);
 							}
-							alert(mdistance);
-							window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
-				
 						}
 					});
 				};

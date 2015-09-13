@@ -1306,28 +1306,56 @@ function sharemyrun()
 		//window.plugins.socialsharing.share('I have completed ' + localStorage.getItem("CurrentRun_Distance") + ' via AktifPenang! Come join me!', null, localStorage.getItem("CurrentRun_Map"), 'http://www.aktifpenang.com');
 		//data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7
 	
-
-		//var base64 = getBase64Image(document.getElementById("divMap"));
+		
 		 html2canvas($("#runMapPanel"), {
-            onrendered: function(canvas) {
-                theCanvas = canvas;
-                document.body.appendChild(canvas);
-
-                // Convert and download as image 
-                //Canvas2Image.saveAsPNG(canvas); 
-				var base64Img = canvas.toDataURL();
-				//alert(base64Img);
-                //$("#img-out").append(canvas);
-                // Clean up 
-                //document.body.removeChild(canvas);
+			onrendered: function(canvas) {
+				theCanvas = canvas;
+				//document.body.appendChild(canvas);
+				//var canvasNew = document.createElement('CANVAS');
 				
-				//convertImgToBase64URL(canvas, function(base64Img){
+				var img = new Image();
+				img.crossOrigin = 'Anonymous';
+				img.onload = function(){
+					var canvasImg = document.createElement('CANVAS');
+					document.body.appendChild(canvasImg);
+					ctx = canvasImg.getContext('2d');
+					canvasImg.height = this.height;
+					canvasImg.width = this.width;
+					ctx.drawImage(this, 0, 0);
+					
+					var img=document.getElementById("imgMap");
+					img.crossOrigin = 'Anonymous';
+					//ctx.drawImage(img,10,10);
+					ctx.drawImage(img,30,200,img.width * 0.9, img.height * 0.9);
+					//var base64ImgDiv = canvasImg.toDataURL();
 					//alert(base64Img);
-				window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64Img, "http://www.aktifpenang.com");
-
-				//});
-            }
-        });
+					 html2canvas(canvasImg, {
+						onrendered: function(canvas2) {
+							var base64ImgDiv = canvas2.toDataURL();
+							//alert(base64ImgDiv);
+							window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
+				
+						}
+					});
+				};
+				img.src = canvas.toDataURL();
+	
+				/*var ctx=canvas.getContext("2d");
+				var img=document.getElementById("imgMap");
+				img.crossOrigin = 'Anonymous';
+				
+				ctx.drawImage(img,30,200,img.width * 0.9, img.height * 0.9);
+			
+				var base64ImgDiv = canvas.toDataURL();
+				//alert(base64Img);
+				
+				window.plugins.socialsharing.share("I have completed " + localStorage.getItem("CurrentRun_Distance") + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
+				*/
+			}
+		});
+	
+		//var base64 = getBase64Image(document.getElementById("divMap"));
+		
 		
 		/*convertImgToBase64URL(localStorage.getItem("CurrentRun_Map"), function(base64Img){
 			//alert(base64Img);
@@ -1901,23 +1929,26 @@ function displayMyRun()
 				var strMap = "url('" + obj.runs[0].map + "')";
 				//alert(strMap);
 				localStorage.setItem("CurrentRun_Map", obj.runs[0].map);
+				var myMap = obj.runs[0].map + "&API=" + StaticAPI;
+				//$("#divMap").css({'background-image':'url('+  myMap +')'});
 				var w = window.innerWidth - 40;
 				$("#imgMap").css({"width":w});
 				$("#imgMap").css({"height":w});
 				//$("#imgMap").src = obj.runs[0].map;
-				var myMap = obj.runs[0].map + "&API=" + StaticAPI;
+				
 				document.getElementById("imgMap").src = myMap;
 			}
 		);
 	}
 	else
 	{
+		mMap = mMap + "&API=" + StaticAPI;
 		//$("#divMap").css({'background-image':'url('+ mMap +')'});
 		var w = window.innerWidth - 40;
 		$("#imgMap").css({"width":w});
 		$("#imgMap").css({"height":w});
 		//$("#imgMap").src = obj.runs[0].map;'
-		mMap = mMap + "&API=" + StaticAPI;
+		
 		document.getElementById("imgMap").src = mMap;
 	}
 	

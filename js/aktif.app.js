@@ -1309,54 +1309,67 @@ function sharemyrun()
 		
 		 html2canvas($("#runMapPanel"), {
 			onrendered: function(canvas) {
-				theCanvas = canvas;
+				//theCanvas = canvas;
 				//document.body.appendChild(canvas);
 				//var canvasNew = document.createElement('CANVAS');
-				
-				var img = new Image();
-				img.crossOrigin = 'Anonymous';
-				img.onload = function(){
-					var canvasImg = document.createElement('CANVAS');
-					//document.body.appendChild(canvasImg);
-					ctx = canvasImg.getContext('2d');
-					canvasImg.height = this.height;
-					canvasImg.width = this.width;
-					ctx.drawImage(this, 0, 0);
-					
-					var img=document.getElementById("imgMap");
+				try
+				{
+					var img = new Image();
 					img.crossOrigin = 'Anonymous';
-					//ctx.drawImage(img,10,10);
-					ctx.drawImage(img,30,200,img.width * 0.9, img.height * 0.9);
-					//var base64ImgDiv = canvasImg.toDataURL();
-					//alert(base64Img);
-					 html2canvas(canvasImg, {
-						onrendered: function(canvas2) {
-							var base64ImgDiv = canvas2.toDataURL();
-							//alert(base64ImgDiv);
-							try{
-								var mD = localStorage.getItem("CurrentRun_Distance");
-								var mdblD = parseFloat(mD);
-								if(mdblD > 1000.0)
-								{
-									var d = mdblD / 1000.0;
-									mdistance = (Math.round(d * 100) / 100) + "km";
-									
+					img.onload = function(){
+						try
+						{
+							var canvasImg = document.createElement('CANVAS');
+							//document.body.appendChild(canvasImg);
+							ctx = canvasImg.getContext('2d');
+							canvasImg.height = this.height;
+							canvasImg.width = this.width;
+							ctx.drawImage(this, 0, 0);
+							
+							var img=document.getElementById("imgMap");
+							img.crossOrigin = 'Anonymous';
+							//ctx.drawImage(img,10,10);
+							ctx.drawImage(img,30,200,img.width * 0.9, img.height * 0.9);
+							//var base64ImgDiv = canvasImg.toDataURL();
+							//alert(base64Img);
+							 html2canvas(canvasImg, {
+								onrendered: function(canvas2) {
+									var base64ImgDiv = canvas2.toDataURL();
+									//alert(base64ImgDiv);
+									try{
+										var mD = localStorage.getItem("CurrentRun_Distance");
+										var mdblD = parseFloat(mD);
+										if(mdblD > 1000.0)
+										{
+											var d = mdblD / 1000.0;
+											mdistance = (Math.round(d * 100) / 100) + "km";
+											
+										}
+										else
+										{
+											mdistance = (Math.round(mdblD * 100) / 100) + "meter";
+											
+										}
+										alert(mdistance);
+										window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
+									}
+									catch(err)
+									{
+										alert(err);
+									}
 								}
-								else
-								{
-									mdistance = (Math.round(mdblD * 100) / 100) + "meter";
-									
-								}
-								alert(mdistance);
-								window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
-							}
-							catch(err)
-							{
-								alert(err);
-							}
+							});
 						}
-					});
-				};
+						catch(err)
+						{
+							alert(err);
+						}
+					};
+				}
+				catch(err)
+				{
+					alert(err);
+				}
 				img.src = canvas.toDataURL();
 	
 				/*var ctx=canvas.getContext("2d");

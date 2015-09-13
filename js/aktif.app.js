@@ -1345,6 +1345,7 @@ function sharemyrun()
 								mdistance = (Math.round(mD * 100) / 100) + "meter";
 								
 							}
+							alert(mdistance);
 							window.plugins.socialsharing.share("I have completed " + mdistance + " via AktifPenang! Come join me!", "", base64ImgDiv, "http://www.aktifpenang.com");
 				
 						}

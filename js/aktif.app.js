@@ -71,7 +71,7 @@ $(document).ready(function(){
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-	alert("ready");
+	//alert("ready");
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
 	{
@@ -136,7 +136,7 @@ function onDeviceReady() {
 
 function onResume()
 {
-	alert("resume");
+	//alert("resume");
 	var isStartRun = localStorage.getItem("IsStartRun");
 	//alert(isStartRun);
 	if(isStartRun == "true")
@@ -145,7 +145,7 @@ function onResume()
 	}
 	else
 	{
-		/*var AccessToken = window.localStorage.getItem('AccessToken');
+		var AccessToken = window.localStorage.getItem('AccessToken');
 		if(AccessToken == null)
 		{
 			localStorage.setItem("run_fresh", "true");
@@ -162,11 +162,11 @@ function onResume()
 		{
 			async(function() {
 				SyncToServer();
-				UserSummary();
+				//UserSummary();
 			}, null);
 			
 		
-		}*/
+		}
 	}
 }
 	

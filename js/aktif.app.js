@@ -26,6 +26,9 @@ var LastPosition = '';
 	var Total_GroupMemberCount = 0;
 	
 	var StaticAPI = "AIzaSyAFirO39qok7sQjlQ9leVAcDqdFGQNt8Yc";
+	
+	var mRetrieveRun = false;
+	
 var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -54,7 +57,20 @@ var spinner = null;
 //document ready
 $(document).ready(function(){
 	//localStorage.setItem("run_fresh", "true");
-	
+
+	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+	if ( app ) {
+		// PhoneGap application
+		 document.addEventListener("deviceready", onDeviceReady, false);
+	} else {
+		// Web page
+		 onDeviceReady(); //this is the browser
+	}
+});
+
+//document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
 	var AccessToken = window.localStorage.getItem('AccessToken');
 	if(AccessToken == null)
 	{
@@ -76,24 +92,8 @@ $(document).ready(function(){
 			UserSummary();
 		}, null);
 		
-		//$("button").click(function(){
-			//$("p").slideToggle();
-			
-		//});
-		
-		$(function() {
-			/*$(".evtHistory").live('click', function(){
-				var a = this;
-				var id = a.id.replace("Historyinfo-", "");
-				location.hash = "#runMap";
-			});*/
-		});
+	
 	}
-});
-
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
 		document.addEventListener("resume", onResume, false);
 		try{
 			//bgGeo = window.plugins.backgroundGeoLocation;
@@ -105,6 +105,7 @@ function onDeviceReady() {
 		{
 			alert(err);
 		}
+		/*
 		cordova.plugins.notification.local.on("click", function (notification) {
 			if (notification.id == 1) {
 				//joinMeeting(notification.data.meetingId);
@@ -121,24 +122,13 @@ function onDeviceReady() {
 				if (notification.id != 1)
 					return;
 
-				/*cordova.plugins.notification.local.update({
-					id: 10,
-					text: 'You started RUN. Duration: ' + mFormattedDuration,
-					every: 'second'
-				});*/
-				// After 10 minutes update notification's title 
-				/*setTimeout(function () {
-					cordova.plugins.notification.local.update({
-						id: 10,
-						title: "You started RUN. Duration: " + mFormattedDuration
-					});
-				}, 1000);*/
+				
 			}
 			catch(err)
 			{
 				alert(err);
 			}
-		});	
+		});	*/
 		
 		//================= configure geolocation background ==========================
 	}
@@ -595,6 +585,7 @@ function LoginEmail()
 				window.localStorage.setItem("AccessToken", obj.token);
 				window.localStorage.setItem("LoginType", "email");
 				window.localStorage.setItem("UserID", name);
+				localStorage.setItem("run_fresh", "true");
 				//var url = "main1.html";
 				//var win = window.open(url, '_self');
 				location.hash = "#";
@@ -634,7 +625,7 @@ function LoginFacebook()
 										window.localStorage.setItem("AccessToken", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
-										
+										window.localStorage.setItem("run_fresh", "true");
 										var mUserID = response.authResponse.userID;
 										
 										facebookConnectPlugin.api( "/me", null,
@@ -956,141 +947,157 @@ function Runs(mRunid)
 	var RefreshRun = localStorage.getItem("run_fresh");
 	if(RefreshRun == "true" || RefreshRun == "")
 	{
-		nextToken = 0;
-		var toAdd = document.getElementById('historyPage');
-		var left = window.innerWidth/2 - 20;
-		opts.left = left + 'px';
-		spinner = new Spinner(opts).spin(toAdd);	
-		 var mToken = window.localStorage.getItem("AccessToken");
-		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
-			{
-				token: mToken,
-				runid: 'all'
-			}, 
-			function(result){
-				//$("span").html(result);
-				var obj = JSON.parse(result);
-				spinner.stop();
-				nextToken = obj.nexttoken;
-				TotalRunCount = obj.total;
-					/*'activityid' => $id,
-						'distance' => $distance,
-						'activity_type' => $activity_type,
-						'duration' => $duration,
-						'avepace' => $avepace,
-						'workout_type' => $workout_type,
-						'eventid' => $eventid,
-						'rundate' => $rundate,
-						'checkin_type' => $checkin_type,
-						'map' => $_map,
-						*/
-							
-							
-				window.localStorage.setItem("aktif_runHistory", result);
-				objGroup = obj;
-				var panelMain = $('#HistoryMain' + '');
-				panelMain.empty();
-				window.localStorage.setItem("aktif_runHistory_Individual", "");
-				for(var i = 0; i < objGroup.runs.length; i++) {
-					var obj = objGroup.runs[i];
-					LoadRun(obj, true);
-					
-					/*
-					var current_id = obj.activityid;
-					var int_current_id = parseInt(current_id)  + 1;
-					window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
-					
-					var strObj = JSON.stringify(obj);
-					strObj = strObj.replace("}","");
-					strObj = strObj + ',"sync":"yes"}';
-					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-					if(objStorage == "")
-					{
-						window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
-					}
-					else
-					{
-						objStorage = objStorage.replace("]", "");
-						window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
-					}
-					
-					
-					var mdistance = parseFloat(obj.distance);
-					var munit = "meter";
-					if(mdistance > 1000.0)
-					{
-						mdistance = mdistance / 1000.0;
-						munit = "km";
-					}
-					mdistance = Math.round(mdistance * 100) / 100;
-					
-					var image = "";
-					if(obj.activity_type.toLowerCase() == "running")
-					{
-						image = "icon_run.png";
-					}
-					else
-					{
-						image = "cycling.png";
-					}
-					
-					//var strDate = new Date(obj.rundate.replace(' ', 'T'));
-					var strDate = new Date(obj.rundate.replace(/-/g, '/'));
-					
-					//if(strDate == "Invalid Date")
-					//{
-					//	strDate = new Date(obj.rundate);
-					//}
-	
-					//var strDate = new Date(obj.rundate);
-					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
-					var yyyy = strDate.getFullYear(); 
-					
-					var ampm = '';
-					var hh = strDate.getHours();
-					if(hh > 12)
-					{
-						hh = hh - 12;
-						ampm = 'pm';
-					}
-					else
-					{
-						ampm = 'am';
-					}
-					var min = strDate.getMinutes();
-					
-					
-					if(min < 10) min = '0' + min;
-					
-					
-					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
-					panelMain.append(html);
-					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
-					
-					//console.log(obj.name);
-					//console.log(obj.tagline);
-					//console.log(obj.membercount);
-					
-					//console.log(distance + "km");
-					//console.log(obj.isGroup);*/
-				}
-				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
-				
-				//alert(obj.token);
-			});
+		mRetrieveRun = true;
+		SyncToServer();
+		
 	}
 	else
 	{
-		var result = window.localStorage.getItem("aktif_runHistory_Individual")
-		var objGroup = JSON.parse(result);
-		for(var i = 0; i < objGroup.length; i++) {
-			var obj = objGroup[i];
-			LoadRun(obj, false);
+		try
+		{
+			var panelMain = $('#HistoryMain' + '');
+			panelMain.empty();
+			var result = window.localStorage.getItem("aktif_runHistory_Individual")
+			var objGroup = JSON.parse(result);
+			for(var i = 0; i < objGroup.length; i++) {
+				var obj = objGroup[i];
+				LoadRun(obj, false);
+			}
+		}
+		catch(err)
+		{
+			localStorage.setItem("run_fresh", "true")
 		}
 	}
 	localStorage.setItem("run_fresh", "false");
+}
+
+function addFirstRun()
+{
+	nextToken = 0;
+	var toAdd = document.getElementById('historyPage');
+	var left = window.innerWidth/2 - 20;
+	opts.left = left + 'px';
+	spinner = new Spinner(opts).spin(toAdd);	
+	var mToken = window.localStorage.getItem("AccessToken");
+	$.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+	{
+		token: mToken,
+		runid: 'all'
+	}, 
+	function(result){
+		//$("span").html(result);
+		var obj = JSON.parse(result);
+		spinner.stop();
+		nextToken = obj.nexttoken;
+		TotalRunCount = obj.total;
+			/*'activityid' => $id,
+				'distance' => $distance,
+				'activity_type' => $activity_type,
+				'duration' => $duration,
+				'avepace' => $avepace,
+				'workout_type' => $workout_type,
+				'eventid' => $eventid,
+				'rundate' => $rundate,
+				'checkin_type' => $checkin_type,
+				'map' => $_map,
+				*/
+					
+					
+		window.localStorage.setItem("aktif_runHistory", result);
+		objGroup = obj;
+		var panelMain = $('#HistoryMain' + '');
+		panelMain.empty();
+		window.localStorage.setItem("aktif_runHistory_Individual", "");
+		for(var i = 0; i < objGroup.runs.length; i++) {
+			var obj = objGroup.runs[i];
+			LoadRun(obj, true);
+			
+			/*
+			var current_id = obj.activityid;
+			var int_current_id = parseInt(current_id)  + 1;
+			window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
+			
+			var strObj = JSON.stringify(obj);
+			strObj = strObj.replace("}","");
+			strObj = strObj + ',"sync":"yes"}';
+			var objStorage = window.localStorage.getItem("aktif_runHistory_Individual");
+			if(objStorage == "")
+			{
+				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
+			}
+			else
+			{
+				objStorage = objStorage.replace("]", "");
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
+			}
+			
+			
+			var mdistance = parseFloat(obj.distance);
+			var munit = "meter";
+			if(mdistance > 1000.0)
+			{
+				mdistance = mdistance / 1000.0;
+				munit = "km";
+			}
+			mdistance = Math.round(mdistance * 100) / 100;
+			
+			var image = "";
+			if(obj.activity_type.toLowerCase() == "running")
+			{
+				image = "icon_run.png";
+			}
+			else
+			{
+				image = "cycling.png";
+			}
+			
+			//var strDate = new Date(obj.rundate.replace(' ', 'T'));
+			var strDate = new Date(obj.rundate.replace(/-/g, '/'));
+			
+			//if(strDate == "Invalid Date")
+			//{
+			//	strDate = new Date(obj.rundate);
+			//}
+
+			//var strDate = new Date(obj.rundate);
+			var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+			var yyyy = strDate.getFullYear(); 
+			
+			var ampm = '';
+			var hh = strDate.getHours();
+			if(hh > 12)
+			{
+				hh = hh - 12;
+				ampm = 'pm';
+			}
+			else
+			{
+				ampm = 'am';
+			}
+			var min = strDate.getMinutes();
+			
+			
+			if(min < 10) min = '0' + min;
+			
+			
+			var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+			'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
+			panelMain.append(html);
+			panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+			
+			//console.log(obj.name);
+			//console.log(obj.tagline);
+			//console.log(obj.membercount);
+			
+			//console.log(distance + "km");
+			//console.log(obj.isGroup);*/
+		}
+		var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+		window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+		
+		//alert(obj.token);
+	});
 }
 
 function addMoreRun(page) {
@@ -1138,8 +1145,8 @@ function addMoreRun(page) {
 					var strObj = JSON.stringify(obj);
 					strObj = strObj.replace("}","");
 					strObj = strObj + ',"sync":"yes"}';
-					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-					if(objStorage == "")
+					var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
+					if(objStorage == ""  || objStorage == null)
 					{
 						window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
 					}
@@ -1226,8 +1233,8 @@ function LoadRun(obj, saveStorage)
 		var strObj = JSON.stringify(obj);
 		strObj = strObj.replace("}","");
 		strObj = strObj + ',"sync":"yes"}';
-		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-		if(objStorage == "")
+		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
+		if(objStorage == ""  || objStorage == null)
 		{
 			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
 		}
@@ -1469,17 +1476,45 @@ function UserProfile()
 				'notification' => $notification,
 				'gender' => $gender,
 */		
-			window.localStorage.setItem("userprofie_lastname", obj.userprofile[0].lastname);
-			window.localStorage.setItem("userprofie_firstname", obj.userprofile[0].firstname);
-			window.localStorage.setItem("userprofie_shortname", obj.userprofile[0].shortname);
-			window.localStorage.setItem("userprofie_userimage", obj.userprofile[0].userimage);
-			window.localStorage.setItem("userprofie_dob", obj.userprofile[0].dob);
-			window.localStorage.setItem("userprofie_height", obj.userprofile[0].height);
-			window.localStorage.setItem("userprofie_weight", obj.userprofile[0].weight);
-			window.localStorage.setItem("userprofie_gender", obj.userprofile[0].gender);
-			
-			//alert(obj.token);
-			displayUserProfile();
+			try
+			{
+				
+				
+				window.localStorage.setItem("userprofie_lastname", obj.userprofile[0].lastname);
+				window.localStorage.setItem("userprofie_firstname", obj.userprofile[0].firstname);
+				window.localStorage.setItem("userprofie_shortname", obj.userprofile[0].shortname);
+				window.localStorage.setItem("userprofie_userimage", obj.userprofile[0].userimage);
+				window.localStorage.setItem("userprofie_dob", obj.userprofile[0].dob);
+				window.localStorage.setItem("userprofie_height", obj.userprofile[0].height);
+				window.localStorage.setItem("userprofie_weight", obj.userprofile[0].weight);
+				window.localStorage.setItem("userprofie_gender", obj.userprofile[0].gender);
+				
+				//alert(obj.token);
+				displayUserProfile();
+				
+				if(obj.userprofile[0].weight == null)
+				{
+					if(navigator.notification)
+					{
+						navigator.notification.alert(
+							'Please fill up your profile.',
+							function() {},
+							'Run',
+							'OK'
+						);
+					}
+					else
+					{
+						alert("Please fill up your profile.");
+					}
+					location.hash = "#EditProfilePage";
+				}
+				
+			}
+			catch(err)
+			{
+				//alert(arr);
+			}
 		});
 	
 }
@@ -1850,12 +1885,20 @@ function StopRun()
 		var mActivity = localStorage.getItem("CurrentRun_Activity");
 		
 		var current_id = window.localStorage.getItem("aktif_nextt_activity_id");
-		var int_current_id = parseInt(current_id)  + 1;
+		var int_current_id = 0;
+		if(current_id == "" || current_id == null)
+		{
+			int_current_id = 1;
+		}
+		else
+		{
+			int_current_id = parseInt(current_id)  + 1;
+		}
 		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 					
 		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"' + mMapURL + '","sync":"no"}';
-		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-		if(objStorage == "")
+		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
+		if(objStorage == "" || objStorage == null)
 		{
 			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "]");	
 		}
@@ -2258,8 +2301,8 @@ function SynctoDB(current_runid)
 					}
 					var strObj = JSON.stringify(obj);
 		
-					var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-					if(objStorage == "")
+					var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+					if(objStorage == ""  || objStorage == null)
 					{
 						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
 					}
@@ -2351,8 +2394,8 @@ function UploadToServer(obj, callback)
 				obj.sync = "yes";
 				var strObj = JSON.stringify(obj);
 			
-				var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				if(objStorage == "")
+				var objStorage = window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+				if(objStorage == ""  || objStorage == null)
 				{
 					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
 				}
@@ -2366,8 +2409,8 @@ function UploadToServer(obj, callback)
 			{
 				var strObj = JSON.stringify(obj);
 				
-				var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				if(objStorage == "")
+				var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+				if(objStorage == ""  || objStorage == null)
 				{
 					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
 				}
@@ -2384,8 +2427,8 @@ function UploadToServer(obj, callback)
 	{
 		var strObj = JSON.stringify(obj);
 		
-		var objStorage = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-		if(objStorage == "")
+		var objStorage = window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+		if(objStorage == ""  || objStorage == null)
 		{
 			window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
 		}
@@ -2409,41 +2452,58 @@ function SyncToServer()
 		
 	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 	var result = window.localStorage.getItem("aktif_runHistory_Individual")
-	var objGroup = JSON.parse(result);
-	try{
-		asyncLoop(objGroup.length, function(loop) {
-			var obj = objGroup[loop.iteration()];
-			UploadToServer(obj, function(result) {
-
-				// log the iteration
-				//console.log(loop.iteration());
-
-				// Okay, for cycle could continue
-				loop.next();
-			})},
-			function(){
-				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
-				$.mobile.loading("hide");
-				console.log('cycle ended')
-			}
-		);	
-	}
-	catch(err)
+	if(result == "" || result == null)
 	{
 		$.mobile.loading("hide");
-		if(navigator.notification)
+		if(mRetrieveRun == true)
 		{
-			navigator.notification.alert(
-				'Error Syncing with server: ' + err,
-				function() {},
-				'Run',
-				'OK'
-			);
+			addFirstRun();
 		}
-		else
+		mRetrieveRun = false;
+	}
+	else
+	{
+		var objGroup = JSON.parse(result);
+		try{
+			asyncLoop(objGroup.length, function(loop) {
+				var obj = objGroup[loop.iteration()];
+				UploadToServer(obj, function(result) {
+
+					// log the iteration
+					//console.log(loop.iteration());
+
+					// Okay, for cycle could continue
+					loop.next();
+				})},
+				function(){
+					var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+					window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+					$.mobile.loading("hide");
+					console.log('cycle ended');
+					if(mRetrieveRun == true)
+					{
+						addFirstRun();
+					}
+					mRetrieveRun = false;
+				}
+			);	
+		}
+		catch(err)
 		{
-			alert('Error Syncing with server: ' + err);
+			$.mobile.loading("hide");
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Error Syncing with server: ' + err,
+					function() {},
+					'Run',
+					'OK'
+				);
+			}
+			else
+			{
+				alert('Error Syncing with server: ' + err);
+			}
 		}
 	}
 }
@@ -2562,10 +2622,18 @@ function showPosition(position) {
 					
 					try{
 						var weight = parseFloat("" + window.localStorage.getItem("userprofie_weight"));
-						var dblTotalDistance = parseFloat("" + TotalDistance);
-						var strCal = calculateCalories(dblTotalDistance, weight);
-						TotalCalories = strCal;
-						$("#calories").val(strCal);
+						if(isNaN(weight)== true)
+						{
+							TotalCalories = "0";
+							$("#calories").val(TotalCalories);
+						}
+						else
+						{
+							var dblTotalDistance = parseFloat("" + TotalDistance);
+							var strCal = calculateCalories(dblTotalDistance, weight);
+							TotalCalories = strCal;
+							$("#calories").val(strCal);
+						}
 					}
 					catch(err)
 					{

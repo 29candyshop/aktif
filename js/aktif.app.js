@@ -70,8 +70,9 @@ $(document).ready(function(){
 	}
 	else
 	{
-		SyncToServer();
+		
 		async(function() {
+			SyncToServer();
 			UserSummary();
 		}, null);
 		
@@ -1865,7 +1866,7 @@ function StopRun()
 		}
 		
 		
-		SynctoDB(current_id);
+		//SynctoDB(current_id);
 		
 		//set mcurrent run to emty
 		//localStorage.setItem("run_fresh", "true");
@@ -2238,10 +2239,10 @@ function SynctoDB(current_runid)
 			
 		}, function(result){
 			//$("span").html(result);
-			var obj = JSON.parse(result);
+			var objResult = JSON.parse(result);
 			//window.localStorage.getItem('AccessToken')
-			//alert(obj.status);
-			if(obj.status == true)
+			//alert(objResult.status);
+			if(objResult.status == true)
 			{
 				//alert("error");
 				//insert to run history json and store to localStorage
@@ -2342,10 +2343,10 @@ function UploadToServer(obj, callback)
 			//$("span").html(result);
 			//$.mobile.loading("hide");
 				
-			var obj = JSON.parse(result);
+			var objResult = JSON.parse(result);
 			//window.localStorage.getItem('AccessToken')
 			//alert(obj.status);
-			if(obj.status == true)
+			if(objResult.status == true)
 			{
 				obj.sync = "yes";
 				var strObj = JSON.stringify(obj);
@@ -2612,10 +2613,10 @@ function getLocationUpdate(){
 	}
  }
  
- function errorHandler(error)
- {
+function errorHandler(error)
+{
 	//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
- }
+}
  
  function calculateDistance(lat1, lon1, lat2, lon2) {
 	  var R = 6371; // km

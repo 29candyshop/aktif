@@ -857,7 +857,7 @@ function LeaderBoard()
 				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
 				
 			}
-			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Cycler</div>';
+			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Cyclist</div>';
 			panelMain.append(html);
 			
 			for(var i = 0; i < objLeader.cycling_leader.length; i++) {
@@ -1473,7 +1473,13 @@ function getBase64Image(img) {
 
 function Logout()
 {
+	$.mobile.loading("show", {
+			text: "Syncing with server..",
+			textVisible: true,
+			theme: "b"
+		});
 	window.localStorage.clear();
+	//location.hash = "#LoginPage";
 	var url = "index.html";
 	var win = window.open(url, '_self');
 }
@@ -1547,6 +1553,16 @@ function UserProfile()
 
 function displayUserProfile()
 {
+	var mLoginType = window.localStorage.getItem("LoginType");
+	if(mLoginType ==  "facebook")
+	{
+		//hide change password button
+		$("#userprofile_changepassword").hide();
+	}
+	else
+	{
+		$("#userprofile_changepassword").show();
+	}
 	var lastname = window.localStorage.getItem("userprofie_lastname");
 	var firstname = window.localStorage.getItem("userprofie_firstname");
 	var shortname = window.localStorage.getItem("userprofie_shortname");
@@ -1561,6 +1577,7 @@ function displayUserProfile()
 	$("#userprofie_gender").html("Gender: " + gender + " " + "" );
 	$("#userprofie_dob").html("DOB: " + dob + " " + "" );
 
+	
 }
 
 function openFB()
@@ -1915,6 +1932,7 @@ function StopRun()
 		if(current_id == "" || current_id == null)
 		{
 			int_current_id = 1;
+			current_id = 1;
 		}
 		else
 		{
@@ -1922,7 +1940,7 @@ function StopRun()
 		}
 		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 					
-		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"' + mMapURL + '","sync":"no"}';
+		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"' + mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
 		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
 		if(objStorage == "" || objStorage == null)
 		{
@@ -2406,7 +2424,8 @@ function UploadToServer(obj, callback)
 			workout_type:'Free Run',
 			eventid:'',
 			rundate:obj.rundate,
-			checkin_type:'live'
+			checkin_type:'live',
+			calories: obj.calories
 			
 		}, function(result){
 			//$("span").html(result);

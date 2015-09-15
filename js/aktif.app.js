@@ -29,7 +29,7 @@ var LastPosition = '';
 	
 	var mRetrieveRun = false;
 	
-var opts = {
+/*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
 	  width: 4, // The line thickness
@@ -46,13 +46,13 @@ var opts = {
 	  top: '200px', // Top position relative to parent in px
 	  left: 'auto', // Left position relative to parent in px
 	  position: 'relative'
-	};	 
+	};	 */
 	
 	var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
-var spinner = null;	 
+//var spinner = null;	 
 
 //document ready
 $(document).ready(function(){
@@ -181,6 +181,11 @@ function async(your_function, callback) {
 $(document).on('click', '.evtStopRun', function (event, data) {
 	StopRun();
 });
+
+$(document).on('click', '.evtCancelRun', function (event, data) {
+	CancelRun();
+});
+
 //evtBack
 $(document).on('click', '.evtBack', function (event, data) {
 
@@ -453,17 +458,22 @@ function ResetPassword()
 			}
 		return;
 	}
-	 var toAdd = document.getElementById('forgotPasswordPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);
-	
+	// var toAdd = document.getElementById('forgotPasswordPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});
 	$.post("http://www.aktifpenang.com/api/_api_resetpassword.php", 
 	{
 		token: email
 	}, 
 	function(result){
-		spinner.stop();
+		//spinner.stop();
+		$.mobile.loading("hide");
 		var obj = JSON.parse(result);
 		if(obj.status == true)
 		{
@@ -510,10 +520,15 @@ function ChangePassword()
 	
 	if(newpassword == newpassword_confirm)
 	{
-		 var toAdd = document.getElementById('changePasswordPage');
-		var left = window.innerWidth/2 - 20;
-		opts.left = left + 'px';
-		spinner = new Spinner(opts).spin(toAdd);
+		// var toAdd = document.getElementById('changePasswordPage');
+		//var left = window.innerWidth/2 - 20;
+		//opts.left = left + 'px';
+		//spinner = new Spinner(opts).spin(toAdd);
+		$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});
 		 $.post("http://www.aktifpenang.com/api/_api_changepassword.php", 
 		{
 			token: mToken,
@@ -521,7 +536,8 @@ function ChangePassword()
 			newpassword: newpassword_confirm
 		}, 
 		function(result){
-			spinner.stop();
+			//spinner.stop();
+			$.mobile.loading("hide");
 			var obj = JSON.parse(result);
 			if(obj.status == true)
 			{
@@ -594,14 +610,19 @@ function LoginEmail()
 	 var name = document.getElementById("username").value;
      var pass = document.getElementById("password").value;
 	 
-	 var toAdd = document.getElementById('EmailLoginPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);
-	
+	// var toAdd = document.getElementById('EmailLoginPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});
 	 $.post("http://www.aktifpenang.com/api/_api_login.php", {username: name, password:pass}, function(result){
         //$("span").html(result);
-		spinner.stop();
+		//spinner.stop();
+		$.mobile.loading("hide");
 		var obj = JSON.parse(result);
 		//window.localStorage.getItem('AccessToken')
 		if(obj.status == true)
@@ -812,19 +833,23 @@ function displayUserSummary(divId)
 
 function LeaderBoard()
 {
-	var toAdd = document.getElementById('leaderBoardPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);	
-						
+	//var toAdd = document.getElementById('leaderBoardPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);	
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});					
 	 var mToken = window.localStorage.getItem("AccessToken");
 		$.get("http://www.aktifpenang.com/api/_api_leader_get.php", 
 		{
 			token: mToken
 		}, 
 		function(result){
-			
-			spinner.stop();
+			$.mobile.loading("hide");
+			//spinner.stop();
 			//$("span").html(result);
 			var objLeader = JSON.parse(result);
 			var panelMain = $('#LeaderBoardMain' + '');
@@ -906,11 +931,15 @@ function LeaderBoard()
 
 function Groups()
 {
-	var toAdd = document.getElementById('groupsPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);	
-	
+	//var toAdd = document.getElementById('groupsPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);	
+		$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
 		 var mToken = window.localStorage.getItem("AccessToken");
 		 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
@@ -918,8 +947,8 @@ function Groups()
 				groupid: ''
 			}, 
 			function(result){
-				//$("span").html(result);
-				spinner.stop();
+				$.mobile.loading("hide");
+				//spinner.stop();
 				var obj = JSON.parse(result);
 				
 					/*'id' => $id,
@@ -1001,10 +1030,16 @@ function Runs(mRunid)
 function addFirstRun()
 {
 	nextToken = 0;
-	var toAdd = document.getElementById('historyPage');
-	var left = window.innerWidth/2 - 20;
-	opts.left = left + 'px';
-	spinner = new Spinner(opts).spin(toAdd);	
+	//var toAdd = document.getElementById('historyPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);	
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
+		
 	var mToken = window.localStorage.getItem("AccessToken");
 	$.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 	{
@@ -1012,9 +1047,10 @@ function addFirstRun()
 		runid: 'all'
 	}, 
 	function(result){
-		//$("span").html(result);
+		$.mobile.loading("hide");
 		var obj = JSON.parse(result);
-		spinner.stop();
+		
+		//spinner.stop();
 		nextToken = obj.nexttoken;
 		TotalRunCount = obj.total;
 			/*'activityid' => $id,
@@ -1142,11 +1178,11 @@ function addMoreRun(page) {
 				runid: 'all'
 			}, 
 			function(result){
-				//$("span").html(result);
+				$.mobile.loading("hide");
 				var obj = JSON.parse(result);
 				nextToken = obj.nexttoken;
 				TotalRunCount = obj.total;
-				spinner.stop();
+				//spinner.stop();
 					/*'activityid' => $id,
 						'distance' => $distance,
 						'activity_type' => $activity_type,
@@ -1241,7 +1277,7 @@ function addMoreRun(page) {
 				}
 				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
 				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
-				$.mobile.loading("hide");
+				
 				//alert(obj.token);
 			});
 	}
@@ -1802,6 +1838,7 @@ function StartRun()
 	//set button color to red 
 	$("#btnStart").css({'display':'none'});
 	$("#btnStop").css({'display':'block'});
+	$("#btnCancel").css({'display':'block'});
 	
 	//disable selection 
 	document.getElementById('activity').disabled = true;
@@ -1858,6 +1895,59 @@ function StartRun()
 	
 }
 
+function CancelRun()
+{
+	try
+	{
+		cordova.plugins.notification.local.clear(1, function () {
+                    cordova.plugins.notification.local.getIds(function (ids) {
+						//alert('IDs: ' + ids.join(' ,'));
+					});
+                });
+	}
+	catch(err)
+	{
+		//alert(err);
+	}
+	//set button color to red 
+	$("#btnStart").css({'display':'block'});
+	$("#btnStop").css({'display':'none'});
+	$("#btnCancel").css({'display':'none'});
+	
+	document.getElementById('activity').disabled = false;
+	//sttop timer
+	stopDuration();
+	
+	//store duration 
+	$("#stopwatch").val("00:00:00");
+	$("#distance").val("0.0");
+	$("#calories").val("- -");
+	
+	
+	localStorage.setItem("CurrentRun_Duration", "");
+	
+	//store distance
+	localStorage.setItem("CurrentRun_Distance", "");
+	
+	//store colaries 
+	localStorage.setItem("CurrentRun_Calories", "");
+	
+	//stop location updates
+	stopLocationWatch();
+	try
+	{
+		//window.plugins.backgroundGeoLocation.stop();
+	}
+	catch(err)
+	{
+	
+	}
+
+	localStorage.setItem("CurrentRun_Date", "");
+	localStorage.setItem("CurrentRun_Map", "");
+	localStorage.setItem("IsStartRun", "false");
+}
+
 function StopRun()
 {
 	//$("#startandstopbutton").val("Start My Run");
@@ -1877,6 +1967,7 @@ function StopRun()
 	//set button color to red 
 	$("#btnStart").css({'display':'block'});
 	$("#btnStop").css({'display':'none'});
+	$("#btnCancel").css({'display':'none'});
 	
 	document.getElementById('activity').disabled = false;
 	//sttop timer
@@ -2409,64 +2500,71 @@ function UploadToServer(obj, callback)
 {
 	if(obj.sync == "no")
 	{
-		var activity_id = obj.activityid;
-		var EncodedMap = obj.map.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
-		
-		var mToken = window.localStorage.getItem("AccessToken");
-		$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
-		 {
-			token: mToken,
-			distance: obj.distance, 
-			activity_type:obj.activity_type,
-			route:EncodedMap,
-			duration: obj.duration,
-			avepace:'',
-			workout_type:'Free Run',
-			eventid:'',
-			rundate:obj.rundate,
-			checkin_type:'live',
-			calories: obj.calories
+		try
+		{
+			var activity_id = obj.activityid;
+			var EncodedMap = obj.map.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
 			
-		}, function(result){
-			//$("span").html(result);
-			//$.mobile.loading("hide");
-				
-			var objResult = JSON.parse(result);
-			//window.localStorage.getItem('AccessToken')
-			//alert(obj.status);
-			if(objResult.status == true)
+			var mToken = window.localStorage.getItem("AccessToken");
+			$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
-				obj.sync = "yes";
-				var strObj = JSON.stringify(obj);
-			
-				var objStorage = window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				if(objStorage == ""  || objStorage == null)
+				token: mToken,
+				distance: obj.distance, 
+				activity_type:obj.activity_type,
+				route:EncodedMap,
+				duration: obj.duration,
+				avepace:'',
+				workout_type:'Free Run',
+				eventid:'',
+				rundate:obj.rundate,
+				checkin_type:'live',
+				calories: obj.calories
+				
+			}, function(result){
+				//$("span").html(result);
+				//$.mobile.loading("hide");
+					
+				var objResult = JSON.parse(result);
+				//window.localStorage.getItem('AccessToken')
+				//alert(obj.status);
+				if(objResult.status == true)
 				{
-					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+					obj.sync = "yes";
+					var strObj = JSON.stringify(obj);
+				
+					var objStorage = window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+					if(objStorage == ""  || objStorage == null)
+					{
+						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+					}
+					else
+					{
+						objStorage = objStorage.replace("]", "");
+						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+					}
 				}
 				else
 				{
-					objStorage = objStorage.replace("]", "");
-					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+					var strObj = JSON.stringify(obj);
+					
+					var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+					if(objStorage == ""  || objStorage == null)
+					{
+						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
+					}
+					else
+					{
+						objStorage = objStorage.replace("]", "");
+						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
+					}
 				}
-			}
-			else
-			{
-				var strObj = JSON.stringify(obj);
-				
-				var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				if(objStorage == ""  || objStorage == null)
-				{
-					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "[" + strObj);	
-				}
-				else
-				{
-					objStorage = objStorage.replace("]", "");
-					window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
-				}
-			}
+				callback();
+			});
+		}
+		catch(err)
+		{
 			callback();
-		});
+		}
 	}
 	else
 	{
@@ -2552,7 +2650,6 @@ function SyncToServer()
 		}
 	}
 }
-
 
 function getPathEncoded()
 {
@@ -2704,7 +2801,13 @@ function stopLocationWatch(){
 function getLocationUpdate(){
 	if(navigator.geolocation){
 	   // timeout at 60000 milliseconds (60 seconds)
-	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: true };
+	   var mAccuracy = window.localStorage.getItem("setting_accuracy");
+	   var mHighAccurary = false;
+	   if(mAccuracy == "HIGH")
+	   {
+			mHighAccurary = true;
+	   }
+	   var options = {maximumAge: 0, timeout:20000, enableHighAccuracy: mHighAccurary };
 	   geoLoc = navigator.geolocation;
 	   watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
 	   //alert("ID: " + watchID);
@@ -2947,8 +3050,8 @@ function showPos(location)
 //======================== stop watch =================================
 
 	
-   function timecounter(starttime)
-        {
+function timecounter(starttime)
+{
         currentdate = new Date();
         lapdetails = document.getElementById('lapdetails');
         stopwatch = document.getElementById('stopwatch');
@@ -2970,13 +3073,13 @@ function showPos(location)
             window.clearTimeout(refresh);
             stoptime = timediff;
             }
-        }
+}
  
 function marklap()
-             {
-             if(runningstate == 1)
-                   {
-                   if(lapdate != '')
+ {
+ if(runningstate == 1)
+	   {
+	   if(lapdate != '')
                        {
                         var lapold = lapdate.split(':');
                         var lapnow = stopwatch.value.split(':');

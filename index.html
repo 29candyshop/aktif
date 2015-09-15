@@ -108,7 +108,7 @@
 							
 							<div style="padding: 0 0.6rem 0.6rem;"> <!-- inner content shell-->
 								<div class="mainActivityContent"> <!-- main inner content-->
-									<div class="ui-grid-solo ui-responsive"> <!--responsive using grid-->
+									<div class="ui-grid-solo ui-responsive" style="height:80px;"> <!--responsive using grid-->
 										<div class="ui-block-a">
 											<p><span style="font-size: 10pt;color: #B6B6B6;">Duration : </span><br><input class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00"></p>							
 										</div> <!-- block a -->
@@ -118,7 +118,7 @@
 											<p><span style="font-size: 10pt;color: #B6B6B6;">Accuracy : </span><br><input class="gridValue" id="Accuracy" type="" disabled="disabled" value="-"></p>							
 										</div> <!-- block a -->
 									</div> <!-- end 1st responsive grid -->           
-                                    <div class="ui-grid-b ui-responsive">
+                                    <div class="ui-grid-b ui-responsive" style="height:80px;">
 										<div class="ui-block-a" style="width: 50%; float: left;">
 											<p><span id="lbldistance" style="font-size: 10pt;color: #B6B6B6;">Distance : </span><br><input class="gridValue" id="distance" type="" disabled="disabled" value="0.0"></p>
 										</div>
@@ -134,7 +134,7 @@
 										</div>-->
 										
 										<div class="ui-block-b" style="width: 100%; float: left;">
-											<p><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
+											<p style="margin:0px;"><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
 											 <select id="activity" name="activity">                                                    
 												<option value="RUNNING">RUNNING</option>
 												<option value="CYCLING">CYCLING</option>
@@ -151,7 +151,13 @@
 								 
 									</div>
 									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">	
-										<a type="button" id="stopbutton"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:10px;">Stop</a>
+										<a type="button" id="stopbutton"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:0px;">Stop</a>
+								 
+										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
+									</div>
+									
+									<div id="btnCancel" style="width:100%;float:left;display:none;margin-bottom:0px;">	
+										<a type="button" id="cancelbutton"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:10px;">Cancel</a>
 								 
 										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
@@ -401,7 +407,7 @@
 				<div style="margin-left:25%;width:50%;height:220px;margin-top:30px;background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
 				<div style="width:100%;float;left;margin-top:10px;">
 					<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>
-					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 0.99.9918</span>
+					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;">App Version: 0.99.9919</span>
 				</div>				
 			</div><!-- /content -->
 		
@@ -809,7 +815,7 @@
 							 </div>
 							 
 							 <div class="ui-grid-solo ui-responsive" style="height:100px;">
-								<div class="ui-block-a" style="width:100%;float:left;">
+								<div class="ui-block-a" style="width:100%;float:left;display:none;">
 									<span style="color:#1F1F1F;text-align: center;float: left;font-size: 13px;">Receive Notification:</span><br>
 										<select id="notification" name="notification">
 											<option value="YES">Yes</option>

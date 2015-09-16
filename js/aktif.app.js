@@ -2228,6 +2228,11 @@ function displayGroup()
 	document.getElementById('groupTagline').innerHTML = CurrentGroup_Tagline;
 
 	//======================================================
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
 	 var mToken = window.localStorage.getItem("AccessToken");
 	 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
@@ -2235,6 +2240,7 @@ function displayGroup()
 				groupid: CurrentGroup_id
 			}, 
 			function(result){
+				$.mobile.loading("hide");
 				var obj = JSON.parse(result);
 				
 				nextToken_GroupMember = obj.nexttoken;

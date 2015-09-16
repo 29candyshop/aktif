@@ -75,13 +75,13 @@ function htmlClickEventHandlers(id, action) {
 	} else if (id === "Second") {
 		// do nothing
 	} else if (id === "LeaderBoard") {
-		LeaderBoard();
+		//LeaderBoard();
 		// do nothing
 	}else if (id === "History") {
 		
 		// do nothing
 	} else if (id === "Groups") {
-		Groups();
+		//Groups();
 		//initServiceSettings();
 	}
 	else if(id == "Profile")
@@ -188,13 +188,15 @@ function initPageVarsOnShow(id) {
 		pressEffectHeader(true, "menu");
 	}else if (id === "LeaderBoard") {
 		pressEffectHeader(true, "menu");
+		
 	}else if (id === "History") {
-		Runs();
+		//Runs();
 	}else if (id === "Groups") {
-		if(localStorage.getItem("group_fresh") == "true")
+		//Groups();
+		/*if(localStorage.getItem("group_fresh") == "true")
 		{
 			Groups();
-		}
+		}*/
 		//pressEffectFooter(true, "menu");
 	}else if (id === "Events") {
 		pressEffectFooter(true, "menu");
@@ -208,7 +210,7 @@ function initPageVarsOnShow(id) {
 		displayMyRun();
 	}
 	else if (id === "GroupInfo") {
-		displayGroup();
+		
 	}
 	else if(id == "Setting")
 	{
@@ -230,7 +232,7 @@ function initPageVarsOnShow(id) {
 		//getSystemSpecs();
 		//loadHistoryPageContent(); //can delete
 	} else if (id === "UriMessage") {
-		showUriMessage();
+		//showUriMessage();
 		pressEffectFooter(true, true);
 	} else if (id === "Groups") {
 		pressEffectFooter(true, true);	
@@ -276,6 +278,7 @@ $(document).on('pagecreate', '#landingPage', function () {
 	initPageVarsOnCreate('LandingPage');
 });
 
+
 // #indexPage
 $(document).on('pagebeforeshow', '#indexPage', function (event, data) {
 	startBeforeShowVars(data);
@@ -293,7 +296,9 @@ $(document).on('pagebeforeshow', '#historyPage', function (event, data) {
 $(document).on('pagecreate', '#historyPage', function () {
 	initPageVarsOnCreate('History');
 });
-
+$(document).on("pageshow","#historyPage",function(){
+	Runs();
+});
 // #uriPage
 $(document).on('pagebeforeshow', '#uriPage', function (event, data) {
 	startBeforeShowVars(data);
@@ -311,7 +316,9 @@ $(document).on('pagebeforeshow', '#groupsPage', function (event, data) {
 $(document).on('pagecreate', '#groupsPage', function () {
 	initPageVarsOnCreate('Groups');
 });
-
+$(document).on("pageshow","#groupsPage",function(){
+	Groups();
+});
 // #eventsPage
 $(document).on('pagebeforeshow', '#eventsPage', function (event, data) {
 	startBeforeShowVars(data);
@@ -367,6 +374,9 @@ $(document).on('pagebeforeshow', '#leaderBoardPage', function (event, data) {
 $(document).on('pagecreate', '#leaderBoardPage', function () {
 	initPageVarsOnCreate('LeaderBoard');
 });
+$(document).on("pageshow","#leaderBoardPage",function(){
+	LeaderBoard();
+});
 //#individualGroupPage
 $(document).on('pagebeforeshow', '#individualGroupPage', function (event, data) {
 	startBeforeShowVars(data);
@@ -374,6 +384,9 @@ $(document).on('pagebeforeshow', '#individualGroupPage', function (event, data) 
 });
 $(document).on('pagecreate', '#individualGroupPage', function () {
 	initPageVarsOnCreate('GroupInfo');
+});
+$(document).on('pageshow', '#individualGroupPage', function () {
+	displayGroup();
 });
 
 //#SettingPage

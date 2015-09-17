@@ -2601,6 +2601,7 @@ function SyncToServer()
 		
 	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 	var result = window.localStorage.getItem("aktif_runHistory_Individual")
+	alert(result);
 	if(result == "" || result == null)
 	{
 		$.mobile.loading("hide");
@@ -2612,8 +2613,9 @@ function SyncToServer()
 	}
 	else
 	{
-		var objGroup = JSON.parse(result);
 		try{
+			var objGroup = JSON.parse(result);
+			//alert(objGroup.length);
 			asyncLoop(objGroup.length, function(loop) {
 				var obj = objGroup[loop.iteration()];
 				UploadToServer(obj, function(result) {

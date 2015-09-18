@@ -181,7 +181,7 @@ function async(your_function, callback) {
 
 //evtStopRun
 $(document).on('click', '.evtStopRun', function (event, data) {
-	StopRun();
+	StopRun("");
 });
 
 $(document).on('click', '.evtCancelRun', function (event, data) {
@@ -1950,7 +1950,7 @@ function CancelRun()
 	localStorage.setItem("IsStartRun", "false");
 }
 
-function StopRun()
+function StopRun(error_str)
 {
 	//$("#startandstopbutton").val("Start My Run");
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
@@ -2014,55 +2014,74 @@ function StopRun()
 	//alert(mMapURL);
 	localStorage.setItem("CurrentRun_Map", mMapURL);
 	
-	if(TotalDistance > 0.0)
+	if(error_str == "")
 	{
-		//encode path 
-		
-		var mActivity = localStorage.getItem("CurrentRun_Activity");
-		
-		var current_id = window.localStorage.getItem("aktif_nextt_activity_id");
-		var int_current_id = 0;
-		if(current_id == "" || current_id == null)
+		if(TotalDistance > 0.0)
 		{
-			int_current_id = 1;
-			current_id = 1;
+			//encode path 
+			
+			var mActivity = localStorage.getItem("CurrentRun_Activity");
+			
+			var current_id = window.localStorage.getItem("aktif_nextt_activity_id");
+			var int_current_id = 0;
+			if(current_id == "" || current_id == null)
+			{
+				int_current_id = 1;
+				current_id = 1;
+			}
+			else
+			{
+				int_current_id = parseInt(current_id)  + 1;
+			}
+			window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
+						
+			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"","calories":"' + TotalCalories + '","sync":"no"}';
+			var strNewMap = "RunMap_" + current_id;
+			window.localStorage.setItem(strNewMap, mMapURL);	
+			
+			var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
+			if(objStorage == "" || objStorage == null)
+			{
+				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "]");	
+			}
+			else
+			{
+				objStorage = objStorage.replace("[", "");
+				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
+			}
+			
+			
+			//SynctoDB(current_id);
+			
+			//set mcurrent run to emty
+			//localStorage.setItem("run_fresh", "true");
+			location.hash = "#runMap";
 		}
 		else
 		{
-			int_current_id = parseInt(current_id)  + 1;
+			//SynctoDB();
+			//location.hash = "#runMap";
+			if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Distance need to be more than 0.0 meter as valid run.',
+					function() {},
+					'Run',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Distance need to be more than 0.0 meter as valid run.");
+			}
 		}
-		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
-					
-		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"","calories":"' + TotalCalories + '","sync":"no"}';
-		var strNewMap = "RunMap_" + current_id;
-		window.localStorage.setItem(strNewMap, mMapURL);	
-		
-		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
-		if(objStorage == "" || objStorage == null)
-		{
-			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "]");	
-		}
-		else
-		{
-			objStorage = objStorage.replace("[", "");
-			window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
-		}
-		
-		
-		//SynctoDB(current_id);
-		
-		//set mcurrent run to emty
-		//localStorage.setItem("run_fresh", "true");
-		location.hash = "#runMap";
 	}
 	else
 	{
-		//SynctoDB();
-		//location.hash = "#runMap";
 		if(navigator.notification)
 		{
 			navigator.notification.alert(
-				'Distance need to be more than 0.0 meter as valid run.',
+				'Error Starting Run: ' + error_str,
 				function() {},
 				'Run',
 				'OK'
@@ -2070,10 +2089,9 @@ function StopRun()
 		}
 		else
 		{
-			alert("Distance need to be more than 0.0 meter as valid run.");
+			alert('Error Starting Run: ' + error_str);
 		}
 	}
-	
 	localStorage.setItem("IsStartRun", "false");
 			
 }
@@ -2848,7 +2866,19 @@ function getLocationUpdate(){
  
 function errorHandler(error)
 {
-	//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+	if(error.code == navigator.geolocation.PositionError.PERMISSION_DENIED)
+	{
+		StopRun("Your phone do not have GPS/Location service enabled. Please enable location service for AktifPenang under Settings > Privacy > Location");
+	}
+	else if(error.code == navigator.geolocation.PositionError.POSITION_UNAVAILABLE)
+	{
+		alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+	}
+	else
+	{
+		
+	}
+	//
 }
  
  function calculateDistance(lat1, lon1, lat2, lon2) {

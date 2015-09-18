@@ -72,9 +72,10 @@ $(document).ready(function(){
 
 function onDeviceReady() {
 	//alert("ready");
-	var AccessToken = window.localStorage.getItem('AccessToken');
+	var AccessToken = window.localStorage.getItem('AccessTokenV2');
 	if(AccessToken == null)
-	{
+	{	
+		window.localStorage.clear();
 		localStorage.setItem("run_fresh", "true");
 		location.hash = "#LoginPage";
 		
@@ -82,6 +83,7 @@ function onDeviceReady() {
 	else
 	if(AccessToken == "")
 	{
+		window.localStorage.clear();
 		localStorage.setItem("run_fresh", "true");
 		location.hash = "#LoginPage";
 	}
@@ -145,7 +147,7 @@ function onResume()
 	}
 	else
 	{
-		var AccessToken = window.localStorage.getItem('AccessToken');
+		var AccessToken = window.localStorage.getItem('AccessTokenV2');
 		if(AccessToken == null)
 		{
 			localStorage.setItem("run_fresh", "true");
@@ -2031,7 +2033,10 @@ function StopRun()
 		}
 		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 					
-		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"' + mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
+		var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"","calories":"' + TotalCalories + '","sync":"no"}';
+		var strNewMap = "RunMap_" + current_id;
+		window.localStorage.setItem(strNewMap, mMapURL);	
+		
 		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
 		if(objStorage == "" || objStorage == null)
 		{
@@ -2509,7 +2514,10 @@ function UploadToServer(obj, callback)
 		try
 		{
 			var activity_id = obj.activityid;
-			var EncodedMap = obj.map.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
+			var strNewMap = "RunMap_" + activity_id;
+			var mMapURL = window.localStorage.getItem(strNewMap);
+		
+			var EncodedMap = mMapURL.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
 			
 			var mToken = window.localStorage.getItem("AccessToken");
 			$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
@@ -2537,7 +2545,7 @@ function UploadToServer(obj, callback)
 				{
 					obj.sync = "yes";
 					var strObj = JSON.stringify(obj);
-				
+						
 					var objStorage = window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
 					if(objStorage == ""  || objStorage == null)
 					{
@@ -2548,6 +2556,7 @@ function UploadToServer(obj, callback)
 						objStorage = objStorage.replace("]", "");
 						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
 					}
+					window.localStorage.setItem(strNewMap, "");
 				}
 				else
 				{

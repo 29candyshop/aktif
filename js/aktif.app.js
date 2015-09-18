@@ -2049,8 +2049,10 @@ function StopRun(error_str)
 				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
 			}
 			
-			
-			//SynctoDB(current_id);
+			async(function() {
+				SynctoDB(current_id);	
+			}, null);
+
 			
 			//set mcurrent run to emty
 			//localStorage.setItem("run_fresh", "true");
@@ -2448,7 +2450,7 @@ function SynctoDB(current_runid)
 			{
 				//alert("error");
 				//insert to run history json and store to localStorage
-				
+				window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 				var result = window.localStorage.getItem("aktif_runHistory_Individual")
 				var objGroup = JSON.parse(result);
 				for(var i = 0; i < objGroup.length; i++) {

@@ -1874,8 +1874,7 @@ function StartRun()
 	
 	try
 	{
-		cordova.plugins.notification.local.hasPermission(function (granted) {
-			//alert(granted);
+		/*cordova.plugins.notification.local.hasPermission(function (granted) {
 			if(granted == false)
 			{
 				cordova.plugins.notification.local.registerPermission(function (granted) {
@@ -1887,7 +1886,7 @@ function StartRun()
 		cordova.plugins.notification.local.schedule({
 			id: 1,
 			text: "You started RUN. Click here to return to AktifPenang App" 
-		});
+		});*/
 		
 	}
 	catch(err)
@@ -1901,11 +1900,11 @@ function CancelRun()
 {
 	try
 	{
-		cordova.plugins.notification.local.clear(1, function () {
+		/*cordova.plugins.notification.local.clear(1, function () {
                     cordova.plugins.notification.local.getIds(function (ids) {
 						//alert('IDs: ' + ids.join(' ,'));
 					});
-                });
+                });*/
 	}
 	catch(err)
 	{
@@ -1956,11 +1955,11 @@ function StopRun(error_str)
 	//document.getElementById('btnStartStop').innerHTML = "Start My Run";
 	try
 	{
-		cordova.plugins.notification.local.clear(1, function () {
+		/*cordova.plugins.notification.local.clear(1, function () {
                     cordova.plugins.notification.local.getIds(function (ids) {
 						//alert('IDs: ' + ids.join(' ,'));
 					});
-                });
+                });*/
 	}
 	catch(err)
 	{
@@ -2100,14 +2099,10 @@ function UpdateNotification()
 {
 	//TestCount = TestCount + 1;
 	try{
-		/*cordova.plugins.notification.local.update({
-			id: 1,
-			text: 'You started RUN. Click here to return to AktifPenang App'
-		});*/
-		cordova.plugins.notification.local.schedule({
+		/*cordova.plugins.notification.local.schedule({
 			id: 1,
 			text: "You started RUN. Click here to return to AktifPenang App" 
-		});
+		});*/
 	}
 	catch(err)
 	{
@@ -2628,7 +2623,7 @@ function SyncToServer()
 		
 	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 	var result = window.localStorage.getItem("aktif_runHistory_Individual")
-	alert(result);
+	//alert(result);
 	if(result == "" || result == null)
 	{
 		$.mobile.loading("hide");
@@ -2866,17 +2861,17 @@ function getLocationUpdate(){
  
 function errorHandler(error)
 {
-	if(error.code == navigator.geolocation.PositionError.PERMISSION_DENIED)
+	if(error.code == 1)
 	{
 		StopRun("Your phone do not have GPS/Location service enabled. Please enable location service for AktifPenang under Settings > Privacy > Location");
 	}
-	else if(error.code == navigator.geolocation.PositionError.POSITION_UNAVAILABLE)
+	else if(error.code == 2)
 	{
 		alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 	}
 	else
 	{
-		
+		alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 	}
 	//
 }

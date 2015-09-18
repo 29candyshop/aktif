@@ -147,17 +147,17 @@
 									</div>		-->		
 									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
 										<!--<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>-->
-										<a type="button" id="startandstopbutton"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:80%;color: white; margin-bottom: 30px;margin-top:10px;">Start My Run</a>
+										<a type="button" id="startandstopbutton"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:100%;color: white; margin-bottom: 30px;margin-top:10px;padding:0px;">Start My Run</a>
 								 
 									</div>
 									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">	
-										<a type="button" id="stopbutton"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:0px;">Stop</a>
+										<a type="button" id="stopbutton"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:0px;padding:0px;">Stop</a>
 								 
 										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
 									
 									<div id="btnCancel" style="width:100%;float:left;display:none;margin-bottom:0px;">	
-										<a type="button" id="cancelbutton"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:80%;color: white; margin-bottom: 20px;margin-top:10px;">Cancel</a>
+										<a type="button" id="cancelbutton"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:10px;padding:0px;">Cancel</a>
 								 
 										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
@@ -346,7 +346,7 @@
 			</div><!-- /header -->
 			
 			<div role="main" class="ui-content" data-theme="a">				
-                            <div class="mainCard" style="width: 100%; height: 385px;background-color: white;float:left;margin: 0 auto 0;position: relative;">
+                            <div class="mainCard" style="width: 100%; height: 400px;background-color: white;float:left;margin: 0 auto 0;position: relative;">
                                 <div style="margin:10px;overflow: auto;height:370px;">
                                     <div class="ui-grid-b ui-responsive">
 					<div class="ui-block-a" style="width: 50%; float: left;">
@@ -363,17 +363,19 @@
 					</div>
 				    </div> <!-- end 1st responsive grid-->
 
-                                    <div style="margin: 10px 0 30px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
+                                    <div style="margin: 10px 0 20px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
                                         <div class="ui-block-a">
-                                            <a id="userprofile_changepassword" type="button" class=" enjoy-css" href="#changePasswordPage" style="color: white; margin-bottom: 20px;">Change Password</a>
+                                            <a id="userprofile_changepassword" type="button" class=" enjoy-css" href="#changePasswordPage" style="color: white; margin-bottom: 20px;width:90%;padding:0px;">Change Password</a>
                                         </div>
                                         
                                         <div class="ui-block-a" style="padding-top: 1px;" >
-                                            <a type="button" class="enjoy-css" onclick="" href="#EditProfilePage" style="color: white;margin-bottom:30px;">Edit Profile</a>
+                                            <a type="button" class="enjoy-css" onclick="" href="#EditProfilePage" style="color: white;margin-bottom:30px;width:90%;padding:0px;">Edit Profile</a>
                                         </div>
                                         
                                         <div class="ui-block-a">
-                                            <button type="submit" class="enjoy-css" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>
+											 <a type="button" class="enjoy-css" onclick="Logout();" href="" style="color: white;margin-bottom:30px;width:90%;padding:0px;">Logout</a>
+                                       
+                                            <!--<button type="submit" class="enjoy-css" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>-->
                                         </div>                                        
                                     </div>
                                 </div>
@@ -473,7 +475,7 @@
                                         
                                         <div>
                                             <!--<a type="button" class="buttonStyle" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Share My Run</a>-->
-											<a type="button" id="btnShare" onclick="sharemyrun();" class=" enjoy-css" value="Share" style="color: white; margin-bottom: 20px;margin-top:10px;">Share My Run</a>
+											<a type="button" id="btnShare" onclick="sharemyrun();" class=" enjoy-css" value="Share" style="color: white; margin-bottom: 20px;margin-top:10px;width:90%;padding:0px;">Share My Run</a>
 								 
 										</div> <!-- share run acrivity-->
                                     </div> <!-- end main activity content-->
@@ -538,7 +540,9 @@
 									</div>
 	 
 									<!--<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>-->
-									<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;box-shadow: 0 6px 0 #00324B;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>
+									<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>
+								 
+									<!--<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;box-shadow: 0 6px 0 #00324B;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>-->
 								 
 									<div style="float:left;width:100%;margin-top:5px;">
 										<h2 class="labelDesign">Do not have an account? <br>
@@ -608,9 +612,9 @@
 			<div data-role="main" class="ui-content">
 					
 					<!-- Add text box to input email and pass-->            
-						<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
+						<div style="width:100%;height: auto;margin-top:10px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
 							<div class="card" style="width:100%;height: 440px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
-								<div style="padding: 0 0.55rem 0.55rem; display: block;height: 400px;overflow: auto;margin-top: 10px;">                           
+								<div style="padding: 0 0.55rem 0.55rem; display: block;height: 420px;overflow: auto;margin-top: 10px;">                           
 									<!--<img style="width: 75px;height: 75px;border-radius: 50px;position: relative;margin-left: 34%;margin-right: 34%;" src="./images/icons/login.png"/>      -->                        
 									
 									<form role="form" style="width: 96%;margin-top: 5px;margin-left: 2%;margin-right: 2%;float:left;"> <!-- form start -->
@@ -684,12 +688,12 @@
 					</div> <!-- white circle div end -->
 					<!-- Add text box to input email and pass-->            
 						<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
-							<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
+							<div class="card" style="width:100%;height: 420px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
 								
 								
 								<div style="padding: 0 0.55rem 0.55rem;">                           
 									<!--<form role="form" class="loginForm" action="http://www.aktifpenang.com/api/_api_register.php" method="POST" target="_self" data-ajax="false"> form start -->
-										<div class="loginForm" style="float:left;width:92%;margin-top:20px;margin-left: 4%;">
+										<div class="loginForm" style="float:left;width:92%;margin-top:20px;margin-left: 4%;height:400px;">
 										  <h2 id="lblRegister" class="labelDesign">Please fill up your particular, email address and password.</h2>
 											<input type="text" class="inputStyle" name="signup_displayname" id="signup_displayname" value="" placeholder="Name" required/>
 											<input type="email" class="inputStyle" id="signup_username" name="signup_username" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>

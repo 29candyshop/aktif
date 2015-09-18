@@ -2869,11 +2869,11 @@ function errorHandler(error)
 	}
 	else if(error.code == 2)
 	{
-		alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 	}
 	else
 	{
-		alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+		//alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
 	}
 	//
 }

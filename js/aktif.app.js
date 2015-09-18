@@ -338,7 +338,7 @@ $(document).on('click', '.evtGroup', function (event, data) {
  $(document).on('click', '.evtJoin', function (event, data) {
 	var a = this;
 	var id = $('#btnJoinGroup' + '').val();
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 $.post("http://www.aktifpenang.com/api/_api_group_join.php", 
 	{
 		token: mToken,
@@ -375,7 +375,7 @@ $(document).on('click', '.evtGroup', function (event, data) {
  $(document).on('click', '.evtLeave', function (event, data) {
 	var a = this;
 	var id = $('#btnLeaveGroup' + '').val();
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 $.post("http://www.aktifpenang.com/api/_api_group_join.php", 
 	{
 		token: mToken,
@@ -515,7 +515,7 @@ function ResetPassword()
 
 function ChangePassword()
 {
-	var mToken = window.localStorage.getItem("AccessToken");
+	var mToken = window.localStorage.getItem("AccessTokenV2");
 	var old_password = $("#oldpassword").val();
 	var newpassword = $("#newpassword").val();
 	var newpassword_confirm = $("#newpassword_confirm").val();
@@ -626,12 +626,12 @@ function LoginEmail()
 		//spinner.stop();
 		$.mobile.loading("hide");
 		var obj = JSON.parse(result);
-		//window.localStorage.getItem('AccessToken')
+		//window.localStorage.getItem('AccessTokenV2')
 		if(obj.status == true)
 		{
 			if(obj.token != "")
 			{
-				window.localStorage.setItem("AccessToken", obj.token);
+				window.localStorage.setItem("AccessTokenV2", obj.token);
 				window.localStorage.setItem("LoginType", "email");
 				window.localStorage.setItem("UserID", name);
 				localStorage.setItem("run_fresh", "true");
@@ -671,7 +671,7 @@ function LoginFacebook()
 										var t = response.authResponse.accessToken;
 										//alert("token:" + t);
 										//alert("user:" + response.authResponse.userID);
-										window.localStorage.setItem("AccessToken", t);
+										window.localStorage.setItem("AccessTokenV2", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
 										window.localStorage.setItem("run_fresh", "true");
@@ -753,7 +753,7 @@ function LoginFacebook()
 
 function UserSummary()
 {
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 if(mToken != null)
 	 {
 	 $.get("http://www.aktifpenang.com/api/_api_usersummary.php", 
@@ -844,7 +844,7 @@ function LeaderBoard()
 			textVisible: true,
 			theme: "b"
 		});					
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 		$.get("http://www.aktifpenang.com/api/_api_leader_get.php", 
 		{
 			token: mToken
@@ -942,7 +942,7 @@ function Groups()
 			textVisible: true,
 			theme: "b"
 		});		
-		 var mToken = window.localStorage.getItem("AccessToken");
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
 		 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
 				token: mToken,
@@ -1042,7 +1042,7 @@ function addFirstRun()
 			theme: "b"
 		});		
 		
-	var mToken = window.localStorage.getItem("AccessToken");
+	var mToken = window.localStorage.getItem("AccessTokenV2");
 	$.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 	{
 		token: mToken,
@@ -1172,7 +1172,7 @@ function addMoreRun(page) {
 			textVisible: true,
 			theme: "b"
 		});
-		 var mToken = window.localStorage.getItem("AccessToken");
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
 			 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
 				token: mToken,
@@ -1524,7 +1524,7 @@ function Logout()
 
 function UserProfile()
 {
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 $.get("http://www.aktifpenang.com/api/_api_userprofile.php", 
 		{
 			token: mToken
@@ -1746,7 +1746,7 @@ function editProfile()
 			textVisible: true,
 			theme: "b"
 		});
-	var mToken = window.localStorage.getItem("AccessToken");
+	var mToken = window.localStorage.getItem("AccessTokenV2");
 	 $.post("http://www.aktifpenang.com/api/_api_userprofile.php", 
 	 {
 		token: mToken,
@@ -1766,7 +1766,7 @@ function editProfile()
         //$("span").html(result);
 		 $.mobile.loading("hide");
 		var obj = JSON.parse(result);
-		//window.localStorage.getItem('AccessToken')
+		//window.localStorage.getItem('AccessTokenV2')
 		if(obj.status == true)
 		{
 			window.localStorage.setItem("userprofie_lastname", vlname);
@@ -1779,7 +1779,7 @@ function editProfile()
 			window.localStorage.setItem("userprofie_gender", vgender);
 			pressBackButton();
 			//history.go(-1);
-			//window.localStorage.setItem("AccessToken", obj.token);
+			//window.localStorage.setItem("AccessTokenV2", obj.token);
 			//var url = "main1.html";
 			//var win = window.open(url, '_self');
 			
@@ -2142,7 +2142,7 @@ function displayMyRun()
 	if(mMap == "")
 	{
 		 var id = localStorage.getItem("CurrentRun_id");
-		 var mToken = window.localStorage.getItem("AccessToken");
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
 		 $.get("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
 				token: mToken,
@@ -2238,7 +2238,7 @@ function displayGroup()
 			textVisible: true,
 			theme: "b"
 		});		
-	 var mToken = window.localStorage.getItem("AccessToken");
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 $.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
 				token: mToken,
@@ -2306,7 +2306,7 @@ function addMoreGroupMember(page)
 			theme: "b"
 		});
 		var CurrentGroup_id = localStorage.getItem("CurrentGroup_id");
-		var mToken = window.localStorage.getItem("AccessToken");
+		var mToken = window.localStorage.getItem("AccessTokenV2");
 		$.get("http://www.aktifpenang.com/api/_api_group_get.php", 
 			{
 				token: mToken,
@@ -2380,7 +2380,7 @@ function SynctoDB(current_runid)
 	$checkin_type = isset($_POST['checkin_type']) ? $_POST['checkin_type'] : '';
 	*/
 	try{
-		var mToken = window.localStorage.getItem("AccessToken");
+		var mToken = window.localStorage.getItem("AccessTokenV2");
 		var mActivity = localStorage.getItem("CurrentRun_Activity");
 		var mdistance = localStorage.getItem("CurrentRun_Distance");
 		var mDuration = localStorage.getItem("CurrentRun_Duration");
@@ -2429,7 +2429,7 @@ function SynctoDB(current_runid)
 		}, function(result){
 			//$("span").html(result);
 			var objResult = JSON.parse(result);
-			//window.localStorage.getItem('AccessToken')
+			//window.localStorage.getItem('AccessTokenV2')
 			//alert(objResult.status);
 			if(objResult.status == true)
 			{
@@ -2519,7 +2519,7 @@ function UploadToServer(obj, callback)
 		
 			var EncodedMap = mMapURL.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
 			
-			var mToken = window.localStorage.getItem("AccessToken");
+			var mToken = window.localStorage.getItem("AccessTokenV2");
 			$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
 			{
 				token: mToken,
@@ -2539,7 +2539,7 @@ function UploadToServer(obj, callback)
 				//$.mobile.loading("hide");
 					
 				var objResult = JSON.parse(result);
-				//window.localStorage.getItem('AccessToken')
+				//window.localStorage.getItem('AccessTokenV2')
 				//alert(obj.status);
 				if(objResult.status == true)
 				{

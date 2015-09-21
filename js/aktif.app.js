@@ -931,6 +931,72 @@ function LeaderBoard()
 	);
 }
 
+function Events()
+{
+	//var toAdd = document.getElementById('groupsPage');
+	//var left = window.innerWidth/2 - 20;
+	//opts.left = left + 'px';
+	//spinner = new Spinner(opts).spin(toAdd);	
+		$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
+		 $.get("http://www.aktifpenang.com/api/_api_event_get.php", 
+			{
+				token: mToken
+			}, 
+			function(result){
+				$.mobile.loading("hide");
+				//spinner.stop();
+				var obj = JSON.parse(result);
+				
+					/*$event = array(
+						'id' => $id,
+						'eventname' => $eventname,
+						'eventdate' => $eventdate,
+						'eventdescription' => $eventdescription,
+						'eventtype' => $eventtype,
+						'eventcreator' => $eventcreator,
+						'eventlocation' => $eventlocation,
+						'eventcoordinate' => $eventcoordinate,
+						'eventurl' => $eventurl,
+					);,*/
+							
+							
+				window.localStorage.setItem("aktif_events", result);
+				objEvent = obj;
+				var panelMain = $('#EventMain' + '');
+				panelMain.empty();
+				for(var i = 0; i < objEvent.event.length; i++) {
+					var obj = objEvent.event[i];
+					var distance = obj.totaldistance;
+					distance = distance / 1000.0;
+					distance = Math.round(distance * 100) / 100;
+					var html = '<div id="groupinfo-'+ obj.id + '" class="evtEvent" style="float:left;width:100%;margin-top:10px;"><div style="display:none;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+								'<div style="float:left;width:100%;margin-left:20px;"><span id="">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
+								
+					
+					html = html + '</div>';
+					
+					
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					console.log(obj.name);
+					console.log(obj.tagline);
+					console.log(obj.membercount);
+					
+					console.log(distance + "km");
+					console.log(obj.isGroup);
+				}
+				localStorage.setItem("event_fresh", "false");
+				//alert(obj.token);
+			});
+
+}
+
+
 function Groups()
 {
 	//var toAdd = document.getElementById('groupsPage');

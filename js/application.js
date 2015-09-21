@@ -327,6 +327,9 @@ $(document).on('pagebeforeshow', '#eventsPage', function (event, data) {
 $(document).on('pagecreate', '#eventsPage', function () {
 	initPageVarsOnCreate('Events');
 });
+$(document).on("pageshow","#eventsPage",function(){
+	Events();
+});
 
 //#profilePage
 $(document).on('pagebeforeshow', '#profilePage', function (event, data) {

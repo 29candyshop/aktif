@@ -87,15 +87,15 @@
 			</div><!-- here you see why in the javascript there is a page event: initPageVarsOnShow('Index'); and: initPageVarsOnCreate('Index'); -->
 			<!-- /panel -->
 			
-			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+			<div id="pnlHeader" style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle" src="./images/icons/ic_run_launcher.png" /><img id="headerOverflowIndex" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle" src="./images/icons/icon_running.png" /><img id="headerOverflowIndex" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
 					&nbsp;</p>
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->		                        
                             
 			<div role="main" class="ui-content" data-position="fixed" data-theme="a" style="padding: 0 !important;overflow-x: visible !important;"> <!-- remove header sticky white border-->
-				<div style="width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
+				<div id="RunOrginalDiv" style="display:none;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
 					<div style="width: 100%;background-color:#414141;height: 100px;"> <!-- div for dark gray part-->
 							<span id="CampaignSummary" style="width:100%;float:left;text-align:center;font-size:13pt;color: white;margin: 10px 0 10px;">11 members | Distance: 66.12km</span>
 					</div>
@@ -110,12 +110,12 @@
 								<div class="mainActivityContent"> <!-- main inner content-->
 									<div class="ui-grid-solo ui-responsive" style="height:80px;"> <!--responsive using grid-->
 										<div class="ui-block-a">
-											<p><span style="font-size: 10pt;color: #B6B6B6;">Duration : </span><br><input class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00"></p>							
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Duration : </span><br><input class="gridValue" id="stopwatch_nouse" type="" disabled="disabled" value="00:00:00"></p>							
 										</div> <!-- block a -->
 									</div> <!-- end 1st responsive grid -->
                                      <div class="ui-grid-solo ui-responsive" style="display:none;"> <!--responsive using grid-->
 										<div class="ui-block-a">
-											<p><span style="font-size: 10pt;color: #B6B6B6;">Accuracy : </span><br><input class="gridValue" id="Accuracy" type="" disabled="disabled" value="-"></p>							
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Accuracy : </span><br><input class="gridValue" id="Accuracy_nouse" type="" disabled="disabled" value="-"></p>							
 										</div> <!-- block a -->
 									</div> <!-- end 1st responsive grid -->           
                                     <div class="ui-grid-b ui-responsive" style="height:80px;">
@@ -124,7 +124,7 @@
 										</div>
 										
 										<div class="ui-block-b" style="width: 50%; float: left;">
-											<p><span style="font-size: 10pt;color: #B6B6B6;">Calories : </span><br><input class="gridValue" id="calories" type="" disabled="disabled" value="0"></p>
+											<p><span style="font-size: 10pt;color: #B6B6B6;">Calories : </span><br><input class="gridValue" id="calories_nouse" type="" disabled="disabled" value="0"></p>
 										</div>
 									</div> <!-- end 2nd responsive grid-->
                                                 
@@ -147,17 +147,17 @@
 									</div>		-->		
 									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
 										<!--<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>-->
-										<a type="button" id="startandstopbutton"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:100%;color: white; margin-bottom: 30px;margin-top:10px;padding:0px;">Start My Run</a>
+										<a type="button" id="startandstopbutton_nouse"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:100%;color: white; margin-bottom: 30px;margin-top:10px;padding:0px;">Start My Run</a>
 								 
 									</div>
 									<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">	
-										<a type="button" id="stopbutton"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:0px;padding:0px;">Stop</a>
+										<a type="button" id="stopbutton_nouse"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:0px;padding:0px;">Stop</a>
 								 
 										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
 									
 									<div id="btnCancel" style="width:100%;float:left;display:none;margin-bottom:0px;">	
-										<a type="button" id="cancelbutton"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:10px;padding:0px;">Cancel</a>
+										<a type="button" id="cancelbutton_nouse"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:10px;padding:0px;">Cancel</a>
 								 
 										<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 									</div>
@@ -165,7 +165,113 @@
 							</div> <!-- end inner shell content-->
 						</div> <!-- end main card-->
 					</div> <!-- end outer shell-->                                
-				</div>	<!-- end whole content-->			
+				</div>	<!-- end whole content-->	
+				<div id="RunSectionDiv" style="min-height:490px;display:block;width:100%;height:500px;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
+					<div style="width: 100%;background-color:#222;height: 300px;"> <!-- div for dark gray part-->
+						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL RUNNERS</span>
+						<span id="CampaignSummary_TotalRunner" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">35</span>
+						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 10px;">TOTAL DISTANCE</span>
+						<span id="CampaignSummary_TotalDistance" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 10px;line-height:40px;">709</span>
+						<div style="float:left;width:100%;height:70px;"></div>
+						<span id="CampaignSummary" style="height:50px;width:100%;float:left;text-align:center;font-size:1em;font-weight:bold;color: yellow;margin: 0px 0 10px;">PLEASE SELECT YOUR ACTIVITY</span>
+					
+					</div>
+					<div style="width:260px;margin-left:auto;margin-right:auto;height:100px;background-color:#eee;">
+						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-20px;margin-right:0px;"> <!-- icon-->
+							<img id="activityRunning" class="circular2 evtActivityRun" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_running.png">
+						</div>
+						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-20px;margin-right:0px;"> <!-- icon-->
+							<img id="activityCycling" class="circular2 evtActivityCycle" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_cycling_deselected.png">
+						</div>
+					</div>
+					<div id="startandstopbutton" onclick="StartRun();" style="background-color:#EE0F95;height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
+						<p id="txtStartStop" style="line-height:30px;font-weight:bold;">START MY RUN</p>
+					</div>
+                               
+				</div>	<!-- end whole content-->
+				<div id="DuringRunDiv" style="min-height:490px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #222;">
+					<div style="width:100%; margin-left: auto;margin-right: auto;margin-top: 50px;position: relative;background-color: #eee;">
+						<div class="" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:0px;">
+							<div class="circular1" style=""> <!-- icon-->
+								<img id="imgMyActivity" class="circular2" src="./images/icons/icon_running.png">
+							</div>
+							
+							
+							<div id="DuringRunDivInner" class="mainActivityContent" style="min-Height:370px;background-color:#eee;padding-bottom:60px;"> <!-- main inner content-->
+								<div class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:-30px;float:left;"> <!--responsive using grid-->
+									<div class="ui-block-a">
+										<p><span id="lbldistance" style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DISTANCE : </span><br>
+										<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="font-size: 4em;color:#000;text-align:center;width:100%;float:left;">0.0</span></p>
+									</div>
+									
+									
+								</div> <!-- end 1st responsive grid -->
+								<div class="ui-grid-solo ui-responsive" style="height:100px;width: 100%;"> <!--responsive using grid-->
+									<div class="ui-block-a">
+										<p><span style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DURATION : </span><br>
+										<span class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00" style="font-size:3em;color:#000;text-align:center;width:100%;float:left;">00:00:00</span></p>							
+									</div> <!-- block a -->
+									
+								</div> <!-- end 1st responsive grid -->
+								
+								 <div class="ui-grid-solo ui-responsive" style="display:none;"> <!--responsive using grid-->
+									<div class="ui-block-a">
+										<p><span style="font-size: 10pt;color: #B6B6B6;">Accuracy : </span><br><input class="gridValue" id="Accuracy" type="" disabled="disabled" value="-"></p>							
+									</div> <!-- block a -->
+								</div> <!-- end 1st responsive grid -->           
+								<div class="ui-grid-b ui-responsive" style="height:80px;padding-bottom:30px;">
+									
+									<div class="ui-block-b" style="width: 100%; float: left;">
+										<p>
+											<span style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">CALORIES : </span><br>
+											<span class="gridValue" id="calories" type="" disabled="disabled" value="0" style="font-size:3em;color:#000;text-align:center;width:100%;float:left;">0</span>
+										</p>
+									</div>
+								</div> <!-- end 2nd responsive grid-->
+											
+								 <div class="ui-grid-a ui-responsive" style="display:none;">
+									<!--<div class="ui-block-a" style="width: 50%; float: left;">
+										<p><span style="font-size: 10pt;color: #B6B6B6;">Workout Type : </span><br><input class="sportsType" id="workout" type="" disabled="disabled" value="Free Run"></p>
+									</div>-->
+									
+									<div class="ui-block-b" style="width: 100%; float: left;">
+										<p style="margin:0px;"><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
+										 <select id="activity" name="activity">                                                    
+											<option value="RUNNING">RUNNING</option>
+											<option value="CYCLING">CYCLING</option>
+										</select>
+										<!--<input class="sportsType" id="activity" type="" disabled="disabled" value="Running"></p>-->
+									</div>
+								</div> <!-- end 3rd responsive grid-->
+								<!--<div id="btnTest" style="width:100%;float:left;display:block;margin-bottom:0px;">							
+									<input  type="button" class="button" id="Test" value="Test" data-role="button" onclick="UpdateNotification(); "><br>
+								</div>		-->		
+								<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
+									<!--<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>-->
+									<a type="button" id="startandstopbutton_nouse"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="display:none;margin-left:0px;width:100%;color: white; margin-bottom: 30px;margin-top:10px;padding:0px;">Start My Run</a>
+							 
+								</div>
+								<div id="btnStop" style="width:100%;float:left;display:none;margin-bottom:0px;">	
+									<a type="button" id="stopbutton_nouse"  onclick="" class=" enjoy-css evtStopRun" value="Stop" style="background:#D23232;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:0px;padding:0px;">Stop</a>
+							 
+									<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
+								</div>
+								
+								<div id="btnCancel" style="width:100%;float:left;display:none;margin-bottom:0px;">	
+									<a type="button" id="cancelbutton_nouse"  onclick="" class=" enjoy-css evtCancelRun" value="Cancel" style="background:#D28732;margin-left:0px;width:100%;color: white; margin-bottom: 20px;margin-top:10px;padding:0px;">Cancel</a>
+							 
+									<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
+								</div>
+								
+							</div> <!-- end main activity content-->
+							<div style="width:100%;float:left;height:60px;position:absolute;bottom:0px;">
+								<div id="stopbutton" class="evtStopRun" style="font-weight:bold;width:50%;height:100%;background-color:#EE0F95;float:left;line-height:60px;text-align:center;color:#fff;">STOP & SAVE</div>
+								<div id="cancelbutton" class="evtCancelRun" style="font-weight:bold;width:50%;height:100%;background-color:#EAEE0F;float:left;line-height:60px;text-align:center;color:#222;">CANCEL</div>
+							</div>	
+							
+						</div> <!-- end main card-->
+					</div> <!-- end outer shell--> 
+				</div>
 			</div><!-- /content -->
                         
 		</div><!-- /indexPage -->
@@ -324,6 +430,45 @@
 			</div><!-- /content -->
 		</div><!-- /end eventsPage -->
 				
+		<div id="sponsorsPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+			<!-- left panel  -->
+			<div style="margin-top:30px;" id="panelMenuSponsors" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+				<ul id="panelMenuSponsorsUL" data-role="listview"></ul>
+			</div>
+
+			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText"><img id="headerTitleSponsors" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					&nbsp;</p>
+				</div>
+			</div><!-- /header -->
+			
+			<div id="SponsorsMain" role="main" class="ui-content" data-theme="a">				
+
+			</div><!-- /content -->
+		</div><!-- /end sponsorsPage -->
+		
+		<div id="IndividualPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
+			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+
+			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+				<div>
+					<p class="headerBarText">
+					<img id="headerTitleIndividual" class="headerIconTitle evtBack" src="./images/icons/back_icon.png" />
+					
+					&nbsp;</p>
+					
+					
+				</div>
+			</div><!-- /header -->
+			
+			<div id="IndividualMain" role="main" class="ui-content" data-theme="a">				
+
+			</div><!-- /content -->
+		</div><!-- /end sponsorsPage -->
+		
+		
 		<div id="profilePage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #f9f9f9;">
 			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->

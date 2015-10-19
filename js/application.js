@@ -144,6 +144,8 @@ function initPageVarsOnCreate(id) {
 		htmlClickEventHandlers(id, "menu");
 	}else if (id === "GroupInfo") {
 		htmlClickEventHandlers(id, "menu");
+	}else if (id === "Sponsors") {
+		htmlClickEventHandlers(id, "menu");
 	}
 	
 	/*else if (id !== "LandingPage") {
@@ -243,6 +245,8 @@ function initPageVarsOnShow(id) {
 		pressEffectFooter(true, true);
 	}else if (id=== "About") {
 		pressEffectFooter(true, true);
+	}else if (id=== "Sponsors") {
+		pressEffectFooter(true, true);
 	}
 }
 
@@ -329,6 +333,17 @@ $(document).on('pagecreate', '#eventsPage', function () {
 });
 $(document).on("pageshow","#eventsPage",function(){
 	Events();
+});
+// #sponsor
+$(document).on('pagebeforeshow', '#sponsorsPage', function (event, data) {
+	startBeforeShowVars(data);
+	initPageVarsOnShow('Sponsors');
+});
+$(document).on('pagecreate', '#sponsorsPage', function () {
+	initPageVarsOnCreate('Sponsors');
+});
+$(document).on("pageshow","#sponsorsPage",function(){
+	Sponsors();
 });
 
 //#profilePage

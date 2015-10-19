@@ -5,6 +5,8 @@ var geoLoc;
 var TotalDistance = 0.0;
 var TotalCalories = 0.0;
 var LastPosition = '';
+var mActivityType = "RUNNING";
+
  var stopwatch;
     var runningstate = 0; // 1 means the timecounter is running 0 means counter stopped
     var stoptime = 0;
@@ -28,7 +30,8 @@ var LastPosition = '';
 	var StaticAPI = "AIzaSyAFirO39qok7sQjlQ9leVAcDqdFGQNt8Yc";
 	
 	var mRetrieveRun = false;
-	
+	var mHeight = 0;
+	var mWidth = 0;
 /*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -57,7 +60,13 @@ var LastPosition = '';
 //document ready
 $(document).ready(function(){
 	//localStorage.setItem("run_fresh", "true");
-
+	mHeight = $(window).height(); 
+	mWidth = $(window).width(); 
+	var mHeaderHeight = $("#pnlHeader").height();
+	$('#RunSectionDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
+	$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
+	$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 50 - 60)});
+	//alert(h);
 	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	if ( app ) {
 		// PhoneGap application
@@ -187,6 +196,25 @@ $(document).on('click', '.evtStopRun', function (event, data) {
 $(document).on('click', '.evtCancelRun', function (event, data) {
 	CancelRun();
 });
+
+$(document).on('click', '.evtActivityRun', function (event, data) {
+	mActivityType = "RUNNING";
+	document.getElementById("activityRunning").src = "images/icons/icon_running.png";
+	document.getElementById("imgMyActivity").src = "images/icons/icon_running.png";
+	document.getElementById("activityCycling").src = "images/icons/icon_cycling_deselected.png";
+	document.getElementById("txtStartStop").innerHTML = "START MY RUN";
+	//$("#activityRunning").css({'background-image':''});
+	//$("#activityCycling").css({'background-image':''});
+});
+
+$(document).on('click', '.evtActivityCycle', function (event, data) {
+	mActivityType = "CYCLING";
+	document.getElementById("activityRunning").src = "images/icons/icon_running_deselected.png";
+	document.getElementById("imgMyActivity").src = "images/icons/icon_cycling.png";
+	document.getElementById("activityCycling").src = "images/icons/icon_cycling.png";
+	document.getElementById("txtStartStop").innerHTML = "START MY CYCLING";
+});
+
 
 //evtBack
 $(document).on('click', '.evtBack', function (event, data) {
@@ -332,6 +360,124 @@ $(document).on('click', '.evtGroup', function (event, data) {
 			break;
 		}
 	}
+	
+});
+
+$(document).on('click', '.evtEvent', function (event, data) {
+	var a = this;
+	var id = a.id.replace("eventinfo-", "");
+	$.mobile.loading("show", {
+		text: "Please Wait..",
+		textVisible: true,
+		theme: "b"
+	});		
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
+	 $.get("http://www.aktifpenang.com/api/_api_event_get.php", 
+		{
+			token: mToken,
+			eventid: id
+		}, 
+		function(result){
+			$.mobile.loading("hide");
+			//spinner.stop();
+			var obj = JSON.parse(result);
+			/*	$response['status'] = true;
+				$response['eventname'] = $eventname;
+				$response['eventdate'] = $eventdate;
+				$response['eventtime'] = $eventtime;
+				$response['eventdescription'] = $eventdescription;
+				$response['eventlocation'] = $eventlocation;
+				$response['eventtype'] = $eventtype;
+				$response['eventcoordinate'] = $eventcoordinate;
+				$response['eventurl'] = $eventurl;
+				$response['banner'] = $banner;*/
+				
+			var coor = "";
+			if(obj.eventcoordinate != null)
+			{
+				coor = obj.eventcoordinate.replace(" ","");
+			}
+			var html = '';
+				if(obj.banner != null)
+				{
+					html = '<div id="IndividualPageImage" style="width:100%;height:130px;float:left;background-image:url(http://www.aktifpenang.com/' + obj.banner+ ');background-repeat:no-repeat;background-size:cover;"></div>';
+				}
+				html +=	'<div style="width:100%;height:auto;margin-top:20px;float:left;background-color:#eee;opacity:0.7;">'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#222;">'+ obj.eventname + '</span>'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 13px;color:#555;">'+ obj.eventtype + '</span>'+
+						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;margin-top:20px;">'+ obj.eventdate + '</span>'+
+						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;margin-top:20px;">'+ obj.eventtime + '</span>'+
+						'<span id="IndividualPageInfo" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#666;margin-top:30px;">About</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">' + obj.eventdescription + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">Location: ' + obj.eventlocation + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">More Info: ' + obj.eventurl + '</span>';
+					if(obj.eventcoordinate != null)
+					{
+						html+=	'<div class="" style="margin-top:10px;height:' + mWidth + 'px;width:100%;background-image:url(http://maps.googleapis.com/maps/api/staticmap?size=400x400&center=' +coor +'&zoom=16&markers=color:red%7Clabel:A%7C' +coor+');background-repeat:no-repeat;background-size:cover;float:left;"></div>';
+					}
+				html	+= '</div>'+
+				'';
+			document.getElementById("IndividualMain").innerHTML = html;
+		}
+	);
+	location.hash = "#IndividualPage";
+			
+	
+});
+
+$(document).on('click', '.evtSponsor', function (event, data) {
+	var a = this;
+	var id = a.id.replace("sponsorinfo-", "");
+	$.mobile.loading("show", {
+		text: "Please Wait..",
+		textVisible: true,
+		theme: "b"
+	});		
+	 var mToken = window.localStorage.getItem("AccessTokenV2");
+	 $.get("http://www.aktifpenang.com/api/_api_sponsor_get.php", 
+		{
+			token: mToken,
+			sponsorid: id
+		}, 
+		function(result){
+			$.mobile.loading("hide");
+			//spinner.stop();
+			var obj = JSON.parse(result);
+			/*$response['status'] = true;
+				$response['name'] = $name;
+				$response['about'] = $description;
+				$response['message'] = $message;
+				$response['type'] = $type;
+				$response['website'] = $url;
+				$response['email'] = $email;
+				$response['contact'] = $phone;
+				$response['videolink'] = $videolink;
+				$response['banner'] = $banner;
+				$response['icon'] = $icon;*/
+				
+			var html = '';
+				if(obj.banner != null)
+				{
+					html = '<div id="IndividualPageImage" style="width:100%;height:130px;float:left;background-image:url(http://www.aktifpenang.com/' + obj.banner+ ');background-repeat:no-repeat;background-size:cover;"></div>';
+				}
+				html +=	'<div style="width:100%;height:auto;margin-top:20px;float:left;background-color:#eee;opacity:0.7;">'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#222;">'+ obj.name + '</span>'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 13px;color:#555;">'+ obj.type + '</span>'+
+						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;margin-top:20px;">'+ obj.message + '</span>'+
+						'<span id="IndividualPageInfo" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#666;margin-top:30px;">About</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">' + obj.about + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">Website: ' + obj.website + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">Email: ' + obj.email + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">Contact: ' + obj.contact + '</span>'+
+					
+					
+					'</div>'+
+				'';
+			document.getElementById("IndividualMain").innerHTML = html;
+		}
+	);
+	location.hash = "#IndividualPage";
+			
 	
 });
 
@@ -815,7 +961,9 @@ function displayUserSummary(divId)
 	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
 	
 	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
-	$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
+	//$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
+	$("#CampaignSummary_TotalRunner").html("" + CampaignUser + "" );
+	$("#CampaignSummary_TotalDistance").html(distance + "" );
 	if(firstname == "" && lastname == "")
 	{
 		$("#username"+ divId).html("" + shortName + "" );
@@ -974,8 +1122,8 @@ function Events()
 					var distance = obj.totaldistance;
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
-					var html = '<div id="groupinfo-'+ obj.id + '" class="evtEvent" style="float:left;width:100%;margin-top:10px;"><div style="display:none;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-								'<div style="float:left;width:100%;margin-left:20px;"><span id="">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
+					var html = '<div id="eventinfo-'+ obj.id + '" class="evtEvent" style="float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'images/icons/event.png\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+								'<div style="float:left;width:70%;margin-left:5px;"><span id="">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
 								
 					
 					html = html + '</div>';
@@ -996,6 +1144,62 @@ function Events()
 
 }
 
+function Sponsors()
+{
+		$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
+		 $.get("http://www.aktifpenang.com/api/_api_sponsor_get.php", 
+			{
+				token: mToken
+			}, 
+			function(result){
+				$.mobile.loading("hide");
+				//spinner.stop();
+				var obj = JSON.parse(result);
+				
+					/*$sponsor = array(
+						'id' => $id,
+						'name' => $name,
+						'description' => $description,
+						'type' => $type,
+						'icon' => $icon
+					);*/
+							
+							
+				window.localStorage.setItem("aktif_sponsors", result);
+				objSponsor = obj;
+				var panelMain = $('#SponsorsMain' + '');
+				panelMain.empty();
+				for(var i = 0; i < objSponsor.sponsor.length; i++) {
+					var obj = objSponsor.sponsor[i];
+					var distance = obj.totaldistance;
+					distance = distance / 1000.0;
+					distance = Math.round(distance * 100) / 100;
+					var html = '<div id="sponsorinfo-'+ obj.id + '" class="evtSponsor" style="float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/' + obj.icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+								'<div style="float:left;width:60%;margin-left:20px;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.description + '</span></br><span id="" style="font-size:14px;color:#888;">Type: ' + obj.type + '</span></div>';
+								
+					
+					html = html + '</div>';
+					
+					
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					console.log(obj.name);
+					console.log(obj.tagline);
+					console.log(obj.membercount);
+					
+					console.log(distance + "km");
+					console.log(obj.isGroup);
+				}
+				//localStorage.setItem("event_fresh", "false");
+				//alert(obj.token);
+			});
+
+}
 
 function Groups()
 {
@@ -1893,18 +2097,24 @@ function StartRun()
 	
 	$("#distance").val(TotalDistance);
 	$("#calories").val("- -");
+	document.getElementById("distance").innerHTML = TotalDistance;
+	document.getElementById("calories").innerHTML = "- -";
+	
 	//$("#calories").val("" + LocationCount + "(" + LocationCount_background + ")");
 	
 	//Store activity type
-	var mActivity = $("#activity").val();
+	var mActivity = mActivityType;//$("#activity").val();
 	localStorage.setItem("CurrentRun_Activity", mActivity);
 	localStorage.setItem("CurrentRun_Date", new Date());
 	
 
 	//set button color to red 
-	$("#btnStart").css({'display':'none'});
+	/*$("#btnStart").css({'display':'none'});
 	$("#btnStop").css({'display':'block'});
-	$("#btnCancel").css({'display':'block'});
+	$("#btnCancel").css({'display':'block'});*/
+	
+	$("#RunSectionDiv").css({'display':'none'});
+	$("#DuringRunDiv").css({'display':'block'});
 	
 	//disable selection 
 	document.getElementById('activity').disabled = true;
@@ -1975,9 +2185,12 @@ function CancelRun()
 		//alert(err);
 	}
 	//set button color to red 
-	$("#btnStart").css({'display':'block'});
+	/*$("#btnStart").css({'display':'block'});
 	$("#btnStop").css({'display':'none'});
-	$("#btnCancel").css({'display':'none'});
+	$("#btnCancel").css({'display':'none'});*/
+	
+	$("#RunSectionDiv").css({'display':'block'});
+	$("#DuringRunDiv").css({'display':'none'});
 	
 	document.getElementById('activity').disabled = false;
 	//sttop timer
@@ -2030,16 +2243,20 @@ function StopRun(error_str)
 		//alert(err);
 	}
 	//set button color to red 
-	$("#btnStart").css({'display':'block'});
+	/*$("#btnStart").css({'display':'block'});
 	$("#btnStop").css({'display':'none'});
-	$("#btnCancel").css({'display':'none'});
+	$("#btnCancel").css({'display':'none'});*/
+	
+	$("#RunSectionDiv").css({'display':'block'});
+	$("#DuringRunDiv").css({'display':'none'});
 	
 	document.getElementById('activity').disabled = false;
 	//sttop timer
 	stopDuration();
 	
 	//store duration 
-	var mDuration = $("#stopwatch").val();
+	//var mDuration = $("#stopwatch").val();
+	var mDuration = document.getElementById("stopwatch").innerHTML;
 	localStorage.setItem("CurrentRun_Duration", mDuration);
 	
 	//store distance
@@ -2842,14 +3059,16 @@ function showPosition(position) {
 						mdistance = Math.round(d * 100) / 100;
 						document.getElementById('lbldistance').innerHTML = "Distance (km):";
 						//$("#lbldistance").val("Distance (km)");
-						$("#distance").val(mdistance + "");				
+						//$("#distance").val(mdistance + "");		
+						document.getElementById('distance').innerHTML = mdistance;
 					}
 					else
 					{
 						mdistance = Math.round(TotalDistance * 100) / 100;
 						//$("#lbldistance").val("Distance (meter)");
 						document.getElementById('lbldistance').innerHTML = "Distance (meter):";
-						$("#distance").val(mdistance + "");
+						//$("#distance").val(mdistance + "");
+						document.getElementById('distance').innerHTML = mdistance;
 					}
 					
 					var mCoordinate = localStorage.getItem("CurrentRun");
@@ -2871,14 +3090,16 @@ function showPosition(position) {
 						if(isNaN(weight)== true)
 						{
 							TotalCalories = "0";
-							$("#calories").val(TotalCalories);
+							//$("#calories").val(TotalCalories);
+							document.getElementById('calories').innerHTML = TotalCalories;
 						}
 						else
 						{
 							var dblTotalDistance = parseFloat("" + TotalDistance);
 							var strCal = calculateCalories(dblTotalDistance, weight);
 							TotalCalories = strCal;
-							$("#calories").val(strCal);
+							//$("#calories").val(strCal);
+							document.getElementById('calories').innerHTML = TotalCalories;
 						}
 					}
 					catch(err)
@@ -3182,6 +3403,7 @@ function timecounter(starttime)
 			mFormattedDuration = formattedtime(timediff);
 			
             stopwatch.value = mFormattedDuration;
+			stopwatch.innerHTML = mFormattedDuration;
             refresh = setTimeout('timecounter(' + starttime + ');',10);            
         }
         else

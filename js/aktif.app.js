@@ -32,6 +32,20 @@ var mActivityType = "RUNNING";
 	var mRetrieveRun = false;
 	var mHeight = 0;
 	var mWidth = 0;
+	
+	var mHeight_lblTotal = 40;
+	var mHeight_TotalRunner = 50;
+	var mHeight_lblDistance = 40;
+	var mHeight_Distance = 60;
+	var mHeight_lblSelection = 30;
+	var mHeight_Padding = 0;
+	var mHeight_ActivityType = 120;
+	var mHeight_START = 60;
+	
+	
+	var mHeight_DuringRun_divDistance = 120;
+	var mHeight_DuringRun_divTime = 100;
+	var mHeight_DuringRun_divCalories = 60;
 /*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -63,9 +77,38 @@ $(document).ready(function(){
 	mHeight = $(window).height(); 
 	mWidth = $(window).width(); 
 	var mHeaderHeight = $("#pnlHeader").height();
+	
+	var totalPadding = mHeight - mHeaderHeight - 30 - (mHeight_lblTotal + mHeight_TotalRunner + mHeight_lblDistance + mHeight_Distance + mHeight_lblSelection + mHeight_ActivityType + mHeight_START);
+	if(totalPadding >= 0)
+	{
+		$('#divPadding').css({'height':'' + totalPadding});
+	}
+	$('#divSummary').css({'height':'' + (mHeight_lblTotal + mHeight_TotalRunner + mHeight_lblDistance + mHeight_Distance + mHeight_lblSelection + totalPadding)});
 	$('#RunSectionDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
-	$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
-	$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 50 - 60)});
+	
+	var totalDisplay =  mHeight_DuringRun_divDistance + mHeight_DuringRun_divTime + mHeight_DuringRun_divCalories + 60 + 30 + 50;
+	var totalSpace = mHeight - totalDisplay;
+	if(totalSpace >= 80)
+	{
+		//can show the circular logo
+		$("#divRun").css({'margin-top':'50px'});
+		$("#divImgActivity").css({'display':'block'});
+		$("#divDistance").css({'margin-top':'-30px'});
+		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 50 - 60)});
+	}
+	else
+	{
+		$("#divRun").css({'margin-top':'0px'});
+		$("#divImgActivity").css({'display':'none'});
+		$("#divDistance").css({'margin-top':'0px'});
+		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 0 - 60)});
+	}
+	
+	
+	
+	
 	//alert(h);
 	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	if ( app ) {

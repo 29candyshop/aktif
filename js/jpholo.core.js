@@ -206,6 +206,14 @@ $(document).on('click', 'a[href^=http], a[href^=https]', function (event) {
 
 // default left panelmenu (define menu for all pages)
 function panelMenu(divId) {
+	var mScreenHeight = $(window).height(); 
+	var addon = "";
+	var addon2 = "";
+	if(mScreenHeight < 500)
+	{
+		addon = 'style="width:50%;float:left;height:80px;"';
+		addon2 = 'style="height:80px;"';
+	}
 	var panelMain = $('#panelMenu' + divId + '');
 	panelMain.children().remove('#userinfo'+ divId);
 	panelMain.prepend('<div id="userinfo'+ divId + '" style="float:left;width:100%;margin-top:60px;"><div id="userImage'+ divId + '" style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/login.png);border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div><div style="float:left;width:60%;"><span id="username'+ divId + '"></span></br><span id="userSummary'+ divId + '" style="font-size:14px;color:#555;"></span></div></div>');
@@ -213,14 +221,14 @@ function panelMenu(divId) {
 	var panel = $('#panelMenu' + divId + 'UL');
 	panel.children().remove('li');
 	//panel.append('<li data-icon="false" class="headerSpace"><p>&nbsp;</p></li>'); // empty space, needed for header
-	panel.append('<li data-icon="false"><a class="panelText" href="#indexPage"><img src="./images/icons/icon_running.png" class="ui-li-icon largerIcon">New Activity</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#leaderBoardPage"><img src="./images/icons/leaderboard.png" class="ui-li-icon largerIcon">Leader Board</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#historyPage"><img src="./images/icons/history.png" class="ui-li-icon largerIcon">My History</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#groupsPage"><img src="./images/icons/groups.png" class="ui-li-icon largerIcon">Groups</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#eventsPage"><img src="./images/icons/event.png" class="ui-li-icon largerIcon">Events</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#sponsorsPage"><img src="./images/icons/sponsor.png" class="ui-li-icon largerIcon">Sponsors / Organizers</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#profilePage"><img src="./images/icons/login.png" class="ui-li-icon largerIcon">User Profile</a></li>');
-	panel.append('<li data-icon="false"><a class="panelText" href="#aboutPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">About</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#indexPage"><img src="./images/icons/icon_running.png" class="ui-li-icon largerIcon">New Activity</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#leaderBoardPage"><img src="./images/icons/leaderboard.png" class="ui-li-icon largerIcon">Leader Board</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#historyPage"><img src="./images/icons/history.png" class="ui-li-icon largerIcon">My History</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#groupsPage"><img src="./images/icons/groups.png" class="ui-li-icon largerIcon">Groups</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#eventsPage"><img src="./images/icons/event.png" class="ui-li-icon largerIcon">Events</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#sponsorsPage"><img src="./images/icons/sponsor.png" class="ui-li-icon largerIcon">Sponsors Organizers</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#profilePage"><img src="./images/icons/login.png" class="ui-li-icon largerIcon">My Profile</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#aboutPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">About</a></li>');
 	panel.listview('refresh');
 	
 	displayUserSummary(divId);

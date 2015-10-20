@@ -89,7 +89,7 @@
 			
 			<div id="pnlHeader" style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle" src="./images/icons/icon_running.png" /><img id="headerOverflowIndex" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleIndex" class="headerIconTitle" src="./images/icons/icon_running.png" /><!--<img id="headerOverflowIndex" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />-->
 					&nbsp;</p>
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->		                        
@@ -166,21 +166,21 @@
 						</div> <!-- end main card-->
 					</div> <!-- end outer shell-->                                
 				</div>	<!-- end whole content-->	
-				<div id="RunSectionDiv" style="min-height:490px;display:block;width:100%;height:500px;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
-					<div style="width: 100%;background-color:#222;height: 300px;"> <!-- div for dark gray part-->
+				<div id="RunSectionDiv" style="min-height:400px;display:block;width:100%;height:500px;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
+					<div id="divSummary" style="width: 100%;background-color:#222;height: 300px;"> <!-- div for dark gray part-->
 						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL RUNNERS</span>
 						<span id="CampaignSummary_TotalRunner" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">35</span>
-						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 10px;">TOTAL DISTANCE</span>
+						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL DISTANCE</span>
 						<span id="CampaignSummary_TotalDistance" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 10px;line-height:40px;">709</span>
-						<div style="float:left;width:100%;height:70px;"></div>
-						<span id="CampaignSummary" style="height:50px;width:100%;float:left;text-align:center;font-size:1em;font-weight:bold;color: yellow;margin: 0px 0 10px;">PLEASE SELECT YOUR ACTIVITY</span>
+						<div id="divPadding" style="float:left;width:100%;height:70px;"></div>
+						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;font-weight:bold;color: yellow;margin: 0px 0 10px;">PLEASE SELECT YOUR ACTIVITY</span>
 					
 					</div>
-					<div style="width:260px;margin-left:auto;margin-right:auto;height:100px;background-color:#eee;">
-						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-20px;margin-right:0px;"> <!-- icon-->
+					<div id="divActivtyType" style="width:260px;margin-left:auto;margin-right:auto;height:120px;background-color:#eee;">
+						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-5px;margin-right:0px;"> <!-- icon-->
 							<img id="activityRunning" class="circular2 evtActivityRun" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_running.png">
 						</div>
-						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-20px;margin-right:0px;"> <!-- icon-->
+						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-5px;margin-right:0px;"> <!-- icon-->
 							<img id="activityCycling" class="circular2 evtActivityCycle" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_cycling_deselected.png">
 						</div>
 					</div>
@@ -189,16 +189,16 @@
 					</div>
                                
 				</div>	<!-- end whole content-->
-				<div id="DuringRunDiv" style="min-height:490px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #222;">
-					<div style="width:100%; margin-left: auto;margin-right: auto;margin-top: 50px;position: relative;background-color: #eee;">
+				<div id="DuringRunDiv" style="min-height:400px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #222;">
+					<div id="divRun" style="width:100%; margin-left: auto;margin-right: auto;margin-top: 50px;position: relative;background-color: #eee;">
 						<div class="" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:0px;">
-							<div class="circular1" style=""> <!-- icon-->
+							<div id="divImgActivity" class="circular1" style=""> <!-- icon-->
 								<img id="imgMyActivity" class="circular2" src="./images/icons/icon_running.png">
 							</div>
 							
 							
-							<div id="DuringRunDivInner" class="mainActivityContent" style="min-Height:370px;background-color:#eee;padding-bottom:60px;"> <!-- main inner content-->
-								<div class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:-30px;float:left;"> <!--responsive using grid-->
+							<div id="DuringRunDivInner" class="mainActivityContent" style="min-Height:10px;background-color:#eee;padding-bottom:60px;"> <!-- main inner content-->
+								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:-30px;float:left;"> <!--responsive using grid-->
 									<div class="ui-block-a">
 										<p><span id="lbldistance" style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DISTANCE : </span><br>
 										<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="font-size: 4em;color:#000;text-align:center;width:100%;float:left;">0.0</span></p>
@@ -293,7 +293,7 @@
 			
 			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleLeaderBoard" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><img id="headerOverflowLeaderBoard" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleLeaderBoard" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><!-- <img id="headerOverflowLeaderBoard" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -321,7 +321,7 @@
 			
 			<div style="margin-top:30px;"  class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleHistory" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><img id="headerOverflowHistory" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleHistory" class="headerIconTitle" src="./images/icons/ic_history_launcher.png" /><!-- <img id="headerOverflowHistory" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -389,7 +389,7 @@
 			
 			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleGroups" class="headerIconTitle" src="./images/icons/ic_groups_launcher.png" /><img id="headerOverflowGroups" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleGroups" class="headerIconTitle" src="./images/icons/ic_groups_launcher.png" /><!-- <img id="headerOverflowGroups" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -416,7 +416,7 @@
 			
 			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleEvents" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleEvents" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><!-- <img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -439,7 +439,7 @@
 
 			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleSponsors" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleSponsors" class="headerIconTitle" src="./images/icons/ic_event_launcher.png" /><!-- <img id="headerOverflowEvents" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -485,7 +485,7 @@
 			
 			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleProfile" class="headerIconTitle" src=./images/icons/ic_profile_launcher.png /><img id="headerOverflowProfile" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleProfile" class="headerIconTitle" src=./images/icons/ic_profile_launcher.png /><!-- <img id="headerOverflowProfile" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->
@@ -545,7 +545,7 @@
 			
 			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
 				<div>
-					<p class="headerBarText"><img id="headerTitleAbout" class="headerIconTitle" src="./images/icons/ic_about_launcher.png"/><img id="headerOverflowAbout" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" />
+					<p class="headerBarText"><img id="headerTitleAbout" class="headerIconTitle" src="./images/icons/ic_about_launcher.png"/><!-- <img id="headerOverflowAbout" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
 					&nbsp;</p>
 				</div>
 			</div><!-- /header -->

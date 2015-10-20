@@ -316,6 +316,26 @@ a{
   transition: all 50ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
 }
 
+.evtStartButton
+{
+	background-color:#EE0F95
+}
+
+.evtStartButton:active
+{
+	background-color:#8A0E58;
+}
+
+.evtCancelButton
+{
+	background-color:#EAEE0F
+}
+
+.evtCancelButton:active
+{
+	background-color:#9FA10D;
+}
+
 .evtBack{
 	background-color:#42BB92;
 }

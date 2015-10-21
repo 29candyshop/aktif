@@ -2138,8 +2138,8 @@ function StartRun()
 	LocationTimeStamp = 0;
 	localStorage.setItem("CurrentRun_LastPosition", LastPosition);
 	
-	$("#distance").val(TotalDistance);
-	$("#calories").val("- -");
+	//$("#distance").val(TotalDistance);
+	//$("#calories").val("- -");
 	document.getElementById("distance").innerHTML = TotalDistance;
 	document.getElementById("calories").innerHTML = "- -";
 	
@@ -3100,7 +3100,7 @@ function showPosition(position) {
 					{
 						var d = TotalDistance / 1000.0;
 						mdistance = Math.round(d * 100) / 100;
-						document.getElementById('lbldistance').innerHTML = "Distance (km):";
+						document.getElementById('lbldistance').innerHTML = "DISTANCE (km):";
 						//$("#lbldistance").val("Distance (km)");
 						//$("#distance").val(mdistance + "");		
 						document.getElementById('distance').innerHTML = mdistance;
@@ -3109,7 +3109,7 @@ function showPosition(position) {
 					{
 						mdistance = Math.round(TotalDistance * 100) / 100;
 						//$("#lbldistance").val("Distance (meter)");
-						document.getElementById('lbldistance').innerHTML = "Distance (meter):";
+						document.getElementById('lbldistance').innerHTML = "DISTANCE (meter):";
 						//$("#distance").val(mdistance + "");
 						document.getElementById('distance').innerHTML = mdistance;
 					}

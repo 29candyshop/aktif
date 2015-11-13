@@ -129,22 +129,14 @@
 									</div> <!-- end 2nd responsive grid-->
                                                 
 									 <div class="ui-grid-a ui-responsive">
-										<!--<div class="ui-block-a" style="width: 50%; float: left;">
-											<p><span style="font-size: 10pt;color: #B6B6B6;">Workout Type : </span><br><input class="sportsType" id="workout" type="" disabled="disabled" value="Free Run"></p>
-										</div>-->
-										
 										<div class="ui-block-b" style="width: 100%; float: left;">
-											<p style="margin:0px;"><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br>
+											<p style="margin:0px;"><span style="font-size: 10pt;color: #B6B6B6;">Activity Type : </span><br></p>
 											 <select id="activity" name="activity">                                                    
 												<option value="RUNNING">RUNNING</option>
 												<option value="CYCLING">CYCLING</option>
 											</select>
-											<!--<input class="sportsType" id="activity" type="" disabled="disabled" value="Running"></p>-->
 										</div>
-									</div> <!-- end 3rd responsive grid-->
-									<!--<div id="btnTest" style="width:100%;float:left;display:block;margin-bottom:0px;">							
-										<input  type="button" class="button" id="Test" value="Test" data-role="button" onclick="UpdateNotification(); "><br>
-									</div>		-->		
+									</div> <!-- end 3rd responsive grid-->	
 									<div id="btnStart" style="width:100%;float:left;display:block;margin-bottom:0px;">							
 										<!--<input  type="button" class="button" id="startandstopbutton" value="Start my run" data-role="button" onclick="StartRun(); "><br>-->
 										<a type="button" id="startandstopbutton_nouse"  onclick="StartRun();" class=" enjoy-css" value="Start my run" style="margin-left:0px;width:100%;color: white; margin-bottom: 30px;margin-top:10px;padding:0px;">Start My Run</a>
@@ -172,6 +164,11 @@
 						<span id="CampaignSummary_TotalRunner" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">35</span>
 						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL DISTANCE</span>
 						<span id="CampaignSummary_TotalDistance" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 10px;line-height:40px;">709</span>
+						
+						<span id="CampaignSummary_lblRaised" style="display:none;height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 0px 0 0px;">TOTAL RAISED (RM)</span>
+						<span id="CampaignSummary_TotalRaised" style="display:none;height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">709</span>
+						
+						
 						<div id="divPadding" style="float:left;width:100%;height:70px;"></div>
 						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;font-weight:bold;color: yellow;margin: 0px 0 10px;">PLEASE SELECT YOUR ACTIVITY</span>
 					
@@ -200,7 +197,7 @@
 							<div id="DuringRunDivInner" class="mainActivityContent" style="min-Height:10px;background-color:#eee;padding-bottom:60px;"> <!-- main inner content-->
 								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:-30px;float:left;"> <!--responsive using grid-->
 									<div class="ui-block-a">
-										<p><span id="lbldistance" style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DISTANCE : </span><br>
+										<p><span id="lbldistance" style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DISTANCE : </span><br></p>
 										<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="font-size: 4em;color:#000;text-align:center;width:100%;float:left;">0.0</span></p>
 									</div>
 									
@@ -551,15 +548,21 @@
 			</div><!-- /header -->
 			
 			<div role="main" class="ui-content" data-theme="a">	
-				<div style="width:100%;height:250px;float:left;position:relative;">
-					<div style="width: 150px;
-   height: 250px;
+				<div style="width:100%;height:200px;float:left;position:relative;">
+					<div style="width: 40%;
+   height: 200px;
    position: absolute;
-   left: 50%;
-   top: 50%; 
+   left: 35%;
+  
    margin-left: -75px;
-   margin-top: -125px;background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
-				
+  background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
+					<div style="width: 50%;
+   height: 200px;
+   position: absolute;
+   left: 75%;
+   
+   margin-left: -75px;
+   background-image:url(images/icons/penang_icon.png);background-repeat:no-repeat;background-size:contain;"></div>
 				</div>
 				<div style="width:100%;float;left;margin-top:10px;">
 					<!--<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>-->
@@ -584,7 +587,7 @@
 				</div>
 			</div><!-- /header -->
 			
-			<div id="runMapPanel" role="main" class="ui-content" data-theme="a">
+			<div id="runMapPanel" role="main" class="ui-content" data-theme="a" style="padding-bottom:5em;">
 				<span id="currentDateTime" style="width:100%;float:left;font-size:12.5px;padding: 0 0.2em 0.2em;"></span>
 				<div id="runMapDiv" class="mainCard" style="width: 100%; height: auto;background-color: white;float:left;margin: 5px auto 0;position: relative;">
 					<div class="circular1"> <!-- icon-->
@@ -635,11 +638,13 @@
 				</div>		
 							
 			</div><!-- /content -->
-			<div>
-				<!--<a type="button" class="buttonStyle" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-bottom:30px;">Share My Run</a>-->
+			<!--<div>
 				<a type="button" id="btnShare" onclick="sharemyrun();" class=" enjoy-css" value="Share" style="color: white; margin-bottom: 20px;margin-top:10px;width:90%;padding:0px;">Share My Run</a>
 	 
-			</div> <!-- share run acrivity-->	
+			</div> --><!-- share run acrivity-->	
+			<div id="btnShare" onclick="sharemyrun();" class="evtStartButton" style="height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
+				<p id="" style="line-height:30px;font-weight:bold;">Share My Run</p>
+			</div>
         </div>
                 
         <div id="individualGroupPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
@@ -767,11 +772,11 @@
 				</div><!-- populate the panel menu, also with the id Index in this case -->
 			</div><!-- /header -->
 			
-			<div data-role="main" class="ui-content">
+			<div data-role="main" class="ui-content" style="padding-bottom:5em;">
 					
 					<!-- Add text box to input email and pass-->            
 						<div style="width:100%;height: auto;margin-top:10px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
-							<div class="card" style="width:100%;height: 440px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
+							<div class="card" style="width:100%;height: 400px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
 								<div style="padding: 0 0.55rem 0.55rem; display: block;height: 420px;overflow: auto;margin-top: 10px;">                           
 									<!--<img style="width: 75px;height: 75px;border-radius: 50px;position: relative;margin-left: 34%;margin-right: 34%;" src="./images/icons/login.png"/>      -->                        
 									
@@ -817,14 +822,16 @@
 													</span>					
 							</div> <!-- end DOB field-->
 											
-										<a type="button" class="buttonStyle" onclick="editProfile();" href="" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-top: 15px;">Update My Profile</a>
+										<!--<a type="button" class="buttonStyle" onclick="editProfile();" href="" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;margin-top: 15px;">Update My Profile</a>-->
 										</div>
 									</form>
 								</div>
 							</div> <!-- end card -->
 						</div> <!-- end style -->
 			</div><!-- /main content -->
-	
+			<div id="" onclick="editProfile();" class="evtStartButton" style="height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
+				<p id="" style="line-height:30px;font-weight:bold;">Update My Profile</p>
+			</div>
 		</div>
 		
 		<div id="signUpPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
@@ -924,7 +931,7 @@
 						<img class="circle" src="./images/icons/forgot_password.png"/>
 					</div> <!-- white circle div end -->
 			 <div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
-                    <div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
+                    <div class="card" style="width:100%;height: 320px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
                        
                       <div style="width:100%;height: auto;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;margin-top: 30px;"> <!-- style-->                            
 							<!--<form role="form" class="loginForm" action="http://www.aktifpenang.com/api/_api_login.php" method="post" target="_blank" data-ajax="false"> <!-- form start -->
@@ -936,11 +943,15 @@
 									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword" id="newpassword" value=""  placeholder="New Password" autocomplete="off">
 									<input type="password" class="inputStyle" data-clear-btn="true" name="newpassword_confirm" id="newpassword_confirm" value=""  placeholder="Confirm New Password?" autocomplete="off">
 									<!--<button type="" class="enjoy-css" onclick="ChangePassword();" value="Change Password" id="btnChangePass" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>-->
-									 <a type="button" class=" enjoy-css" onclick="ChangePassword();"  style="color: white; margin-bottom: 20px;margin-top:10px;">Change Password</a>
+									<!-- <a type="button" class=" enjoy-css" onclick="ChangePassword();"  style="color: white; margin-bottom: 20px;margin-top:10px;">Change Password</a>-->
 							</div>
 						</div> <!-- end style -->
                     </div> <!-- end card -->
                 </div> <!-- end style -->
+				
+			</div>
+			<div id="" onclick="ChangePassword();" class="evtStartButton" style="height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
+				<p id="" style="line-height:30px;font-weight:bold;">Change Password</p>
 			</div>
 		</div>
 	

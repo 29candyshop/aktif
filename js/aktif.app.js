@@ -37,6 +37,10 @@ var mActivityType = "RUNNING";
 	var mHeight_TotalRunner = 50;
 	var mHeight_lblDistance = 40;
 	var mHeight_Distance = 60;
+	
+	var mHeight_lblRaised = 40;
+	var mHeight_Raised = 60;
+	
 	var mHeight_lblSelection = 30;
 	var mHeight_Padding = 0;
 	var mHeight_ActivityType = 120;
@@ -96,6 +100,11 @@ $(document).ready(function(){
 		$("#divDistance").css({'margin-top':'-30px'});
 		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
 		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 50 - 60)});
+		
+		$("#CampaignSummary_lblRaised").css({'display':'block'});
+		$("#CampaignSummary_TotalRaised").css({'display':'block'});
+		
+		$('#divPadding').css({'height':'' + (totalPadding - 80)});
 	}
 	else
 	{
@@ -708,7 +717,23 @@ function ChangePassword()
 	var old_password = $("#oldpassword").val();
 	var newpassword = $("#newpassword").val();
 	var newpassword_confirm = $("#newpassword_confirm").val();
-	
+	if(newpassword == "" || old_password == "")
+	{
+		if(navigator.notification)
+			{
+				navigator.notification.alert(
+					'Please fill in all the fields',
+					function() {},
+					'Change Password',
+					'OK'
+				);
+			}
+			else
+			{
+				alert("Please fill in all the fields");
+			}
+		return;
+	}
 	if(newpassword == newpassword_confirm)
 	{
 		// var toAdd = document.getElementById('changePasswordPage');
@@ -983,6 +1008,23 @@ function UserSummary()
 	}
 }
 
+function sep1000(somenum,usa){
+  var dec = String(somenum).split(/[.,]/)
+     ,sep = usa ? ',' : '.'
+     ,decsep = usa ? '.' : ',';
+  return dec[0]
+         .split('')
+         .reverse()
+         .reduce(function(prev,now,i){
+                   return i%3 === 0 ? prev+sep+now : prev+now;}
+                )
+         .split('')
+         .reverse()
+         .join('') +
+         (dec[1] ? decsep+dec[1] :'')
+  ;
+}
+
 function displayUserSummary(divId)
 {
 	var CampaignUser = window.localStorage.getItem("CampaignUser");
@@ -1003,10 +1045,25 @@ function displayUserSummary(divId)
 	userTotalDistance = userTotalDistance / 1000.0;
 	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
 	
+	var TotalRaised = distance/10.0;
+	TotalRaised = Math.round(TotalRaised * 100) / 100;
+	//distance = 1000323.65;
+	
+	if(distance > 100.00)
+	{
+		$("#CampaignSummary_TotalRunner").css({'font-size':'50px'} );
+		$("#CampaignSummary_TotalDistance").css({'font-size':'50px'} );
+		$("#CampaignSummary_TotalRaised").css({'font-size':'50px'} );
+	}
 	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	//$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	$("#CampaignSummary_TotalRunner").html("" + CampaignUser + "" );
-	$("#CampaignSummary_TotalDistance").html(distance + "" );
+	
+	var distance_Formatted = sep1000(distance, true);
+	$("#CampaignSummary_TotalDistance").html(distance_Formatted + "" );
+	
+	var TotalRaised_Formatted = sep1000(TotalRaised, true);
+	$("#CampaignSummary_TotalRaised").html("" + TotalRaised_Formatted + "" );
 	if(firstname == "" && lastname == "")
 	{
 		$("#username"+ divId).html("" + shortName + "" );

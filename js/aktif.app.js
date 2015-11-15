@@ -123,13 +123,13 @@ $(document).ready(function(){
 	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	 setTimeout(function() {
 		if ( app ) {
-		// PhoneGap application
-		 document.addEventListener("deviceready", onDeviceReady, false);
+			// PhoneGap application
+			document.addEventListener("deviceready", onDeviceReady, false);
 		} else {
 			// Web page
 			 onDeviceReady(); //this is the browser
 		}
-    }, 2000);
+    }, 1000);
 	
 	
 	/*if ( app ) {
@@ -172,6 +172,15 @@ function onDeviceReady() {
 		
 		}
 	}
+	
+	
+	try{
+		navigator.splashscreen.hide();
+	}
+	catch(err)
+	{}
+	
+	
 	document.addEventListener("resume", onResume, false);
 	try{
 		//bgGeo = window.plugins.backgroundGeoLocation;

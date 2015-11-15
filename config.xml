@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "10001" 
-	version 	= "1.00.04">
+	version 	= "1.00.05">
 
 	<name>AktifPenang</name>
 
@@ -100,6 +100,8 @@
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
 	
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+	
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 	<gap:plugin name="org.apache.cordova.Camera" />
 	<gap:plugin name="org.apache.cordova.network-information" />
@@ -148,6 +150,8 @@
 	<!-- <gap:plugin name="ChildBrowser" version="~3" /> for Cordova (1.9.0+) -->
 	<access origin="*" />
 	<!--<access origin="https://build.phonegap.com" browserOnly="true" />-->
+	
+	<preference name="AutoHideSplashScreen" value="false" />
 	
 	<preference name="exit-on-suspend" value="false"/>
 	<preference name="DisallowOverscroll" value="true" />

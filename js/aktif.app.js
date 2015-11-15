@@ -78,6 +78,7 @@ var mActivityType = "RUNNING";
 //document ready
 $(document).ready(function(){
 	//localStorage.setItem("run_fresh", "true");
+	location.hash = "#splashscreen";
 	mHeight = $(window).height(); 
 	mWidth = $(window).width(); 
 	var mHeaderHeight = $("#pnlHeader").height();
@@ -120,13 +121,24 @@ $(document).ready(function(){
 	
 	//alert(h);
 	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-	if ( app ) {
+	 setTimeout(function() {
+		if ( app ) {
+		// PhoneGap application
+		 document.addEventListener("deviceready", onDeviceReady, false);
+		} else {
+			// Web page
+			 onDeviceReady(); //this is the browser
+		}
+    }, 2000);
+	
+	
+	/*if ( app ) {
 		// PhoneGap application
 		 document.addEventListener("deviceready", onDeviceReady, false);
 	} else {
 		// Web page
 		 onDeviceReady(); //this is the browser
-	}
+	}*/
 });
 
 //document.addEventListener("deviceready", onDeviceReady, false);
@@ -142,60 +154,62 @@ function onDeviceReady() {
 		
 	}
 	else
-	if(AccessToken == "")
 	{
-		window.localStorage.clear();
-		localStorage.setItem("run_fresh", "true");
-		location.hash = "#LoginPage";
+		if(AccessToken == "")
+		{
+			window.localStorage.clear();
+			localStorage.setItem("run_fresh", "true");
+			location.hash = "#LoginPage";
+		}
+		else
+		{
+			location.hash = "#indexPage";
+			async(function() {
+				SyncToServer();
+				UserSummary();
+			}, null);
+			
+		
+		}
 	}
-	else
+	document.addEventListener("resume", onResume, false);
+	try{
+		//bgGeo = window.plugins.backgroundGeoLocation;
+		//alert("a:" + window.plugins.backgroundGeoLocation);
+		//alert("b:" + window.backgroundGeolocation);
+		//alert("c:" + window.BackgroundGeolocation);
+	}
+	catch(err)
 	{
-		
-		async(function() {
-			SyncToServer();
-			UserSummary();
-		}, null);
-		
-	
+		alert(err);
 	}
-		document.addEventListener("resume", onResume, false);
-		try{
-			//bgGeo = window.plugins.backgroundGeoLocation;
-			//alert("a:" + window.plugins.backgroundGeoLocation);
-			//alert("b:" + window.backgroundGeolocation);
-			//alert("c:" + window.BackgroundGeolocation);
+	/*
+	cordova.plugins.notification.local.on("click", function (notification) {
+		if (notification.id == 1) {
+			//joinMeeting(notification.data.meetingId);
+			//alert("Clicked!");
+			
+		}
+	});
+
+
+	// Notification has reached its trigger time (Tomorrow at 8:45 AM)
+	cordova.plugins.notification.local.on("trigger", function (notification) {
+		try
+		{
+			if (notification.id != 1)
+				return;
+
+			
 		}
 		catch(err)
 		{
 			alert(err);
 		}
-		/*
-		cordova.plugins.notification.local.on("click", function (notification) {
-			if (notification.id == 1) {
-				//joinMeeting(notification.data.meetingId);
-				//alert("Clicked!");
-				
-			}
-		});
-
-
-		// Notification has reached its trigger time (Tomorrow at 8:45 AM)
-		cordova.plugins.notification.local.on("trigger", function (notification) {
-			try
-			{
-				if (notification.id != 1)
-					return;
-
-				
-			}
-			catch(err)
-			{
-				alert(err);
-			}
-		});	*/
-		
-		//================= configure geolocation background ==========================
-	}
+	});	*/
+	
+	//================= configure geolocation background ==========================
+}
 
 function onResume()
 {
@@ -851,7 +865,7 @@ function LoginEmail()
 				localStorage.setItem("run_fresh", "true");
 				//var url = "main1.html";
 				//var win = window.open(url, '_self');
-				location.hash = "#";
+				location.hash = "#indexPage";
 				UserSummary();
 			}
 		}
@@ -914,7 +928,7 @@ function LoginFacebook()
 														$.mobile.loading("hide");
 														//var url = "main1.html";
 														//var win = window.open(url, '_self');
-														location.hash = "#";
+														location.hash = "#indexPage";
 														UserSummary();
 													});
 												}

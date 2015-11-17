@@ -2580,7 +2580,7 @@ function displayMyRun()
 				var strMap = "url('" + obj.runs[0].map + "')";
 				//alert(strMap);
 				localStorage.setItem("CurrentRun_Map", obj.runs[0].map);
-				var myMap = obj.runs[0].map + "&API=" + StaticAPI;
+				var myMap = obj.runs[0].map + "&key=" + StaticAPI;
 				//$("#divMap").css({'background-image':'url('+  myMap +')'});
 				var w = window.innerWidth - 40;
 				$("#imgMap").css({"width":w});
@@ -2593,7 +2593,7 @@ function displayMyRun()
 	}
 	else
 	{
-		mMap = mMap + "&API=" + StaticAPI;
+		mMap = mMap + "&key=" + StaticAPI;
 		//$("#divMap").css({'background-image':'url('+ mMap +')'});
 		var w = window.innerWidth - 40;
 		$("#imgMap").css({"width":w});

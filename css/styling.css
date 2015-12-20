@@ -22,6 +22,15 @@ Android ICS colors:
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face{
+	 font-family: Share;
+    src: url('Share-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 *
 {
 -webkit-user-select: none;
@@ -40,8 +49,8 @@ input
 user-select: auto !important;
 }
 body * {
-    font-family: OpenSansRegular !important;
-    font-weight: normal !important;
+    font-family: Share !important;
+   /* font-weight: normal !important;*/
     white-space: normal !important;
     word-wrap: break-word !important;
     outline: none !important;  
@@ -318,28 +327,98 @@ a{
 
 .evtStartButton
 {
-	background-color:#EE0F95
+	/*background-color:#EE0F95;*/
+	background-color:#E51919;
 }
 
 .evtStartButton:active
 {
-	background-color:#8A0E58;
+	/*background-color:#8A0E58;*/
+	background-color:#A11212;
 }
 
 .evtCancelButton
-{
-	background-color:#EAEE0F
+{	
+	/*background-color:#EAEE0F;*/
+	background-color:#222;
 }
 
 .evtCancelButton:active
 {
-	background-color:#9FA10D;
+	/* background-color:#9FA10D; */
+	background-color:#000;
 }
 
 .evtBack{
-	background-color:#42BB92;
+	/*background-color:#42BB92;*/
+	background-color:#E51919;
 }
 
 .evtBack:active{
-	background-color:#2E8366;
+	/*background-color:#2E8366;*/
+	background-color:#A11212;
+}
+
+.gradientGreyWhite
+{
+	 background-color: #2b323f;
+    /* IE9, iOS 3.2+ */
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0idnNnZyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj48c3RvcCBzdG9wLWNvbG9yPSIjNDg1NTZjIiBzdG9wLW9wYWNpdHk9IjEiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMxYjIxMmIiIHN0b3Atb3BhY2l0eT0iMSIgb2Zmc2V0PSIwLjUiLz48c3RvcCBzdG9wLWNvbG9yPSIjMTQxOTIyIiBzdG9wLW9wYWNpdHk9IjEiIG9mZnNldD0iMC41MSIvPjxzdG9wIHN0b3AtY29sb3I9IiMzNTNiNDUiIHN0b3Atb3BhY2l0eT0iMSIgb2Zmc2V0PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI3ZzZ2cpIiAvPjwvc3ZnPg==);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,color-stop(0, rgb(72, 85, 108)),color-stop(0.5, rgb(27, 33, 43)),color-stop(0.51, rgb(20, 25, 34)),color-stop(1, rgb(53, 59, 69)));
+    /* Android 2.3 */
+    background-image: -webkit-repeating-linear-gradient(top,rgb(72, 85, 108) 0%,rgb(27, 33, 43) 50%,rgb(20, 25, 34) 51%,rgb(53, 59, 69) 100%);
+    /* IE10+ */
+    background-image: repeating-linear-gradient(to bottom,rgb(72, 85, 108) 0%,rgb(27, 33, 43) 50%,rgb(20, 25, 34) 51%,rgb(53, 59, 69) 100%);
+    background-image: -ms-repeating-linear-gradient(top,rgb(72, 85, 108) 0%,rgb(27, 33, 43) 50%,rgb(20, 25, 34) 51%,rgb(53, 59, 69) 100%);
+}
+
+.shadowPanel
+{
+-webkit-box-shadow: 0px 0px 15px 1px rgba(18,17,18,1);
+-moz-box-shadow: 0px 0px 15px 1px rgba(18,17,18,1);
+box-shadow: 0px 0px 15px 1px rgba(18,17,18,1);
+}
+
+.btnRed
+{
+	/*background-color:#EE0F95;*/
+	background-color:#E51919;
+	width:100%;
+	height:50px;
+	text-align:center;
+	float:left;
+	line-height:50px;
+}
+
+.btnRed:active
+{
+	/*background-color:#8A0E58;*/
+	background-color:#A11212;
+		width:100%;
+	height:50px;
+	text-align:center;
+	float:left;
+	line-height:50px;
+}
+
+.btnBlack
+{
+	/*background-color:#EE0F95;*/
+	background-color:#222;
+	width:100%;
+	height:50px;
+	text-align:center;
+	float:left;
+	line-height:50px;
+}
+
+.btnBlack:active
+{
+	/*background-color:#8A0E58;*/
+	background-color:#000;
+		width:100%;
+	height:50px;
+	text-align:center;
+	float:left;
+	line-height:50px;
 }

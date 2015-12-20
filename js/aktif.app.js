@@ -96,11 +96,11 @@ $(document).ready(function(){
 	if(totalSpace >= 80)
 	{
 		//can show the circular logo
-		$("#divRun").css({'margin-top':'50px'});
-		$("#divImgActivity").css({'display':'block'});
-		$("#divDistance").css({'margin-top':'-30px'});
+		$("#divRun").css({'margin-top':'0px'});
+		//$("#divImgActivity").css({'display':'block'});
+		$("#divDistance").css({'margin-top':'20px'});
 		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
-		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 50 - 60)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60)});
 		
 		$("#CampaignSummary_lblRaised").css({'display':'block'});
 		$("#CampaignSummary_TotalRaised").css({'display':'block'});
@@ -272,22 +272,39 @@ $(document).on('click', '.evtCancelRun', function (event, data) {
 	CancelRun();
 });
 
+$(document).on('click', '.evtActivityWalk', function (event, data) {
+	mActivityType = "WALKING";
+	document.getElementById("activityWalking").src = "images/icons/icon_walking.png";
+	document.getElementById("activityRunning").src = "images/icons/icon_running_deselected.png";
+	document.getElementById("imgMyActivity").src = "images/icons/icon_running.png";
+	document.getElementById("activityCycling").src = "images/icons/icon_cycling_deselected.png";
+	document.getElementById("txtStartStop").innerHTML = "START MY WALK";
+	//$("#activityRunning").css({'background-image':''});
+	//$("#activityCycling").css({'background-image':''});
+	document.getElementById("mCurrentSelectedActivity").innerHTML = mActivityType;
+});
+
+
 $(document).on('click', '.evtActivityRun', function (event, data) {
 	mActivityType = "RUNNING";
+	document.getElementById("activityWalking").src = "images/icons/icon_walking_deselected.png";
 	document.getElementById("activityRunning").src = "images/icons/icon_running.png";
 	document.getElementById("imgMyActivity").src = "images/icons/icon_running.png";
 	document.getElementById("activityCycling").src = "images/icons/icon_cycling_deselected.png";
 	document.getElementById("txtStartStop").innerHTML = "START MY RUN";
 	//$("#activityRunning").css({'background-image':''});
 	//$("#activityCycling").css({'background-image':''});
+	document.getElementById("mCurrentSelectedActivity").innerHTML = mActivityType;
 });
 
 $(document).on('click', '.evtActivityCycle', function (event, data) {
 	mActivityType = "CYCLING";
+	document.getElementById("activityWalking").src = "images/icons/icon_walking_deselected.png";
 	document.getElementById("activityRunning").src = "images/icons/icon_running_deselected.png";
 	document.getElementById("imgMyActivity").src = "images/icons/icon_cycling.png";
 	document.getElementById("activityCycling").src = "images/icons/icon_cycling.png";
 	document.getElementById("txtStartStop").innerHTML = "START MY CYCLING";
+	document.getElementById("mCurrentSelectedActivity").innerHTML = mActivityType;
 });
 
 
@@ -1074,9 +1091,15 @@ function displayUserSummary(divId)
 	
 	if(distance > 100.00)
 	{
-		$("#CampaignSummary_TotalRunner").css({'font-size':'50px'} );
-		$("#CampaignSummary_TotalDistance").css({'font-size':'50px'} );
-		$("#CampaignSummary_TotalRaised").css({'font-size':'50px'} );
+		$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
+		$("#CampaignSummary_TotalDistance").css({'font-size':'70px'} );
+		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
+	}
+	else
+	{
+		$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
+		$("#CampaignSummary_TotalDistance").css({'font-size':'80px'} );
+		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
 	}
 	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	//$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
@@ -1149,10 +1172,16 @@ function LeaderBoard()
 				{
 					imageURL = "https://graph.facebook.com/" + obj.username + "/picture?type=large";
 				}
-				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-				'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+				var background = '#fff';
+				if(i % 2 == 0)
+				{
+					background = '#f0f0f0';
+				}
+				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
+							'<span id="" style="font-size:1.2em;color:#E51919;line-height:40px;height:100%;float:left;">'  + mdistance + munit +  '</span><div style="margin-top:10px;width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:right;"></div></div></div></div>';
 				panelMain.append(html);
-				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+				panelMain.append('<div style="float:left;width:100%;height:1px;margin-left:0%;background-color:#aaa;"></div>');
 				
 			}
 			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Cyclist</div>';
@@ -1177,10 +1206,16 @@ function LeaderBoard()
 				{
 					imageURL = "https://graph.facebook.com/" + obj.username + "/picture?type=large";
 				}
-				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-				'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">'  + mdistance + munit +  '</span></div></div>';
+				var background = '#fff';
+				if(i % 2 == 0)
+				{
+					background = '#f0f0f0';
+				}
+				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
+				'<span id="" style="font-size:1.2em;color:#E51919;float:left;line-height:40px;height:100%;">'  + mdistance + munit +  '</span><div style="margin-top:10px;width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:right;"></div></div></div></div>';
 				panelMain.append(html);
-				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+				panelMain.append('<div style="float:left;width:100%;height:1px;margin-left:0%;background-color:#aaa;"></div>');
 				
 			}
 			var html = '<div id="" class="" style="float:left;width:100%;margin-top:0px;background-color:#222;color:#fff;height:40px;line-Height:40px;padding-Left:10px;">Top Groups</div>';
@@ -1190,13 +1225,18 @@ function LeaderBoard()
 				var distance = obj.group_distance;
 				distance = distance / 1000.0;
 				distance = Math.round(distance * 100) / 100;
-				var html = '<div id="groupinfo" class="evtGroup" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-							'<div style="float:left;width:60%;"><span id="">' + obj.group_name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' +  distance + 'km</span></div>';
+				var background = '#fff';
+				if(i % 2 == 0)
+				{
+					background = '#f0f0f0';
+				}
+				var html = '<div id="groupinfo" class="evtGroup" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
+							'<div style="float:left;width:60%;"><span id="">' + obj.group_name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:1.2em;color:#E51919;">' +  distance + 'km</span></div>';
 							
 
 				html = html + '</div>';		
 				panelMain.append(html);
-				panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');				
+				panelMain.append('<div style="float:left;width:100%;height:1px;margin-left:0%;background-color:#aaa;"></div>');				
 			}
 		}
 	);
@@ -1597,6 +1637,7 @@ function addMoreRun(page) {
 					var obj = objGroup.runs[i];
 					
 					
+					
 					var strObj = JSON.stringify(obj);
 					strObj = strObj.replace("}","");
 					strObj = strObj + ',"sync":"yes"}';
@@ -1641,14 +1682,25 @@ function addMoreRun(page) {
 					//}
 	
 					//var strDate = new Date(obj.rundate);
-					var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+					var dd = strDate.getDate();
+					var mm = strDate.getMonth(); //January is 0! 
 					var yyyy = strDate.getFullYear(); 
-					
-					var ampm = '';
-					var hh = strDate.getHours();
-					if(hh > 12)
+					if(CurrentLoadingMonth != mm)
 					{
-						hh = hh - 12;
+						CurrentLoadingMonth = mm;
+						var htmlMonth = '<div id="Group-' + CurrentLoadingMonth + '" class="" style="float:left;width:100%;margin-top:0px;height:40px;background-color:#000;"><p style="float:left;padding-left:1em;font-size:1.3em;color:#ccc;line-height:2em;height:100%;margin:0;">'+ monthNames[CurrentLoadingMonth]  + ' ' + yyyy + '</p></div>';
+						panelMain.append(htmlMonth);
+						//panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					
+					}
+									var ampm = '';
+					var hh = strDate.getHours();
+					if(hh >= 12)
+					{
+						if(hh > 12)
+						{
+							hh = hh - 12;
+						}
 						ampm = 'pm';
 					}
 					else
@@ -1661,8 +1713,18 @@ function addMoreRun(page) {
 					if(min < 10) min = '0' + min;
 					
 					
+					//var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
+					//'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
 					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-					'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
+					'<div style="float:left;width:60%;">' + 
+					'<div style="position:relative;">' + 
+					'<div style="width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:left;"></div><span id="" style="color:#E51919;font-size:1.8em;">' + mdistance + munit + '</span></div>' + 
+					'<div style="position:relative;">' + 
+					'<div style="width:20px;height:20px;background-size:cover;background-image:url(images/icons/icon_time.png);float:left;"></div>' + 
+					'<span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></div>' + 
+					'<div style="position:relative;">' + 
+					'<div style="width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_event.png);float:left;"></div>' + 
+					'<span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div></div>';
 					panelMain.append(html);
 					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
 					
@@ -1675,6 +1737,8 @@ function addMoreRun(page) {
 			});
 	}
 }
+
+var CurrentLoadingMonth = 0;
 
 function LoadRun(obj, saveStorage)
 {
@@ -1714,6 +1778,10 @@ function LoadRun(obj, saveStorage)
 	{
 		image = "icon_run.png";
 	}
+	else if(obj.activity_type.toLowerCase() == "walking")
+	{
+		image = "walking.png";
+	}
 	else
 	{
 		image = "cycling.png";
@@ -1728,14 +1796,27 @@ function LoadRun(obj, saveStorage)
 	//}
 
 	//var strDate = new Date(obj.rundate);
-	var dd = strDate.getDate(); var mm = strDate.getMonth(); //January is 0! 
+	var dd = strDate.getDate(); 
+	var mm = strDate.getMonth(); //January is 0! 
 	var yyyy = strDate.getFullYear(); 
+	
+	if(CurrentLoadingMonth != mm)
+	{
+		CurrentLoadingMonth = mm;
+		var htmlMonth = '<div id="Group-' + CurrentLoadingMonth + '" class="" style="float:left;width:100%;margin-top:0px;height:40px;background-color:#000;"><p style="float:left;padding-left:1em;font-size:1.3em;color:#ccc;line-height:2em;height:100%;margin:0;">'+ monthNames[CurrentLoadingMonth]  + ' ' + yyyy + '</p></div>';
+		panelMain.append(htmlMonth);
+		//panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+	
+	}
 	
 	var ampm = '';
 	var hh = strDate.getHours();
-	if(hh > 12)
+	if(hh >= 12)
 	{
-		hh = hh - 12;
+		if(hh > 12)
+		{
+			hh = hh - 12;
+		}
 		ampm = 'pm';
 	}
 	else
@@ -1749,7 +1830,15 @@ function LoadRun(obj, saveStorage)
 	
 	
 	var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-	'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
+	'<div style="float:left;width:60%;">' + 
+	'<div style="position:relative;">' + 
+	'<div style="width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:left;"></div><span id="" style="color:#E51919;font-size:1.8em;">' + mdistance + munit + '</span></div>' + 
+	'<div style="position:relative;">' + 
+	'<div style="width:20px;height:20px;background-size:cover;background-image:url(images/icons/icon_time.png);float:left;"></div>' + 
+	'<span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></div>' + 
+	'<div style="position:relative;">' + 
+	'<div style="width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_event.png);float:left;"></div>' + 
+	'<span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div></div>';
 	panelMain.append(html);
 	panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
 	
@@ -2544,9 +2633,12 @@ function displayMyRun()
 	
 	var ampm = '';
 	var hh = strDate.getHours();
-	if(hh > 12)
+	if(hh >= 12)
 	{
-		hh = hh - 12;
+		if(hh > 12)
+		{
+			hh = hh - 12;
+		}
 		ampm = 'pm';
 	}
 	else
@@ -2580,7 +2672,7 @@ function displayMyRun()
 				var strMap = "url('" + obj.runs[0].map + "')";
 				//alert(strMap);
 				localStorage.setItem("CurrentRun_Map", obj.runs[0].map);
-				var myMap = obj.runs[0].map + "&key=" + StaticAPI;
+				var myMap = obj.runs[0].map;// + "&key=" + StaticAPI;
 				//$("#divMap").css({'background-image':'url('+  myMap +')'});
 				var w = window.innerWidth - 40;
 				$("#imgMap").css({"width":w});
@@ -2593,7 +2685,7 @@ function displayMyRun()
 	}
 	else
 	{
-		mMap = mMap + "&key=" + StaticAPI;
+		mMap = mMap;// + "&key=" + StaticAPI;
 		//$("#divMap").css({'background-image':'url('+ mMap +')'});
 		var w = window.innerWidth - 40;
 		$("#imgMap").css({"width":w});

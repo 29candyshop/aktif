@@ -71,7 +71,7 @@ function startPreLoadImages() {
 		"./images/icons/ic_launcher_full_noarrow.png",
 		"./images/icons/ic_launcher_menu_full.png",
 		"./images/icons/ic_run_launcher.png",
-		"./images/icons/ic_run_menu_launcher.png",
+		"./images/icons/ic_run_menu_launcher2.png",
 		"./images/icons/ic_profile_launcher.png",
 		"./images/icons/ic_profile_menu_launcher.png",
 		"./images/icons/ic_history_launcher.png",
@@ -318,7 +318,7 @@ function panelMenuLeftOpened() {
 		//$("#headerTitle" + window.localStorage.getItem("divIdGlobal")).attr("src", "./images/icons/ic_launcher_full_menu_opened.png");
 		//$("#headerTitle" + window.localStorage.getItem("divIdGlobal")).attr("src", "./images/icons/ic_launcher_menu_full.png");		
 		if (currentId === "Index") {
-			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_run_menu_launcher.png");
+			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_run_menu_launcher2.png");
 		}
 		else if (currentId === "LeaderBoard") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_leaderboard_launcher.png");

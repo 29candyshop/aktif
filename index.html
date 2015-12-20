@@ -74,30 +74,42 @@
 		</div>-->
 		<div id="fb-root"></div>
 		
-		<div id="splashscreen" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #000;background-image:url(images/icons/aktifpenang_startup.png);background-repeat:no-repeat;background-size:cover;">
-			<div style="width:70%;height:200px;float:right;margin-top:10%;position:relative;">
-					<div style="width: 40%;
-   height: 200px;
-   position: absolute;
-   left: 35%;
-  
-   margin-left: -75px;
-  background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
-					<div style="width: 50%;
-   height: 200px;
-   position: absolute;
-   left: 75%;
-   
-   margin-left: -75px;
-   background-image:url(images/icons/penang_icon.png);background-repeat:no-repeat;background-size:contain;"></div>
+		<div id="splashscreen" data-role="page" data-theme="a" style="color:#FFF;font-weight:bold;margin-top:30px;width: 100%; 
+		background-image:url(images/icons/bk_7.jpg);background-repeat:no-repeat;background-size:cover;">
+			
+			
+			<div style="z-index:1000;top:0;position:absolute;width:100%;height:100%;background-color: rgba(0,0,0,0.6);">
+				<div style="width:100%;height:180px;margin-top:10%;background:rgba(0,0,0,0.0);">
+					<div style="width:70%;height:220px;float:left;margin-top:0%;position:relative;">
+							<div style="width: 100%;
+							   height: 100px;
+							   position: relative;
+							   float:left;
+							   left: 10%;
+							   margin-left: 20px;
+							  background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
+							  
+							<div style="width: 100%;
+							   height: 100px;
+							   position: relative;
+							   left: 10%;
+							   float:left;
+							   margin-left: 0px;
+							   background-image:url(images/icons/penang_icon.png);background-repeat:no-repeat;background-size:contain;"></div>
+					</div>
+				</div>
+				<div style="z-index:2000;">
+					<p style="width:100%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;"></p>
+					<p style="margin-left:5%;width:80%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.4em;margin-right:50px;color:#fff;">10,000</p>
+					<p style="margin-left:5%;width:90%;float:left;text-align:left;margin-right:30px;margin-top:0;margin-bottom:0;font-size:1.5em;">PENANGNITES</p>
+					<p style="margin-left:5%;width:100%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;">RUNNING</p>
+					<p style="margin-left:5%;width:auto;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.5em;color:#fff;">1,000,000</p>
+					<p style="margin-left:2%;width:20%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;line-height:2em;">KM</p>
+					<p style="margin-left:5%;width:100%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;">RAISING</p>
+					<p style="margin-left:5%;width:70%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.6em;color:#fff;">RM 100,000</p>
+					<p style="margin-left:5%;width:20%;float:left;margin-top:0;margin-bottom:0;font-size:1.3em;line-height:2em;"></p>
+				</div>
 			</div>
-		
-			<p style="width:100%;float:left;text-align:center;margin-top:0;margin-bottom:0;font-size:1.3em;">TARGETING</p>
-			<p style="width:80%;float:left;text-align:right;margin-top:0;margin-bottom:0;font-size:2em;margin-right:50px;">10,000</p>
-			<p style="width:90%;float:left;text-align:right;margin-right:30px;margin-top:0;margin-bottom:0;font-size:1.5em;">PENANGNITES</p>
-			<p style="width:100%;float:left;text-align:center;margin-top:0;margin-bottom:0;font-size:1.3em;">RUNNING</p>
-			<p style="width:70%;float:left;text-align:right;margin-top:0;margin-bottom:0;font-size:2em;">1,000,000</p>
-			<p style="width:20%;float:left;margin-top:0;margin-bottom:0;font-size:1.3em;line-height:2em;">KM</p>
 		</div>
 		
 		<div id="indexPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #F2F2F2;"><!-- id to tie the page event to this specific page -->
@@ -185,55 +197,99 @@
 						</div> <!-- end main card-->
 					</div> <!-- end outer shell-->                                
 				</div>	<!-- end whole content-->	
-				<div id="RunSectionDiv" style="min-height:400px;display:block;width:100%;height:500px;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
-					<div id="divSummary" style="width: 100%;background-color:#222;height: 300px;"> <!-- div for dark gray part-->
-						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL RUNNERS</span>
-						<span id="CampaignSummary_TotalRunner" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">35</span>
-						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 10px 0 0px;">TOTAL DISTANCE</span>
-						<span id="CampaignSummary_TotalDistance" style="height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 10px;line-height:40px;">709</span>
+				<div id="RunSectionDiv" style="background-color:#fff;min-height:400px;display:block;width:100%;height:500px;margin-left:auto;margin-right:auto;position:relative;float: left;"> <!-- div for whole content-->
+					<div id="divSummary" class="gradientGreyWhite" style="width: 100%;background-color:#222;height: 300px;  "> 
+						<div style="margin-left:auto;margin-right:auto;position:relative;width:50%;height:50px;">
+							<div style="width:50px;height:50px;background-size:cover;background-image:url(images/icons/icon_runners.png);float:left;"></div>
+							<span id="CampaignSummary" style="height:30px;width:auto;float:left;text-align:center;font-size:1em;color: #ddd;margin: 10px 0 0px;">TOTAL RUNNERS</span>
+						</div>
+						<span id="CampaignSummary_TotalRunner" style="height:50px;width:100%;float:left;text-align:center;font-size:60px;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">10,000</span>
 						
-						<span id="CampaignSummary_lblRaised" style="display:none;height:30px;width:100%;float:left;text-align:center;font-size:1em;color: white;margin: 0px 0 0px;">TOTAL RAISED (RM)</span>
-						<span id="CampaignSummary_TotalRaised" style="display:none;height:50px;width:100%;float:left;text-align:center;font-size:4em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">709</span>
+						<div style="margin-left:auto;margin-right:auto;position:relative;width:50%;height:50px;">
+							<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:left;"></div>
+							<span id="CampaignSummary" style="height:30px;width:auto;float:left;text-align:center;font-size:1em;color: #ddd;margin: 10px 0 0px;">TOTAL DISTANCE</span>
+						</div>
+						<span id="CampaignSummary_TotalDistance" style="height:50px;width:100%;float:left;text-align:center;font-size:6em;font-weight:bold;color: white;margin: 0px 0 10px;line-height:40px;">1,000,000</span>
+						
+						<div id="CampaignSummary_lblRaised" style="display:none;margin-left:auto;margin-right:auto;position:relative;width:50%;height:50px;">
+							<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_raised2.png);float:left;"></div>
+							<span id="" style="height:30px;width:auto;float:left;text-align:center;font-size:1em;color: #ddd;margin: 0px 0 0px;">TOTAL RAISED (RM)</span>
+						</div>
+						<span id="CampaignSummary_TotalRaised" style="display:none;height:50px;width:100%;float:left;text-align:center;font-size:5em;font-weight:bold;color: white;margin: 0px 0 0px;line-height:40px;">100,000</span>
 						
 						
 						<div id="divPadding" style="float:left;width:100%;height:70px;"></div>
-						<span id="CampaignSummary" style="height:30px;width:100%;float:left;text-align:center;font-size:1em;font-weight:bold;color: yellow;margin: 0px 0 10px;">PLEASE SELECT YOUR ACTIVITY</span>
+						<span id="CampaignSummary" style="height:auto;width:100%;float:left;text-align:center;font-size:1.2em;font-weight:bold;color: #fff;margin: 0px 0 0px;">PLEASE SELECT YOUR ACTIVITY</span>
 					
 					</div>
-					<div id="divActivtyType" style="width:260px;margin-left:auto;margin-right:auto;height:120px;background-color:#eee;">
-						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-5px;margin-right:0px;"> <!-- icon-->
-							<img id="activityRunning" class="circular2 evtActivityRun" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_running.png">
+					<div style="height:1px;width:100%;background-color:#666;"></div>
+					<div id="divActivtyType" style="width:300px;margin-left:auto;margin-right:auto;height:120px;background-color:#fff;">
+
+						<div style="width:33%;float:left;">
+							<div class="circular1" style="background-color:#ddd;width:90px;height:90px;border-radius:45px;float:left;margin-left:10px;margin-top:0px;margin-right:0px;"> 
+								<img id="activityWalking" class="circular2 evtActivityWalk" style="width:80px;height:80px;border-radius:40px;" src="./images/icons/icon_walking_deselected.png"/>
+							</div>
+							<p style="margin:0;float:left;text-align:center;width:100%;color:#666;">Walking<p>
 						</div>
-						<div class="circular1" style="width:110px;height:110px;border-radius:60px;float:left;margin-left:10px;margin-top:-5px;margin-right:0px;"> <!-- icon-->
-							<img id="activityCycling" class="circular2 evtActivityCycle" style="width:100px;height:100px;border-radius:50px;" src="./images/icons/icon_cycling_deselected.png">
+						<div style="width:33%;float:left;">
+							<div class="circular1" style="background-color:#ddd;width:90px;height:90px;border-radius:45px;float:left;margin-left:10px;margin-top:0px;margin-right:0px;"> 
+								<img id="activityRunning" class="circular2 evtActivityRun" style="width:80px;height:80px;border-radius:40px;" src="./images/icons/icon_running.png"/>
+							</div>
+							<p style="margin:0;float:left;text-align:center;width:100%;color:#666;">Running<p>
+						</div>
+						<div style="width:33%;float:left;">
+							<div class="circular1" style="background-color:#ddd;width:90px;height:90px;border-radius:45px;float:left;margin-left:10px;margin-top:0px;margin-right:0px;"> 
+								<img id="activityCycling" class="circular2 evtActivityCycle" style="width:80px;height:80px;border-radius:40px;" src="./images/icons/icon_cycling_deselected.png"/>
+							</div>
+							<p style="margin:0;float:left;text-align:center;width:100%;color:#666;">Cycling<p>
 						</div>
 					</div>
-					<div id="startandstopbutton" onclick="StartRun();" class="evtStartButton" style="height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
-						<p id="txtStartStop" style="line-height:30px;font-weight:bold;">START MY RUN</p>
+					<div id="startandstopbutton" onclick="StartRun();" class="evtStartButton shadowPanel" style="height:60px;width:100%;position:absolute;bottom:0px;text-align:center;color:#fff;">
+						<p id="txtStartStop" style="line-height:0.8em;font-size:1.5em;font-weight:bold;">START MY RUN</p>
 					</div>
-                               
+                            
 				</div>	<!-- end whole content-->
-				<div id="DuringRunDiv" style="min-height:400px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #222;">
-					<div id="divRun" style="width:100%; margin-left: auto;margin-right: auto;margin-top: 50px;position: relative;background-color: #eee;">
+				<div id="DuringRunDiv" style="min-height:400px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #000;">
+					<div id="divRun" style="width:100%; margin-left: auto;margin-right: auto;margin-top: 0px;position: relative;background-color: #eee;">
 						<div class="" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:0px;">
-							<div id="divImgActivity" class="circular1" style=""> <!-- icon-->
+							<div id="divImgActivity" class="circular1" style="display:none;"> <!-- icon-->
 								<img id="imgMyActivity" class="circular2" src="./images/icons/icon_running.png">
 							</div>
 							
 							
-							<div id="DuringRunDivInner" class="mainActivityContent" style="min-Height:10px;background-color:#eee;padding-bottom:60px;"> <!-- main inner content-->
-								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:-30px;float:left;"> <!--responsive using grid-->
+							<div id="DuringRunDivInner" class="mainActivityContent shadowPanel gradientGreyWhite" style="width:90%;margin-left:5%;margin-top:20px;min-Height:10px;background-color:#fff;padding-bottom:60px;"> <!-- main inner content-->
+								<div class="ui-grid-solo ui-responsive" style="height:60px;width: 100%;"> <!--responsive using grid-->
 									<div class="ui-block-a">
-										<p><span id="lbldistance" style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DISTANCE : </span><br></p>
-										<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="font-size: 4em;color:#000;text-align:center;width:100%;float:left;">0.0</span></p>
+
+										<p>
+											<span style="font-size: 16px;color: #ccc;text-align:center;width:100%;float:left;">CURRENT ACTIVITY: </span><br>
+											<span class="gridValue" id="mCurrentSelectedActivity" type="" disabled="disabled" value="00:00:00" style="font-size:1.4em;color:#fff;text-align:center;width:100%;float:left;">RUNNING</span>
+										</p>							
+									</div> <!-- block a -->
+									
+								</div> <!-- end 1st responsive grid -->
+								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:120px;width: 100%;margin-top:20px;float:left;"> <!--responsive using grid-->
+									<div class="ui-block-a">
+										<p style="margin:0;">
+											<div style="margin-left:auto;margin-right:auto;position:relative;width:40%;height:30px;">
+												<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:left;"></div>
+												<span id="lbldistance" style="margin:0;font-size: 16px;color: #ccc;text-align:center;line-height:30px;">DISTANCE : </span><br></p>
+											</div>
+											<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="margin-top:-10px;font-size: 6em;color:#E51919;text-align:center;width:100%;float:left;">0.0</span>
+										</p>
 									</div>
 									
 									
 								</div> <!-- end 1st responsive grid -->
+								
 								<div class="ui-grid-solo ui-responsive" style="height:100px;width: 100%;"> <!--responsive using grid-->
 									<div class="ui-block-a">
-										<p><span style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">DURATION : </span><br>
-										<span class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00" style="font-size:3em;color:#000;text-align:center;width:100%;float:left;">00:00:00</span></p>							
+										<p>
+											<div style="margin-left:auto;margin-right:auto;position:relative;width:40%;height:30px;">
+												<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_time2.png);float:left;"></div>
+												<span style="font-size: 16px;color: #ccc;text-align:center;line-height:30px;">DURATION : </span><br>
+											</div>
+											<span class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00" style="font-size:3.5em;color:#fff;text-align:center;width:100%;float:left;">00:00:00</span></p>							
 									</div> <!-- block a -->
 									
 								</div> <!-- end 1st responsive grid -->
@@ -247,8 +303,12 @@
 									
 									<div class="ui-block-b" style="width: 100%; float: left;">
 										<p>
-											<span style="font-size: 16px;color: #B6B6B6;text-align:center;width:100%;float:left;">CALORIES : </span><br>
-											<span class="gridValue" id="calories" type="" disabled="disabled" value="0" style="font-size:3em;color:#000;text-align:center;width:100%;float:left;">0</span>
+											<div style="margin-left:auto;margin-right:auto;position:relative;width:40%;height:30px;">
+												<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_calories.png);float:left;"></div>
+												
+												<span style="font-size: 16px;color: #ccc;text-align:center;line-height:30px;float:left;">CALORIES : </span><br>
+											</div>
+											<span class="gridValue" id="calories" type="" disabled="disabled" value="0" style="font-size:3.5em;color:#fff;text-align:center;width:100%;float:left;">0</span>
 										</p>
 									</div>
 								</div> <!-- end 2nd responsive grid-->
@@ -288,9 +348,9 @@
 								</div>
 								
 							</div> <!-- end main activity content-->
-							<div style="width:100%;float:left;height:60px;position:absolute;bottom:0px;">
+							<div class="shadowPanel" style="width:100%;float:left;height:60px;position:absolute;bottom:0px;">
 								<div id="stopbutton" class="evtStopRun evtStartButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#fff;">STOP & SAVE</div>
-								<div id="cancelbutton" class="evtCancelRun evtCancelButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#222;">CANCEL</div>
+								<div id="cancelbutton" class="evtCancelRun evtCancelButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#FFF;">CANCEL</div>
 							</div>	
 							
 						</div> <!-- end main card-->
@@ -515,94 +575,97 @@
 			</div><!-- /header -->
 			
 			<div role="main" class="ui-content" data-theme="a">				
-                            <div class="mainCard" style="width: 100%; height: 400px;background-color: white;float:left;margin: 0 auto 0;position: relative;">
-                                <div style="margin:10px;overflow: auto;height:370px;">
-                                    <div class="ui-grid-b ui-responsive">
-					<div class="ui-block-a" style="width: 50%; float: left;">
-						<div style="border-radius:50px;position: absolute;margin: 20px 30px 20px;background-size: cover;width: 85px;height:85px;background-image: url(./images/icons/login.png);">                                             
+				<div class="" style="width: 100%; height: 400px;background-color: #f9f9f9;float:left;margin: 0 auto 0;position: relative;">
+					<div style="margin:10px;overflow: auto;height:370px;">
+						<div class="ui-grid-b ui-responsive">
+							<div class="ui-block-a" style="width: 50%; float: left;">
+								<div style="border-radius:50px;position: absolute;margin: 20px 30px 20px;background-size: cover;width: 85px;height:85px;background-image: url(./images/icons/login.png);">                                             
+								</div>
+							</div>
+														
+							<div class="ui-block-b" style="width: 50%; float: left;">
+								<span id="userprofie_displayname" style="width:100%;float:left;font-size:20px;color:#222;margin: 10px 10px 10px;">-</span>
+								<span id="userprofie_weight" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Weight: -</span>
+								<span id="userprofie_height"  style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Height: - </span>
+								<span id="userprofie_gender" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Gender: -</span>
+								<span id="userprofie_dob" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">DOB: -</span>
+							</div>
+						</div> <!-- end 1st responsive grid-->
+
+						<div style="margin: 10px 0 20px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
+							<div class="ui-block-a">
+								<a id="userprofile_changepassword" type="button" class="btnBlack" href="#changePasswordPage" style="color: white; margin-bottom: 20px;padding:0px;">Change Password</a>
+							</div>
+							
+							<div class="ui-block-a" style="padding-top: 1px;" >
+								<a type="button" class="btnBlack" onclick="" href="#EditProfilePage" style="color: white;margin-bottom:30px;padding:0px;">Edit Profile</a>
+							</div>
+							
+							<div class="ui-block-a">
+								 <a type="button" class="btnRed" onclick="Logout();" href="" style="color: white;margin-bottom:30px;padding:0px;">Logout</a>
+						   
+								<!--<button type="submit" class="enjoy-css" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>-->
+							</div>                                        
 						</div>
 					</div>
-                                                
-					<div class="ui-block-b" style="width: 50%; float: left;">
-                        <span id="userprofie_displayname" style="width:100%;float:left;font-size:20px;color:#222;margin: 10px 10px 10px;">-</span>
-						<span id="userprofie_weight" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Weight: -</span>
-						<span id="userprofie_height"  style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Height: - </span>
-						<span id="userprofie_gender" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Gender: -</span>
-						<span id="userprofie_dob" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">DOB: -</span>
-					</div>
-				    </div> <!-- end 1st responsive grid-->
-
-                                    <div style="margin: 10px 0 20px;padding-top: 10px;" class="ui-grid-solo ui-responsive">
-                                        <div class="ui-block-a">
-                                            <a id="userprofile_changepassword" type="button" class=" enjoy-css" href="#changePasswordPage" style="color: white; margin-bottom: 20px;width:90%;padding:0px;">Change Password</a>
-                                        </div>
-                                        
-                                        <div class="ui-block-a" style="padding-top: 1px;" >
-                                            <a type="button" class="enjoy-css" onclick="" href="#EditProfilePage" style="color: white;margin-bottom:30px;width:90%;padding:0px;">Edit Profile</a>
-                                        </div>
-                                        
-                                        <div class="ui-block-a">
-											 <a type="button" class="enjoy-css" onclick="Logout();" href="" style="color: white;margin-bottom:30px;width:90%;padding:0px;">Logout</a>
-                                       
-                                            <!--<button type="submit" class="enjoy-css" value="Logout" id="btnLogout" onclick="Logout();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 90%;margin:10px 5% 10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;float:left;">Logout</button>-->
-                                        </div>                                        
-                                    </div>
-                                </div>
-                            </div>				
+				</div>				
 			</div><!-- /content -->
 		
 		</div><!-- /end profilePage -->
 		
-		<div id="aboutPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #F2F2F2;">
-			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
-			<!-- left panel  -->
-			<div style="margin-top:30px;" id="panelMenuAbout" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
-				<ul id="panelMenuAboutUL" data-role="listview"></ul>
-			</div>
-			<!-- /panel -->
-			
-			<!-- right panel  -->
-			<!--<div id="panelMenuRightAbout" data-role="panel" data-theme="b" data-position="right" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
-				<ul id="panelMenuRightAboutUL" data-role="listview"></ul>
-			</div>
-			<!-- /panel -->
-			
-			<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
-				<div>
-					<p class="headerBarText"><img id="headerTitleAbout" class="headerIconTitle" src="./images/icons/ic_about_launcher.png"/><!-- <img id="headerOverflowAbout" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
-					&nbsp;</p>
+		<div id="aboutPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #F2F2F2;
+			background-image:url(images/icons/bk_2.jpg);background-repeat:no-repeat;background-size:cover;">
+			<div style="z-index:1000;top:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);">
+				<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+				<!-- left panel  -->
+				<div style="margin-top:30px;" id="panelMenuAbout" data-role="panel" data-theme="a" data-position="left" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+					<ul id="panelMenuAboutUL" data-role="listview"></ul>
 				</div>
-			</div><!-- /header -->
-			
-			<div role="main" class="ui-content" data-theme="a">	
-				<div style="width:100%;height:200px;float:left;position:relative;">
-					<div style="width: 40%;
-   height: 200px;
-   position: absolute;
-   left: 35%;
-  
-   margin-left: -75px;
-  background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
-					<div style="width: 50%;
-   height: 200px;
-   position: absolute;
-   left: 75%;
-   
-   margin-left: -75px;
-   background-image:url(images/icons/penang_icon.png);background-repeat:no-repeat;background-size:contain;"></div>
+				<!-- /panel -->
+				
+				<!-- right panel  -->
+				<!--<div id="panelMenuRightAbout" data-role="panel" data-theme="b" data-position="right" data-display="overlay" data-dismissible="true" data-position-fixed="true" data-swipe-close="true" data-animate="true" class="transparant">
+					<ul id="panelMenuRightAboutUL" data-role="listview"></ul>
 				</div>
-				<div style="width:100%;float;left;margin-top:10px;">
-					<!--<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>-->
-					<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#888;margin-bottom:20px;">App Version: 1.00.06</span>
-					
-					<span style="width:80%;margin-left:10%;float:left;margin-top:10px;text-align:center;color:#333;margin-bottom:30px;">AktifPenang aims to promote a healthier and better Penang by uniting everyone to complete one million kilometres together in one year.
-</br></br>We invite ten thousands Penangites to use the AktifPenang app to keep track of the distance they walk, run, or cycle. 
-</br></br>Our sponsors will contribute RM0.10 for each kilometer achieved. By doing this, we aim to raise RM100,000 for selected charity organisations in Penang.
-</br></br>Each distance counts. A healthier life builds a better society.
-</br></br>Be a part of AktifPenang now!</span>
-				</div>				
-			</div><!-- /content -->
-		
+				<!-- /panel -->
+				
+				<div style="margin-top:30px;" class="headerSticky ui-title" data-role="header" data-hide-during-focus="" data-tap-toggle="false" data-position="fixed" data-theme="a">
+					<div>
+						<p class="headerBarText"><img id="headerTitleAbout" class="headerIconTitle" src="./images/icons/ic_about_launcher.png"/><!-- <img id="headerOverflowAbout" class="headerIconFirstRight" src="./images/icons/ic_action_overflow_header.png" /> -->
+						&nbsp;</p>
+					</div>
+				</div><!-- /header -->
+				
+				<div role="main" class="ui-content" data-theme="a">	
+					<div style="width:100%;height:200px;float:left;position:relative;">
+						<div style="width: 40%;
+	   height: 200px;
+	   position: absolute;
+	   left: 35%;
+	  
+	   margin-left: -75px;
+	  background-image:url(images/icons/icon_app3.png);background-repeat:no-repeat;background-size:contain;"></div>
+						<div style="width: 50%;
+	   height: 200px;
+	   position: absolute;
+	   left: 75%;
+	   
+	   margin-left: -75px;
+	   background-image:url(images/icons/penang_icon.png);background-repeat:no-repeat;background-size:contain;"></div>
+					</div>
+					<div style="width:100%;float;left;margin-top:10px;">
+						<!--<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>-->
+						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#bbb;margin-bottom:20px;">App Version: 1.01.00</span>
+						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#FFF;margin-bottom:20px;font-size:2em;font-weight:bold;">10,000 Penangnites Running 1,000,000km Raising RM 100,000</span>
+						
+						<span style="font-weight:bold;width:80%;margin-left:10%;float:left;margin-top:10px;text-align:center;color:#fff;margin-bottom:30px;">AktifPenang aims to promote a healthier and better Penang by uniting everyone to complete one million kilometres together in one year.
+	</br></br>We invite ten thousands Penangites to use the AktifPenang app to keep track of the distance they walk, run, or cycle. 
+	</br></br>Our sponsors will contribute RM0.10 for each kilometer achieved. By doing this, we aim to raise RM100,000 for selected charity organisations in Penang.
+	</br></br>Each distance counts. A healthier life builds a better society.
+	</br></br>Be a part of AktifPenang now!</span>
+					</div>				
+				</div><!-- /content -->
+			</div>
 		</div><!-- /end aboutPage -->
 	
 		<div id="runMap" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
@@ -705,44 +768,47 @@
 			</div>
 		</div>
 		
-		<div id="LoginPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
-            <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
-			<div data-role="header" style="background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Login</div>
-			<div data-role="main" class="ui-content">
-					<div class="outerCircle" style="margin-top:0px;">
-						<img class="circle" src="./images/icons/login.png"/>
-					</div> <!-- white circle div end -->
-					<!-- Add text box to input email and pass-->            
-					<div style="width:100%;height: auto;margin-top:30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
-						<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
-						
+		<div id="LoginPage" data-role="page" data-theme="a" class="" style="margin-top:30px;width: 100%;background-color: #f0f0f0;
+		background-image:url(images/icons/bk_7.jpg);background-repeat:no-repeat;background-size:cover;">
+			<div style="z-index:1000;top:0;position:absolute;width:100%;height:100%;background-color: rgba(0,0,0,0.7);">
+			   <div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
+				<div data-role="header" style="display:none;background-color:#f9f9f9;text-align: center; font-size: 18pt;border: none;margin-top: 10px;color: #F40062;" data-theme="c">Login</div>
+				<div data-role="main" class="ui-content">
+						<div class="outerCircle" style="margin-top:0px;margin-left:auto;margin-right:auto;float:none;position:relative;">
+							<img class="circle" src="./images/icons/login.png"/>
+						</div> <!-- white circle div end -->
+						<!-- Add text box to input email and pass-->            
+						<div style="width:100%;height: auto;margin-top:-30px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
+							<div class="card" style="width:100%;height: 360px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->
 							
-							<div style="padding: 0 0.55rem 0.55rem;">
-								<form role="form" class="loginForm"> <!-- form start -->
-									<div style="float:left;width:100%;margin-top:5px;">
-										<h2 class="labelDesign">Please select your login method</h2>
-									</div>
-									<!--<a type="button" class="buttonStyle" href="#EmailLoginPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;">Login with Email</a>-->
-									<a type="button" id=""  href="#EmailLoginPage" onclick="" class=" enjoy-css" value="Stop" style="color: white; margin-bottom: 20px;margin-top:10px;">Login with Email</a>
-								 
-									<div style="float:left;width:100%;margin-top:5px;">
-										<h2 class="labelDesign">Or</h2>
-									</div>
-	 
-									<!--<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>-->
-									<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>
-								 
-									<!--<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;box-shadow: 0 6px 0 #00324B;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>-->
-								 
-									<div style="float:left;width:100%;margin-top:5px;">
-										<h2 class="labelDesign">Do not have an account? <br>
-										<a id="signup" href="#signUpPage" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Signup Now</a></h2>
-									</div>                            
-								</form>
-							</div>
-						</div> <!-- end card -->
-					</div> <!-- end style -->
-			</div><!-- /main content -->
+								
+								<div style="padding: 0 0.55rem 0.55rem;">
+									<form role="form" class="loginForm" style="height:100%;"> <!-- form start -->
+										<div style="float:left;width:100%;margin-top:5px;">
+											<h2 class="labelDesign">Please select your login method</h2>
+										</div>
+										<!--<a type="button" class="buttonStyle" href="#EmailLoginPage" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;">Login with Email</a>-->
+										<a type="button" id=""  href="#EmailLoginPage" onclick="" class=" btnBlack" value="Stop" style="color: white; margin-bottom: 20px;margin-top:10px;">Login with Email</a>
+									 
+										<div style="float:left;width:100%;margin-top:5px;">
+											<h2 class="labelDesign">Or</h2>
+										</div>
+		 
+										<!--<button type="button" class="buttonStyle"  onclick="LoginFacebook();" style="border-radius:6px;width:90%;height:40px;line-height:0px;background-color:#1975A3;color: white; box-shadow: 0 6px 0 #00324B;">Login with Facebook</button>-->
+										<a type="button" id=""  href="" onclick="LoginFacebook();" class="btnBlack" value="" style="background:#1975A3;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>
+									 
+										<!--<a type="button" id=""  href="" onclick="LoginFacebook();" class=" enjoy-css" value="" style="background:#1975A3;box-shadow: 0 6px 0 #00324B;color: white; margin-bottom: 20px;margin-top:10px;">Login with Facebook</a>-->
+									 
+										<div style="float:left;width:100%;margin-top:5px;">
+											<h2 class="labelDesign">Do not have an account? <br>
+											<a id="signup" href="#signUpPage" style="color:#000000;font-size: 13pt;font-weight: bold !important;">Signup Now</a></h2>
+										</div>                            
+									</form>
+								</div>
+							</div> <!-- end card -->
+						</div> <!-- end style -->
+				</div><!-- /main content -->
+			</div>
 		</div>
 
 		<div id="EmailLoginPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%;background-color: #f9f9f9;">
@@ -776,7 +842,7 @@
 											<input type="password" class="inputStyle" data-clear-btn="true" name="password" id="password" value=""  placeholder="Password" autocomplete="off" required>
 											<!--<a type="button" value="" name="submit" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:40px;border-radius: 6px;">Login</a>-->
 											<!--<button type="button" value="login" id="btnLoginEmail" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;" onclick="LoginEmail()">Login</button>-->
-											<a type="button" id="btnLoginEmail"  href="#EmailLoginPage" onclick="LoginEmail();" class=" enjoy-css" value="login" style="color: white; margin-bottom: 20px;margin-top:10px;">Login</a>
+											<a type="button" id="btnLoginEmail"  href="#EmailLoginPage" onclick="LoginEmail();" class=" btnBlack" value="login" style="color: white; margin-bottom: 20px;margin-top:10px;">Login</a>
 								 
 											<div style="float:left;width:100%;margin-top:5px;">
 												<h2 class="labelDesign">Forgot Your Password? <br>
@@ -892,7 +958,7 @@
 											<input type="password" class="inputStyle" data-clear-btn="true" name="signup_password" id="signup_password" value=""  placeholder="Password" autocomplete="off">
 											<input type="password" class="inputStyle" data-clear-btn="true" name="signup_confirmpassword" id="signup_confirmpassword" value=""  placeholder="Confirm Password" autocomplete="off">
 											<!--<button type="submit" class="evtRegister " value="Register" id="btnRegister" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:14px;border-radius: 6px;border: 1px solid #199696;">Register</button>-->
-											<a type="button" id="btnRegister" class=" enjoy-css evtRegister" value="Register" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:0px;">Register</a>
+											<a type="button" id="btnRegister" class=" btnBlack evtRegister" value="Register" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:0px;">Register</a>
 								 
 											<br>
 											<h2 class="labelDesign">Once signup completed, you will receive an notification email about your registration.</h2>
@@ -928,7 +994,7 @@
                                 <div style="float:left;width:92%;margin-top:5px;margin-left: 4%;">
                                   <h2 class="labelDesign">Please enter your registered email address</h2>
                                     <input type="email" class="inputStyle" id="reset_email" name="reset_email" placeholder="Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
-									<a type="button" class=" enjoy-css" onclick="ResetPassword();" value="Reset Password" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:10px;">Reset Password</a>
+									<a type="button" class=" btnBlack" onclick="ResetPassword();" value="Reset Password" id="btnResetPass" style="color: white; margin-bottom: 20px;margin-top:10px;">Reset Password</a>
 								    <!--<button type="submit" value="Reset Password" id="btnResetPass" onclick="ResetPassword();" style="background-color:#199696;color: white; box-shadow: 0 6px 0 #004545;width: 100%;margin-top:10px;font-size: 12pt;font-variant: normal;display:block;text-align:center;line-height:13px;border-radius: 6px;border: 1px solid #199696;">Reset Password</button>-->
                                     <div style="float:left;width:100%;margin-top:5px;">
                                         <h2 class="labelDesign">Now password will be sent to your registered email address. Please use the new password to login.</h2>

@@ -50,6 +50,8 @@ var mActivityType = "RUNNING";
 	var mHeight_DuringRun_divDistance = 120;
 	var mHeight_DuringRun_divTime = 100;
 	var mHeight_DuringRun_divCalories = 60;
+	
+	var fontSize = 60;
 /*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -88,13 +90,43 @@ $(document).ready(function(){
 	{
 		$('#divPadding').css({'height':'' + totalPadding});
 	}
+	var totalDarkHeight = (mHeight_lblTotal + mHeight_TotalRunner + mHeight_lblDistance + mHeight_Distance + mHeight_lblSelection + totalPadding);
 	$('#divSummary').css({'height':'' + (mHeight_lblTotal + mHeight_TotalRunner + mHeight_lblDistance + mHeight_Distance + mHeight_lblSelection + totalPadding)});
 	$('#RunSectionDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
 	
 	var totalDisplay =  mHeight_DuringRun_divDistance + mHeight_DuringRun_divTime + mHeight_DuringRun_divCalories + 60 + 30 + 50;
 	var totalSpace = mHeight - totalDisplay;
+	//alert(totalSpace);
 	if(totalSpace >= 80)
 	{
+		//have a lot of space, need to enlarge the font 
+		var availableSpace = totalDarkHeight - (50 * 3) - mHeight_lblSelection;
+		//alert(availableSpace);
+		var avallableEach = parseInt(availableSpace / 3); 
+		
+		//alert(avallableEach);
+		
+		mHeight_TotalRunner = avallableEach;
+		mHeight_Distance = avallableEach;
+		mHeight_Raised = avallableEach;
+		
+		$("#CampaignSummary_TotalRunner").css({'height': mHeight_TotalRunner + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'height': mHeight_TotalRunner + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'height': mHeight_TotalRunner + 'px'});
+		
+		fontSize = mHeight_TotalRunner;
+		if(mHeight_TotalRunner < 60)
+		{
+			fontSize = 60;
+		}
+		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'font-size': fontSize + 'px'});
+		
+		$("#CampaignSummary_TotalRunner").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'line-height': fontSize + 'px'});
+		
 		//can show the circular logo
 		$("#divRun").css({'margin-top':'0px'});
 		//$("#divImgActivity").css({'display':'block'});
@@ -105,15 +137,45 @@ $(document).ready(function(){
 		$("#CampaignSummary_lblRaised").css({'display':'block'});
 		$("#CampaignSummary_TotalRaised").css({'display':'block'});
 		
-		$('#divPadding').css({'height':'' + (totalPadding - 80)});
+		//$('#divPadding').css({'height':'' + (totalPadding - 80)});
+		$('#divPadding').css({'height':'10px'});
+		
+		
+		//==========================================================================
+		availableSpace = totalDarkHeight - (50 * 3);
+		//alert(availableSpace);
+		avallableEach = parseInt(availableSpace / 3); 
+		
+		//alert(avallableEach);
+		
+		mHeight_TotalRunner = avallableEach;
+		
+		
+		$("#mCurrentSelectedActivity").css({'height': (mHeight_TotalRunner/2) + 'px'});
+		$("#distance").css({'height': mHeight_TotalRunner + 'px'});
+		$("#stopwatch").css({'height': mHeight_TotalRunner + 'px'});
+		$("#calories").css({'height': mHeight_TotalRunner + 'px'});
+		
+		$("#mCurrentSelectedActivity").css({'font-size': (mHeight_TotalRunner/2) + 'px'});
+		$("#distance").css({'font-size': fontSize + 'px'});
+		$("#stopwatch").css({'font-size': fontSize + 'px'});
+		$("#calories").css({'font-size': fontSize + 'px'});
+		
+		$("#mCurrentSelectedActivity").css({'line-height': (mHeight_TotalRunner/2) + 'px'});
+		$("#distance").css({'line-height': fontSize + 'px'});
+		$("#stopwatch").css({'line-height': fontSize + 'px'});
+		$("#calories").css({'line-height': fontSize + 'px'});
+		
 	}
 	else
 	{
 		$("#divRun").css({'margin-top':'0px'});
 		$("#divImgActivity").css({'display':'none'});
 		$("#divDistance").css({'margin-top':'0px'});
-		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
-		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 0 - 60)});
+		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30 - 0)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60)});
+		
+		
 	}
 	
 	
@@ -1089,18 +1151,20 @@ function displayUserSummary(divId)
 	TotalRaised = Math.round(TotalRaised * 100) / 100;
 	//distance = 1000323.65;
 	
-	if(distance > 100.00)
+	if(distance > 10000.00)
 	{
-		$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
-		$("#CampaignSummary_TotalDistance").css({'font-size':'70px'} );
-		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
+		
+		//$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
+		//$("#CampaignSummary_TotalDistance").css({'font-size':'70px'} );
+		//$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
 	}
 	else
 	{
-		$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
+		/*$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
 		$("#CampaignSummary_TotalDistance").css({'font-size':'80px'} );
-		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
+		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );*/
 	}
+	
 	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	//$("#CampaignSummary").html("" + CampaignUser + " members | Distance: " + distance + "km" );
 	$("#CampaignSummary_TotalRunner").html("" + CampaignUser + "" );

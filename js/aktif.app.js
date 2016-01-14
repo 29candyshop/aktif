@@ -1625,6 +1625,31 @@ function Groups()
 
 }
 
+function showHistoryHeader() {
+	var panelMain = $('#HistoryMain' + '');
+	var TotalRuns = window.localStorage.getItem("TotalRuns");
+	var TotalDistance = window.localStorage.getItem("TotalDistance");
+	var TotalEvents = window.localStorage.getItem("TotalEvents");
+	var shortName = window.localStorage.getItem("shortname");
+	
+	var userTotalDistance = TotalDistance;
+	userTotalDistance = userTotalDistance / 1000.0;
+	
+	var TotalRaised = userTotalDistance/10.0;
+	userTotalDistance = Math.round(Math.round(userTotalDistance * 100) / 100);
+	
+	
+	TotalRaised =(Math.round(TotalRaised * 100) / 100);
+
+	var htmlSummary = '<div id="Group-Summary" class="" style="float:left;width:100%;margin-top:0px;height:100px;background-color:#333;">' +
+		'<p style="width:100%;float:left;padding-left:0.8em;font-size:1.5em;color:#ccc;line-height:1em;height:auto;margin:0;margin-top:10px;"><b>' + shortName + '</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">My Total Runs: <b>' + TotalRuns + '</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">My Total Distance: <b>' + userTotalDistance + 'KM</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">I have Raised: <b>RM' + TotalRaised + '</b></p>' + 
+		'</div>';
+	panelMain.append(htmlSummary);
+}
+
 function Runs(mRunid)
 {
 	var RefreshRun = localStorage.getItem("run_fresh");
@@ -1638,10 +1663,12 @@ function Runs(mRunid)
 	{
 		try
 		{
+			
 			var panelMain = $('#HistoryMain' + '');
 			panelMain.empty();
 			var result = window.localStorage.getItem("aktif_runHistory_Individual")
 			var objGroup = JSON.parse(result);
+			showHistoryHeader();
 			for(var i = 0; i < objGroup.length; i++) {
 				var obj = objGroup[i];
 				LoadRun(obj, false);
@@ -1699,6 +1726,9 @@ function addFirstRun()
 		var panelMain = $('#HistoryMain' + '');
 		panelMain.empty();
 		window.localStorage.setItem("aktif_runHistory_Individual", "");
+		
+		showHistoryHeader();
+		
 		for(var i = 0; i < objGroup.runs.length; i++) {
 			var obj = objGroup.runs[i];
 			LoadRun(obj, true);

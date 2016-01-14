@@ -253,20 +253,53 @@ function initPageVarsOnShow(id) {
 // below is to tie page events to pages so that the 2 functions above (initPageVarsOn...) will execute
 
 // detect swiperight to open left panel upon swiperight
-$(document).off('swiperight').on('swiperight', function (event) {
-	if (window.localStorage.getItem("pageNaveType") === "menu") {
-		var w = window,
-			d = document,
-			e = d.documentElement,
-			g = d.getElementsByTagName('body')[0],
-			x = w.innerWidth || e.clientWidth || g.clientWidth,
-			y = w.innerHeight || e.clientHeight || g.clientHeight;
-		// check if there are no open panels, otherwise ignore swipe
-		if (checkOpenPanels() === false && event.swipestart.coords[0] < x / 5) {
-			togglePanel('#panelMenu' + window.localStorage.getItem("divIdGlobal"));
+$(document).on('swiperight').on('swiperight', function (event) {
+	if($("#overlayGeneral").css('display') == 'none')
+	{
+		if(unlock == true)
+		{
+			if (window.localStorage.getItem("pageNaveType") === "menu") {
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight || e.clientHeight || g.clientHeight;
+				// check if there are no open panels, otherwise ignore swipe
+				if (checkOpenPanels() === false && event.swipestart.coords[0] < x / 5) {
+					togglePanel('#panelMenu' + window.localStorage.getItem("divIdGlobal"));
+				}
+			}
 		}
 	}
+	else
+	{
+		//event.stopPropagation();
+		event.preventDefault();
+	}
 });
+/*$(document).on('swiperight', function (event) {
+	if($("#overlayGeneral").css('display') == 'none')
+	{
+		if (window.localStorage.getItem("pageNaveType") === "menu") {
+			var w = window,
+				d = document,
+				e = d.documentElement,
+				g = d.getElementsByTagName('body')[0],
+				x = w.innerWidth || e.clientWidth || g.clientWidth,
+				y = w.innerHeight || e.clientHeight || g.clientHeight;
+			// check if there are no open panels, otherwise ignore swipe
+			if (checkOpenPanels() === false && event.swipestart.coords[0] < x / 5) {
+				togglePanel('#panelMenu' + window.localStorage.getItem("divIdGlobal"));
+			}
+		}
+	}
+	else
+	{
+		//event.stopPropagation();
+		//event.preventDefault();
+	}
+});*/
 
 // store important vars, like previous page id
 function startBeforeShowVars(data) {

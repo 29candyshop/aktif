@@ -100,7 +100,7 @@
 				</div>
 				<div style="z-index:2000;">
 					<p style="width:100%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;"></p>
-					<p style="margin-left:5%;width:80%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.4em;margin-right:50px;color:#fff;">10,000</p>
+					<p id="testDrag" style="margin-left:5%;width:80%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.4em;margin-right:50px;color:#fff;">10,000</p>
 					<p style="margin-left:5%;width:90%;float:left;text-align:left;margin-right:30px;margin-top:0;margin-bottom:0;font-size:1.5em;">PENANGNITES</p>
 					<p style="margin-left:5%;width:100%;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:1.3em;">RUNNING</p>
 					<p style="margin-left:5%;width:auto;float:left;text-align:left;margin-top:0;margin-bottom:0;font-size:2.5em;color:#fff;">1,000,000</p>
@@ -110,6 +110,14 @@
 					<p style="margin-left:5%;width:20%;float:left;margin-top:0;margin-bottom:0;font-size:1.3em;line-height:2em;"></p>
 				</div>
 			</div>
+		</div>
+		<div id="overlayGeneral" class="evtOverlay" style="display:none;z-index:1003;top:0;position:absolute;width:100%;height:100%;background-color: rgba(0,0,0,0.7);">
+			<div id="containerUnlock" class="slidedrag" style="width:80%;left:10%;">
+			  <div id="slider" class="drag" onclick="" style=""><i class="material-icons"></i></div>
+			  <p>Slide to unlock</p>
+			</div>
+			
+			<!--<input id="slideUnlock" type="range" class="slideToUnlock" value="0" max="100" style="margin:5%;position:fixed;bottom:0px;width:90%;">-->
 		</div>
 		
 		<div id="indexPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #F2F2F2;"><!-- id to tie the page event to this specific page -->
@@ -249,7 +257,7 @@
 					</div>
                             
 				</div>	<!-- end whole content-->
-				<div id="DuringRunDiv" style="min-height:400px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #000;">
+				<div id="DuringRunDiv" style="min-height:400px;display:none;height:500px;width:100%;margin-left:auto;margin-right:auto;position:relative;float: left;background-color: #fff;">
 					<div id="divRun" style="width:100%; margin-left: auto;margin-right: auto;margin-top: 0px;position: relative;background-color: #eee;">
 						<div class="" style="width: 100%; height: auto;background-color: white;float:left;margin: 0 auto 0;position: relative;margin-bottom:0px;">
 							<div id="divImgActivity" class="circular1" style="display:none;"> <!-- icon-->
@@ -268,12 +276,12 @@
 									</div> <!-- block a -->
 									
 								</div> <!-- end 1st responsive grid -->
-								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:auto;width: 100%;margin-top:20px;float:left;"> <!--responsive using grid-->
+								<div id="divDistance" class="ui-grid-solo ui-responsive" style="height:auto;width: 100%;margin-top:10px;float:left;"> <!--responsive using grid-->
 									<div class="ui-block-a">
 										<p style="margin:0;">
-											<div style="margin-left:auto;margin-right:auto;position:relative;width:100px;height:30px;">
+											<div style="margin-left:auto;margin-right:auto;position:relative;width:160px;height:30px;">
 												<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:left;"></div>
-												<span id="lbldistance" style="width:130px;margin:0;font-size: 16px;color: #ccc;text-align:center;line-height:30px;">DISTANCE : </span><br></p>
+												<span id="lbldistance" style="float:left;width:120px;margin:0;font-size: 16px;color: #ccc;text-align:center;line-height:30px;">DISTANCE (METER): </span><br></p>
 											</div>
 											<span class="gridValue" id="distance" type="" disabled="disabled" value="0.0" style="margin-top:-10px;font-size: 6em;color:#E51919;text-align:center;width:100%;float:left;">0.0</span>
 										</p>
@@ -284,12 +292,12 @@
 								
 								<div class="ui-grid-solo ui-responsive" style="height:auto;width: 100%;"> <!--responsive using grid-->
 									<div class="ui-block-a">
-										<p>
+										
 											<div style="margin-left:auto;margin-right:auto;position:relative;width:110px;height:30px;">
 												<div style="width:30px;height:30px;background-size:cover;background-image:url(images/icons/icon_time2.png);float:left;"></div>
 												<span style="font-size: 16px;color: #ccc;text-align:center;line-height:30px;">DURATION : </span><br>
 											</div>
-											<span class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00" style="font-size:3.5em;color:#fff;text-align:center;width:100%;float:left;">00:00:00</span></p>							
+											<span class="gridValue" id="stopwatch" type="" disabled="disabled" value="00:00:00" style="font-size:3.5em;color:#fff;text-align:center;width:100%;float:left;">00:00:00</span>					
 									</div> <!-- block a -->
 									
 								</div> <!-- end 1st responsive grid -->
@@ -346,12 +354,14 @@
 							 
 									<!--<input  type="button" class="button evtStopRun" id="stopbutton" value="Stop" data-role="button" onclick="" style="background-color:#BE3507;"><br>-->
 								</div>
-								
+								<div class="shadowPanel" style="width:90%;float:left;height:60px;position:absolute;bottom:0px;">
+									<div id="stopbutton" class="evtStopRun evtStartButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#fff;">STOP & SAVE</div>
+									<div id="cancelbutton" class="evtCancelRun evtCancelButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#FFF;">CANCEL</div>
+								</div>	
 							</div> <!-- end main activity content-->
-							<div class="shadowPanel" style="width:100%;float:left;height:60px;position:absolute;bottom:0px;">
-								<div id="stopbutton" class="evtStopRun evtStartButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#fff;">STOP & SAVE</div>
-								<div id="cancelbutton" class="evtCancelRun evtCancelButton" style="font-weight:bold;width:50%;height:100%;float:left;line-height:60px;text-align:center;color:#FFF;">CANCEL</div>
-							</div>	
+							<div id="pnlLock" style="width:100%;float:none;position:fixed;bottom:0px;height:60px;margin-top:10px;">
+								<div id="pnlLockIcon"  style="margin-left:auto;margin-right:auto;background-image:url('images/icons/padlock-open.png');background-repeat:no-repeat;background-size:cover;width:50px;height:50px;"></div>
+							</div>
 							
 						</div> <!-- end main card-->
 					</div> <!-- end outer shell--> 
@@ -656,7 +666,7 @@
 					<div style="width:100%;float;left;margin-top:10px;">
 						<!--<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>-->
 						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#bbb;margin-bottom:20px;">App Version: 1.01.00</span>
-						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#FFF;margin-bottom:20px;font-size:2em;font-weight:bold;">A healthier Life builts a Better society</span>
+						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#FFF;margin-bottom:20px;font-size:2em;font-weight:bold;">A healthier Life builds a Better society</span>
 						
 						<span style="font-weight:bold;width:80%;margin-left:10%;float:left;margin-top:10px;text-align:center;color:#fff;margin-bottom:30px;">
 						AktifPenang: Promoting a healthier and better Penang by completing 1,000,000KM together to raise RM100,000 for charity.

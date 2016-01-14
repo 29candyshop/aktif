@@ -115,9 +115,10 @@ $(document).ready(function(){
 		$("#CampaignSummary_TotalRaised").css({'height': mHeight_TotalRunner + 'px'});
 		
 		fontSize = mHeight_TotalRunner - 20;
-		if(fontSize < 60)
+		if(fontSize < 50)
 		{
-			fontSize = 60;
+			fontSize = 50;
+			
 		}
 		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
 		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
@@ -132,7 +133,7 @@ $(document).ready(function(){
 		//$("#divImgActivity").css({'display':'block'});
 		$("#divDistance").css({'margin-top':'20px'});
 		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30)});
-		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60 - 80)});
 		
 		$("#CampaignSummary_lblRaised").css({'display':'block'});
 		$("#CampaignSummary_TotalRaised").css({'display':'block'});
@@ -159,12 +160,12 @@ $(document).ready(function(){
 		$("#mCurrentSelectedActivity").css({'font-size': (mHeight_TotalRunner/2) + 'px'});
 		$("#distance").css({'font-size': fontSize + 'px'});
 		$("#stopwatch").css({'font-size': fontSize + 'px'});
-		$("#calories").css({'font-size': fontSize + 'px'});
+		$("#calories").css({'font-size':  (fontSize - 10) + 'px'});
 		
 		$("#mCurrentSelectedActivity").css({'line-height': (mHeight_TotalRunner/2) + 'px'});
 		$("#distance").css({'line-height': fontSize + 'px'});
 		$("#stopwatch").css({'line-height': fontSize + 'px'});
-		$("#calories").css({'line-height': fontSize + 'px'});
+		$("#calories").css({'line-height': (fontSize - 10) + 'px'});
 		
 	}
 	else
@@ -173,8 +174,22 @@ $(document).ready(function(){
 		$("#divImgActivity").css({'display':'none'});
 		$("#divDistance").css({'margin-top':'0px'});
 		$('#DuringRunDiv').css({'height':'' + (mHeight - mHeaderHeight - 30 - 0)});
-		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60)});
+		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60 - 80)});
 		
+		fontSize = 50;
+		
+		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'font-size': fontSize + 'px'});
+		
+		$("#CampaignSummary_TotalRunner").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'line-height': fontSize + 'px'});
+		
+		
+		$("#stopwatch").css({'font-size': '2.5em'});
+		$("#distance").css({'font-size':  '3em'});
+		$("#calories").css({'font-size':  '2em'});
 		
 	}
 	
@@ -710,7 +725,15 @@ $(document).on('click', '.evtSponsor', function (event, data) {
 	
 });
 
-
+ $(document).on('click', '#pnlLockIcon', function(event, data) {
+	//document.querySelector("input[type=\"range\"]").value = 0;
+	$("#overlayGeneral").css({'display':'block'});
+	$("#pnlLock").css({'display':'none'});
+	unlock = false;
+	clicked = false;
+	
+ });
+ 
 $(document).on("scrollstop", function (e) {
     var activePage = $.mobile.pageContainer.pagecontainer("getActivePage"),
         screenHeight = $.mobile.getScreenHeight(),
@@ -730,6 +753,125 @@ $(document).on("scrollstop", function (e) {
 	}
 	
 });
+
+ $(document).on('change', '#slideUnlock', function(event, data) {
+	//clearInterval(document.init);
+	 var theRange = this.value;
+	  if (theRange == 100) {
+
+		unlock();
+
+	  } else {
+		document.init = setInterval(function() {
+		  if (document.querySelector("input[type=\"range\"]").value != 0) {
+			document.querySelector("input[type=\"range\"]").value = theRange--;
+			if(theRange <= 0)
+			{
+				clearInterval(document.init);
+			}
+		  }
+		}, 1);
+	  }
+ });
+ 
+ var posX, posY, clicked = false; 
+ var unlock = false;
+    function mueve (e) {
+        clicked = true;
+		var Y = $("p").position().top;
+        posX = e.pageX - 40;
+        //posY = e.pageY - 20;'
+		console.log("X: " + posX);
+        $('#slider').animate({left: posX, top: Y});
+    }
+ 
+  $(document).on('touchstart',"#containerUnlock", function(event){
+	 clicked = true;
+	 //console.log("down");
+  });
+ 
+ 
+ $(document).on('touchend',"#containerUnlock", function(event){
+	clicked = false;
+	//animate back 
+	if(unlock == false)
+	{
+		$('#slider').animate({left: 2});
+	}
+	//console.log("up");
+ });
+
+   $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
+	if(clicked == true && unlock == false)
+	{
+		 jQueryEvent.preventDefault();
+		var event = window.event;
+		//$('#status').html('x='+event.touches[0].pageX + '  y= ' + event.touches[0].pageY);
+		 var x = event.touches[0].pageX;
+		 var y = event.touches[0].pageY;
+		 var yTop = $("#containerUnlock").offset().top;
+		 var yBottom = yTop + $("#containerUnlock").height();
+		 
+		 if(y < yTop || y > yBottom)
+		 {
+			clicked = false;
+			$('#slider').animate({left: 2});
+			return;
+		 }
+		 
+		 var x2 = $("#containerUnlock").offset().left;
+		  var UnlockLocation = $("#containerUnlock").width() - $("#slider").width() - 5;
+		  var xNew = x - x2;
+		  if (xNew > 2 && xNew < UnlockLocation) {
+			  $('#slider').css({'left': xNew}); 
+		  }
+		 
+		  //console.log("X: " + xNew + " | Limit: " + UnlockLocation);
+		  if(xNew > UnlockLocation)
+		  {
+			clicked = false;
+			$("#overlayGeneral").css({'display':'none'});
+			$("#pnlLock").css({'display':'block'});
+			$('#slider').animate({left: 2});
+			document.init = setInterval(function() {
+				clearInterval(document.init);
+				unlock = true;
+			}, 500);
+		  }
+	  }
+   });
+ //$(document).on('mousemove', function(event){
+	 //if (clicked) {
+		
+           // $('#slider').stop(true, true);
+           // mueve(event);
+      //  }
+// });
+
+ 
+/*$(document).on('click', '#slider', function(e, data) {
+  e.preventDefault;
+
+  slider = document.getElementById("slider");
+
+  slider.classList.remove("bounce");
+
+  slider.offsetWidth = slider.offsetWidth;
+
+  slider.classList.add("bounce");
+
+});*/
+
+function unlock() {
+  //document.querySelector("input[type=\"range\"]").style.opacity = "0";
+  $("#overlayGeneral").css({'display':'none'});
+	$("#pnlLock").css({'display':'block'});
+}
+
+function lock(){
+	//$('#slider').css("left","2px"); $("#container").css("transform","scale(1)");       $("#lock").css("transform","scale(0)");
+}
+
 
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {
@@ -1134,10 +1276,10 @@ function displayMainSummary()
 	
 	var distance = CampaignDistance;
 	distance = distance / 1000.0;
-	distance = Math.round(distance * 100) / 100;
+	distance = Math.round(Math.round(distance * 100) / 100);
 	
 	var TotalRaised = distance/10.0;
-	TotalRaised = Math.round(TotalRaised * 100) / 100;
+	TotalRaised = Math.round(Math.round(TotalRaised * 100) / 100);
 	//distance = 1003230.65;
 	
 	if(distance > 100000.00)
@@ -3390,7 +3532,7 @@ function showPosition(position) {
 					{
 						var d = TotalDistance / 1000.0;
 						mdistance = Math.round(d * 100) / 100;
-						document.getElementById('lbldistance').innerHTML = "DISTANCE (km):";
+						document.getElementById('lbldistance').innerHTML = "DISTANCE (KM):";
 						//$("#lbldistance").val("Distance (km)");
 						//$("#distance").val(mdistance + "");		
 						document.getElementById('distance').innerHTML = mdistance;
@@ -3399,7 +3541,7 @@ function showPosition(position) {
 					{
 						mdistance = Math.round(TotalDistance * 100) / 100;
 						//$("#lbldistance").val("Distance (meter)");
-						document.getElementById('lbldistance').innerHTML = "DISTANCE (meter):";
+						document.getElementById('lbldistance').innerHTML = "DISTANCE (METER):";
 						//$("#distance").val(mdistance + "");
 						document.getElementById('distance').innerHTML = mdistance;
 					}

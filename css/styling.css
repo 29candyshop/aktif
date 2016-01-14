@@ -422,3 +422,161 @@ box-shadow: 0px 0px 15px 1px rgba(18,17,18,1);
 	float:left;
 	line-height:50px;
 }
+
+#containerUnlock {
+  width: 270px;
+  height: 65px;
+  background: #f0f0f0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 30px;
+  border-radius: 40px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.3s;
+  position:fixed;
+  bottom:20px;
+  left: 30px;
+}
+#containerUnlock #slider {
+  position: absolute;
+  width: 61px;
+  height: 61px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #455a64;
+  border-radius: 40px;
+  left: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+#containerUnlock #slider:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 33px;
+  height: 32px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 40px;
+  background: #009688;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+}
+#containerUnlock p {
+  text-align: center;
+  line-height: 30px;
+  color: #444;
+  font-size:1.2em;
+}
+
+.material-icons {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  left: 0;
+  right: 0;
+  margin: auto;
+  color: white;
+  font-size: 18px;
+  line-height: 61px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#lock {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #03a9f4;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  margin: auto;
+  transform: scale(0);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+@keyframes bounce {
+  0% {
+    left: 2;
+  }
+  20% {
+    left: 30px;
+  }
+  50% {
+    left: 0px;
+  }
+  70% {
+    left: 10px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+.bounce {
+  position: relative;
+  animation: bounce .6s linear;
+}
+
+
+
+input[type="range"] {
+    width: 320px;
+    margin: 100px;
+	background: #f0f0f0;
+  
+    -webkit-appearance: none;
+    border-radius: 40px;
+    padding: 5px;
+    transition: opacity 0.5s;
+    position: relative;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border-radius: 10px;
+   
+	background: #E51919;
+    z-index: 1;
+    width: 75px;
+	border-radius:50px;
+    position: relative;
+    height: 50px;
+	width:50px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+input[type="range"]:before {
+    content: "slide to unlock";
+    color: #ccc;
+    position: absolute;
+    left: 80px;
+    top: 10px;
+    z-index: 1;
+	text-align:center;
+	width:50%;
+	line-height:40px;
+    font-size: 22px;
+}
+
+input[type="range"]::-webkit-slider-thumb:before {
+    color: #8a8a8a;
+	background-color:#888;
+    position: absolute;
+    left: 5px;
+    top: -10px;
+    z-index: 1;
+	border-radius:50px;
+    font-size: 26px;
+    font-weight: bold;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+}

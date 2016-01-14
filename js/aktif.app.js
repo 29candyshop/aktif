@@ -726,11 +726,10 @@ $(document).on('click', '.evtSponsor', function (event, data) {
 });
 
  $(document).on('click', '#pnlLockIcon', function(event, data) {
-	//document.querySelector("input[type=\"range\"]").value = 0;
-	$("#overlayGeneral").css({'display':'block'});
-	$("#pnlLock").css({'display':'none'});
 	unlock = false;
 	clicked = false;
+	$("#overlayGeneral").css({'display':'block'});
+	$("#pnlLock").css({'display':'none'});
 	
  });
  
@@ -754,36 +753,9 @@ $(document).on("scrollstop", function (e) {
 	
 });
 
- $(document).on('change', '#slideUnlock', function(event, data) {
-	//clearInterval(document.init);
-	 var theRange = this.value;
-	  if (theRange == 100) {
-
-		unlock();
-
-	  } else {
-		document.init = setInterval(function() {
-		  if (document.querySelector("input[type=\"range\"]").value != 0) {
-			document.querySelector("input[type=\"range\"]").value = theRange--;
-			if(theRange <= 0)
-			{
-				clearInterval(document.init);
-			}
-		  }
-		}, 1);
-	  }
- });
- 
  var posX, posY, clicked = false; 
- var unlock = false;
-    function mueve (e) {
-        clicked = true;
-		var Y = $("p").position().top;
-        posX = e.pageX - 40;
-        //posY = e.pageY - 20;'
-		console.log("X: " + posX);
-        $('#slider').animate({left: posX, top: Y});
-    }
+ var unlock = true;
+
  
   $(document).on('touchstart',"#containerUnlock", function(event){
 	 clicked = true;
@@ -840,38 +812,6 @@ $(document).on("scrollstop", function (e) {
 		  }
 	  }
    });
- //$(document).on('mousemove', function(event){
-	 //if (clicked) {
-		
-           // $('#slider').stop(true, true);
-           // mueve(event);
-      //  }
-// });
-
- 
-/*$(document).on('click', '#slider', function(e, data) {
-  e.preventDefault;
-
-  slider = document.getElementById("slider");
-
-  slider.classList.remove("bounce");
-
-  slider.offsetWidth = slider.offsetWidth;
-
-  slider.classList.add("bounce");
-
-});*/
-
-function unlock() {
-  //document.querySelector("input[type=\"range\"]").style.opacity = "0";
-  $("#overlayGeneral").css({'display':'none'});
-	$("#pnlLock").css({'display':'block'});
-}
-
-function lock(){
-	//$('#slider').css("left","2px"); $("#container").css("transform","scale(1)");       $("#lock").css("transform","scale(0)");
-}
-
 
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {

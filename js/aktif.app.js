@@ -114,8 +114,8 @@ $(document).ready(function(){
 		$("#CampaignSummary_TotalDistance").css({'height': mHeight_TotalRunner + 'px'});
 		$("#CampaignSummary_TotalRaised").css({'height': mHeight_TotalRunner + 'px'});
 		
-		fontSize = mHeight_TotalRunner;
-		if(mHeight_TotalRunner < 60)
+		fontSize = mHeight_TotalRunner - 20;
+		if(fontSize < 60)
 		{
 			fontSize = 60;
 		}
@@ -178,7 +178,7 @@ $(document).ready(function(){
 		
 	}
 	
-	
+	displayMainSummary(); 
 	
 	
 	//alert(h);
@@ -1127,6 +1127,47 @@ function sep1000(somenum,usa){
   ;
 }
 
+function displayMainSummary()
+{
+	var CampaignUser = window.localStorage.getItem("CampaignUser");
+	var CampaignDistance = window.localStorage.getItem("CampaignDistance");
+	
+	var distance = CampaignDistance;
+	distance = distance / 1000.0;
+	distance = Math.round(distance * 100) / 100;
+	
+	var TotalRaised = distance/10.0;
+	TotalRaised = Math.round(TotalRaised * 100) / 100;
+	//distance = 1003230.65;
+	
+	if(distance > 100000.00)
+	{
+		fontSize = fontSize - 5;
+		
+		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'font-size': fontSize + 'px'});
+		
+		$("#CampaignSummary_TotalRunner").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'line-height': fontSize + 'px'});
+
+	}
+	else
+	{
+		/*$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
+		$("#CampaignSummary_TotalDistance").css({'font-size':'80px'} );
+		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );*/
+	}
+	$("#CampaignSummary_TotalRunner").html("" + CampaignUser + "" );
+	
+	var distance_Formatted = sep1000(distance, true);
+	$("#CampaignSummary_TotalDistance").html(distance_Formatted + "" );
+	
+	var TotalRaised_Formatted = sep1000(TotalRaised, true);
+	$("#CampaignSummary_TotalRaised").html("" + TotalRaised_Formatted + "" );
+}
+
 function displayUserSummary(divId)
 {
 	var CampaignUser = window.localStorage.getItem("CampaignUser");
@@ -1139,30 +1180,38 @@ function displayUserSummary(divId)
 	var TotalEvents = window.localStorage.getItem("TotalEvents");
     var shortName = window.localStorage.getItem("shortname");
 	
-	var distance = CampaignDistance;
-	distance = distance / 1000.0;
-	distance = Math.round(distance * 100) / 100;
+	displayMainSummary(); 
 	
 	var userTotalDistance = TotalDistance;
 	userTotalDistance = userTotalDistance / 1000.0;
 	userTotalDistance = Math.round(userTotalDistance * 100) / 100;
 	
+	/*var distance = CampaignDistance;
+	distance = distance / 1000.0;
+	distance = Math.round(distance * 100) / 100;
+	
+	
+	
 	var TotalRaised = distance/10.0;
 	TotalRaised = Math.round(TotalRaised * 100) / 100;
-	//distance = 1000323.65;
+	distance = 10003230.65;
 	
 	if(distance > 10000.00)
 	{
+		fontSize = fontSize - 5;
 		
-		//$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
-		//$("#CampaignSummary_TotalDistance").css({'font-size':'70px'} );
-		//$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );
+		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'font-size': fontSize + 'px'});
+		
+		$("#CampaignSummary_TotalRunner").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalDistance").css({'line-height': fontSize + 'px'});
+		$("#CampaignSummary_TotalRaised").css({'line-height': fontSize + 'px'});
+
 	}
 	else
 	{
-		/*$("#CampaignSummary_TotalRunner").css({'font-size':'60px'} );
-		$("#CampaignSummary_TotalDistance").css({'font-size':'80px'} );
-		$("#CampaignSummary_TotalRaised").css({'font-size':'60px'} );*/
+
 	}
 	
 	//$("#CampaignSummary"+ divId).html("" + CampaignUser + " members | Distance: " + distance + "km" );
@@ -1173,7 +1222,7 @@ function displayUserSummary(divId)
 	$("#CampaignSummary_TotalDistance").html(distance_Formatted + "" );
 	
 	var TotalRaised_Formatted = sep1000(TotalRaised, true);
-	$("#CampaignSummary_TotalRaised").html("" + TotalRaised_Formatted + "" );
+	$("#CampaignSummary_TotalRaised").html("" + TotalRaised_Formatted + "" );*/
 	if(firstname == "" && lastname == "")
 	{
 		$("#username"+ divId).html("" + shortName + "" );
@@ -3185,6 +3234,11 @@ function UploadToServer(obj, callback)
 
 function SyncToServer()
 {
+	var NetworkState = checkConnection();
+	if( NetworkState == "None" || NetworkState == "Unknown")
+	{
+		return;
+	}
 	$.mobile.loading("show", {
 			text: "Syncing with server..",
 			textVisible: true,

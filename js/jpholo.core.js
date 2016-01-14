@@ -175,15 +175,22 @@ function currentDate() {
 
 // get current connection type
 function checkConnection() {
-	var networkState = navigator.connection.type, states = {};
-	states[Connection.UNKNOWN] = 'Unknown';
-	states[Connection.ETHERNET] = 'Ethernet';
-	states[Connection.WIFI] = 'WiFi';
-	states[Connection.CELL_2G] = '2G';
-	states[Connection.CELL_3G] = '3G';
-	states[Connection.CELL_4G] = '4G';
-	states[Connection.NONE] = 'None';
-	return states[networkState];
+	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+	if(app){
+		var networkState = navigator.connection.type, states = {};
+		states[Connection.UNKNOWN] = 'Unknown';
+		states[Connection.ETHERNET] = 'Ethernet';
+		states[Connection.WIFI] = 'WiFi';
+		states[Connection.CELL_2G] = '2G';
+		states[Connection.CELL_3G] = '3G';
+		states[Connection.CELL_4G] = '4G';
+		states[Connection.NONE] = 'None';
+		return states[networkState];
+	}
+	else
+	{
+		return "";
+	}
 }
 
 // adjust specific style to tablet or smartphone view

@@ -51,6 +51,7 @@ var mActivityType = "RUNNING";
 	var mHeight_DuringRun_divTime = 100;
 	var mHeight_DuringRun_divCalories = 60;
 	
+	var fontSize_ListName = 20;
 	var fontSize = 60;
 /*var opts = {
 	  lines: 12, // The number of lines to draw
@@ -99,6 +100,7 @@ $(document).ready(function(){
 	//alert(totalSpace);
 	if(totalSpace >= 80)
 	{
+		fontSize_ListName = 22;
 		//have a lot of space, need to enlarge the font 
 		var availableSpace = totalDarkHeight - (50 * 3) - mHeight_lblSelection;
 		//alert(availableSpace);
@@ -177,6 +179,7 @@ $(document).ready(function(){
 		$('#DuringRunDivInner').css({'height':'' + (mHeight - mHeaderHeight - 30 - 20 - 60 - 80)});
 		
 		fontSize = 50;
+		fontSize_ListName = 20;
 		
 		$("#CampaignSummary_TotalRunner").css({'font-size': fontSize + 'px'});
 		$("#CampaignSummary_TotalDistance").css({'font-size': fontSize + 'px'});
@@ -571,15 +574,15 @@ $(document).on('click', '.evtEvent', function (event, data) {
 				{
 					html = '<div id="IndividualPageImage" style="width:100%;height:130px;float:left;background-image:url(http://www.aktifpenang.com/' + obj.banner+ ');background-repeat:no-repeat;background-size:cover;"></div>';
 				}
-				html +=	'<div style="width:100%;height:auto;margin-top:20px;float:left;background-color:#eee;opacity:0.7;">'+
-						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#222;">'+ obj.eventname + '</span>'+
-						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 13px;color:#555;">'+ obj.eventtype + '</span>'+
-						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;margin-top:20px;">'+ obj.eventdate + '</span>'+
-						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;margin-top:20px;">'+ obj.eventtime + '</span>'+
-						'<span id="IndividualPageInfo" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#666;margin-top:30px;">About</span>'+
-						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">' + obj.eventdescription + '</span>'+
-						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">Location: ' + obj.eventlocation + '</span>'+
-						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#444;">More Info: ' + obj.eventurl + '</span>';
+				html +=	'<div style="width:100%;height:auto;margin-top:20px;float:left;background-color:#eee;opacity:1.0;">'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 22px;color:#222;">'+ obj.eventname + '</span>'+
+						'<span id="IndividualPageName" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 14px;color:#555;">'+ obj.eventtype + '</span>'+
+						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#444;margin-top:20px;">'+ obj.eventdate + '</span>'+
+						'<span id="IndividualPageTagline" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#444;margin-top:20px;">'+ obj.eventtime + '</span>'+
+						'<span id="IndividualPageInfo" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#666;margin-top:30px;">About</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#444;">' + obj.eventdescription + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#444;">Location: ' + obj.eventlocation + '</span>'+
+						'<span id="Individualdescription" class="gridValue" style="width:100%;font-weight: normal !important;font-size: 18px;color:#444;">More Info: ' + obj.eventurl + '</span>';
 					if(obj.eventcoordinate != null)
 					{
 						html+=	'<div class="" style="margin-top:10px;height:' + mWidth + 'px;width:100%;background-image:url(http://maps.googleapis.com/maps/api/staticmap?size=400x400&center=' +coor +'&zoom=16&markers=color:red%7Clabel:A%7C' +coor+');background-repeat:no-repeat;background-size:cover;float:left;"></div>';
@@ -1373,7 +1376,7 @@ function LeaderBoard()
 					background = '#f0f0f0';
 				}
 				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
+				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;font-size:' + fontSize_ListName + 'px;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
 							'<span id="" style="font-size:1.2em;color:#E51919;line-height:40px;height:100%;float:left;">'  + mdistance + munit +  '</span><div style="margin-top:10px;width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:right;"></div></div></div></div>';
 				panelMain.append(html);
 				panelMain.append('<div style="float:left;width:100%;height:1px;margin-left:0%;background-color:#aaa;"></div>');
@@ -1407,7 +1410,7 @@ function LeaderBoard()
 					background = '#f0f0f0';
 				}
 				var html = '<div id="Historyinfo-' + obj.id + '" class="" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(' + imageURL + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
+				'<div style="float:left;width:75%;"><span id="" style="line-height:40px;height:100%;font-size:' + fontSize_ListName + 'px;">' + obj.name + '</span><div style="float:right;height:50px;">' + 
 				'<span id="" style="font-size:1.2em;color:#E51919;float:left;line-height:40px;height:100%;">'  + mdistance + munit +  '</span><div style="margin-top:10px;width:25px;height:25px;background-size:cover;background-image:url(images/icons/icon_distance.png);float:right;"></div></div></div></div>';
 				panelMain.append(html);
 				panelMain.append('<div style="float:left;width:100%;height:1px;margin-left:0%;background-color:#aaa;"></div>');
@@ -1426,7 +1429,7 @@ function LeaderBoard()
 					background = '#f0f0f0';
 				}
 				var html = '<div id="groupinfo" class="evtGroup" style="float:left;width:100%;padding-top:10px;background-color:'+ background +';"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-							'<div style="float:left;width:60%;"><span id="">' + obj.group_name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:1.2em;color:#E51919;">' +  distance + 'km</span></div>';
+							'<div style="float:left;width:60%;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.group_name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:1.2em;color:#E51919;">' +  distance + 'km</span></div>';
 							
 
 				html = html + '</div>';		
@@ -1481,7 +1484,7 @@ function Events()
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
 					var html = '<div id="eventinfo-'+ obj.id + '" class="evtEvent" style="float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'images/icons/event.png\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-								'<div style="float:left;width:70%;margin-left:5px;"><span id="">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
+								'<div style="float:left;width:70%;margin-left:5px;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
 								
 					
 					html = html + '</div>';
@@ -1538,7 +1541,7 @@ function Sponsors()
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
 					var html = '<div id="sponsorinfo-'+ obj.id + '" class="evtSponsor" style="float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/' + obj.icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-								'<div style="float:left;width:60%;margin-left:20px;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.description + '</span></br><span id="" style="font-size:14px;color:#888;">Type: ' + obj.type + '</span></div>';
+								'<div style="float:left;width:60%;margin-left:20px;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.description + '</span></br><span id="" style="font-size:14px;color:#888;">Type: ' + obj.type + '</span></div>';
 								
 					
 					html = html + '</div>';
@@ -1601,7 +1604,7 @@ function Groups()
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
 					var html = '<div id="groupinfo-'+ obj.id + '" class="evtGroup" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'http://www.aktifpenang.com/group_images/' + obj.group_icon + '\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-								'<div style="float:left;width:60%;"><span id="">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.membercount + 'members | ' +  distance + 'km</span></div>';
+								'<div style="float:left;width:60%;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.name + '</span></br><span id="" style="font-size:14px;color:#555;">' + obj.tagline + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.membercount + 'members | ' +  distance + 'km</span></div>';
 								
 					if(obj.isGroup != "0")
 					{
@@ -2753,7 +2756,9 @@ function StopRun(error_str)
 			window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 			var strNewMap = "RunMap_" + current_id;		
 			window.localStorage.setItem(strNewMap, mMapURL);				
-			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ strNewMap + '","calories":"' + TotalCalories + '","sync":"no"}';
+			//var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ strNewMap + '","calories":"' + TotalCalories + '","sync":"no"}';
+			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
+			
 			
 			
 			
@@ -2773,14 +2778,10 @@ function StopRun(error_str)
 			}, null);
 
 			
-			//set mcurrent run to emty
-			//localStorage.setItem("run_fresh", "true");
 			location.hash = "#runMap";
 		}
 		else
 		{
-			//SynctoDB();
-			//location.hash = "#runMap";
 			if(navigator.notification)
 			{
 				navigator.notification.alert(
@@ -3123,6 +3124,11 @@ function SynctoDB(current_runid)
 	$rundate = isset($_POST['rundate']) ? $_POST['rundate'] : '';
 	$checkin_type = isset($_POST['checkin_type']) ? $_POST['checkin_type'] : '';
 	*/
+	var NetworkState = checkConnection();
+	if( NetworkState == "None" || NetworkState == "Unknown")
+	{
+		return;
+	}
 	try{
 		var mToken = window.localStorage.getItem("AccessTokenV2");
 		var mActivity = localStorage.getItem("CurrentRun_Activity");

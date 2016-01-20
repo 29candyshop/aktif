@@ -256,7 +256,7 @@ function initPageVarsOnShow(id) {
 $(document).on('swiperight').on('swiperight', function (event) {
 	if($("#overlayGeneral").css('display') == 'none')
 	{
-		if(unlock == true)
+		if(isLOCK == false)
 		{
 			if (window.localStorage.getItem("pageNaveType") === "menu") {
 				var w = window,

@@ -306,18 +306,25 @@ function onDeviceReady() {
 	//================= configure geolocation background ==========================
 }
 
-function onResume()
-{
+function onResume(){
 	//alert("resume");
 	var isStartRun = localStorage.getItem("IsStartRun");
 	//alert("IS Running? " + isStartRun);
 	if(isStartRun == "true")
 	{
+		if(isDebug == true)
+		{
+			document.getElementById("DebugLabel").innerHTML = "Start Run: True</br>";
+		}
 		var isCurrentLocked = window.localStorage.getItem('isLOCK');
 		//alert("isLocked? " + isStartRun);
 		if(isCurrentLocked == "true")
-		{
+		{			
 			isLOCK = true;
+			if(isDebug == true)
+			{
+				document.getElementById("DebugLabel").innerHTML += "is Lock: True</br>";
+			}
 		}
 		UpdateNotification();
 	}
@@ -775,7 +782,14 @@ $(document).on("scrollstop", function (e) {
 	 clicked = true;
 	 if(isDebug == true)
 	 {
-		document.getElementById("DebugLabel").innerHTML = "Touched Start.";
+		var isCurrentLocked = window.localStorage.getItem('isLOCK');
+		//alert("isLocked? " + isStartRun);
+		if(isCurrentLocked == "true")
+		{			
+			isLOCK = true;
+			document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+		}
+		document.getElementById("DebugLabel").innerHTML += "Touched Start.";
 	 }
 	 //console.log("down");
   });
@@ -790,69 +804,87 @@ $(document).on("scrollstop", function (e) {
 	}
 	if(isDebug == true)
 	{
-		document.getElementById("DebugLabel").innerHTML = "Touched End.";
+		var isCurrentLocked = window.localStorage.getItem('isLOCK');
+		if(isCurrentLocked == "true")
+		{			
+			isLOCK = true;
+			document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+		}
+		document.getElementById("DebugLabel").innerHTML += "Touched End.";
 	}
 	//console.log("up");
  });
 
    $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
-	if(isDebug == true)
-	{
-		document.getElementById("DebugLabel").innerHTML = "isLock: " + isLOCK + "</br>";
-	}
-	if(clicked == true && isLOCK == true)
-	{
-		 
-		jQueryEvent.preventDefault();
 		if(isDebug == true)
 		{
-			document.getElementById("DebugLabel").innerHTML += "Touch Start & Sliding..";
+			var isCurrentLocked = window.localStorage.getItem('isLOCK');
+			if(isCurrentLocked == "true")
+			{			
+				isLOCK = true;
+				document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+			}
+			document.getElementById("DebugLabel").innerHTML += "isLock: " + isLOCK + "</br>";
 		}
-		var event = window.event;
-		//$('#status').html('x='+event.touches[0].pageX + '  y= ' + event.touches[0].pageY);
-		 var x = event.touches[0].pageX;
-		 var y = event.touches[0].pageY;
-		 var yTop = $("#containerUnlock").offset().top;
-		 var yBottom = yTop + $("#containerUnlock").height();
-		 
-		 if(y < yTop || y > yBottom)
-		 {
-			clicked = false;
-			$('#slider').animate({left: 2});
-			return;
-		 }
-		 
-		 var x2 = $("#containerUnlock").offset().left;
-		  var UnlockLocation = $("#containerUnlock").width() - $("#slider").width() - 5;
-		  var xNew = x - x2;
-		  if (xNew > 2 && xNew < UnlockLocation) {
-			  $('#slider').css({'left': xNew}); 
+		if(clicked == true && isLOCK == true)
+		{
+			 
+			jQueryEvent.preventDefault();
+			if(isDebug == true)
+			{
+				document.getElementById("DebugLabel").innerHTML += "Touch Start & Sliding..";
+			}
+			var event = window.event;
+			//$('#status').html('x='+event.touches[0].pageX + '  y= ' + event.touches[0].pageY);
+			 var x = event.touches[0].pageX;
+			 var y = event.touches[0].pageY;
+			 var yTop = $("#containerUnlock").offset().top;
+			 var yBottom = yTop + $("#containerUnlock").height();
+			 
+			 if(y < yTop || y > yBottom)
+			 {
+				clicked = false;
+				$('#slider').animate({left: 2});
+				return;
+			 }
+			 
+			 var x2 = $("#containerUnlock").offset().left;
+			  var UnlockLocation = $("#containerUnlock").width() - $("#slider").width() - 5;
+			  var xNew = x - x2;
+			  if (xNew > 2 && xNew < UnlockLocation) {
+				  $('#slider').css({'left': xNew}); 
+			  }
+			 
+			  //console.log("X: " + xNew + " | Limit: " + UnlockLocation);
+			  if(xNew > UnlockLocation)
+			  {
+				clicked = false;
+				$("#overlayGeneral").css({'display':'none'});
+				$("#pnlLock").css({'display':'block'});
+				$('#slider').animate({left: 2});
+				isLOCK = false;
+				localStorage.setItem("isLOCK", "false");
+				/*document.init = setInterval(function() {
+					clearInterval(document.init);
+					//unlock = true;
+					
+				}, 1000);*/
+			  }
 		  }
-		 
-		  //console.log("X: " + xNew + " | Limit: " + UnlockLocation);
-		  if(xNew > UnlockLocation)
+		  else
 		  {
-			clicked = false;
-			$("#overlayGeneral").css({'display':'none'});
-			$("#pnlLock").css({'display':'block'});
-			$('#slider').animate({left: 2});
-			isLOCK = false;
-			localStorage.setItem("isLOCK", "false");
-			/*document.init = setInterval(function() {
-				clearInterval(document.init);
-				//unlock = true;
-				
-			}, 1000);*/
-		  }
-	  }
-	  else
-	  {
-		if(isDebug == true)
-		{
-			document.getElementById("DebugLabel").innerHTML += "Touch not Registered but Sliding..";
-	  
+			if(isDebug == true)
+			{
+				var isCurrentLocked = window.localStorage.getItem('isLOCK');
+				if(isCurrentLocked == "true")
+				{			
+					isLOCK = true;
+					document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+				}
+				document.getElementById("DebugLabel").innerHTML += "Touch not Registered but Sliding..";
+		  
+			}
 		}
-	}
    });
 
 //display alert box when submit button clicked(testing)

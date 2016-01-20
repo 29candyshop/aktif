@@ -838,7 +838,9 @@ $(document).on("scrollstop", function (e) {
 	//console.log("up");
  });
 	//$("#containerUnlock").bind('touchmove', function(jQueryEvent){
-   $(document).bind('touchmove mousemove', function(jQueryEvent){
+   $(document).bind('touchmove', function(jQueryEvent){
+		//document.getElementById("DebugLabel").innerHTML = "Count: " + jQueryEvent.originalEvent.touches.length;
+		//return;
 		if(isDebug == true)
 		{
 			var isCurrentLocked = window.localStorage.getItem('isLOCK');
@@ -856,7 +858,7 @@ $(document).on("scrollstop", function (e) {
 			var x = touch.pageX;
 			var y = touch.pageY;
 	  
-			//jQueryEvent.preventDefault();
+
 			if(isDebug == true)
 			{
 				document.getElementById("DebugLabel").innerHTML += "Touch Start & Sliding..";
@@ -872,30 +874,44 @@ $(document).on("scrollstop", function (e) {
 			 {
 				clicked = false;
 				$('#slider').animate({left: 2});
-				return;
+				if(isDebug == true)
+				{
+					var isCurrentLocked = window.localStorage.getItem('isLOCK');
+					if(isCurrentLocked == "true")
+					{			
+						isLOCK = true;
+						document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+					}
+					document.getElementById("DebugLabel").innerHTML += "Touch not Registered but Sliding..";
+			  
+				}
+				//return;
 			 }
+			 else
+			 {
 			 
-			 var x2 = $("#containerUnlock").offset().left;
-			  var UnlockLocation = $("#containerUnlock").width() - $("#slider").width() - 5;
-			  var xNew = x - x2;
-			  if (xNew > 2 && xNew < UnlockLocation) {
-				  $('#slider').css({'left': xNew}); 
-			  }
-			 
-			  //console.log("X: " + xNew + " | Limit: " + UnlockLocation);
-			  if(xNew > UnlockLocation)
-			  {
-				clicked = false;
-				$("#overlayGeneral").css({'display':'none'});
-				$("#pnlLock").css({'display':'block'});
-				$('#slider').animate({left: 2});
-				isLOCK = false;
-				localStorage.setItem("isLOCK", "false");
-				/*document.init = setInterval(function() {
-					clearInterval(document.init);
-					//unlock = true;
-					
-				}, 1000);*/
+				 var x2 = $("#containerUnlock").offset().left;
+				  var UnlockLocation = $("#containerUnlock").width() - $("#slider").width() - 5;
+				  var xNew = x - x2;
+				  if (xNew > 2 && xNew < UnlockLocation) {
+					  $('#slider').css({'left': xNew}); 
+				  }
+				 
+				  //console.log("X: " + xNew + " | Limit: " + UnlockLocation);
+				  if(xNew > UnlockLocation)
+				  {
+					clicked = false;
+					$("#overlayGeneral").css({'display':'none'});
+					$("#pnlLock").css({'display':'block'});
+					$('#slider').animate({left: 2});
+					isLOCK = false;
+					localStorage.setItem("isLOCK", "false");
+					/*document.init = setInterval(function() {
+						clearInterval(document.init);
+						//unlock = true;
+						
+					}, 1000);*/
+				  }
 			  }
 		  }
 		  else
@@ -912,6 +928,7 @@ $(document).on("scrollstop", function (e) {
 		  
 			}
 		}
+		jQueryEvent.preventDefault();
    });
 
 //display alert box when submit button clicked(testing)

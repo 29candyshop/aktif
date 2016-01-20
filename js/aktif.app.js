@@ -57,7 +57,8 @@ var mActivityType = "RUNNING";
 	var posX, posY, clicked = false; 
 	//var unlock = true;
 	var isLOCK = false;
-	var isDebug = true;
+	var isDebug = false;
+	var intDebug = 0;
 	
 /*var opts = {
 	  lines: 12, // The number of lines to draw
@@ -754,7 +755,9 @@ $(document).on('click', '.evtSponsor', function (event, data) {
 	clicked = false;
 	$("#overlayGeneral").css({'display':'block'});
 	$("#pnlLock").css({'display':'none'});
-	
+	 $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
+		processMove(jQueryEvent);
+	 })
  });
  
 $(document).on("scrollstop", function (e) {
@@ -814,6 +817,7 @@ $(document).on("scrollstop", function (e) {
 			document.getElementById("DebugLabel").innerHTML += "Touched out of boundary at " + x;
 		 }
 	 }
+	 event.preventDefault();
 	 //console.log("down");
   });
  
@@ -835,12 +839,29 @@ $(document).on("scrollstop", function (e) {
 		}
 		document.getElementById("DebugLabel").innerHTML += "Touched End.";
 	}
+	event.preventDefault();
 	//console.log("up");
  });
+ 
+ 
 	//$("#containerUnlock").bind('touchmove', function(jQueryEvent){
-   $(document).bind('touchmove', function(jQueryEvent){
-		//document.getElementById("DebugLabel").innerHTML = "Count: " + jQueryEvent.originalEvent.touches.length;
-		//return;
+   //$("#containerUnlock").off('touchmove').on('touchmove', function () {
+  /* $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
+		if ( $("#overlayGeneral").css('display') == 'none' )
+		{
+			intDebug = intDebug + 1;
+			document.getElementById("CampaignSummary_TotalRunner").innerHTML = "Touhed: " + intDebug;
+			if(jQueryEvent.originalEvent.touches.length >= 2) {
+				jQueryEvent.preventDefault();
+			}
+			return;
+		}
+		//jQueryEvent.stopPropagation();
+   });*/
+
+   function processMove(jQueryEvent)
+   {
+		jQueryEvent.preventDefault();
 		if(isDebug == true)
 		{
 			var isCurrentLocked = window.localStorage.getItem('isLOCK');
@@ -904,18 +925,18 @@ $(document).on("scrollstop", function (e) {
 					$("#overlayGeneral").css({'display':'none'});
 					$("#pnlLock").css({'display':'block'});
 					$('#slider').animate({left: 2});
-					isLOCK = false;
-					localStorage.setItem("isLOCK", "false");
-					/*document.init = setInterval(function() {
+					$(document).unbind('touchmove');
+					document.init = setInterval(function() {
 						clearInterval(document.init);
-						//unlock = true;
+						isLOCK = false;
+						localStorage.setItem("isLOCK", "false");
 						
-					}, 1000);*/
+					}, 500);
 				  }
 			  }
 		  }
-		  else
-		  {
+		else
+		{
 			if(isDebug == true)
 			{
 				var isCurrentLocked = window.localStorage.getItem('isLOCK');
@@ -928,9 +949,15 @@ $(document).on("scrollstop", function (e) {
 		  
 			}
 		}
-		jQueryEvent.preventDefault();
-   });
-
+		/*if(jQueryEvent.originalEvent.touches.length >= 2) {
+			jQueryEvent.preventDefault();
+		}
+		if ( $("#overlayGeneral").css('display') == 'block' )
+		{
+			jQueryEvent.preventDefault();
+		}*/
+   }
+   
 //display alert box when submit button clicked(testing)
 function disp_alert(email) {
         alert(email + ", login successfulled.");
@@ -2642,7 +2669,7 @@ function StartRun()
 
 	//callbackFn("a", 200);
 	TotalCalories = 0.0;
-	TotalDistance = 0.0;
+	TotalDistance = 0.0;//238.69;
 	LocationCount = 0;
 	LocationCount_Total = 0;
 	LocationCount_background = 0;

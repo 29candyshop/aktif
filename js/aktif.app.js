@@ -53,6 +53,11 @@ var mActivityType = "RUNNING";
 	
 	var fontSize_ListName = 20;
 	var fontSize = 60;
+	
+	var posX, posY, clicked = false; 
+	//var unlock = true;
+	var isLOCK = false;
+ 
 /*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -302,11 +307,17 @@ function onDeviceReady() {
 
 function onResume()
 {
-	//alert("resume");
+	alert("resume");
 	var isStartRun = localStorage.getItem("IsStartRun");
-	//alert(isStartRun);
+	alert("IS Running? " + isStartRun);
 	if(isStartRun == "true")
 	{
+		var isCurrentLocked = window.localStorage.getItem('isLOCK');
+		alert("isLocked? " + isStartRun);
+		if(isCurrentLocked == "true")
+		{
+			isLOCK = true;
+		}
 		UpdateNotification();
 	}
 	else
@@ -729,7 +740,9 @@ $(document).on('click', '.evtSponsor', function (event, data) {
 });
 
  $(document).on('click', '#pnlLockIcon', function(event, data) {
-	unlock = false;
+	//unlock = false;
+	isLOCK = true;
+	localStorage.setItem("isLOCK", "true");
 	clicked = false;
 	$("#overlayGeneral").css({'display':'block'});
 	$("#pnlLock").css({'display':'none'});
@@ -756,10 +769,7 @@ $(document).on("scrollstop", function (e) {
 	
 });
 
- var posX, posY, clicked = false; 
- var unlock = true;
 
- 
   $(document).on('touchstart',"#containerUnlock", function(event){
 	 clicked = true;
 	 //console.log("down");
@@ -769,7 +779,7 @@ $(document).on("scrollstop", function (e) {
  $(document).on('touchend',"#containerUnlock", function(event){
 	clicked = false;
 	//animate back 
-	if(unlock == false)
+	if(isLOCK == true)
 	{
 		$('#slider').animate({left: 2});
 	}
@@ -777,7 +787,7 @@ $(document).on("scrollstop", function (e) {
  });
 
    $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
-	if(clicked == true && unlock == false)
+	if(clicked == true && isLOCK == true)
 	{
 		 jQueryEvent.preventDefault();
 		var event = window.event;
@@ -810,7 +820,8 @@ $(document).on("scrollstop", function (e) {
 			$('#slider').animate({left: 2});
 			document.init = setInterval(function() {
 				clearInterval(document.init);
-				unlock = true;
+				//unlock = true;
+				isLOCK = false;
 			}, 500);
 		  }
 	  }

@@ -779,17 +779,40 @@ $(document).on("scrollstop", function (e) {
 
 
   $(document).on('touchstart',"#containerUnlock", function(event){
-	 clicked = true;
-	 if(isDebug == true)
+	
+	 var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+	//var elm = $(this).offset();
+	 var x = touch.pageX;
+	 var x2 = $("#containerUnlock").offset().left;
+	 if(x - x2 < 60)
 	 {
-		var isCurrentLocked = window.localStorage.getItem('isLOCK');
-		//alert("isLocked? " + isStartRun);
-		if(isCurrentLocked == "true")
-		{			
-			isLOCK = true;
-			document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
-		}
-		document.getElementById("DebugLabel").innerHTML += "Touched Start.";
+		clicked = true;
+	 
+		 if(isDebug == true)
+		 {
+			var isCurrentLocked = window.localStorage.getItem('isLOCK');
+			//alert("isLocked? " + isStartRun);
+			if(isCurrentLocked == "true")
+			{			
+				isLOCK = true;
+				document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+			}
+			document.getElementById("DebugLabel").innerHTML += "Touched Start at " + x + " slide offset: " + x2;
+		 }
+	 }
+	 else
+	 {
+		 if(isDebug == true)
+		 {
+			var isCurrentLocked = window.localStorage.getItem('isLOCK');
+			//alert("isLocked? " + isStartRun);
+			if(isCurrentLocked == "true")
+			{			
+				isLOCK = true;
+				document.getElementById("DebugLabel").innerHTML = "is Lock: True</br>";
+			}
+			document.getElementById("DebugLabel").innerHTML += "Touched out of boundary at " + x;
+		 }
 	 }
 	 //console.log("down");
   });
@@ -814,7 +837,7 @@ $(document).on("scrollstop", function (e) {
 	}
 	//console.log("up");
  });
-
+	//$("#containerUnlock").bind('touchmove', function(jQueryEvent){
    $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
 		if(isDebug == true)
 		{
@@ -828,16 +851,20 @@ $(document).on("scrollstop", function (e) {
 		}
 		if(clicked == true && isLOCK == true)
 		{
-			 
-			jQueryEvent.preventDefault();
+			var touch = jQueryEvent.originalEvent.touches[0] || jQueryEvent.originalEvent.changedTouches[0];
+			//var elm = $(this).offset();
+			var x = touch.pageX;
+			var y = touch.pageY;
+	  
+			//jQueryEvent.preventDefault();
 			if(isDebug == true)
 			{
 				document.getElementById("DebugLabel").innerHTML += "Touch Start & Sliding..";
 			}
-			var event = window.event;
+			//var event = window.event;
 			//$('#status').html('x='+event.touches[0].pageX + '  y= ' + event.touches[0].pageY);
-			 var x = event.touches[0].pageX;
-			 var y = event.touches[0].pageY;
+			// var x = event.touches[0].pageX;
+			// var y = event.touches[0].pageY;
 			 var yTop = $("#containerUnlock").offset().top;
 			 var yBottom = yTop + $("#containerUnlock").height();
 			 

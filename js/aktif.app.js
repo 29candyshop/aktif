@@ -57,7 +57,8 @@ var mActivityType = "RUNNING";
 	var posX, posY, clicked = false; 
 	//var unlock = true;
 	var isLOCK = false;
- 
+	var isDebug = true;
+	
 /*var opts = {
 	  lines: 12, // The number of lines to draw
 	  length: 10, // The length of each line
@@ -307,13 +308,13 @@ function onDeviceReady() {
 
 function onResume()
 {
-	alert("resume");
+	//alert("resume");
 	var isStartRun = localStorage.getItem("IsStartRun");
-	alert("IS Running? " + isStartRun);
+	//alert("IS Running? " + isStartRun);
 	if(isStartRun == "true")
 	{
 		var isCurrentLocked = window.localStorage.getItem('isLOCK');
-		alert("isLocked? " + isStartRun);
+		//alert("isLocked? " + isStartRun);
 		if(isCurrentLocked == "true")
 		{
 			isLOCK = true;
@@ -772,6 +773,10 @@ $(document).on("scrollstop", function (e) {
 
   $(document).on('touchstart',"#containerUnlock", function(event){
 	 clicked = true;
+	 if(isDebug == true)
+	 {
+		document.getElementById("DebugLabel").innerHTML = "Touched Start.";
+	 }
 	 //console.log("down");
   });
  
@@ -783,13 +788,26 @@ $(document).on("scrollstop", function (e) {
 	{
 		$('#slider').animate({left: 2});
 	}
+	if(isDebug == true)
+	{
+		document.getElementById("DebugLabel").innerHTML = "Touched End.";
+	}
 	//console.log("up");
  });
 
    $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
+	if(isDebug == true)
+	{
+		document.getElementById("DebugLabel").innerHTML = "isLock: " + isLOCK + "</br>";
+	}
 	if(clicked == true && isLOCK == true)
 	{
-		 jQueryEvent.preventDefault();
+		 
+		jQueryEvent.preventDefault();
+		if(isDebug == true)
+		{
+			document.getElementById("DebugLabel").innerHTML += "Touch Start & Sliding..";
+		}
 		var event = window.event;
 		//$('#status').html('x='+event.touches[0].pageX + '  y= ' + event.touches[0].pageY);
 		 var x = event.touches[0].pageX;
@@ -818,13 +836,23 @@ $(document).on("scrollstop", function (e) {
 			$("#overlayGeneral").css({'display':'none'});
 			$("#pnlLock").css({'display':'block'});
 			$('#slider').animate({left: 2});
-			document.init = setInterval(function() {
+			isLOCK = false;
+			localStorage.setItem("isLOCK", "false");
+			/*document.init = setInterval(function() {
 				clearInterval(document.init);
 				//unlock = true;
-				isLOCK = false;
-			}, 500);
+				
+			}, 1000);*/
 		  }
 	  }
+	  else
+	  {
+		if(isDebug == true)
+		{
+			document.getElementById("DebugLabel").innerHTML += "Touch not Registered but Sliding..";
+	  
+		}
+	}
    });
 
 //display alert box when submit button clicked(testing)

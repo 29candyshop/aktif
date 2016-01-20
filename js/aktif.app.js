@@ -838,7 +838,7 @@ $(document).on("scrollstop", function (e) {
 	//console.log("up");
  });
 	//$("#containerUnlock").bind('touchmove', function(jQueryEvent){
-   $(document).bind('touchmove', "#containerUnlock", function(jQueryEvent){
+   $(document).bind('touchmove mousemove', function(jQueryEvent){
 		if(isDebug == true)
 		{
 			var isCurrentLocked = window.localStorage.getItem('isLOCK');

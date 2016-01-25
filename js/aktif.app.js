@@ -1811,12 +1811,16 @@ function Runs(mRunid)
 			
 			var panelMain = $('#HistoryMain' + '');
 			panelMain.empty();
-			var result = window.localStorage.getItem("aktif_runHistory_Individual")
-			var objGroup = JSON.parse(result);
+			var result = window.localStorage.getItem("aktif_runHistory_Individual");
 			showHistoryHeader();
-			for(var i = 0; i < objGroup.length; i++) {
-				var obj = objGroup[i];
-				LoadRun(obj, false);
+			if(result != "" && result != null)
+			{
+				var objGroup = JSON.parse(result);
+				
+				for(var i = 0; i < objGroup.length; i++) {
+					var obj = objGroup[i];
+					LoadRun(obj, false);
+				}
 			}
 		}
 		catch(err)
@@ -1873,7 +1877,8 @@ function addFirstRun()
 		window.localStorage.setItem("aktif_runHistory_Individual", "");
 		
 		showHistoryHeader();
-		
+		if(TotalRunCount > 0)
+		{
 		for(var i = 0; i < objGroup.runs.length; i++) {
 			var obj = objGroup.runs[i];
 			LoadRun(obj, true);
@@ -1960,7 +1965,7 @@ function addFirstRun()
 		}
 		var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
 		window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
-		
+		}
 		//alert(obj.token);
 	});
 }
@@ -2362,7 +2367,7 @@ function getBase64Image(img) {
 function Logout()
 {
 	$.mobile.loading("show", {
-			text: "Syncing with server..",
+			text: "Loging Out..",
 			textVisible: true,
 			theme: "b"
 		});

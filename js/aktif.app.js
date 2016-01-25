@@ -3556,7 +3556,7 @@ function SyncToServer()
 			if(navigator.notification)
 			{
 				navigator.notification.alert(
-					'Error Syncing with server: ' + err,
+					'Error Syncing with server.',// + err,
 					function() {},
 					'Run',
 					'OK'

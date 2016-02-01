@@ -503,11 +503,19 @@ $(document).on('click', '.evtHistory', function (event, data) {
 		var obj = objGroup[i];
 		if(obj.activityid == id)
 		{
-			
+			if(obj.map.indexOf("RunMap_") > 0)
+			{
+				//get from local storage
+				var m_objMapURL = window.localStorage.getItem(obj.map);
+			}
+			else
+			{
+				var m_objMapURL = obj.map;
+			}
 			localStorage.setItem("CurrentRun_id", id);
 			localStorage.setItem("CurrentRun_Duration", obj.duration);
 			localStorage.setItem("CurrentRun_Distance", obj.distance);		
-			localStorage.setItem("CurrentRun_Map", obj.map);
+			localStorage.setItem("CurrentRun_Map", m_objMapURL);
 			localStorage.setItem("CurrentRun_Date", obj.rundate);
 			localStorage.setItem("CurrentRun_Calories", obj.calories);
 			location.hash = "#runMap";
@@ -2903,11 +2911,8 @@ function StopRun(error_str)
 			window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 			var strNewMap = "RunMap_" + current_id;		
 			window.localStorage.setItem(strNewMap, mMapURL);				
-			//var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ strNewMap + '","calories":"' + TotalCalories + '","sync":"no"}';
-			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
-			
-			
-			
+			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ strNewMap + '","calories":"' + TotalCalories + '","sync":"no"}';
+			//var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
 			
 			var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
 			if(objStorage == "" || objStorage == null)
@@ -3406,6 +3411,7 @@ function someFunction(a, b, callback) {
 
 function UploadToServer(obj, callback)
 {
+   
 	if(obj.sync == "no")
 	{
 		try
@@ -3511,7 +3517,14 @@ function SyncToServer()
 		});
 		
 	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
-	var result = window.localStorage.getItem("aktif_runHistory_Individual")
+	var result = window.localStorage.getItem("aktif_runHistory_Individual");
+	try 
+	{
+		JSON.parse(result);
+	} catch (e) {
+		result = "";
+		window.localStorage.setItem("aktif_runHistory_Individual", "");
+	}
 	//alert(result);
 	if(result == "" || result == null)
 	{
@@ -3525,6 +3538,8 @@ function SyncToServer()
 	else
 	{
 		try{
+			
+   
 			var objGroup = JSON.parse(result);
 			//alert(objGroup.length);
 			asyncLoop(objGroup.length, function(loop) {

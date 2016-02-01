@@ -3522,6 +3522,7 @@ function SyncToServer()
 	{
 		JSON.parse(result);
 	} catch (e) {
+		alert("Issue on JSON, need to clear localStorage");
 		result = "";
 		window.localStorage.setItem("aktif_runHistory_Individual", "");
 	}
@@ -3610,6 +3611,9 @@ function getMapURL()
 	
 	//loop and append
 	var mapURL = "http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" + encoded;//localStorage.getItem("CurrentRun");
+	
+	
+	//=============== check if invalid character ====================
 	
 	return mapURL;
 }

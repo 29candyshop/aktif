@@ -3459,7 +3459,7 @@ function UploadToServer(obj, callback)
 						objStorage = objStorage.replace("]", "");
 						window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", objStorage + "," +  strObj);
 					}
-					window.localStorage.setItem(strNewMap, "");
+					//window.localStorage.setItem(strNewMap, "");
 				}
 				else
 				{

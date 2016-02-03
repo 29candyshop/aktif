@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "100011" 
-	version 	= "1.01.15">
+	version 	= "1.01.16">
 
 	<name>AktifPenang</name>
 

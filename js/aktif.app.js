@@ -3522,7 +3522,7 @@ function SyncToServer()
 	{
 		JSON.parse(result);
 	} catch (e) {
-		alert("Issue on JSON, need to clear localStorage");
+		//alert("Issue on JSON, need to clear localStorage");
 		result = "";
 		window.localStorage.setItem("aktif_runHistory_Individual", "");
 	}

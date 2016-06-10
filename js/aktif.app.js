@@ -24,6 +24,8 @@ var mActivityType = "RUNNING";
 	var nextToken = 0;
 	var TotalRunCount = 0;
 	
+	var EventNextToken = 0;
+	
 	var nextToken_GroupMember = 0;
 	var Total_GroupMemberCount = 0;
 	
@@ -87,7 +89,7 @@ var mActivityType = "RUNNING";
 
 //document ready
 $(document).ready(function(){
-	//localStorage.setItem("run_fresh", "true");
+	//localStorage.setItem("run_fresh_v2", "true");
 	location.hash = "#splashscreen";
 	mHeight = $(window).height(); 
 	mWidth = $(window).width(); 
@@ -236,7 +238,7 @@ function onDeviceReady() {
 	if(AccessToken == null)
 	{	
 		window.localStorage.clear();
-		localStorage.setItem("run_fresh", "true");
+		localStorage.setItem("run_fresh_v2", "true");
 		location.hash = "#LoginPage";
 		
 	}
@@ -245,12 +247,47 @@ function onDeviceReady() {
 		if(AccessToken == "")
 		{
 			window.localStorage.clear();
-			localStorage.setItem("run_fresh", "true");
+			localStorage.setItem("run_fresh_v2", "true");
 			location.hash = "#LoginPage";
 		}
 		else
 		{
 			location.hash = "#indexPage";
+			var vTotalRunCount = window.localStorage.getItem("aktif_TotalRunHistory");	
+			if(vTotalRunCount == null)
+			{
+				TotalRunCount = 0;
+			}
+			else
+			{
+				if(vTotalRunCount != "")
+				{
+					TotalRunCount = parseInt(vTotalRunCount);
+				}
+				else
+				{
+					TotalRunCount = 0;
+				}
+			}
+			
+			var vNextToken = window.localStorage.getItem("aktif_NextTokenRunHistory");	
+			if(vNextToken == null)
+			{
+				nextToken = 0;
+			}
+			else
+			{
+				if(vNextToken != "")
+				{
+					nextToken = parseInt(vNextToken);
+				}
+				else
+				{
+					nextToken = 0;
+				}
+			}
+			
+			
 			async(function() {
 				SyncToServer();
 				UserSummary();
@@ -334,18 +371,34 @@ function onResume(){
 		var AccessToken = window.localStorage.getItem('AccessTokenV2');
 		if(AccessToken == null)
 		{
-			localStorage.setItem("run_fresh", "true");
+			localStorage.setItem("run_fresh_v2", "true");
 			//location.hash = "#LoginPage";
 			
 		}
 		else
 		if(AccessToken == "")
 		{
-			localStorage.setItem("run_fresh", "true");
+			localStorage.setItem("run_fresh_v2", "true");
 			//location.hash = "#LoginPage";
 		}
 		else
 		{
+			var vTotalRunCount = window.localStorage.getItem("aktif_TotalRunHistory");	
+			if(vTotalRunCount == null)
+			{
+				TotalRunCount = 0;
+			}
+			else
+			{
+				if(vTotalRunCount != "")
+				{
+					TotalRunCount = parseInt(vTotalRunCount);
+				}
+				else
+				{
+					TotalRunCount = 0;
+				}
+			}
 			async(function() {
 				SyncToServer();
 				//UserSummary();
@@ -364,6 +417,20 @@ function async(your_function, callback) {
 }
 
 //evtStopRun
+
+
+$(document).on('click', '#imgRunner', function (event, data) {
+	var intUnSycnCount = 0;
+	 for(var key in window.localStorage){
+		var n = key.indexOf("aktif_MyRunHistory_NoSync_");
+		if(n == 0)
+		{
+			intUnSycnCount++;
+		}
+    };
+	alert("Unsync: " + intUnSycnCount);
+});
+
 $(document).on('click', '.evtStopRun', function (event, data) {
 	StopRun("");
 });
@@ -495,14 +562,17 @@ $(document).on('click', '.evtRegister', function (event, data) {
 
 $(document).on('click', '.evtHistory', function (event, data) {
 	var a = this;
+	//alert("evtHistory Clicked");
 	var id = a.id.replace("Historyinfo-", "");
 	//var result = window.localStorage.getItem("aktif_runHistory");
-	var result = window.localStorage.getItem("aktif_runHistory_Individual")
-	var objGroup = JSON.parse(result);
-	for(var i = 0; i < objGroup.length; i++) {
-		var obj = objGroup[i];
-		if(obj.activityid == id)
+	//var result = window.localStorage.getItem("aktif_runHistory_Individual")
+	var HistoryRun = window.localStorage.getItem("aktif_MyRunHistory_" + id);
+	if(HistoryRun != null)
+	{
+		if(HistoryRun != "")
 		{
+			var obj = JSON.parse(HistoryRun);
+
 			if(obj.map.indexOf("RunMap_") > 0)
 			{
 				//get from local storage
@@ -519,7 +589,7 @@ $(document).on('click', '.evtHistory', function (event, data) {
 			localStorage.setItem("CurrentRun_Date", obj.rundate);
 			localStorage.setItem("CurrentRun_Calories", obj.calories);
 			location.hash = "#runMap";
-			break;
+			
 		}
 	}
 	/*for(var i = 0; i < objGroup.runs.length; i++) {
@@ -784,6 +854,10 @@ $(document).on("scrollstop", function (e) {
     }
 	else  if (activePage[0].id == "individualGroupPage" && scrolled >= scrollEnd) {
 		 addMoreGroupMember(activePage);
+	}
+	else if (activePage[0].id == "eventsPage" && scrolled >= scrollEnd)
+	{
+		LoadMoreEvents();
 	}
 	
 });
@@ -1185,7 +1259,7 @@ function LoginEmail()
 				window.localStorage.setItem("AccessTokenV2", obj.token);
 				window.localStorage.setItem("LoginType", "email");
 				window.localStorage.setItem("UserID", name);
-				localStorage.setItem("run_fresh", "true");
+				localStorage.setItem("run_fresh_v2", "true");
 				//var url = "main1.html";
 				//var win = window.open(url, '_self');
 				location.hash = "#indexPage";
@@ -1225,7 +1299,7 @@ function LoginFacebook()
 										window.localStorage.setItem("AccessTokenV2", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
-										window.localStorage.setItem("run_fresh", "true");
+										window.localStorage.setItem("run_fresh_v2", "true");
 										var mUserID = response.authResponse.userID;
 										
 										facebookConnectPlugin.api( "/me", null,
@@ -1592,10 +1666,8 @@ function LeaderBoard()
 
 function Events()
 {
-	//var toAdd = document.getElementById('groupsPage');
-	//var left = window.innerWidth/2 - 20;
-	//opts.left = left + 'px';
-	//spinner = new Spinner(opts).spin(toAdd);	
+	EventNextToken = 0;
+
 		$.mobile.loading("show", {
 			text: "Please Wait..",
 			textVisible: true,
@@ -1610,31 +1682,27 @@ function Events()
 				$.mobile.loading("hide");
 				//spinner.stop();
 				var obj = JSON.parse(result);
-				
-					/*$event = array(
-						'id' => $id,
-						'eventname' => $eventname,
-						'eventdate' => $eventdate,
-						'eventdescription' => $eventdescription,
-						'eventtype' => $eventtype,
-						'eventcreator' => $eventcreator,
-						'eventlocation' => $eventlocation,
-						'eventcoordinate' => $eventcoordinate,
-						'eventurl' => $eventurl,
-					);,*/
-							
-							
-				window.localStorage.setItem("aktif_events", result);
+						
+				//window.localStorage.setItem("aktif_events", result);
 				objEvent = obj;
 				var panelMain = $('#EventMain' + '');
 				panelMain.empty();
+				
+				EventNextToken = EventNextToken + objEvent.event.length;
+				
 				for(var i = 0; i < objEvent.event.length; i++) {
 					var obj = objEvent.event[i];
 					var distance = obj.totaldistance;
 					distance = distance / 1000.0;
 					distance = Math.round(distance * 100) / 100;
-					var html = '<div id="eventinfo-'+ obj.id + '" class="evtEvent" style="float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'images/icons/event.png\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"></div>'+
-								'<div style="float:left;width:70%;margin-left:5px;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + obj.eventdescription + '</span></br><span id="" style="font-size:14px;color:#888;">Location: ' + obj.eventlocation + '</span></div>';
+					var excerpt = obj.eventdescription.substr(0, 100) + "...";
+					var arrDate = obj.eventdate.split("-");;
+					var vDay = arrDate[0];
+					var vMonth = parseInt(arrDate[1]) - 1;
+					
+					
+					var html = '<div id="eventinfo-'+ obj.id + '" class="evtEvent" style="position:relative;float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'images/icons/event.png\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"><p style="background-color:#fff;position:absolute;height: 30px;width: 40px;top: 8px;left: 20px;font-weight: bold;text-align: center;background-color: white;line-height: 1;">' + vDay + ' ' + monthNames[vMonth] + '</p></div>'+
+								'<div style="float:left;width:70%;margin-left:5px;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + excerpt + '</span></br><span id="" style="font-size:14px;color:#444;">Location: ' + obj.eventlocation + '</span></div>';
 								
 					
 					html = html + '</div>';
@@ -1653,6 +1721,63 @@ function Events()
 				//alert(obj.token);
 			});
 
+}
+
+function LoadMoreEvents()
+{
+	$.mobile.loading("show", {
+			text: "Please Wait..",
+			textVisible: true,
+			theme: "b"
+		});		
+		 var mToken = window.localStorage.getItem("AccessTokenV2");
+		 $.get("http://www.aktifpenang.com/api/_api_event_get.php", 
+			{
+				token: mToken,
+				nexttoken: EventNextToken
+			}, 
+			function(result){
+				$.mobile.loading("hide");
+				//spinner.stop();
+				var obj = JSON.parse(result);
+						
+				//window.localStorage.setItem("aktif_events", result);
+				objEvent = obj;
+				var panelMain = $('#EventMain' + '');
+				//panelMain.empty();
+				
+				EventNextToken = EventNextToken + objEvent.event.length;
+				
+				for(var i = 0; i < objEvent.event.length; i++) {
+					var obj = objEvent.event[i];
+					var distance = obj.totaldistance;
+					distance = distance / 1000.0;
+					distance = Math.round(distance * 100) / 100;
+					var excerpt = obj.eventdescription.substr(0, 100) + "...";
+					var arrDate = obj.eventdate.split("-");;
+					var vDay = arrDate[0];
+					var vMonth = parseInt(arrDate[1]) - 1;
+					
+					
+					var html = '<div id="eventinfo-'+ obj.id + '" class="evtEvent" style="position:relative;float:left;width:100%;margin-top:10px;"><div style="display:block;margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(\'images/icons/event.png\');border-radius: 30px;width: 60px;height: 60px;float:left;background-size:contain;"><p style="background-color:#fff;position:absolute;height: 30px;width: 40px;top: 8px;left: 20px;font-weight: bold;text-align: center;background-color: white;line-height: 1;">' + vDay + ' ' + monthNames[vMonth] + '</p></div>'+
+								'<div style="float:left;width:70%;margin-left:5px;"><span id="" style="font-size:' + fontSize_ListName + 'px;">' + obj.eventname + '</span></br><span id="" style="font-size:14px;color:#555;">Date: ' + obj.eventdate + '</span></br><span id="" style="font-size:14px;color:#888;">' + excerpt + '</span></br><span id="" style="font-size:14px;color:#444;">Location: ' + obj.eventlocation + '</span></div>';
+								
+					
+					html = html + '</div>';
+					
+					
+					panelMain.append(html);
+					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
+					console.log(obj.name);
+					console.log(obj.tagline);
+					console.log(obj.membercount);
+					
+					console.log(distance + "km");
+					console.log(obj.isGroup);
+				}
+				localStorage.setItem("event_fresh", "false");
+				//alert(obj.token);
+			});
 }
 
 function Sponsors()
@@ -1803,12 +1928,71 @@ function showHistoryHeader() {
 	panelMain.append(htmlSummary);
 }
 
+var makeSortedList = function() {
+    var myList, callbackFunc;
+    myList = [];
+    for(var key in window.localStorage){
+      var myObj, value;
+      value = localStorage.getItem(key);
+	  var n = key.indexOf("aktif_MyRunHistory_");
+	if(n == 0)
+	{
+		  myObj = JSON.parse(value);
+		  myObj.key = key;
+		  myList.push(myObj);
+	  }
+    };
+    callbackFunc = function(a, b) {
+		var intIDa = parseInt(a.activityid);
+		var intIDb = parseInt(b.activityid);
+      if (intIDa === intIDb) {
+        if (intIDa === intIDb) return 0;
+        return (intIDa > intIDb ? -1 : 1);
+      }
+      if (intIDa > intIDb) {
+        return -1;
+      } else {
+        return 1;
+      }
+    };
+    return myList.sort(callbackFunc);
+  };
+  
+function ClearAllRuns()
+{
+	for(var key in window.localStorage){
+		var value;
+		value = localStorage.getItem(key);
+		var n = key.indexOf("aktif_MyRunHistory_NoSync_");
+		var o = key.indexOf("aktif_MyRunHistory_");
+		if(n == 0)
+		{
+			localStorage.removeItem(key);
+		}
+		else if(o == 0)
+		{
+			localStorage.removeItem(key);
+		}
+		
+    };	
+}
+  
 function Runs(mRunid)
 {
-	var RefreshRun = localStorage.getItem("run_fresh");
+	var RefreshRun = localStorage.getItem("run_fresh_v2");
+	if(RefreshRun == null)
+	{
+		mRetrieveRun = true;
+		
+		SyncToServer();
+		
+		localStorage.setItem("run_fresh_v2", "false");
+		return;
+	}
 	if(RefreshRun == "true" || RefreshRun == "")
 	{
 		mRetrieveRun = true;
+		ClearAllRuns();
 		SyncToServer();
 		
 	}
@@ -1816,10 +2000,12 @@ function Runs(mRunid)
 	{
 		try
 		{
-			
+			/*
 			var panelMain = $('#HistoryMain' + '');
 			panelMain.empty();
 			var result = window.localStorage.getItem("aktif_runHistory_Individual");
+			var l = (window.localStorage.length);
+			//alert(var_dump(result));
 			showHistoryHeader();
 			if(result != "" && result != null)
 			{
@@ -1829,14 +2015,40 @@ function Runs(mRunid)
 					var obj = objGroup[i];
 					LoadRun(obj, false);
 				}
+			}*/
+			
+			var panelMain = $('#HistoryMain' + '');
+			panelMain.empty();
+			
+			var arrList = makeSortedList();
+			//var result = window.localStorage.getItem("aktif_runHistory_Individual");
+			showHistoryHeader();
+			for(var item in arrList){
+				var val = arrList[item];
+				LoadRun(val, false);
 			}
+			
+			/*for(var i in window.localStorage){
+				var n = i.indexOf("aktif_MyRunHistory_");
+				if(n == 0)
+				{
+					val = localStorage.getItem(i);
+					var obj = JSON.parse(val);
+					LoadRun(obj, false);
+				}			   
+			  // value = val.split(","); //splitting string inside array to get name
+			  // name[i] = value[1]; // getting name from split string
+			}*/
+			var l = (window.localStorage.length);
+			//alert(var_dump(result));
+			
 		}
 		catch(err)
 		{
-			localStorage.setItem("run_fresh", "true")
+			localStorage.setItem("run_fresh_v2", "true")
 		}
 	}
-	localStorage.setItem("run_fresh", "false");
+	localStorage.setItem("run_fresh_v2", "false");
 }
 
 function addFirstRun()
@@ -1865,6 +2077,7 @@ function addFirstRun()
 		//spinner.stop();
 		nextToken = obj.nexttoken;
 		TotalRunCount = obj.total;
+		
 			/*'activityid' => $id,
 				'distance' => $distance,
 				'activity_type' => $activity_type,
@@ -1877,12 +2090,15 @@ function addFirstRun()
 				'map' => $_map,
 				*/
 					
-					
-		window.localStorage.setItem("aktif_runHistory", result);
+		window.localStorage.setItem("aktif_TotalRunHistory", TotalRunCount);	
+		window.localStorage.setItem("aktif_NextTokenRunHistory", nextToken);
+
+		
+		//window.localStorage.setItem("aktif_runHistory", result);
 		objGroup = obj;
 		var panelMain = $('#HistoryMain' + '');
 		panelMain.empty();
-		window.localStorage.setItem("aktif_runHistory_Individual", "");
+		//window.localStorage.setItem("aktif_runHistory_Individual", "");
 		
 		showHistoryHeader();
 		if(TotalRunCount > 0)
@@ -1971,8 +2187,8 @@ function addFirstRun()
 			//console.log(distance + "km");
 			//console.log(obj.isGroup);*/
 		}
-		var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-		window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+		//var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+		//window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
 		}
 		//alert(obj.token);
 	});
@@ -1998,6 +2214,9 @@ function addMoreRun(page) {
 				var obj = JSON.parse(result);
 				nextToken = obj.nexttoken;
 				TotalRunCount = obj.total;
+				
+				window.localStorage.setItem("aktif_TotalRunHistory", TotalRunCount);	
+				window.localStorage.setItem("aktif_NextTokenRunHistory", nextToken);
 				//spinner.stop();
 					/*'activityid' => $id,
 						'distance' => $distance,
@@ -2012,30 +2231,19 @@ function addMoreRun(page) {
 						*/
 							
 							
-				window.localStorage.setItem("aktif_runHistory", result);
+				//window.localStorage.setItem("aktif_runHistory", result);
 				objGroup = obj;
 				var panelMain = $('#HistoryMain' + '');
 				//panelMain.empty();
 				for(var i = 0; i < objGroup.runs.length; i++) {
 					var obj = objGroup.runs[i];
 					
-					
-					
-					var strObj = JSON.stringify(obj);
-					strObj = strObj.replace("}","");
-					strObj = strObj + ',"sync":"yes"}';
-					var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
-					if(objStorage == ""  || objStorage == null)
-					{
-						window.localStorage.setItem("aktif_runHistory_Individual", "[" + strObj);	
-					}
-					else
-					{
-						objStorage = objStorage.replace("]", "");
-						window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
-					}
-					
-					
+					LoadRun(obj, true);
+					/*
+					var current_id = obj.activityid;
+					var strObjMyRun = JSON.stringify(obj);
+					window.localStorage.setItem("aktif_MyRunHistory_" + current_id, strObjMyRun);	
+
 					
 					var mdistance = parseFloat(obj.distance);
 					var munit = "meter";
@@ -2056,15 +2264,9 @@ function addMoreRun(page) {
 						image = "cycling.png";
 					}
 					
-					//var strDate = new Date(obj.rundate.replace(' ', 'T'));
 					var strDate = new Date(obj.rundate.replace(/-/g, '/'));
 					
-					//if(strDate == "Invalid Date")
-					//{
-					//	strDate = new Date(obj.rundate);
-					//}
-	
-					//var strDate = new Date(obj.rundate);
+					
 					var dd = strDate.getDate();
 					var mm = strDate.getMonth(); //January is 0! 
 					var yyyy = strDate.getFullYear(); 
@@ -2096,8 +2298,6 @@ function addMoreRun(page) {
 					if(min < 10) min = '0' + min;
 					
 					
-					//var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
-					//'<div style="float:left;width:60%;"><span id="">' + mdistance + munit + '</span></br><span id="" style="font-size:14px;color:#888;">Duration: ' + obj.duration + '</span></br><span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div>';
 					var html = '<div id="Historyinfo-' + obj.activityid + '" class="evtHistory" style="float:left;width:100%;margin-top:10px;"><div style="margin-left:10px;margin-bottom:10px;margin-right:10px;background-image:url(images/icons/' + image + ');border-radius: 20px;width: 40px;height: 40px;float:left;background-size:contain;"></div>'+
 					'<div style="float:left;width:60%;">' + 
 					'<div style="position:relative;">' + 
@@ -2110,11 +2310,11 @@ function addMoreRun(page) {
 					'<span id="" style="font-size:14px;color:#888;">' + dd + ' ' + monthNames[mm] + ' ' + yyyy + ' '+ hh + ':' + min + ampm + '</span></div></div></div>';
 					panelMain.append(html);
 					panelMain.append('<div style="float:left;width:90%;height:1px;margin-left:5%;background-color:#aaa;"></div>');
-					
+					*/
 					
 				}
-				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+				//var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual");
+				//window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
 				
 				//alert(obj.token);
 			});
@@ -2126,13 +2326,19 @@ var CurrentLoadingMonth = 0;
 function LoadRun(obj, saveStorage)
 {
 	var panelMain = $('#HistoryMain' + '');
-	var current_id = obj.activityid;
+	
 	if(saveStorage == true)
 	{
+		var current_id = obj.activityid;
+		var strObjMyRun = JSON.stringify(obj);
+		window.localStorage.setItem("aktif_MyRunHistory_" + current_id, strObjMyRun);	
+
+	
+	
 		var int_current_id = parseInt(current_id)  + 1;
 		window.localStorage.setItem("aktif_nextt_activity_id", int_current_id);	
 		
-		var strObj = JSON.stringify(obj);
+		/*var strObj = JSON.stringify(obj);
 		strObj = strObj.replace("}","");
 		strObj = strObj + ',"sync":"yes"}';
 		var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
@@ -2144,7 +2350,7 @@ function LoadRun(obj, saveStorage)
 		{
 			objStorage = objStorage.replace("]", "");
 			window.localStorage.setItem("aktif_runHistory_Individual", objStorage + "," +  strObj);
-		}
+		}*/
 	}
 	
 	var mdistance = parseFloat(obj.distance);
@@ -2855,6 +3061,7 @@ function StopRun(error_str)
 	localStorage.setItem("CurrentRun_Duration", mDuration);
 	
 	//store distance
+	TotalDistance = Math.floor((Math.random() * 100) + 1);
 	localStorage.setItem("CurrentRun_Distance", TotalDistance);
 	
 	//store colaries 
@@ -2891,8 +3098,13 @@ function StopRun(error_str)
 	
 	if(error_str == "")
 	{
-		if(TotalDistance > 0.0)
+		if(TotalDistance >= 0.0)
 		{
+			//generate random
+			//var random_id = Math.floor((Math.random() * 10000) + 1);
+			
+			
+			
 			//encode path 
 			
 			var mActivity = localStorage.getItem("CurrentRun_Activity");
@@ -2914,7 +3126,10 @@ function StopRun(error_str)
 			var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ strNewMap + '","calories":"' + TotalCalories + '","sync":"no"}';
 			//var strNewRun = '{"activityid":"' + current_id + '","distance":"' + TotalDistance + '","activity_type":"' + mActivity + '","duration":"' + mDuration + '","avepace":"","workout_type":"Free Run","eventid":"","rundate":"' + runDate + '","checkin_type":"live","map":"'+ mMapURL + '","calories":"' + TotalCalories + '","sync":"no"}';
 			
-			var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
+			window.localStorage.setItem("aktif_MyRunHistory_NoSync_" + current_id, strNewRun);	
+			
+			
+			/*var objStorage =  window.localStorage.getItem("aktif_runHistory_Individual");
 			if(objStorage == "" || objStorage == null)
 			{
 				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "]");	
@@ -2923,10 +3138,10 @@ function StopRun(error_str)
 			{
 				objStorage = objStorage.replace("[", "");
 				window.localStorage.setItem("aktif_runHistory_Individual", "[" + strNewRun + "," + objStorage);
-			}
+			}*/
 			
 			async(function() {
-				SynctoDB(current_id);	
+				//SynctoDB(current_id);	
 			}, null);
 
 			
@@ -3335,9 +3550,32 @@ function SynctoDB(current_runid)
 			//alert(objResult.status);
 			if(objResult.status == true)
 			{
+				//
+				var RunID = objResult.activityid;
+				
+				for(var i in window.localStorage){
+					var n = i.indexOf("aktif_MyRunHistory_NoSync_" + current_runid);
+					if(n == 0)
+					{
+					   val = localStorage.getItem(i);
+					   var objNewRun = JSON.parse(val);
+					   objNewRun.activityid = RunID;
+					   
+					   var strVal = JSON.stringify(objNewRun);
+					   //store to actual key
+					   window.localStorage.setItem("aktif_MyRunHistory_" + RunID, strVal);
+					   
+					   //delete this key
+					   localStorage.removeItem(i);
+						
+					}			   
+				  // value = val.split(","); //splitting string inside array to get name
+				  // name[i] = value[1]; // getting name from split string
+				}
+			
 				//alert("error");
 				//insert to run history json and store to localStorage
-				window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
+				/*window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 				var result = window.localStorage.getItem("aktif_runHistory_Individual")
 				var objGroup = JSON.parse(result);
 				for(var i = 0; i < objGroup.length; i++) {
@@ -3361,7 +3599,7 @@ function SynctoDB(current_runid)
 					}
 				}
 				var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+				window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");*/
 			}
 		});
 	}
@@ -3408,7 +3646,7 @@ function someFunction(a, b, callback) {
     callback();
 }
 
-
+/*
 function UploadToServer(obj, callback)
 {
    
@@ -3501,6 +3739,56 @@ function UploadToServer(obj, callback)
 		//throw 500;
 		callback();
 	}
+}*/
+
+function UploadRunToServer(obj, callback)
+{
+
+	var activity_id = obj.activityid;
+	var strNewMap = "RunMap_" + activity_id;
+	var mMapURL = window.localStorage.getItem(strNewMap);
+
+	var EncodedMap = mMapURL.replace("http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=enc:" ,"");
+	
+	var mToken = window.localStorage.getItem("AccessTokenV2");
+	$.post("http://www.aktifpenang.com/api/_api_usercheckin.php", 
+	{
+		token: mToken,
+		distance: obj.distance, 
+		activity_type:obj.activity_type,
+		route:EncodedMap,
+		duration: obj.duration,
+		avepace:'',
+		workout_type:'Free Run',
+		eventid:'',
+		rundate:obj.rundate,
+		checkin_type:'live',
+		calories: obj.calories
+		
+	}, function(result){
+		var objResult = JSON.parse(result);
+		//window.localStorage.getItem('AccessTokenV2')
+		//alert(objResult.status);
+		if(objResult.status == true)
+		{
+			var RunID = objResult.activityid;
+			
+			
+			obj.activityid = RunID;
+			   
+			var strVal = JSON.stringify(obj);
+			   //store to actual key
+			window.localStorage.setItem("aktif_MyRunHistory_" + RunID, strVal);
+			//window.localStorage.setItem("aktif_MyRunHistory_" + activity_id, val);
+	   
+			//delete this key
+			localStorage.removeItem("aktif_MyRunHistory_NoSync_" + activity_id);
+			callback();
+		}
+
+	});
+
+	
 }
 
 function SyncToServer()
@@ -3515,7 +3803,55 @@ function SyncToServer()
 			textVisible: true,
 			theme: "b"
 		});
-		
+	var arrUnsyncObj;
+	arrUnsyncObj = [];
+	var intUnSycnCount = 0;
+	for(var i in window.localStorage){
+		var n = i.indexOf("aktif_MyRunHistory_NoSync_");
+		if(n == 0)
+		{
+			arrUnsyncObj.push(window.localStorage.getItem(i));
+		   intUnSycnCount++;
+			
+		}			   
+	  // value = val.split(","); //splitting string inside array to get name
+	  // name[i] = value[1]; // getting name from split string
+	}
+	asyncLoop(intUnSycnCount, function(loop) {
+		var strObj = arrUnsyncObj[loop.iteration()];
+		var obj = JSON.parse(strObj);
+		UploadRunToServer(obj, function(result) {
+		//UploadRunToServer(function(result) {
+			// log the iteration
+			//console.log(loop.iteration());
+			loop.next();
+			// Okay, for cycle could continue
+			/*for(var i in window.localStorage){
+				var n = i.indexOf("aktif_MyRunHistory_NoSync_");
+				if(n == 0)
+				{
+					
+					//break;
+				}			   
+			  // value = val.split(","); //splitting string inside array to get name
+			  // name[i] = value[1]; // getting name from split string
+			}*/
+			
+		})},
+		function(){
+			//var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+			//window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+			$.mobile.loading("hide");
+			console.log('cycle ended');
+			if(mRetrieveRun == true)
+			{
+				ClearAllRuns();
+				addFirstRun();
+			}
+			mRetrieveRun = false;
+		}
+	);
+	/*
 	window.localStorage.setItem("aktif_runHistory_Individual_BUFFER", "");
 	var result = window.localStorage.getItem("aktif_runHistory_Individual");
 	try 
@@ -3545,17 +3881,27 @@ function SyncToServer()
 			//alert(objGroup.length);
 			asyncLoop(objGroup.length, function(loop) {
 				var obj = objGroup[loop.iteration()];
-				UploadToServer(obj, function(result) {
-
+				//UploadToServer(obj, function(result) {
+				UploadRunToServer(function(result) {
 					// log the iteration
 					//console.log(loop.iteration());
 
 					// Okay, for cycle could continue
-					loop.next();
+					for(var i in window.localStorage){
+						var n = i.indexOf("aktif_MyRunHistory_NoSync_");
+						if(n == 0)
+						{
+							loop.next();
+							break;
+						}			   
+					  // value = val.split(","); //splitting string inside array to get name
+					  // name[i] = value[1]; // getting name from split string
+					}
+					
 				})},
 				function(){
-					var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
-					window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
+					//var objStorageFinal = "" + window.localStorage.getItem("aktif_runHistory_Individual_BUFFER");
+					//window.localStorage.setItem("aktif_runHistory_Individual", objStorageFinal + "]");
 					$.mobile.loading("hide");
 					console.log('cycle ended');
 					if(mRetrieveRun == true)
@@ -3583,7 +3929,7 @@ function SyncToServer()
 				alert('Error Syncing with server: ' + err);
 			}
 		}
-	}
+	}*/
 }
 
 function getPathEncoded()

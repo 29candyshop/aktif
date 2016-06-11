@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "100011" 
-	version 	= "1.01.19">
+	version 	= "1.01.20">
 
 	<name>AktifPenang</name>
 
@@ -119,7 +119,7 @@
 	<plugin name="com.phonegap.plugins.facebookconnect" source="pgb" spec="0.9.0" >
 		<param name="APP_ID" value="1575196586053265" />
 		<param name="APP_NAME" value="AktifPenang" />
-	</gap:plugin>
+	</plugin>
 	<plugin name="nl.x-services.plugins.socialsharing" source="pgb" spec="4.3.8" />
 	<plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
 	<plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />

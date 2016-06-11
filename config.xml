@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "100011" 
-	version 	= "1.01.17">
+	version 	= "1.01.18">
 
 	<name>AktifPenang</name>
 
@@ -120,9 +120,9 @@
 	
 	
 	
-	<!--<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
+	<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
         <string>AktifPenang would use location to track your run. It only use location when user start run.</string>
-	</gap:config-file>-->
+	</gap:config-file>
 	<!--<gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"></gap:config-file> -->
 	<gap:config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" overwrite="true">
         <string>AktifPenang would use location to track your run. It only use location when user start run.</string>

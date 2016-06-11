@@ -3061,7 +3061,7 @@ function StopRun(error_str)
 	localStorage.setItem("CurrentRun_Duration", mDuration);
 	
 	//store distance
-	TotalDistance = Math.floor((Math.random() * 100) + 1);
+	//TotalDistance = Math.floor((Math.random() * 100) + 1);
 	localStorage.setItem("CurrentRun_Distance", TotalDistance);
 	
 	//store colaries 
@@ -3098,7 +3098,7 @@ function StopRun(error_str)
 	
 	if(error_str == "")
 	{
-		if(TotalDistance >= 0.0)
+		if(TotalDistance > 0.0)
 		{
 			//generate random
 			//var random_id = Math.floor((Math.random() * 10000) + 1);

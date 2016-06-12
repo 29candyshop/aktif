@@ -5,7 +5,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		= "com.aktifpenang.app"
 	versionCode = "100011" 
-	version 	= "1.01.22">
+	version 	= "1.01.23">
 
 	<name>AktifPenang</name>
 
@@ -124,10 +124,10 @@
 	<plugin name="cordova-plugin-camera" source="npm"  />
 	<plugin name="cordova-plugin-device" source="npm"  />
 	<plugin name="cordova-plugin-dialogs" source="npm"  />
-	<plugin name="cordova-plugin-geolocation"    source="npm" spec="1.0.1" />	
+	<plugin name="cordova-plugin-geolocation"    source="npm" spec="2.2.0" />	
+	<plugin name="cordova-plugin-geolocation-ios9-fix"    source="npm" />	
     <plugin name="cordova-plugin-network-information" source="npm" spec="1.0.1" />
     <plugin name="cordova-plugin-splashscreen"   source="npm" spec="2.1.0" />
-    <plugin name="cordova-plugin-statusbar"      source="npm" spec="1.0.0" />
 
 
 	

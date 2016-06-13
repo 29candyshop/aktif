@@ -3141,7 +3141,7 @@ function StopRun(error_str)
 			}*/
 			
 			async(function() {
-				//SynctoDB(current_id);	
+				SynctoDB(current_id);	
 			}, null);
 
 			

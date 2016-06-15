@@ -1378,7 +1378,12 @@ function LoginFacebook()
 
 function UserSummary()
 {
-	alert("UserSummary");
+	//alert("UserSummary");
+	var NetworkState = checkConnection();
+	if( NetworkState == "None" || NetworkState == "Unknown")
+	{
+		return;
+	}
 	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 if(mToken != null)
 	 {

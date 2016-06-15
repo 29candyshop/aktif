@@ -401,7 +401,7 @@ function onResume(){
 			}
 			async(function() {
 				SyncToServer();
-				//UserSummary();
+				UserSummary();
 			}, null);
 			
 		
@@ -1378,6 +1378,7 @@ function LoginFacebook()
 
 function UserSummary()
 {
+	alert("UserSummary");
 	 var mToken = window.localStorage.getItem("AccessTokenV2");
 	 if(mToken != null)
 	 {

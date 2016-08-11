@@ -120,8 +120,7 @@
 			</div>
 			
 			<!--<input id="slideUnlock" type="range" class="slideToUnlock" value="0" max="100" style="margin:5%;position:fixed;bottom:0px;width:90%;">-->
-		</div>
-		
+		</div>		
 		<div id="indexPage" data-role="page" data-theme="a" style="margin-top:30px;width: 100%; background-color: #F2F2F2;"><!-- id to tie the page event to this specific page -->
 			<div style="z-index:3001;position:fixed;top:0px;height:30px;width:100%;background-color:#f9f9f9;"></div>
 			<!-- left panel  -->
@@ -590,7 +589,7 @@
 			
 			<div role="main" class="ui-content" data-theme="a">				
 				<div class="" style="width: 100%; height: 400px;background-color: #f9f9f9;float:left;margin: 0 auto 0;position: relative;">
-					<div style="margin:10px;overflow: auto;height:370px;">
+					<div style="margin:10px;overflow: auto;height:400px;">
 						<div class="ui-grid-b ui-responsive">
 							<div class="ui-block-a" style="width: 50%; float: left;">
 								<div style="border-radius:50px;position: absolute;margin: 20px 30px 20px;background-size: cover;width: 85px;height:85px;background-image: url(./images/icons/login.png);">                                             
@@ -598,6 +597,8 @@
 							</div>
 														
 							<div class="ui-block-b" style="width: 50%; float: left;">
+								<span id="" style="width:100%;float:left;font-size:16px;color:#555;margin: 10px 10px 0px;">Membership id:</span>
+								<span id="userprofie_memberid" style="width:100%;float:left;font-size:18px;color:#222;margin: 0px 10px 0px;">-</span>
 								<span id="userprofie_displayname" style="width:100%;float:left;font-size:20px;color:#222;margin: 10px 10px 10px;">-</span>
 								<span id="userprofie_weight" style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Weight: -</span>
 								<span id="userprofie_height"  style="width:100%;float:left;font-size:14px;color:#222;margin-left:10px;">Height: - </span>
@@ -668,7 +669,7 @@
 					</div>
 					<div style="width:100%;float;left;margin-top:10px;">
 						<!--<span style="width:100%;float:left;text-align:center;">Targeting 10,000 Penangnites running 1,000,000km</span>-->
-						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#bbb;margin-bottom:20px;">App Version: 1.01.28</span>
+						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#bbb;margin-bottom:20px;">App Version: 1.01.29</span>
 						<span style="width:100%;float:left;margin-top:10px;text-align:center;color:#FFF;margin-bottom:20px;font-size:2em;font-weight:bold;">A healthier Life builds a Better society</span>
 						
 						<span style="font-weight:bold;width:80%;margin-left:10%;float:left;margin-top:10px;text-align:center;color:#fff;margin-bottom:30px;">
@@ -882,12 +883,16 @@
 					
 					<!-- Add text box to input email and pass-->            
 						<div style="width:100%;height: auto;margin-top:10px;margin-left:auto;margin-right:auto;position:relative;float: left;min-width: 100px;"> <!-- style-->
-							<div class="card" style="width:100%;height: 400px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
-								<div style="padding: 0 0.55rem 0.55rem; display: block;height: 420px;overflow: auto;margin-top: 10px;">                           
+							<div id="editProfileCard" class="card" style="width:100%;height: 400px;float:left;margin: 0 auto 0;position: relative;"> <!-- card-->                        
+								<div id="editProfileCardInner" style="padding: 0 0.55rem 0.55rem; display: block;height: 420px;overflow: auto;margin-top: 10px;">                           
 									<!--<img style="width: 75px;height: 75px;border-radius: 50px;position: relative;margin-left: 34%;margin-right: 34%;" src="./images/icons/login.png"/>      -->                        
 									
 									<form role="form" style="width: 96%;margin-top: 5px;margin-left: 2%;margin-right: 2%;float:left;"> <!-- form start -->
-										<div style="width:100%;">                                    
+										<div style="width:100%;">  
+											<div style="width:100%;height:30px;margin:0;float:left;">					
+													<span class="member_span_title" style="color:#777;font-weight:normal;">Member Id:</span>                                
+													<span id="member_span_value" class="member_span_value" >-</span>					
+											</div> <!-- end fname field-->
 											<div style="width:100%;height:50px;margin:0;float:left;">					
 													<span class="profile_span_title">First Name:</span>                                
 													<span class="profile_span_value" ><input type="text" id="fname" name="fname" data-clear-btn="true" placeholder=""/></span>					
@@ -903,6 +908,12 @@
 													<span class="profile_span_value" ><input type="text" id="displayname" name="displayname"  data-clear-btn="true" placeholder=""/></span>					
 							</div> <!-- end  display name field-->
 											
+											<div style="width:100%;height:auto;margin:0;float:left;">					
+													<span class="profile_span_title" style="word-wrap: break-word;margin-top: 5px !important">IC/Passport No:</span>                                
+													<span class="profile_span_value" ><input type="text" id="useric" name="useric"  data-clear-btn="true" placeholder=""/></span>					
+													<p style="font-size:14px;line-height:1;color:#666;">* Identity Card number is not mandatory, however, we uses it for identity authentication for any upcoming event, lucky draw, competition etc.</p>
+							</div> <!-- end  display name field-->
+							
 											 <div style="width:100%;height:50px;margin:0;float:left;">					
 													<span class="profile_span_title">Height (cm):</span>                                
 													<span class="profile_span_value" ><input type="number" min="0" id="height" name="height" data-clear-btn="true" placeholder=""/></span>					

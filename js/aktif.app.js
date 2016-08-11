@@ -208,6 +208,11 @@ $(document).ready(function(){
 	displayMainSummary(); 
 	
 	
+	//================= set others ================================
+	var totalDarkHeightInner = totalDarkHeight + 20;
+	$("#editProfileCard").css({'height': (totalDarkHeight + 50)});
+	$("#editProfileCardInner").css({'height':totalDarkHeightInner});
+	
 	//alert(h);
 	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	 setTimeout(function() {
@@ -2620,6 +2625,7 @@ function UserProfile()
 				'email' => $email,
 				'notification' => $notification,
 				'gender' => $gender,
+				
 */		
 			try
 			{
@@ -2633,6 +2639,9 @@ function UserProfile()
 				window.localStorage.setItem("userprofie_height", obj.userprofile[0].height);
 				window.localStorage.setItem("userprofie_weight", obj.userprofile[0].weight);
 				window.localStorage.setItem("userprofie_gender", obj.userprofile[0].gender);
+				window.localStorage.setItem("userprofie_useric", obj.userprofile[0].useric);
+				
+				window.localStorage.setItem("userprofie_member", obj.userprofile[0].memberid);
 				
 				//alert(obj.token);
 				displayUserProfile();
@@ -2683,14 +2692,17 @@ function displayUserProfile()
 	var height = window.localStorage.getItem("userprofie_height");
 	var weight = window.localStorage.getItem("userprofie_weight");
 	var gender = window.localStorage.getItem("userprofie_gender");
+	var ic = window.localStorage.getItem("userprofie_useric");
 
 	$("#userprofie_displayname").html("" + shortname + "" );
 	$("#userprofie_height").html("Height: " + height + " cm" + "" );
 	$("#userprofie_weight").html("Weight: " + weight + " kg" + "" );
 	$("#userprofie_gender").html("Gender: " + gender + " " + "" );
 	$("#userprofie_dob").html("DOB: " + dob + " " + "" );
-
+	//$("#useric.html
 	
+	var memberid = window.localStorage.getItem("userprofie_member");
+	$("#userprofie_memberid").html("" + memberid + " " + "" );
 }
 
 function openFB()
@@ -2725,6 +2737,9 @@ function pad(n) {
 
 function displayeditProfile()
 {
+	var memberid = window.localStorage.getItem("userprofie_member");
+	$("#member_span_value").html("" + memberid + " " + "" );
+	
 	var lastname = window.localStorage.getItem("userprofie_lastname");
 	var firstname = window.localStorage.getItem("userprofie_firstname");
 	var shortname = window.localStorage.getItem("userprofie_shortname");
@@ -2732,6 +2747,8 @@ function displayeditProfile()
 	var height = window.localStorage.getItem("userprofie_height");
 	var weight = window.localStorage.getItem("userprofie_weight");
 	var gender = window.localStorage.getItem("userprofie_gender");
+	var ic = window.localStorage.getItem("userprofie_useric");
+
 
 	var res = dob.split("-");
 	//var dt = new Date(res[2]+"-"+res[1]+"-"+res[0]);
@@ -2743,6 +2760,7 @@ function displayeditProfile()
 	$("#height").val("" + height + "" + "" );
 	$("#weight").val("" + weight + "" + "" );
 	$("#gender").val(gender);
+	$("#useric").val(ic);
 	//var element = document.getElementById('gender');
 	//element.value = gender;
 	var v;
@@ -2790,6 +2808,10 @@ function editProfile()
 	var element = document.getElementById('displayname');
 	var vdisplayname = element.value;
 	
+	var element = document.getElementById('useric');
+	var vuseric = element.value;
+
+	
 	var element = document.getElementById('height');
 	var vheight = element.value;
 	
@@ -2835,7 +2857,8 @@ function editProfile()
 		email:'',
 		notification:'',
 		gender:vgender,
-		userimage:''
+		userimage:'',
+		useric: vuseric
 		
 	}, function(result){
         //$("span").html(result);
@@ -2851,7 +2874,9 @@ function editProfile()
 			window.localStorage.setItem("userprofie_dob", dt_new);
 			window.localStorage.setItem("userprofie_height", vheight);
 			window.localStorage.setItem("userprofie_weight", vweight);
-			window.localStorage.setItem("userprofie_gender", vgender);
+			window.localStorage.setItem("userprofie_gender", vgender);	
+			window.localStorage.setItem("userprofie_useric", vuseric);
+				
 			pressBackButton();
 			//history.go(-1);
 			//window.localStorage.setItem("AccessTokenV2", obj.token);

@@ -228,14 +228,14 @@ function panelMenu(divId) {
 	var panel = $('#panelMenu' + divId + 'UL');
 	panel.children().remove('li');
 	//panel.append('<li data-icon="false" class="headerSpace"><p>&nbsp;</p></li>'); // empty space, needed for header
-	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#indexPage"><img src="./images/icons/icon_running.png" class="ui-li-icon largerIcon">New Activity</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#indexPage"><img src="./images/icons/icon_aktifpenang.png" class="ui-li-icon largerIcon">New Activity</a></li>');
 	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#leaderBoardPage"><img src="./images/icons/leaderboard.png" class="ui-li-icon largerIcon">Leader Board</a></li>');
 	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#historyPage"><img src="./images/icons/history.png" class="ui-li-icon largerIcon">My History</a></li>');
 	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#groupsPage"><img src="./images/icons/groups.png" class="ui-li-icon largerIcon">Groups</a></li>');
-	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#eventsPage"><img src="./images/icons/event.png" class="ui-li-icon largerIcon">Events</a></li>');
-	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#sponsorsPage"><img src="./images/icons/sponsor.png" class="ui-li-icon largerIcon">Sponsors Organizers</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#eventsPage"><img src="./images/icons/event_bw.png" class="ui-li-icon largerIcon">Events</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#sponsorsPage"><img src="./images/icons/sponsor.png" class="ui-li-icon largerIcon">Sponsors & Organizers</a></li>');
 	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#profilePage"><img src="./images/icons/login.png" class="ui-li-icon largerIcon">My Profile</a></li>');
-	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#aboutPage"><img src="./images/icons/ic_action_info.png" class="ui-li-icon largerIcon">About</a></li>');
+	panel.append('<li data-icon="false" ' + addon +'><a class="panelText" ' + addon2 +' href="#aboutPage"><img src="./images/icons/ic_action_info_bw.png" class="ui-li-icon largerIcon">About</a></li>');
 	panel.listview('refresh');
 	
 	displayUserSummary(divId);
@@ -416,7 +416,7 @@ function pressEffectHeader(share, action) {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_event_launcher.png");
 		}
 		else if (currentId === "Sponsors") {
-			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_event_launcher.png");
+			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_sponsor_launcher.png");
 		}
 		else if (currentId === "Profile") {
 			$("#headerTitle" + currentId).attr("src", "./images/icons/ic_profile_launcher.png");

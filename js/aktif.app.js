@@ -1301,7 +1301,7 @@ function LoginFacebook()
 										var t = response.authResponse.accessToken;
 										//alert("token:" + t);
 										//alert("user:" + response.authResponse.userID);
-										window.localStorage.setItem("AccessTokenV2", t);
+										//window.localStorage.setItem("AccessTokenV2", t);
 										window.localStorage.setItem("LoginType", "facebook");
 										window.localStorage.setItem("UserID", response.authResponse.userID);
 										window.localStorage.setItem("run_fresh_v2", "true");
@@ -1327,11 +1327,33 @@ function LoginFacebook()
 														token: t
 													}, 
 													function(result){
-														$.mobile.loading("hide");
-														//var url = "main1.html";
-														//var win = window.open(url, '_self');
-														location.hash = "#indexPage";
-														UserSummary();
+														var obj = JSON.parse(result);
+														if(obj.status == 'true')
+														{
+															window.localStorage.setItem("AccessTokenV2", obj.token);
+															
+															$.mobile.loading("hide");
+															//var url = "main1.html";
+															//var win = window.open(url, '_self');
+															location.hash = "#indexPage";
+															UserSummary();
+														}
+														else
+														{
+															if(navigator.notification)
+															{
+																navigator.notification.alert(
+																	'Error logging in',
+																	function() {},
+																	'Facebook Login',
+																	'OK'
+																);
+															}
+															else
+															{
+																alert("Error Logging in.");
+															}
+														}
 													});
 												}
 												catch(err)
@@ -1932,9 +1954,9 @@ function showHistoryHeader() {
 
 	var htmlSummary = '<div id="Group-Summary" class="" style="float:left;width:100%;margin-top:0px;height:100px;background-color:#333;">' +
 		'<p style="width:100%;float:left;padding-left:0.8em;font-size:1.5em;color:#ccc;line-height:1em;height:auto;margin:0;margin-top:10px;"><b>' + shortName + '</b></p>' + 
-		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">My Total Runs: <b>' + TotalRuns + '</b></p>' + 
-		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">My Total Distance: <b>' + userTotalDistance + 'KM</b></p>' + 
-		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">I have Raised: <b>RM' + TotalRaised + '</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">Total Sessions: <b>' + TotalRuns + '</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">Total Distance: <b>' + userTotalDistance + 'KM</b></p>' + 
+		'<p style="width:100%;float:left;padding-left:1em;font-size:1.2em;color:#ccc;line-height:1em;height:auto;margin:0;">Raised: <b>RM' + TotalRaised + '</b></p>' + 
 		'</div>';
 	panelMain.append(htmlSummary);
 }

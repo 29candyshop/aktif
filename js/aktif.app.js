@@ -1307,6 +1307,8 @@ function LoginFacebook()
 										window.localStorage.setItem("run_fresh_v2", "true");
 										var mUserID = response.authResponse.userID;
 										
+										alert("UserID: " + mUserID);
+										
 										facebookConnectPlugin.api( "/me", null,
 											function (response) 
 											{ 
@@ -1327,6 +1329,7 @@ function LoginFacebook()
 														token: t
 													}, 
 													function(result){
+														alert(result);
 														var obj = JSON.parse(result);
 														if(obj.status == 'true')
 														{
@@ -1340,6 +1343,7 @@ function LoginFacebook()
 														}
 														else
 														{
+															$.mobile.loading("hide");
 															if(navigator.notification)
 															{
 																navigator.notification.alert(

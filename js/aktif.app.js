@@ -239,6 +239,21 @@ $(document).ready(function(){
 
 function onDeviceReady() {
 	//alert("ready");
+	var AccessTokenV2_Check = window.localStorage.getItem('AccessTokenV2_Check');
+	if(AccessTokenV2_Check == null)
+	{
+		//alert("NULL");
+		GetLoginToken();
+	}
+	else if(AccessTokenV2_Check == "")
+	{
+		//alert("Empty");
+		GetLoginToken();
+	}
+	else
+	{
+		//alert("Got It");
+	}
 	var AccessToken = window.localStorage.getItem('AccessTokenV2');
 	if(AccessToken == null)
 	{	
@@ -1405,6 +1420,24 @@ function LoginFacebook()
 		alert(err.message);
 	}
 	
+}
+
+function GetLoginToken()
+{
+	var username = window.localStorage.getItem("UserID");
+	 $.get("http://www.aktifpenang.com/api/_api_tokenGenerator.php", 
+		{
+			token: username
+		}, 
+		function(result){
+			var obj = JSON.parse(result);
+			if(obj.status == true)
+			{
+				window.localStorage.setItem("AccessTokenV2_Check", obj.token);
+				window.localStorage.setItem("AccessTokenV2", obj.token);
+			}
+		}
+	);
 }
 
 function UserSummary()

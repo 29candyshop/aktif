@@ -240,20 +240,23 @@ $(document).ready(function(){
 function onDeviceReady() {
 	//alert("ready");
 	var AccessTokenV2_Check = window.localStorage.getItem('AccessTokenV2_Check');
-	if(AccessTokenV2_Check == null)
-	{
-		//alert("NULL");
-		GetLoginToken();
-	}
-	else if(AccessTokenV2_Check == "")
-	{
-		//alert("Empty");
-		GetLoginToken();
-	}
-	else
-	{
-		//alert("Got It");
-	}
+	
+
+		if(AccessTokenV2_Check == null)
+		{
+			//alert("NULL");
+			GetLoginToken();
+		}
+		else if(AccessTokenV2_Check == "")
+		{
+			//alert("Empty");
+			GetLoginToken();
+		}
+		else
+		{
+			//alert("Got It");
+		}
+	
 	var AccessToken = window.localStorage.getItem('AccessTokenV2');
 	if(AccessToken == null)
 	{	
@@ -558,7 +561,7 @@ $(document).on('click', '.evtRegister', function (event, data) {
 					navigator.notification.alert(
 						'Register Successfully. Please login with your credential now.',
 						function() {},
-						'Join Group',
+						'Signup Success',
 						'OK'
 					);
 					var win = window.open("index.html", '_self');
@@ -1276,6 +1279,7 @@ function LoginEmail()
 		{
 			if(obj.token != "")
 			{
+				
 				window.localStorage.setItem("AccessTokenV2", obj.token);
 				window.localStorage.setItem("LoginType", "email");
 				window.localStorage.setItem("UserID", name);
@@ -1425,19 +1429,25 @@ function LoginFacebook()
 function GetLoginToken()
 {
 	var username = window.localStorage.getItem("UserID");
-	 $.get("http://www.aktifpenang.com/api/_api_tokenGenerator.php", 
+	if(username != null)
+	{
+		if(username != "")
 		{
-			token: username
-		}, 
-		function(result){
-			var obj = JSON.parse(result);
-			if(obj.status == true)
-			{
-				window.localStorage.setItem("AccessTokenV2_Check", obj.token);
-				window.localStorage.setItem("AccessTokenV2", obj.token);
-			}
+			 $.get("http://www.aktifpenang.com/api/_api_tokenGenerator.php", 
+				{
+					token: username
+				}, 
+				function(result){
+					var obj = JSON.parse(result);
+					if(obj.status == true)
+					{
+						window.localStorage.setItem("AccessTokenV2_Check", obj.token);
+						window.localStorage.setItem("AccessTokenV2", obj.token);
+					}
+				}
+			);
 		}
-	);
+	}
 }
 
 function UserSummary()
@@ -2656,6 +2666,7 @@ function Logout()
 			theme: "b"
 		});
 	window.localStorage.clear();
+	
 	//location.hash = "#LoginPage";
 	var url = "index.html";
 	var win = window.open(url, '_self');
@@ -2712,7 +2723,7 @@ function UserProfile()
 						navigator.notification.alert(
 							'Please fill up your profile.',
 							function() {},
-							'Run',
+							'Update Profile',
 							'OK'
 						);
 					}
@@ -2807,8 +2818,14 @@ function displayeditProfile()
 	var weight = window.localStorage.getItem("userprofie_weight");
 	var gender = window.localStorage.getItem("userprofie_gender");
 	var ic = window.localStorage.getItem("userprofie_useric");
-
-
+	if(ic == null)
+	{
+		ic = "";
+	}
+	if(ic == "null")
+	{
+		ic = "";
+	}
 	var res = dob.split("-");
 	//var dt = new Date(res[2]+"-"+res[1]+"-"+res[0]);
 	var dt_new = pad(parseInt(res[2]))+"-"+pad(parseInt(res[1]))+"-"+pad(parseInt(res[0]));
